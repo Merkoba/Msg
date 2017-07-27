@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <title>msgjs</title>
+        <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
+        <script src='msg.min.js'></script>
+
+        <script>
+
+            var msg = msgjs();
+
+            var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
+
+            s += "<br><br><br><div class='heading'>Where can I get some?</div><br>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.";
+
+        </script>
+
+        <style>
+
+            body
+            {
+                max-width: 80%;
+                font-family: verdana;
+                margin: 0 auto;
+                font-size: 20px;
+            }
+            h1
+            {
+                letter-spacing: 0.2em;
+            }
+            h2
+            {
+                letter-spacing: 0.2em;
+            }            
+            .clicky
+            {
+                color: #be5959;
+                cursor: pointer;
+            }
+            a:visited, a:link, a:hover
+            {
+                color: #be5959;
+                text-decoration: none;
+            }
+            .heading
+            {
+                font-size: 1.4em;
+                letter-spacing: 0.3em;
+                font-style: italic;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <br><h1>msgjs</h1>
+        
+        A single 2kb javascript file that quickly enables a popup with any HTML inside.<br><br>
+        The popup is centered and it grows or shrink automatically by the content inside of it.<br><br>
+        To close the popup just click the overlay that is created around it.<br>
+        <br><br>
+        To install just include the file:<br>
+        <i><blockquote><pre><code>&lt;script src='msg.min.js'&gt;&lt;/script&gt;</code></pre></blockquote></i>
+
+        To use, first make an instance:<br>
+        <i><blockquote><pre><code>var msg = msgjs();</code></pre></blockquote></i>
+
+        To show a popup just pass an html string to the instance's show method:<br>
+        <i><blockquote><pre><code>msg.show("some string");</code></pre></blockquote></i>
+
+        <br><span class='clicky' onclick='msg.show(s)'>Click here for a Demo</span><br>
+
+        <br><h2>Methods</h2>
+        <i>instance.show(html)</i>: Shows a popup with the received html string as its content.<br><br>
+        <i>instance.close()</i>: Closes the popup.<br><br>
+        <i>instance.is_open()</i>: Returns true if there's an open popup.<br><br>
+
+        <br><a href='https://github.com/madprops/msgjs'>Get the code at Github</a>
+
+        <br><br><br><br>
+        <br><br><br><br>
+
+    </body>
+</html>
