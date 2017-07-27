@@ -1,1 +1,1 @@
-[Demo and Documentation](https://madprops.github.io/msgjs/)
+[Demo and Documentation](https://madprops.github.io/Msg/)
