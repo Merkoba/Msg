@@ -1,28 +1,28 @@
-/*msgjs Version 1.0.0*/
+/*Msg Version 2.0.0*/
 
-var msgjs = function()
+var Msg = function()
 {
 	var instance = {};
 
 	instance.close = function()
 	{
-		var overlay = document.getElementById('msgjs-overlay');
-		var msg = document.getElementById('msgjs-container');
+		var overlay = document.getElementById('Msg-overlay');
+		var msg = document.getElementById('Msg-container');
 		msg.style.display = 'none';
 		overlay.style.display = 'none';
 	}	
 
 	instance.show = function(html)
 	{
-		var msg = document.getElementById('msgjs-container');
+		var msg = document.getElementById('Msg-container');
 
 		if(msg === null)
 		{
 			instance.create();
-			msg = document.getElementById('msgjs-container');
+			msg = document.getElementById('Msg-container');
 		}
 
-		var overlay = document.getElementById('msgjs-overlay');
+		var overlay = document.getElementById('Msg-overlay');
 
 		msg.innerHTML = html;
 		msg.style.display = 'block';
@@ -63,13 +63,13 @@ var msgjs = function()
 		style2 += "background-color: rgba(0, 0, 0, 0.7);";
 		style2 += "display: none";
 
-		var overlay_html = "<div style='" + style2 + "' id='msgjs-overlay'></div>";
-		var msg_html = "<div style='" + style1 + "' id='msgjs-container'></div>";
+		var overlay_html = "<div style='" + style2 + "' id='Msg-overlay'></div>";
+		var msg_html = "<div style='" + style1 + "' id='Msg-container'></div>";
 
 		document.body.insertAdjacentHTML('beforeend', overlay_html);
 		document.body.insertAdjacentHTML('beforeend', msg_html);
 
-		var overlay = document.getElementById('msgjs-overlay');
+		var overlay = document.getElementById('Msg-overlay');
 
 		overlay.addEventListener("click", function()
 		{
@@ -79,7 +79,7 @@ var msgjs = function()
 
 	instance.is_open = function()
 	{
-		var msg = document.getElementById('msgjs-container');
+		var msg = document.getElementById('Msg-container');
 
 		if(msg === null || msg.style.display === 'none')
 		{
