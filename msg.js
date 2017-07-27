@@ -1,28 +1,43 @@
-/*Msg Version 2.0.0*/
+/*Msg Version 2.1.0*/
 
-var Msg = function()
+var Msg = function(id)
 {
 	var instance = {};
 
+	check_params();
+
+	function check_params()
+	{
+		if(id === undefined)
+		{
+			instance.id = 'default';
+		}
+
+		else
+		{
+			instance.id = id;
+		}
+	}
+
 	instance.close = function()
 	{
-		var overlay = document.getElementById('Msg-overlay');
-		var msg = document.getElementById('Msg-container');
+		var overlay = document.getElementById('Msg-overlay-' + instance.id);
+		var msg = document.getElementById('Msg-container-' + instance.id);
 		msg.style.display = 'none';
 		overlay.style.display = 'none';
 	}	
 
 	instance.show = function(html)
 	{
-		var msg = document.getElementById('Msg-container');
+		var msg = document.getElementById('Msg-container-' + instance.id);
 
 		if(msg === null)
 		{
 			instance.create();
-			msg = document.getElementById('Msg-container');
+			msg = document.getElementById('Msg-container-' + instance.id);
 		}
 
-		var overlay = document.getElementById('Msg-overlay');
+		var overlay = document.getElementById('Msg-overlay-' + instance.id);
 
 		msg.innerHTML = html;
 		msg.style.display = 'block';
@@ -42,7 +57,7 @@ var Msg = function()
 		style1 += "left: 50%;";
 		style1 += "top: 50%;";
 		style1 += "transform: translate(-50%, -50%);";
-		style1 += "background: white;";
+		style1 += "background-color: white;";
 		style1 += "padding: 1.6em;";
 		style1 += "overflow: auto;";
 		style1 += "max-height: 80vh;";
@@ -63,13 +78,13 @@ var Msg = function()
 		style2 += "background-color: rgba(0, 0, 0, 0.7);";
 		style2 += "display: none";
 
-		var overlay_html = "<div style='" + style2 + "' id='Msg-overlay'></div>";
-		var msg_html = "<div style='" + style1 + "' id='Msg-container'></div>";
+		var overlay_html = "<div class='Msg-overlay' style='" + style2 + "' id='Msg-overlay-" + instance.id + "'></div>";
+		var msg_html = "<div class='Msg-container' style='" + style1 + "' id='Msg-container-" + instance.id + "'></div>";
 
 		document.body.insertAdjacentHTML('beforeend', overlay_html);
 		document.body.insertAdjacentHTML('beforeend', msg_html);
 
-		var overlay = document.getElementById('Msg-overlay');
+		var overlay = document.getElementById('Msg-overlay-' + instance.id);
 
 		overlay.addEventListener("click", function()
 		{
@@ -79,7 +94,7 @@ var Msg = function()
 
 	instance.is_open = function()
 	{
-		var msg = document.getElementById('Msg-container');
+		var msg = document.getElementById('Msg-container-' + instance.id);
 
 		if(msg === null || msg.style.display === 'none')
 		{

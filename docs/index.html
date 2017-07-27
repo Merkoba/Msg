@@ -7,6 +7,7 @@
         <script>
 
             var msg = Msg();
+            var msg2 = Msg('foo');
 
             var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
 
@@ -23,29 +24,44 @@
                 margin: 0 auto;
                 font-size: 20px;
             }
+            
             h1
             {
                 letter-spacing: 0.2em;
             }
+            
             h2
             {
                 letter-spacing: 0.2em;
             }            
+            
             .clicky
             {
                 color: #be5959;
                 cursor: pointer;
             }
+            
             a:visited, a:link, a:hover
             {
                 color: #be5959;
                 text-decoration: none;
             }
+            
             .heading
             {
                 font-size: 1.4em;
                 letter-spacing: 0.3em;
                 font-style: italic;
+            }
+            
+            #Msg-container-foo
+            {
+                background-color: #a3a3ba !important;
+            }
+            
+            #Msg-overlay-foo
+            {
+                background-color: rgba(0, 128, 0, 0.7) !important;
             }
 
         </style>
@@ -67,9 +83,19 @@
         <i><blockquote><pre><code>var msg = Msg();</code></pre></blockquote></i>
 
         To show a popup just pass an html string to the instance's show method:<br>
-        <i><blockquote><pre><code>msg.show("some string");</code></pre></blockquote></i>
+        <i><blockquote><pre><code>msg.show('some string');</code></pre></blockquote></i>
 
-        <br><span class='clicky' onclick='msg.show(s)'>Click here for a Demo</span><br>
+        <span class='clicky' onclick='msg.show(s)'>Click here for a Demo</span><br>
+
+        <br><br>Two elements are created. "Msg-container-default" (with class "Msg-container"), and "Msg-overlay-default" (with class "Msg-overlay").<br><br>
+
+        Msg() can receive an id as an argument to give elements unique ids.<br><br>
+
+        For example Msg('foo') would create the elements with the following ids: "Msg-container-foo" and "Msg-overlay-foo".<br><br>
+
+        To override the css you will probably need to use !important declarations.<br>
+
+        <br><span class='clicky' onclick='msg2.show(s)'>Click here for a Customized Demo</span><br>
 
         <br><h2>Methods</h2>
         <i>instance.show(html)</i>: Shows a popup with the received html string as its content.<br><br>
