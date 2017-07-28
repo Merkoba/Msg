@@ -79,9 +79,9 @@
 
         <br><h1>Msg</h1>
         
-        A single 2kb javascript file that quickly enables a popup with any html inside.<br><br>
-        The popup is centered and it grows or shrinks automatically by the content inside of it.<br><br>
-        To close the popup just click the overlay that is created around it.<br>
+        A single 2kb javascript file that quickly enables a modal window with any html inside.<br><br>
+        The window is centered and it grows or shrinks automatically by the content inside of it.<br><br>
+        To close the window just click the overlay that is created around it.<br>
         <br><br>
         To install just include the file:<br>
         <i><blockquote><pre><code>&lt;script src='msg.min.js'&gt;&lt;/script&gt;</code></pre></blockquote></i>
@@ -89,7 +89,7 @@
         To use, first make an instance:<br>
         <i><blockquote><pre><code>var msg = Msg();</code></pre></blockquote></i>
 
-        To show a popup just pass an html string to the instance's show method:<br>
+        To show a window just pass an html string to the instance's show method:<br>
         <i><blockquote><pre><code>msg.show('some string');</code></pre></blockquote></i>
 
         <br><span class='clicky' onclick='msg.show(s)'>Demo 1</span><br><br>
@@ -106,13 +106,21 @@
 
         <br><br><span class='clicky' onclick='msg2.show(s)'>Customized Demo</span><br>
 
+        <br><h2>Properties</h2>
+        <i>instance.html</i>: The html to be displayed when the window is shown.
+        This is changed whenever you pass an argument to show() or set().<br><br>
+        <i>instance.container</i>: The Msg-container html element.<br><br>
+        <i>instance.overlay</i>: The Msg-overlay html element.<br>
+
         <br><h2>Methods</h2>
-        <i>instance.show(html)</i>: Shows a popup with the received html string as its content.<br><br>
+        <i>instance.show(html)</i>: Shows a window with the received html string as its content.<br><br>
         <i>instance.set(html)</i>: Sets the html of the container but doesn't show it.<br><br>
-        <i>instance.show()</i>: If no arguments are passed to show(), it displays the popup with the last used html or the one passed to set().<br><br>
-        <i>instance.close()</i>: Closes the popup.<br><br>
-        <i>instance.is_open()</i>: Returns true if the popup is open.<br><br>
-        <i>instance.any_open()</i>: Returns true if any popup with any id is open.<br><br>
+        <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set().<br><br>
+        <i>instance.close()</i>: Closes the window.<br><br>
+        <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
+        <i>instance.any_open()</i>: Returns true if any window with any id is open.<br><br>
+        <i>instance.create()</i>: Creates the html elements if they don't exist yet. This is done automatically on the first show(), but there might be cases where you might want to create them first without showing anything.<br><br>
+        <i>instance.created()</i>: Returns true if the html elements have been created.<br><br>
 
         <br><a href='https://github.com/madprops/Msg'>Get the code at Github</a>
 

@@ -1,32 +1,32 @@
-/*Msg v2.2.1*/
+/*Msg v2.3.0*/
 
-var Msg = function(id)
+var Msg = function(id='default')
 {
 	var instance = {};
 
+	instance.id = id;
+
 	instance.html = '';
 
-	check_params();
-
-	function check_params()
+	instance.created = function()
 	{
-		if(id === undefined)
+		if(instance.container === undefined)
 		{
-			instance.id = 'default';
+			return false;
 		}
 
-		else
-		{
-			instance.id = id;
-		}
+		return true;
 	}
 
 	instance.close = function()
 	{
-		var overlay = document.getElementById('Msg-overlay-' + instance.id);
-		var msg = document.getElementById('Msg-container-' + instance.id);
-		msg.style.display = 'none';
-		overlay.style.display = 'none';
+		if(!instance.created())
+		{
+			return;
+		}
+
+		instance.container.style.display = 'none';
+		instance.overlay.style.display = 'none';
 	}
 
 	instance.set = function(html)
@@ -36,30 +36,27 @@ var Msg = function(id)
 
 	instance.show = function(html)
 	{
-		var msg = document.getElementById('Msg-container-' + instance.id);
-
-		if(msg === null)
-		{
-			instance.create();
-			msg = document.getElementById('Msg-container-' + instance.id);
-		}
-
-		var overlay = document.getElementById('Msg-overlay-' + instance.id);
+		instance.create();
 
 		if(html !== undefined)
 		{
 			instance.html = html;
 		}
 
-		msg.innerHTML = instance.html;
+		instance.container.innerHTML = instance.html;
 
-		msg.style.display = 'block';
-		overlay.style.display = 'block';
-		msg.focus();
+		instance.container.style.display = 'block';
+		instance.overlay.style.display = 'block';
+		instance.container.focus();
 	}
 
 	instance.create = function()
 	{
+		if(instance.created())
+		{
+			return;
+		}
+
 		var style1 = "";
 
 		style1 += "color: black;";
@@ -92,14 +89,15 @@ var Msg = function(id)
 		style2 += "display: none";
 
 		var overlay_html = "<div class='Msg-overlay' style='" + style2 + "' id='Msg-overlay-" + instance.id + "'></div>";
-		var msg_html = "<div class='Msg-container' style='" + style1 + "' id='Msg-container-" + instance.id + "'></div>";
+		var container_html = "<div class='Msg-container' style='" + style1 + "' id='Msg-container-" + instance.id + "'></div>";
 
 		document.body.insertAdjacentHTML('beforeend', overlay_html);
-		document.body.insertAdjacentHTML('beforeend', msg_html);
+		document.body.insertAdjacentHTML('beforeend', container_html);
 
-		var overlay = document.getElementById('Msg-overlay-' + instance.id);
+		instance.container = document.getElementById('Msg-container-' + instance.id);
+		instance.overlay = document.getElementById('Msg-overlay-' + instance.id);
 
-		overlay.addEventListener("click", function()
+		instance.overlay.addEventListener("click", function()
 		{
 			instance.close();
 		});		
@@ -107,9 +105,7 @@ var Msg = function(id)
 
 	instance.is_open = function()
 	{
-		var msg = document.getElementById('Msg-container-' + instance.id);
-
-		if(msg === null || msg.style.display === 'none')
+		if(!instance.created() || instance.container.style.display === 'none')
 		{
 			return false;
 		}
