@@ -1,4 +1,4 @@
-/*Msg v2.3.0*/
+/*Msg v2.3.1*/
 
 var Msg = function(id='default')
 {
@@ -27,6 +27,7 @@ var Msg = function(id='default')
 
 		instance.container.style.display = 'none';
 		instance.overlay.style.display = 'none';
+		instance.container.innerHTML = "";
 	}
 
 	instance.set = function(html)
