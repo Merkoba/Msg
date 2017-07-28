@@ -13,6 +13,9 @@
 
             s += "<br><br><br><div class='heading'>Where can I get some?</div><br>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.";
 
+            var s2 = "<div class='heading'>Bubbagum</div><br>";
+            s2 += "<img src='bubbagum.jpg'>"
+
         </script>
 
         <style>
@@ -64,6 +67,11 @@
                 background-color: rgba(0, 128, 0, 0.7) !important;
             }
 
+            img 
+            {
+                max-width: 100%;
+            }
+
         </style>
 
     </head>
@@ -85,7 +93,9 @@
         To show a popup just pass an html string to the instance's show method:<br>
         <i><blockquote><pre><code>msg.show('some string');</code></pre></blockquote></i>
 
-        <span class='clicky' onclick='msg.show(s)'>Click here for a Demo</span><br>
+        <br><span class='clicky' onclick='msg.show(s)'>Demo 1</span><br><br>
+        <span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 2</span><br><br>
+        <span class='clicky' onclick='msg.show(s2)'>Demo 3</span><br>
 
         <br><br>Two elements are created. "Msg-container-default" (with class "Msg-container"), and "Msg-overlay-default" (with class "Msg-overlay").<br><br>
 
