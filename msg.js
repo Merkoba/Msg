@@ -1,4 +1,4 @@
-/*Msg v2.4.1*/
+/*Msg v2.5.0*/
 
 var Msg = function(id='default')
 {
@@ -30,7 +30,7 @@ var Msg = function(id='default')
 	instance.set = function(html)
 	{
 		instance.create();
-		instance.container.innerHTML = html;
+		instance.content.innerHTML = html;
 	}	
 
 	instance.show = function(html)
@@ -39,12 +39,13 @@ var Msg = function(id='default')
 
 		if(html !== undefined)
 		{
-			instance.container.innerHTML = html;
+			instance.content.innerHTML = html;
 		}
 
 		instance.container.style.display = 'block';
 		instance.overlay.style.display = 'block';
-		instance.container.focus();
+
+		instance.content.focus();
 	}
 
 	instance.create = function()
@@ -56,43 +57,51 @@ var Msg = function(id='default')
 
 		var style1 = "";
 
-		style1 += "color: black;";
-		style1 += "font-size: 23.8px;";
-		style1 += "font-family: sans-serif;";
-		style1 += "text-align: center;";
 		style1 += "position: fixed;";
-		style1 += "left: 50%;";
-		style1 += "top: 50%;";
-		style1 += "transform: translate(-50%, -50%);";
-		style1 += "background-color: white;";
-		style1 += "padding: 1.6em;";
-		style1 += "overflow: auto;";
-		style1 += "max-height: 80vh;";
-		style1 += "overflow-x: hidden;";
-		style1 += "overflow-y: auto;";
+		style1 += "height: 100%;";
+		style1 += "width: 100%;";
+		style1 += "top: 0;";
+		style1 += "left: 0;";
+		style1 += "z-index: 49939959;";
+		style1 += "background-color: rgba(0, 0, 0, 0.7);";
 		style1 += "display: none;";
-		style1 += "z-index: 499399259;";
-		style1 += "outline: 0";
 
 		var style2 = "";
 
-		style2 += "height: 100%;";
-		style2 += "width: 100%;";
-		style2 += "top: 0;";
-		style2 += "left: 0;";
 		style2 += "position: fixed;";
-		style2 += "z-index: 49939959;";
-		style2 += "background-color: rgba(0, 0, 0, 0.7);";
-		style2 += "display: none";
+		style2 += "left: 50%;";
+		style2 += "top: 50%;";
+		style2 += "transform: translate(-50%, -50%);";
+		style2 += "overflow: auto;";
+		style2 += "max-height: 80vh;";
+		style2 += "overflow-x: hidden;";
+		style2 += "overflow-y: auto;";
+		style2 += "display: none;";
+		style2 += "z-index: 499399259;";
+		style2 += "outline: 0;"
 
-		var overlay_html = "<div class='Msg-overlay' style='" + style2 + "' id='Msg-overlay-" + instance.id + "'></div>";
-		var container_html = "<div class='Msg-container' style='" + style1 + "' id='Msg-container-" + instance.id + "'></div>";
+		var style3 = "";
+		
+		style3 += "color: black;";
+		style3 += "background-color: white;";
+		style3 += "font-size: 23.8px;";
+		style3 += "font-family: sans-serif;";
+		style3 += "text-align: center;";
+		style3 += "padding: 1.6em;";
+
+		var overlay_html = "<div class='Msg-overlay' style='" + style1 + "' id='Msg-overlay-" + instance.id + "'></div>";
+		var container_html = "<div class='Msg-container' style='" + style2 + "' id='Msg-container-" + instance.id + "'></div>";
+		var content_html = "<div class='Msg-content' style='" + style3 + "' id='Msg-content-" + instance.id + "'></div>";
 
 		document.body.insertAdjacentHTML('beforeend', overlay_html);
 		document.body.insertAdjacentHTML('beforeend', container_html);
 
-		instance.container = document.getElementById('Msg-container-' + instance.id);
 		instance.overlay = document.getElementById('Msg-overlay-' + instance.id);
+		instance.container = document.getElementById('Msg-container-' + instance.id);
+
+		instance.container.insertAdjacentHTML('beforeend', content_html);
+
+		instance.content = document.getElementById('Msg-content-' + instance.id);
 
 		instance.overlay.addEventListener("click", function()
 		{

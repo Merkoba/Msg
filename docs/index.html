@@ -57,14 +57,14 @@
                 font-style: italic;
             }
             
-            #Msg-container-foo
-            {
-                background-color: #a3a3ba !important;
-            }
-            
             #Msg-overlay-foo
             {
                 background-color: rgba(0, 128, 0, 0.7) !important;
+            }
+
+            #Msg-content-foo
+            {
+                background-color: #a3a3ba !important;
             }
 
             img 
@@ -97,19 +97,20 @@
         <span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 2</span><br><br>
         <span class='clicky' onclick='msg.show(s2)'>Demo 3</span><br>
 
-        <br><br>Two elements are created. "Msg-container-default" (with class "Msg-container"), and "Msg-overlay-default" (with class "Msg-overlay").<br><br>
+        <br><br>Three elements are created: "Msg-overlay-default" (with class "Msg-overlay"), "Msg-container-default" (with class "Msg-container") and "Msg-content-default" (with class "Msg-content").<br><br>
 
         Msg() can receive an id as an argument to give elements unique ids.<br><br>
 
-        For example Msg('foo') would create the elements with the following ids: "Msg-container-foo" and "Msg-overlay-foo".<br><br>
+        For example Msg('foo') would create the elements with the following ids: "Msg-overlay-foo", "Msg-container-foo" and "Msg-content-foo".<br><br>
 
         To override the css you will probably need to use !important declarations.<br>
 
         <br><br><span class='clicky' onclick='msg2.show(s)'>Customized Demo</span><br>
 
         <br><h2>Properties</h2>
+        <i>instance.overlay</i>: The Msg-overlay html element.<br><br>
         <i>instance.container</i>: The Msg-container html element.<br><br>
-        <i>instance.overlay</i>: The Msg-overlay html element.<br>
+        <i>instance.content</i>: The Msg-content html element.<br>
 
         <br><h2>Methods</h2>
         <i>instance.show(htmlstring)</i>: Shows a window with the received html string as its content.<br><br>
