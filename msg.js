@@ -1,4 +1,4 @@
-/*Msg v2.4.0*/
+/*Msg v2.4.1*/
 
 var Msg = function(id='default')
 {
@@ -23,7 +23,6 @@ var Msg = function(id='default')
 			return;
 		}
 
-		instance.container.innerHTML = "";
 		instance.container.style.display = 'none';
 		instance.overlay.style.display = 'none';
 	}
