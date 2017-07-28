@@ -25,9 +25,9 @@ var Msg = function(id='default')
 			return;
 		}
 
+		instance.container.innerHTML = "";
 		instance.container.style.display = 'none';
 		instance.overlay.style.display = 'none';
-		instance.container.innerHTML = "";
 	}
 
 	instance.set = function(html)
