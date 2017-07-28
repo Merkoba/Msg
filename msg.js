@@ -1,4 +1,4 @@
-/*Msg Version 2.2.0*/
+/*Msg v2.2.1*/
 
 var Msg = function(id)
 {
@@ -126,7 +126,7 @@ var Msg = function(id)
 
 		for(var i=0; i<containers.length; i++)
 		{
-			if(containers[i].style.display === "block")
+			if(containers[i].style.display !== 'none')
 			{
 				return true;
 			}
