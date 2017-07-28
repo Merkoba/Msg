@@ -1,8 +1,10 @@
-/*Msg Version 2.1.0*/
+/*Msg Version 2.2.0*/
 
 var Msg = function(id)
 {
 	var instance = {};
+
+	instance.html = '';
 
 	check_params();
 
@@ -25,6 +27,11 @@ var Msg = function(id)
 		var msg = document.getElementById('Msg-container-' + instance.id);
 		msg.style.display = 'none';
 		overlay.style.display = 'none';
+	}
+
+	instance.set = function(html)
+	{
+		instance.html = html;
 	}	
 
 	instance.show = function(html)
@@ -39,7 +46,13 @@ var Msg = function(id)
 
 		var overlay = document.getElementById('Msg-overlay-' + instance.id);
 
-		msg.innerHTML = html;
+		if(html !== undefined)
+		{
+			instance.html = html;
+		}
+
+		msg.innerHTML = instance.html;
+
 		msg.style.display = 'block';
 		overlay.style.display = 'block';
 		msg.focus();
@@ -105,6 +118,21 @@ var Msg = function(id)
 		{
 			return true;
 		}
+	}
+
+	instance.any_open = function()
+	{
+		var containers = Array.from(document.querySelectorAll('.Msg-container'));
+
+		for(var i=0; i<containers.length; i++)
+		{
+			if(containers[i].style.display === "block")
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	return instance;	
