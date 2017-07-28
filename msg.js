@@ -1,12 +1,10 @@
-/*Msg v2.3.2*/
+/*Msg v2.4.0*/
 
 var Msg = function(id='default')
 {
 	var instance = {};
 
 	instance.id = id;
-
-	instance.html = '';
 
 	instance.created = function()
 	{
@@ -32,7 +30,8 @@ var Msg = function(id='default')
 
 	instance.set = function(html)
 	{
-		instance.html = html;
+		instance.create();
+		instance.container.innerHTML = html;
 	}	
 
 	instance.show = function(html)
@@ -41,10 +40,8 @@ var Msg = function(id='default')
 
 		if(html !== undefined)
 		{
-			instance.html = html;
+			instance.container.innerHTML = html;
 		}
-
-		instance.container.innerHTML = instance.html;
 
 		instance.container.style.display = 'block';
 		instance.overlay.style.display = 'block';

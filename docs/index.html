@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.min.js'></script>
+        <script src='../msg.js'></script>
 
         <script>
 
@@ -41,6 +41,7 @@
             {
                 color: #be5959;
                 cursor: pointer;
+                user-select: none;
             }
             
             a:visited, a:link, a:hover
@@ -107,19 +108,17 @@
         <br><br><span class='clicky' onclick='msg2.show(s)'>Customized Demo</span><br>
 
         <br><h2>Properties</h2>
-        <i>instance.html</i>: The html string to be used when the window is shown.
-        This is changed whenever you pass an argument to show() or set().<br><br>
         <i>instance.container</i>: The Msg-container html element.<br><br>
         <i>instance.overlay</i>: The Msg-overlay html element.<br>
 
         <br><h2>Methods</h2>
         <i>instance.show(htmlstring)</i>: Shows a window with the received html string as its content.<br><br>
-        <i>instance.set(htmlstring)</i>: Sets the html string of the container but doesn't show it.<br><br>
+        <i>instance.set(htmlstring)</i>: Updates the html of the container without opening the window if it's closed.<br><br>
         <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set().<br><br>
         <i>instance.close()</i>: Closes the window.<br><br>
         <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
         <i>instance.any_open()</i>: Returns true if any window with any id is open.<br><br>
-        <i>instance.create()</i>: Creates the html elements if they don't exist yet. This is done automatically on the first show(), but there might be cases where you might want to create them first without showing anything.<br><br>
+        <i>instance.create()</i>: Creates the html elements if they don't exist yet. This is done automatically on the first show() or set(), but there might be cases where you might want to create them first without showing anything.<br><br>
         <i>instance.created()</i>: Returns true if the html elements have been created.<br><br>
 
         <br><a href='https://github.com/madprops/Msg'>Get the code at Github</a>
