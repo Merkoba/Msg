@@ -8,7 +8,10 @@
 
             var msg = Msg();
 
-            var msg2 = Msg('foo');
+            var msg2 = Msg(
+            {
+                id: "foo"
+            });
 
             var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
 
@@ -104,15 +107,24 @@
 
         <br><br>Three elements are created: "Msg-overlay-default" (with class "Msg-overlay"), "Msg-container-default" (with class "Msg-container") and "Msg-content-default" (with class "Msg-content").<br><br>
 
-        Msg() can receive an id as an argument to give elements unique ids.<br><br>
-
-        For example Msg('foo') would create the elements with the following ids: "Msg-overlay-foo", "Msg-container-foo" and "Msg-content-foo".<br><br>
-
         To override the css you will probably need to use !important declarations.<br>
-
         <br><br><span class='clicky' onclick='msg2.show(s)'>Customized Demo</span><br>
 
-        <br><h2>Properties</h2>
+        <br><h2>Options</h2>
+        The following options can be passed inside an object when creating an instance:<br><br>
+        <i>id (Default: "default")</i>: The id of the instance. For example, id:"foo" would create elements with the following ids: "Msg-overlay-foo", "Msg-container-foo" and "Msg-content-foo".<br><br>
+        <i>disable_scrolling_propagation (Default: true)</i>: If this is kept enabled it will stop propagating the scroll to parent elements inside and outside the window after reaching the top or bottom of an overflow.<br><br>
+
+        Example:
+
+        <i><blockquote><pre><code>msg = Msg(
+{
+    id: "foo",
+    disable_scrolling_propagation: true
+});
+        </code></pre></blockquote></i> 
+
+        <h2>Properties</h2>
         <i>instance.overlay</i>: The Msg-overlay html element.<br><br>
         <i>instance.container</i>: The Msg-container html element.<br><br>
         <i>instance.content</i>: The Msg-content html element.<br>

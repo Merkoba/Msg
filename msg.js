@@ -1,10 +1,25 @@
-/*Msg v2.6.8*/
+/*Msg v2.7.0*/
 
-var Msg = function(id='default')
+var Msg = function(params={})
 {
 	var instance = {};
 
-	instance.id = id;
+	instance.params = params;
+
+	check_params();
+
+	function check_params()
+	{
+		if(instance.params.id === undefined)
+		{
+			instance.params.id = 'default';
+		}
+
+		if(instance.params.disable_scrolling_propagation === undefined)
+		{
+			instance.params.disable_scrolling_propagation = true;
+		}
+	}
 
 	instance.created = function()
 	{
@@ -89,31 +104,33 @@ var Msg = function(id='default')
 		style3 += "text-align: center;";
 		style3 += "padding: 1.6em;";
 
-		var overlay_html = "<div class='Msg-overlay' style='" + style1 + "' id='Msg-overlay-" + instance.id + "'></div>";
-		var container_html = "<div class='Msg-container' style='" + style2 + "' id='Msg-container-" + instance.id + "'></div>";
-		var content_html = "<div class='Msg-content' style='" + style3 + "' id='Msg-content-" + instance.id + "'></div>";
+		var overlay_html = "<div class='Msg-overlay' style='" + style1 + "' id='Msg-overlay-" + instance.params.id + "'></div>";
+		var container_html = "<div class='Msg-container' style='" + style2 + "' id='Msg-container-" + instance.params.id + "'></div>";
+		var content_html = "<div class='Msg-content' style='" + style3 + "' id='Msg-content-" + instance.params.id + "'></div>";
 
 		document.body.insertAdjacentHTML('beforeend', overlay_html);
 		document.body.insertAdjacentHTML('beforeend', container_html);
 
-		instance.overlay = document.getElementById('Msg-overlay-' + instance.id);
-		instance.container = document.getElementById('Msg-container-' + instance.id);
+		instance.overlay = document.getElementById('Msg-overlay-' + instance.params.id);
+		instance.container = document.getElementById('Msg-container-' + instance.params.id);
 
 		instance.container.insertAdjacentHTML('beforeend', content_html);
 
-		instance.content = document.getElementById('Msg-content-' + instance.id);
+		instance.content = document.getElementById('Msg-content-' + instance.params.id);
 
 		instance.overlay.addEventListener("click", function()
 		{
 			instance.close();
 		});	
 
-		instance.overlay.addEventListener("wheel", instance.on_overlay_wheel);
-
-		instance.container.addEventListener("wheel", instance.on_container_wheel);
+		if(instance.params.disable_scrolling_propagation)
+		{
+			instance.overlay.addEventListener("wheel", instance.stop_propagation_overlay);
+			instance.container.addEventListener("wheel", instance.stop_propagation_container);
+		}
 	}
 
-	instance.on_overlay_wheel = function(e)
+	instance.stop_propagation_overlay = function(e)
 	{
 		if(e.ctrlKey)
 		{
@@ -124,7 +141,7 @@ var Msg = function(id='default')
 		e.stopPropagation();
 	}		
 
-	instance.on_container_wheel = function(e)
+	instance.stop_propagation_container = function(e)
 	{
 		if(e.ctrlKey)
 		{
