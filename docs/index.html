@@ -138,11 +138,34 @@
 
         To override the css you will probably need to use !important declarations.<br>
 
-        <br><br><span class='clicky' onclick='msg2.show(s)'>Customized Demo</span><br>
+        <br><span class='clicky' onclick='msg2.show(s)'>Customized Demo</span><br>
 
-        <br><br>The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
+        <i><blockquote><pre><code>Demo Code:
 
-        <br><br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>
+//js
+
+var msg2 = Msg(
+{
+    id: "foo"
+});
+
+
+//css
+
+#Msg-overlay-foo
+{
+    background-color: rgba(0, 128, 0, 0.7) !important;
+}
+
+#Msg-content-foo
+{
+    background-color: #a3a3ba !important;
+}
+        </code></pre></blockquote></i>       
+
+        <br>The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
+
+        <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>
 
         <br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
