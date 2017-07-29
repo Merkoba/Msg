@@ -1,4 +1,4 @@
-/*Msg v2.6.4*/
+/*Msg v2.6.5*/
 
 var Msg = function(id='default')
 {
@@ -116,23 +116,46 @@ var Msg = function(id='default')
 
 		instance.container.addEventListener("wheel", function(e)
 		{
+			var target = e.target;
+
 			if(e.target !== instance.content)
 			{
-				if(e.deltaY > 0)
+				if(e.target.scrollHeight <= e.target.clientHeight)
 				{
-					if((e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) > 1)
+					if(e.target.parentElement === instance.content)
 					{
-						return;
+						target = e.target.parentElement;
 					}
 				}
 
 				else
 				{
-					if(e.target.scrollTop > 0)
+					if(e.deltaY > 0)
 					{
-						return;
+						if((e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) > 1)
+						{
+							return;
+						}
+
+						else
+						{
+							e.preventDefault();
+						}
 					}
-				}	
+
+					else
+					{
+						if(e.target.scrollTop > 0)
+						{
+							return;
+						}
+
+						else
+						{
+							e.preventDefault();
+						}
+					}	
+				}
 			}
 
 			if(e.ctrlKey)
@@ -142,7 +165,7 @@ var Msg = function(id='default')
 
 			if(e.deltaY > 0)
 			{
-				if((instance.container.scrollHeight - instance.container.scrollTop - instance.container.clientHeight) <= 1)
+				if((target.parentElement.scrollHeight - target.parentElement.scrollTop - target.parentElement.clientHeight) <= 1)
 				{
 					e.preventDefault();
 					e.stopPropagation();					
@@ -151,7 +174,7 @@ var Msg = function(id='default')
 
 			else
 			{
-				if(instance.container.scrollTop <= 0)
+				if(target.parentElement.scrollTop <= 0)
 				{
 					e.preventDefault();
 					e.stopPropagation();
