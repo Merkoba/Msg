@@ -1,4 +1,4 @@
-/*Msg v2.7.0*/
+/*Msg v2.7.1*/
 
 var Msg = function(params={})
 {
@@ -15,9 +15,9 @@ var Msg = function(params={})
 			instance.params.id = 'default';
 		}
 
-		if(instance.params.disable_scrolling_propagation === undefined)
+		if(instance.params.disable_scroll_propagation === undefined)
 		{
-			instance.params.disable_scrolling_propagation = true;
+			instance.params.disable_scroll_propagation = true;
 		}
 	}
 
@@ -123,14 +123,14 @@ var Msg = function(params={})
 			instance.close();
 		});	
 
-		if(instance.params.disable_scrolling_propagation)
+		if(instance.params.disable_scroll_propagation)
 		{
-			instance.overlay.addEventListener("wheel", instance.stop_propagation_overlay);
-			instance.container.addEventListener("wheel", instance.stop_propagation_container);
+			instance.overlay.addEventListener("wheel", instance.stop_scroll_propagation_overlay);
+			instance.container.addEventListener("wheel", instance.stop_scroll_propagation_container);
 		}
 	}
 
-	instance.stop_propagation_overlay = function(e)
+	instance.stop_scroll_propagation_overlay = function(e)
 	{
 		if(e.ctrlKey)
 		{
@@ -141,7 +141,7 @@ var Msg = function(params={})
 		e.stopPropagation();
 	}		
 
-	instance.stop_propagation_container = function(e)
+	instance.stop_scroll_propagation_container = function(e)
 	{
 		if(e.ctrlKey)
 		{

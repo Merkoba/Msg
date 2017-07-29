@@ -113,14 +113,14 @@
         <br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
         <i>id (Default: "default")</i>: The id of the instance. For example, id:"foo" would create elements with the following ids: "Msg-overlay-foo", "Msg-container-foo" and "Msg-content-foo".<br><br>
-        <i>disable_scrolling_propagation (Default: true)</i>: If this is kept enabled it will stop propagating the scroll to parent elements inside and outside the window after reaching the top or bottom of an overflow.<br><br>
+        <i>disable_scroll_propagation (Default: true)</i>: If this is kept enabled it will stop propagating the scroll to parent elements inside and outside the window after reaching the top or bottom of an overflow.<br><br>
 
         Example:
 
         <i><blockquote><pre><code>msg = Msg(
 {
     id: "foo",
-    disable_scrolling_propagation: true
+    disable_scroll_propagation: true
 });
         </code></pre></blockquote></i> 
 
