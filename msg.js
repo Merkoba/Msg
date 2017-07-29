@@ -1,6 +1,4 @@
-/*Msg v2.7.2*/
-
-var Msg_num_instances = 0;
+/*Msg v2.7.3*/
 
 var Msg = function(params={})
 {
@@ -59,8 +57,15 @@ var Msg = function(params={})
 			instance.content.innerHTML = html;
 		}
 
-		instance.container.style.display = 'block';
-		instance.overlay.style.display = 'block';
+		if(!instance.is_open())
+		{
+			instance.overlay.style.zIndex = 50000000 + (instance.num_open() + 1);
+			instance.container.style.zIndex = 50000000 + (instance.num_open() + 2);
+			
+			instance.overlay.style.display = 'block';
+			instance.container.style.display = 'block';
+		}
+
 		instance.container.scrollTop = 0;
 		instance.content.focus();
 	}
@@ -79,7 +84,7 @@ var Msg = function(params={})
 		style1 += "width: 100%;";
 		style1 += "top: 0;";
 		style1 += "left: 0;";
-		style1 += "z-index: " + (50000000 + Msg_num_instances) + ";";
+		style1 += "z-index: 49939959;";
 		style1 += "background-color: rgba(0, 0, 0, 0.7);";
 		style1 += "display: none;";
 
@@ -94,7 +99,7 @@ var Msg = function(params={})
 		style2 += "overflow-x: hidden;";
 		style2 += "overflow-y: auto;";
 		style2 += "display: none;";
-		style2 += "z-index: " + (50000000 + Msg_num_instances) + ";";
+		style2 += "z-index: 499399259;";
 		style2 += "outline: 0;"
 
 		var style3 = "";
@@ -241,7 +246,22 @@ var Msg = function(params={})
 		return false;
 	}
 
-	Msg_num_instances += 1;
+	instance.num_open = function()
+	{
+		var num_open = 0;
+
+		var containers = Array.from(document.querySelectorAll('.Msg-container'));
+
+		for(var i=0; i<containers.length; i++)
+		{
+			if(containers[i].style.display !== 'none')
+			{
+				num_open += 1;
+			}
+		}
+
+		return num_open;
+	}
 
 	return instance;	
 }
