@@ -1,4 +1,4 @@
-/*Msg v2.5.0*/
+/*Msg v2.6.0*/
 
 var Msg = function(id='default')
 {
@@ -106,7 +106,39 @@ var Msg = function(id='default')
 		instance.overlay.addEventListener("click", function()
 		{
 			instance.close();
-		});		
+		});	
+
+		instance.overlay.addEventListener("wheel", function(e)
+		{
+			e.preventDefault();
+			e.stopPropagation();
+		});
+
+		instance.container.addEventListener("wheel", function(e)
+		{
+			if(e.ctrlKey)
+			{
+				return;
+			}
+
+			if(e.deltaY > 0)
+			{
+				if((instance.container.scrollHeight - instance.container.scrollTop - instance.container.clientHeight) <= 1)
+				{
+					e.preventDefault();
+					e.stopPropagation();					
+				}
+			}
+
+			else
+			{
+				if(instance.container.scrollTop <= 0)
+				{
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			}
+		});
 	}
 
 	instance.is_open = function()
