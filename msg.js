@@ -1,4 +1,4 @@
-/*Msg v2.6.3*/
+/*Msg v2.6.4*/
 
 var Msg = function(id='default')
 {
@@ -118,24 +118,21 @@ var Msg = function(id='default')
 		{
 			if(e.target !== instance.content)
 			{
-				if(e.target.parentElement === instance.content)
+				if(e.deltaY > 0)
 				{
-					if(e.deltaY > 0)
+					if((e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) > 1)
 					{
-						if((e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) > 1)
-						{
-							return;
-						}
+						return;
 					}
+				}
 
-					else
+				else
+				{
+					if(e.target.scrollTop > 0)
 					{
-						if(e.target.scrollTop > 0)
-						{
-							return;
-						}
+						return;
 					}
-				}		
+				}	
 			}
 
 			if(e.ctrlKey)
