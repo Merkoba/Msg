@@ -1,4 +1,4 @@
-/*Msg v2.6.6*/
+/*Msg v2.6.7*/
 
 var Msg = function(id='default')
 {
@@ -44,7 +44,7 @@ var Msg = function(id='default')
 
 		instance.container.style.display = 'block';
 		instance.overlay.style.display = 'block';
-
+		instance.container.scrollTop = 0;
 		instance.content.focus();
 	}
 
