@@ -1,4 +1,4 @@
-/*Msg v2.6.5*/
+/*Msg v2.6.6*/
 
 var Msg = function(id='default')
 {
@@ -110,12 +110,22 @@ var Msg = function(id='default')
 
 		instance.overlay.addEventListener("wheel", function(e)
 		{
+			if(e.ctrlKey)
+			{
+				return;
+			}
+
 			e.preventDefault();
 			e.stopPropagation();
 		});
 
 		instance.container.addEventListener("wheel", function(e)
 		{
+			if(e.ctrlKey)
+			{
+				return;
+			}
+
 			var target = e.target;
 
 			if(e.target !== instance.content)
@@ -156,11 +166,6 @@ var Msg = function(id='default')
 						}
 					}	
 				}
-			}
-
-			if(e.ctrlKey)
-			{
-				return;
 			}
 
 			if(e.deltaY > 0)
