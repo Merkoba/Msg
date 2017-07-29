@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.min.js?v=3'></script>
+        <script src='msg.min.js?v=4'></script>
 
         <script>
 
@@ -13,11 +13,18 @@
                 id: "foo"
             });
 
+            var msg3 = Msg(
+            {
+                id: "bar"
+            });
+
             var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
 
             s += "<br><br><br><div class='heading'>Where can I get some?</div><br>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.";
 
             var s2 = "<div class='heading'>Bubbagum</div><br><img src='bubbagum.jpg'>";
+
+            var s3 = "<button onclick='msg3.show(\"This window is on top. Click the overlay to close this layer.\")'>Open A New Window</button>"
 
             var test1 = "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "</div>";
 
@@ -80,6 +87,14 @@
                 max-width: 100%;
             }
 
+            button
+            {
+                color: white;
+                background-color: orange;
+                font-size: 1.8em;
+                padding: 1em;
+            }
+
         </style>
 
     </head>
@@ -88,7 +103,7 @@
 
         <br><h1>Msg</h1>
         
-        A single 2kb javascript file that quickly enables a modal window with any html inside.<br><br>
+        A javascript library that quickly enables modal windows with any html inside.<br><br>
         The window is centered and it grows or shrinks automatically by the content inside of it.<br><br>
         To close the window just click the overlay that is created around it.<br>
         <br><br>
@@ -108,7 +123,12 @@
         <br><br>Three elements are created: "Msg-overlay-default" (with class "Msg-overlay"), "Msg-container-default" (with class "Msg-container") and "Msg-content-default" (with class "Msg-content").<br><br>
 
         To override the css you will probably need to use !important declarations.<br>
+
         <br><br><span class='clicky' onclick='msg2.show(s)'>Customized Demo</span><br>
+
+        <br><br>The windows's z-index is generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
+
+        <br><br><span class='clicky' onclick='msg.show(s3)'>Stack Demo</span><br>
 
         <br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>

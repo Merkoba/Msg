@@ -1,4 +1,4 @@
-/*Msg v2.7.3*/
+/*Msg v2.7.5*/
 
 var Msg = function(params={})
 {
@@ -59,8 +59,8 @@ var Msg = function(params={})
 
 		if(!instance.is_open())
 		{
-			instance.overlay.style.zIndex = 50000000 + (instance.num_open() + 1);
-			instance.container.style.zIndex = 50000000 + (instance.num_open() + 2);
+			instance.overlay.style.zIndex = 50000000 + ((instance.num_open() * 2) + 1);
+			instance.container.style.zIndex = 50000000 + ((instance.num_open() * 2) + 2);
 			
 			instance.overlay.style.display = 'block';
 			instance.container.style.display = 'block';
@@ -80,11 +80,10 @@ var Msg = function(params={})
 		var style1 = "";
 
 		style1 += "position: fixed;";
-		style1 += "height: 100%;";
-		style1 += "width: 100%;";
 		style1 += "top: 0;";
 		style1 += "left: 0;";
-		style1 += "z-index: 49939959;";
+		style1 += "height: 100%;";
+		style1 += "width: 100%;";
 		style1 += "background-color: rgba(0, 0, 0, 0.7);";
 		style1 += "display: none;";
 
@@ -93,14 +92,13 @@ var Msg = function(params={})
 		style2 += "position: fixed;";
 		style2 += "left: 50%;";
 		style2 += "top: 50%;";
+		style2 += "max-height: 80vh;";
 		style2 += "transform: translate(-50%, -50%);";
 		style2 += "overflow: auto;";
-		style2 += "max-height: 80vh;";
 		style2 += "overflow-x: hidden;";
 		style2 += "overflow-y: auto;";
-		style2 += "display: none;";
-		style2 += "z-index: 499399259;";
 		style2 += "outline: 0;"
+		style2 += "display: none;";
 
 		var style3 = "";
 		
