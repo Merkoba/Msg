@@ -1,4 +1,4 @@
-/*Msg v2.6.2*/
+/*Msg v2.6.3*/
 
 var Msg = function(id='default')
 {
@@ -118,7 +118,24 @@ var Msg = function(id='default')
 		{
 			if(e.target !== instance.content)
 			{
-				return;
+				if(e.target.parentElement === instance.content)
+				{
+					if(e.deltaY > 0)
+					{
+						if((e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) > 1)
+						{
+							return;
+						}
+					}
+
+					else
+					{
+						if(e.target.scrollTop > 0)
+						{
+							return;
+						}
+					}
+				}		
 			}
 
 			if(e.ctrlKey)
