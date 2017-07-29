@@ -1,4 +1,4 @@
-/*Msg v2.6.1*/
+/*Msg v2.6.2*/
 
 var Msg = function(id='default')
 {
@@ -116,7 +116,7 @@ var Msg = function(id='default')
 
 		instance.container.addEventListener("wheel", function(e)
 		{
-			if(e.srcElement !== instance.content)
+			if(e.target !== instance.content)
 			{
 				return;
 			}
