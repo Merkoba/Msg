@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.min.js?v=4'></script>
+        <script src='msg.min.js?v=5'></script>
 
         <script>
 
@@ -132,7 +132,9 @@
         <span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 2</span><br><br>
         <span class='clicky' onclick='msg.show(s2)'>Demo 3</span><br>
 
-        <br><br>Three elements are created: "Msg-overlay-default" (with class "Msg-overlay"), "Msg-container-default" (with class "Msg-container") and "Msg-content-default" (with class "Msg-content").<br><br>
+        <br><br>Three elements are created: "Msg-overlay-1" (with class "Msg-overlay"), "Msg-container-1" (with class "Msg-container") and "Msg-content-1" (with class "Msg-content").<br><br>
+
+        The number at the end of the ids is based on the number of instances created, it is incremental. You can set a custom id via options.<br><br>
 
         To override the css you will probably need to use !important declarations.<br>
 
@@ -144,7 +146,7 @@
 
         <br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
-        <i>id (Default: "default")</i>: The id of the instance. For example, id:"foo" would create elements with the following ids: "Msg-overlay-foo", "Msg-container-foo" and "Msg-content-foo".<br><br>
+        <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo" would create elements with the following ids: "Msg-overlay-foo", "Msg-container-foo" and "Msg-content-foo".<br><br>
         <i>disable_scroll_propagation (Default: true)</i>: If this is kept enabled it will stop scroll propagation to parent elements inside and outside the window after reaching the top or bottom of an overflow.<br><br>
 
         Example:
@@ -169,6 +171,7 @@
         <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
         <i>instance.any_open()</i>: Returns true if any window with any id is open.<br><br>
         <i>instance.num_open()</i>: Returns the number of windows open.<br><br>
+        <i>instance.num_instances()</i>: Returns the number of instances created.<br><br>
         <i>instance.create()</i>: Creates the html elements if they don't exist yet. This is done automatically on the first show() or set(), but there might be cases where you might want to create them first without showing anything.<br><br>
         <i>instance.created()</i>: Returns true if the html elements have been created.<br><br>
 
