@@ -1,4 +1,4 @@
-/*Msg v2.8.0*/
+/*Msg v2.8.1*/
 
 var Msg = (function()
 {
@@ -79,6 +79,15 @@ var Msg = (function()
 			if(instance.created())
 			{
 				return;
+			}
+
+			if(document.getElementById('Msg-container-' + instance.params.id) !== null)
+			{
+				instance.overlay = document.getElementById('Msg-overlay-' + instance.params.id);
+				instance.container = document.getElementById('Msg-container-' + instance.params.id);
+				instance.content = document.getElementById('Msg-content-' + instance.params.id);
+
+				return;				
 			}
 
 			var style1 = "";
