@@ -1,4 +1,4 @@
-/*Msg v2.6.7*/
+/*Msg v2.6.8*/
 
 var Msg = function(id='default')
 {
@@ -108,84 +108,90 @@ var Msg = function(id='default')
 			instance.close();
 		});	
 
-		instance.overlay.addEventListener("wheel", function(e)
+		instance.overlay.addEventListener("wheel", instance.on_overlay_wheel);
+
+		instance.container.addEventListener("wheel", instance.on_container_wheel);
+	}
+
+	instance.on_overlay_wheel = function(e)
+	{
+		if(e.ctrlKey)
 		{
-			if(e.ctrlKey)
-			{
-				return;
-			}
+			return;
+		}
 
-			e.preventDefault();
-			e.stopPropagation();
-		});
+		e.preventDefault();
+		e.stopPropagation();
+	}		
 
-		instance.container.addEventListener("wheel", function(e)
+	instance.on_container_wheel = function(e)
+	{
+		if(e.ctrlKey)
 		{
-			if(e.ctrlKey)
+			return;
+		}
+
+		var target = e.target;
+
+		if(e.target !== instance.content)
+		{
+			if(e.target.scrollHeight <= e.target.clientHeight)
 			{
-				return;
-			}
-
-			var target = e.target;
-
-			if(e.target !== instance.content)
-			{
-				if(e.target.scrollHeight <= e.target.clientHeight)
+				if(e.target.parentElement === instance.content)
 				{
-					if(e.target.parentElement === instance.content)
-					{
-						target = e.target.parentElement;
-					}
-				}
-
-				else
-				{
-					if(e.deltaY > 0)
-					{
-						if((e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) > 1)
-						{
-							return;
-						}
-
-						else
-						{
-							e.preventDefault();
-						}
-					}
-
-					else
-					{
-						if(e.target.scrollTop > 0)
-						{
-							return;
-						}
-
-						else
-						{
-							e.preventDefault();
-						}
-					}	
-				}
-			}
-
-			if(e.deltaY > 0)
-			{
-				if((target.parentElement.scrollHeight - target.parentElement.scrollTop - target.parentElement.clientHeight) <= 1)
-				{
-					e.preventDefault();
-					e.stopPropagation();					
+					target = e.target.parentElement;
 				}
 			}
 
 			else
 			{
-				if(target.parentElement.scrollTop <= 0)
+				if(e.deltaY > 0)
 				{
-					e.preventDefault();
-					e.stopPropagation();
+					if((e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) > 1)
+					{
+						return;
+					}
+
+					else
+					{
+						e.preventDefault();
+						e.stopPropagation();
+					}
 				}
+
+				else
+				{
+					if(e.target.scrollTop > 0)
+					{
+						return;
+					}
+
+					else
+					{
+						e.preventDefault();
+						e.stopPropagation();
+					}
+				}	
 			}
-		});
+		}
+
+		if(e.deltaY > 0)
+		{
+			if((target.parentElement.scrollHeight - target.parentElement.scrollTop - target.parentElement.clientHeight) <= 1)
+			{
+				e.preventDefault();
+				e.stopPropagation();					
+			}
+		}
+
+		else
+		{
+			if(target.parentElement.scrollTop <= 0)
+			{
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		}
 	}
 
 	instance.is_open = function()
