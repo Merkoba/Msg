@@ -1,4 +1,4 @@
-/*Msg v2.6.0*/
+/*Msg v2.6.1*/
 
 var Msg = function(id='default')
 {
@@ -116,6 +116,11 @@ var Msg = function(id='default')
 
 		instance.container.addEventListener("wheel", function(e)
 		{
+			if(e.srcElement !== instance.content)
+			{
+				return;
+			}
+
 			if(e.ctrlKey)
 			{
 				return;
