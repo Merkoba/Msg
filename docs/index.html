@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.js?v=3'></script>
+        <script src='msg.js?v=4'></script>
 
         <script>
 
@@ -178,12 +178,14 @@ var msg2 = Msg(
         <br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
         <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo" would create elements with the following ids: "Msg-overlay-foo", "Msg-container-foo" and "Msg-content-foo".<br><br>
+        <i>lock (Default: true)</i>: Locks the background, prevents scrolling from propagating to the body.<br><br>
 
         Example:
 
         <i><blockquote><pre><code>var msg = Msg(
 {
-    id: "foo"
+    id: "foo",
+    lock: true
 });
         </code></pre></blockquote></i> 
 

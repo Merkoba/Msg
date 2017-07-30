@@ -4,6 +4,14 @@ var Msg = (function()
 {
 	var num_instances = 0;
 
+	var css = "";
+
+	css += "<style>";
+	css += ".Msg-overflow-hidden{overflow:hidden}";
+	css += "<style>";
+
+	document.querySelector('head').innerHTML += css;
+
 	var factory = function(params={})
 	{
 		var instance = {};
@@ -17,6 +25,11 @@ var Msg = (function()
 			if(instance.params.id === undefined)
 			{
 				instance.params.id = num_instances + 1;
+			}
+
+			if(instance.params.lock === undefined)
+			{
+				instance.params.lock = true;
 			}
 		}
 
@@ -42,6 +55,11 @@ var Msg = (function()
 			
 			instance.overlay.style.zIndex = -1000;
 			instance.container.style.zIndex = -1000;
+
+			if(instance.num_open() === 0)
+			{
+				document.body.classList.remove('Msg-overflow-hidden');
+			}
 		}
 
 		instance.set = function(html)
@@ -94,6 +112,11 @@ var Msg = (function()
 				
 				instance.overlay.style.display = 'block';
 				instance.container.style.display = 'block';				
+
+				if(instance.params.lock)
+				{
+					document.body.classList.add('Msg-overflow-hidden');
+				}
 			}
 
 			instance.container.scrollTop = 0;
