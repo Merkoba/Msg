@@ -1,4 +1,4 @@
-/*Msg v2.8.1*/
+/*Msg v2.9.0*/
 
 var Msg = (function()
 {
@@ -48,8 +48,23 @@ var Msg = (function()
 
 		instance.set = function(html)
 		{
-			instance.create();
-			instance.content.innerHTML = html;
+			if(html !== undefined)
+			{
+				instance.create();
+
+				if(typeof html === "object")
+				{
+					if(html instanceof Element)
+					{
+						instance.content.innerHTML = html.innerHTML;	
+					}
+				}
+
+				else if(typeof html === "string")
+				{
+					instance.content.innerHTML = html;
+				}
+			}
 		}	
 
 		instance.show = function(html)
@@ -58,8 +73,8 @@ var Msg = (function()
 
 			if(html !== undefined)
 			{
-				instance.content.innerHTML = html;
-			}
+				instance.set(html);
+			}			
 
 			if(!instance.is_open())
 			{
@@ -166,67 +181,51 @@ var Msg = (function()
 				return;
 			}
 
-			var target = e.target;
+			instance.check_container_propagation(e, e.target);
+		}
 
-			if(e.target !== instance.content)
+		instance.check_container_propagation = function(e, target)
+		{
+			var parent = target.parentElement;
+
+			if(parent === instance.container || (target.scrollHeight > target.clientHeight))
 			{
-				if(e.target.scrollHeight <= e.target.clientHeight)
+				if(parent === instance.container)
 				{
-					if(e.target.parentElement === instance.content)
+					el = parent;
+				}
+
+				else
+				{
+					el = target;
+				}
+
+				if(e.deltaY > 0)
+				{
+					if((el.scrollHeight - el.scrollTop - el.clientHeight) <= 1)
 					{
-						target = e.target.parentElement;
+						e.preventDefault();
+						e.stopPropagation();					
 					}
 				}
 
 				else
 				{
-					if(e.deltaY > 0)
+					if(el.scrollTop <= 0)
 					{
-						if((e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) > 1)
-						{
-							return;
-						}
-
-						else
-						{
-							e.preventDefault();
-							e.stopPropagation();
-						}
+						e.preventDefault();
+						e.stopPropagation();
 					}
-
-					else
-					{
-						if(e.target.scrollTop > 0)
-						{
-							return;
-						}
-
-						else
-						{
-							e.preventDefault();
-							e.stopPropagation();
-						}
-					}	
-				}
-			}
-
-			if(e.deltaY > 0)
-			{
-				if((target.parentElement.scrollHeight - target.parentElement.scrollTop - target.parentElement.clientHeight) <= 1)
-				{
-					e.preventDefault();
-					e.stopPropagation();					
 				}
 			}
 
 			else
 			{
-				if(target.parentElement.scrollTop <= 0)
+				if(parent !== instance.container)
 				{
-					e.preventDefault();
-					e.stopPropagation();
+					instance.check_container_propagation(e, parent);	
 				}
-			}
+			}						
 		}
 
 		instance.is_open = function()

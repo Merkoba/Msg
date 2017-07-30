@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.min.js?v=6'></script>
+        <script src='msg.min.js?v=7'></script>
 
         <script>
 
@@ -128,6 +128,9 @@
         To show a window just pass a string to the instance's show method:<br>
         <i><blockquote><pre><code>msg.show('some string');</code></pre></blockquote></i>
 
+        You can also pass an html element:<br>
+        <i><blockquote><pre><code>msg.show(document.getElementById('some-element'));</code></pre></blockquote></i>
+
         <br><span class='clicky' onclick='msg.show(s)'>Demo 1</span><br><br>
         <span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 2</span><br><br>
         <span class='clicky' onclick='msg.show(s2)'>Demo 3</span><br>
@@ -163,6 +166,11 @@ var msg2 = Msg(
 }
         </code></pre></blockquote></i>       
 
+        <br>The .show() or .set() functions can either receive a string, which would render any html inside of it, or an html element directly.<br>
+
+        <br><span class='clicky' onclick='msg.show("<i>Hello</i> <b>World</b>")'>msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span><br>
+        <br><span class='clicky' onclick='msg.show(document.body)'>msg.show(document.body)</span><br><br>
+
         <br>The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
 
         <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>
@@ -187,8 +195,8 @@ var msg2 = Msg(
         <i>instance.content</i>: The Msg-content html element.<br>
 
         <br><h2>Methods</h2>
-        <i>instance.show(htmlstring)</i>: Shows a window with the received html string as its content.<br><br>
-        <i>instance.set(htmlstring)</i>: Updates the html of the container without opening the window.<br><br>
+        <i>instance.show(html)</i>: Opens a window with the received string or html element as its content.<br><br>
+        <i>instance.set(html)</i>: Updates the html of the window without opening it.<br><br>
         <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set().<br><br>
         <i>instance.close()</i>: Closes the window.<br><br>
         <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
