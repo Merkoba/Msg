@@ -1,4 +1,4 @@
-/* Msg v3.1.1 https://github.com/madprops/Msg */
+/* Msg v3.2.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
