@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.js?v=1'></script>
+        <script src='msg.js?v=2'></script>
 
         <script>
 
@@ -120,16 +120,16 @@
         To close the window just click on the overlay that is created around it.<br>
         <br><br>
         To install just include the file:<br>
-        <i><blockquote><pre><code>&lt;script src='msg.js'&gt;&lt;/script&gt;</code></pre></blockquote></i>
+        <i><blockquote><pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
 
         To use, first make an instance:<br>
         <i><blockquote><pre><code>var msg = Msg();</code></pre></blockquote></i>
 
         To show a window just pass a string to the instance's show method:<br>
-        <i><blockquote><pre><code>msg.show('some string');</code></pre></blockquote></i>
+        <i><blockquote><pre><code>msg.show("some string");</code></pre></blockquote></i>
 
         You can also pass an html element:<br>
-        <i><blockquote><pre><code>msg.show(document.getElementById('some-element'));</code></pre></blockquote></i>
+        <i><blockquote><pre><code>msg.show(document.getElementById("some-element"));</code></pre></blockquote></i>
 
         <br><span class='clicky' onclick='msg.show(s)'>Demo 1</span><br><br>
         <span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 2</span><br><br>
@@ -164,12 +164,12 @@ var msg2 = Msg(
 {
     background-color: #a3a3ba !important;
 }
-        </code></pre></blockquote></i>       
+        </code></pre></blockquote></i>      
 
         <br>The .show() or .set() functions can either receive a string, which would render any html inside of it, or an html element directly.<br>
 
         <br><span class='clicky' onclick='msg.show("<i>Hello</i> <b>World</b>")'>msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span><br>
-        <br><span class='clicky' onclick='msg.show(document.body)'>msg.show(document.body)</span><br><br>
+        <br><span class='clicky' onclick='msg.show(document.getElementsByTagName("h1")[0])'>msg.show(document.getElementsByTagName("h1")[0])</span><br><br>
 
         <br>The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
 
@@ -178,14 +178,12 @@ var msg2 = Msg(
         <br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
         <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo" would create elements with the following ids: "Msg-overlay-foo", "Msg-container-foo" and "Msg-content-foo".<br><br>
-        <i>disable_scroll_propagation (Default: true)</i>: If this is kept enabled it will stop scroll propagation to parent elements inside and outside the window after reaching the top or bottom of an overflow.<br><br>
 
         Example:
 
         <i><blockquote><pre><code>var msg = Msg(
 {
-    id: "foo",
-    disable_scroll_propagation: true
+    id: "foo"
 });
         </code></pre></blockquote></i> 
 

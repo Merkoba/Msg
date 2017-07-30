@@ -1,4 +1,4 @@
-/* Msg v3.0.0 https://github.com/madprops/Msg */
+/* Msg v3.1.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -17,11 +17,6 @@ var Msg = (function()
 			if(instance.params.id === undefined)
 			{
 				instance.params.id = num_instances + 1;
-			}
-
-			if(instance.params.disable_scroll_propagation === undefined)
-			{
-				instance.params.disable_scroll_propagation = true;
 			}
 		}
 
@@ -59,7 +54,7 @@ var Msg = (function()
 				{
 					if(html instanceof Element)
 					{
-						instance.content.innerHTML = html.innerHTML;	
+						instance.content.innerHTML = html.outerHTML;	
 					}
 				}
 
@@ -173,78 +168,7 @@ var Msg = (function()
 			{
 				instance.close();
 			});	
-
-			if(instance.params.disable_scroll_propagation)
-			{
-				instance.overlay.addEventListener("wheel", instance.stop_scroll_propagation_overlay);
-				instance.container.addEventListener("wheel", instance.stop_scroll_propagation_container);
-			}
-		}
-
-		instance.stop_scroll_propagation_overlay = function(e)
-		{
-			if(e.ctrlKey)
-			{
-				return;
-			}
-
-			e.preventDefault();
-			e.stopPropagation();
-		}		
-
-		instance.stop_scroll_propagation_container = function(e)
-		{
-			if(e.ctrlKey)
-			{
-				return;
-			}
-
-			instance.check_container_propagation(e, e.target);
-		}
-
-		instance.check_container_propagation = function(e, target)
-		{
-			var parent = target.parentElement;
-
-			if(parent === instance.container || (target.scrollHeight > target.clientHeight))
-			{
-				if(parent === instance.container)
-				{
-					el = parent;
-				}
-
-				else
-				{
-					el = target;
-				}
-
-				if(e.deltaY > 0)
-				{
-					if((el.scrollHeight - el.scrollTop - el.clientHeight) <= 1)
-					{
-						e.preventDefault();
-						e.stopPropagation();					
-					}
-				}
-
-				else
-				{
-					if(el.scrollTop <= 0)
-					{
-						e.preventDefault();
-						e.stopPropagation();
-					}
-				}
-			}
-
-			else
-			{
-				if(parent !== instance.container)
-				{
-					instance.check_container_propagation(e, parent);	
-				}
-			}						
-		}
+		}	
 
 		instance.is_open = function()
 		{
