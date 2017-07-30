@@ -1,4 +1,4 @@
-/* Msg v3.1.0 https://github.com/madprops/Msg */
+/* Msg v3.1.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -58,7 +58,7 @@ var Msg = (function()
 					}
 				}
 
-				else if(typeof html === "string")
+				else
 				{
 					instance.content.innerHTML = html;
 				}
