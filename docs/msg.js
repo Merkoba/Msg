@@ -1,4 +1,4 @@
-/* Msg v3.3.1 https://github.com/madprops/Msg */
+/* Msg v4.0.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -23,6 +23,11 @@ var Msg = (function()
 			if(instance.params.id === undefined)
 			{
 				instance.params.id = num_instances + 1;
+			}
+
+			if(instance.params.class === undefined)
+			{
+				instance.params.class = "default";
 			}
 
 			if(instance.params.lock === undefined)
@@ -51,10 +56,10 @@ var Msg = (function()
 			}
 
 			instance.overlay.style.display = 'none';
-			instance.container.style.display = 'none';
+			instance.window.style.display = 'none';
 			
 			instance.overlay.style.zIndex = -1000;
-			instance.container.style.zIndex = -1000;
+			instance.window.style.zIndex = -1000;
 
 			if(instance.num_open() === 0)
 			{
@@ -96,10 +101,10 @@ var Msg = (function()
 			{
 				var zIndex = Math.max(50000000, instance.highest_zIndex());
 
-				if(zIndex > instance.container.style.zIndex)
+				if(zIndex > instance.window.style.zIndex)
 				{
 					instance.overlay.style.zIndex = zIndex + 1;
-					instance.container.style.zIndex = zIndex + 2;
+					instance.window.style.zIndex = zIndex + 2;
 				}
 			}
 
@@ -108,10 +113,10 @@ var Msg = (function()
 				var zIndex = Math.max(50000000, instance.highest_zIndex());
 
 				instance.overlay.style.zIndex = zIndex + 1;
-				instance.container.style.zIndex = zIndex + 2;
+				instance.window.style.zIndex = zIndex + 2;
 				
 				instance.overlay.style.display = 'block';
-				instance.container.style.display = 'block';				
+				instance.window.style.display = 'block';				
 
 				if(instance.params.lock)
 				{
@@ -119,7 +124,7 @@ var Msg = (function()
 				}
 			}
 
-			instance.container.scrollTop = 0;
+			instance.window.scrollTop = 0;
 			instance.content.focus();
 		}
 
@@ -132,11 +137,7 @@ var Msg = (function()
 
 			if(document.getElementById('Msg-container-' + instance.params.id) !== null)
 			{
-				instance.overlay = document.getElementById('Msg-overlay-' + instance.params.id);
-				instance.container = document.getElementById('Msg-container-' + instance.params.id);
-				instance.content = document.getElementById('Msg-content-' + instance.params.id);
-
-				return;				
+				throw "Msg Error: The html elements for this id have already been created. Use a different id.";
 			}
 
 			var style1 = "";
@@ -173,17 +174,22 @@ var Msg = (function()
 			style3 += "text-align:center; ";
 			style3 += "padding:1.6em;";
 
-			var overlay_html = "<div class='Msg-overlay' style='" + style1 + "' id='Msg-overlay-" + instance.params.id + "'></div>";
-			var container_html = "<div class='Msg-container' style='" + style2 + "' id='Msg-container-" + instance.params.id + "'></div>";
-			var content_html = "<div class='Msg-content' style='" + style3 + "' id='Msg-content-" + instance.params.id + "'></div>";
+			var container_html =  "<div class='Msg-container Msg-container-" + instance.params.class + "' id='Msg-container-" + instance.params.id + "'></div>";
+			var overlay_html = "<div class='Msg-overlay Msg-overlay-" + instance.params.class + "' style='" + style1 + "' id='Msg-overlay-" + instance.params.id + "'></div>";
+			var window_html = "<div class='Msg-window Msg-window-" + instance.params.class + "' style='" + style2 + "' id='Msg-window-" + instance.params.id + "'></div>";
+			var content_html = "<div class='Msg-content Msg-content-" + instance.params.class + "' style='" + style3 + "' id='Msg-content-" + instance.params.id + "'></div>";
 
-			document.body.insertAdjacentHTML('beforeend', overlay_html);
 			document.body.insertAdjacentHTML('beforeend', container_html);
 
-			instance.overlay = document.getElementById('Msg-overlay-' + instance.params.id);
 			instance.container = document.getElementById('Msg-container-' + instance.params.id);
 
-			instance.container.insertAdjacentHTML('beforeend', content_html);
+			instance.container.insertAdjacentHTML('beforeend', overlay_html);
+			instance.container.insertAdjacentHTML('beforeend', window_html);
+
+			instance.overlay = document.getElementById('Msg-overlay-' + instance.params.id);
+			instance.window = document.getElementById('Msg-window-' + instance.params.id);
+
+			instance.window.insertAdjacentHTML('beforeend', content_html);
 
 			instance.content = document.getElementById('Msg-content-' + instance.params.id);
 
@@ -205,18 +211,18 @@ var Msg = (function()
 			{
 				instance.close();
 
-				document.body.removeChild(instance.overlay);
 				document.body.removeChild(instance.container);
 
-				instance.overlay = undefined;
 				instance.container = undefined;
+				instance.overlay = undefined;
+				instance.window = undefined;
 				instance.content = undefined;			
 			}
 		}
 
 		instance.is_open = function()
 		{
-			if(!instance.created() || instance.container.style.display === 'none')
+			if(!instance.created() || instance.window.style.display === 'none')
 			{
 				return false;
 			}
@@ -229,11 +235,11 @@ var Msg = (function()
 
 		instance.any_open = function()
 		{
-			var containers = Array.from(document.querySelectorAll('.Msg-container'));
+			var windows = Array.from(document.querySelectorAll('.Msg-window'));
 
-			for(var i=0; i<containers.length; i++)
+			for(var i=0; i<windows.length; i++)
 			{
-				if(containers[i].style.display !== 'none')
+				if(windows[i].style.display !== 'none')
 				{
 					return true;
 				}
@@ -246,11 +252,11 @@ var Msg = (function()
 		{
 			var num_open = 0;
 
-			var containers = Array.from(document.querySelectorAll('.Msg-container'));
+			var windows = Array.from(document.querySelectorAll('.Msg-window'));
 
-			for(var i=0; i<containers.length; i++)
+			for(var i=0; i<windows.length; i++)
 			{
-				if(containers[i].style.display !== 'none')
+				if(windows[i].style.display !== 'none')
 				{
 					num_open += 1;
 				}
@@ -263,11 +269,11 @@ var Msg = (function()
 		{
 			var highest = -2000;
 
-			var containers = Array.from(document.querySelectorAll('.Msg-container'));
+			var windows = Array.from(document.querySelectorAll('.Msg-window'));
 
-			for(var i=0; i<containers.length; i++)
+			for(var i=0; i<windows.length; i++)
 			{
-				var zIndex = containers[i].style.zIndex;
+				var zIndex = windows[i].style.zIndex;
 
 				if(zIndex > highest)
 				{

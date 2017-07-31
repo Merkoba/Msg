@@ -10,12 +10,13 @@
 
             var msg2 = Msg(
             {
-                id: "foo"
+                id: "foo",
+                class: "bar"
             });
 
             var msg3 = Msg(
             {
-                id: "bar"
+                id: "boom"
             });
 
             var msg4 = Msg(
@@ -25,7 +26,7 @@
 
             var msg5 = Msg(
             {
-                id: "boop",
+                id: "poop",
                 lock: false
             });
 
@@ -83,7 +84,7 @@
                 font-style: italic;
             }
             
-            #Msg-overlay-foo
+            .Msg-overlay-bar
             {
                 background-color: rgba(0, 128, 0, 0.7) !important;
             }
@@ -141,9 +142,31 @@
         <span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 2</span><br><br>
         <span class='clicky' onclick='msg.show(s2)'>Demo 3</span><br>
 
-        <br><br>Three elements are created: "Msg-overlay-1" (with class "Msg-overlay"), "Msg-container-1" (with class "Msg-container") and "Msg-content-1" (with class "Msg-content").<br><br>
+        <br><h2>Structure</h2>
 
-        The number at the end of the ids is based on the number of instances created, it is incremental. You can set a custom id via options.<br><br>
+        Four elements are created with the following ids:<br><br>
+        "Msg-container-1" (with classes: "Msg-container and "Msg-container-default")<br>
+        "Msg-overlay-1" (with classes: "Msg-overlay and "Msg-overlay-default")<br>
+        "Msg-window-1" (with classes: "Msg-window and "Msg-window-default")<br>
+        "Msg-content-1" (with classes: "Msg-content and "Msg-content-default")<br><br>
+
+        The structure looks likes this:
+
+        <blockquote><pre><code>[container]
+    [overlay][/overlay]
+    [window]
+        [content][/content]
+    [/window]
+[/container]
+        </code></pre></blockquote>
+
+        The instance id in this case is "1".<br><br>
+
+        By default, ids are based on the number of instances created, it is incremental.<br><br>
+
+        You can set custom ids and classes via options.<br><br>
+
+        You can play with the ids and classes to have different types of windows.<br><br>
 
         To override the css you will probably need to use !important declarations.<br>
 
@@ -155,13 +178,14 @@
 
 var msg2 = Msg(
 {
-    id: "foo"
+    id: "foo",
+    class: "bar"
 });
 
 
 //css
 
-#Msg-overlay-foo
+.Msg-overlay-bar
 {
     background-color: rgba(0, 128, 0, 0.7) !important;
 }
@@ -183,7 +207,8 @@ var msg2 = Msg(
 
         <br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
-        <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo" would create elements with the following ids: "Msg-overlay-foo", "Msg-container-foo" and "Msg-content-foo".<br><br>
+        <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo".<br><br>
+        <i>class (Default: "default")</i>: The class of the instance. For example, class:"bar".<br><br>
         <i>lock (Default: true)</i>: Locks the background, prevents scrolling from propagating to the body. This is done through css by adding a class to the body temporarily.<br><br>
 
         Example:
@@ -191,6 +216,7 @@ var msg2 = Msg(
         <i><blockquote><pre><code>var msg = Msg(
 {
     id: "foo",
+    class: "bar",
     lock: true
 });
         </code></pre></blockquote></i> 
