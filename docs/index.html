@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.js?v=4'></script>
+        <script src='msg.js?v=5'></script>
 
         <script>
 
@@ -210,8 +210,9 @@ var msg2 = Msg(
         <i>instance.num_open()</i>: Returns the number of windows open.<br><br>
         <i>instance.num_instances()</i>: Returns the number of instances created.<br><br>
         <i>instance.create()</i>: Creates the html elements if they don't exist yet. This is done automatically on the first show() or set(), but there might be cases where you might want to create them first without showing anything.<br><br>
-        <i>instance.created()</i>: Returns true if the html elements have been created.<br><br>
-        <i>instance.highest_zindex()</i>: Returns the z-index of the highest open Msg-container.<br><br><br>
+        <i>instance.recreate()</i>: Removes the html elements from the dom and creates them again.<br><br>
+        <i>instance.destroy()</i>: Removes the html elements from the dom.<br><br>
+        <i>instance.highest_zIndex()</i>: Returns the highest z-index from all the created Msg-container elements. If it retuns -2000 it means no elements have been created.<br><br><br>
         Note: It's advised not to modify the "display" or "z-index" css properties of the Msg html elements since they are handled internally.<br><br>
 
         <br><a href='https://github.com/madprops/Msg'>Get the code at Github</a>
