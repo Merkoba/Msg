@@ -1,4 +1,4 @@
-/* Msg v4.2.0 https://github.com/madprops/Msg */
+/* Msg v4.2.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -64,6 +64,25 @@ var Msg = (function()
 			{
 				instance.params.after_close = function(){};
 			}
+
+			if(instance.params.before_create === undefined)
+			{
+				instance.params.before_create = function(){};
+			}
+
+			if(instance.params.after_create === undefined)
+			{
+				instance.params.after_create = function(){};
+			}
+			if(instance.params.before_destroy === undefined)
+			{
+				instance.params.before_destroy = function(){};
+			}
+
+			if(instance.params.after_destroy === undefined)
+			{
+				instance.params.after_destroy = function(){};
+			}
 		}
 
 		instance.check_params();
@@ -96,10 +115,7 @@ var Msg = (function()
 			instance.overlay.style.zIndex = -1000;
 			instance.window.style.zIndex = -1000;
 
-			if(instance.num_open() === 0)
-			{
-				document.body.classList.remove('Msg-overflow-hidden');
-			}
+			instance.check_remove_overflow_hidden();
 
 			instance.params.after_close(instance);
 		}
@@ -167,10 +183,7 @@ var Msg = (function()
 				instance.overlay.style.display = 'block';
 				instance.window.style.display = 'block';				
 
-				if(instance.params.lock)
-				{
-					document.body.classList.add('Msg-overflow-hidden');
-				}
+				instance.check_add_overflow_hidden();
 			}
 
 			instance.window.scrollTop = 0;
@@ -190,6 +203,11 @@ var Msg = (function()
 			{
 				throw "Msg Error: The html elements for this id have already been created. Use a different id.";
 			}
+
+			if(instance.params.before_create(instance) === false)
+			{
+				return;
+			}			
 
 			var style1 = "";
 
@@ -288,6 +306,8 @@ var Msg = (function()
 			{
 				instance.close();
 			});	
+
+			instance.params.after_create(instance);
 		}
 
 		instance.recreate = function()
@@ -300,14 +320,21 @@ var Msg = (function()
 		{
 			if(instance.created())
 			{
-				instance.close();
+				if(instance.params.before_destroy(instance) === false)
+				{
+					return;
+				}
+
+				instance.check_remove_overflow_hidden();
 
 				document.body.removeChild(instance.container);
 
 				instance.container = undefined;
 				instance.overlay = undefined;
 				instance.window = undefined;
-				instance.content = undefined;			
+				instance.content = undefined;
+
+				instance.params.after_destroy(instance);		
 			}
 		}
 
@@ -382,7 +409,7 @@ var Msg = (function()
 
 		instance.html = function()
 		{
-			if(instance.content !== undefined)
+			if(instance.created())
 			{
 				return instance.content.innerHTML;
 			}
@@ -391,6 +418,22 @@ var Msg = (function()
 			{
 				return "";
 			}
+		}
+
+		instance.check_add_overflow_hidden = function()
+		{
+			if(instance.params.lock)
+			{
+				document.body.classList.add('Msg-overflow-hidden');
+			}			
+		}
+
+		instance.check_remove_overflow_hidden = function()
+		{
+			if(instance.num_open() === 0)
+			{
+				document.body.classList.remove('Msg-overflow-hidden');
+			}			
 		}
 
 		num_instances += 1;
