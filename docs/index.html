@@ -196,7 +196,9 @@ var msg2 = Msg(
 }
         </code></pre></blockquote></i>      
 
-        <br>The .show() or .set() functions can either receive a string, which would render any html inside of it, or an html element directly.<br>
+        <br>The .show() or .set() functions can either receive a string, which would render any html inside of it, or an html element directly.<br><br>
+
+        They change the html content of Msg-content elements.<br>
 
         <br><span class='clicky' onclick='msg.show("<i>Hello</i> <b>World</b>")'>msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span><br>
         <br><span class='clicky' onclick='msg.show(document.getElementsByTagName("h1")[0])'>msg.show(document.getElementsByTagName("h1")[0])</span><br><br>
