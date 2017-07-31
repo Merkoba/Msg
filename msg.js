@@ -1,4 +1,4 @@
-/* Msg v3.3.0 https://github.com/madprops/Msg */
+/* Msg v3.3.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -18,8 +18,6 @@ var Msg = (function()
 
 		instance.params = params;
 
-		instance.check_params();
-
 		instance.check_params = function()
 		{
 			if(instance.params.id === undefined)
@@ -32,6 +30,8 @@ var Msg = (function()
 				instance.params.lock = true;
 			}
 		}
+
+		instance.check_params();
 
 		instance.created = function()
 		{
