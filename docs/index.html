@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.js?v=9'></script>
+        <script src='msg.js?v=10'></script>
 
         <script>
 
@@ -114,6 +114,11 @@
                 cursor: pointer;
             }
 
+            .Msg-overlay-blur
+            {
+                filter: blur(5em);
+            }
+
         </style>
 
     </head>
@@ -218,17 +223,59 @@ var msg2 = Msg(
         <i>window_class (Default: undefined)</i>: If this is defined, the Msg-window will use this instead of the class parameter.<br><br>
         <i>content_class (Default: undefined)</i>: If this is defined, the Msg-content will use this instead of the class parameter.<br><br>
         <i>lock (Default: true)</i>: Locks the background, prevents scrolling from propagating to the body. This is done through css by adding a class to the body temporarily.<br><br>
+        <i>before_show (Default: Empty Function)</i>: Function that triggers before the show method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        <i>after_show (Default: Empty Function)</i>: Function that triggers after the show method. Receives the instance as an argument.<br><br>
+        <i>before_set (Default: Empty Function)</i>: Function that triggers before the set method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        <i>after_set (Default: Empty Function)</i>: Function that triggers after the set method. Receives the instance as an argument.<br><br>
+        <i>before_close (Default: Empty Function)</i>: Function that triggers after the close method Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        <i>after_close (Default: Empty Function)</i>: Function that triggers after the close method. Receives the instance as an argument.<br><br>
 
         Example:
 
-        <i><blockquote><pre><code>var msg = Msg(
+        <i><blockquote><pre><code>var msg_test = Msg(
 {
-    id: "foo",
+    id: "test",
     class: "bar",
     overlay_class: "blur",
-    lock: true
+    lock: false,
+    after_show: function(instance)
+    {
+        instance.set(instance.html() + ", Mr. Roboto");
+    },
+    after_set: function(instance)
+    {
+        console.log("instance.content.innerHTML set to: " + instance.html());
+    },    
+    before_close: function(instance)
+    {
+        return confirm("Are you sure?");
+    }
 });
+
+msg_test.show("Domo Arigato");
         </code></pre></blockquote></i> 
+        <script>
+            var msg_test = Msg(
+            {
+                id: "test",
+                class: "bar",
+                overlay_class: "blur",
+                lock: false,
+                after_show: function(instance)
+                {
+                    instance.set(instance.html() + ", Mr. Roboto");
+                },
+                after_set: function(instance)
+                {
+                    console.log("instance.content.innerHTML set to: " + instance.html());
+                },
+                before_close: function(instance)
+                {
+                    return confirm("Are you sure?");
+                }
+            });       
+        </script>
+        <span class='clicky' onclick='msg_test.show("Domo Arigato")'>Test It</span><br><br>
 
         <h2>Properties</h2>
         <i>instance.params</i>: The parameters object of the instance.<br><br>
@@ -242,6 +289,7 @@ var msg2 = Msg(
         <i>instance.set(html)</i>: Updates the html of the window without opening it.<br><br>
         <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set().<br><br>
         <i>instance.close()</i>: Closes the window.<br><br>
+        <i>instance.html()</i>: A shortcut for instance.content.innerHTML. Returns "" if the html elements have not been created yet.<br><br>
         <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
         <i>instance.any_open()</i>: Returns true if any window with any id is open.<br><br>
         <i>instance.num_open()</i>: Returns the number of windows open.<br><br>

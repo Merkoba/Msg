@@ -1,4 +1,4 @@
-/* Msg v4.1.0 https://github.com/madprops/Msg */
+/* Msg v4.2.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -34,6 +34,36 @@ var Msg = (function()
 			{
 				instance.params.lock = true;
 			}
+
+			if(instance.params.before_show === undefined)
+			{
+				instance.params.before_show = function(){};
+			}
+
+			if(instance.params.after_show === undefined)
+			{
+				instance.params.after_show = function(){};
+			}
+
+			if(instance.params.before_set === undefined)
+			{
+				instance.params.before_set = function(){};
+			}
+
+			if(instance.params.after_set === undefined)
+			{
+				instance.params.after_set = function(){};
+			}
+
+			if(instance.params.before_close === undefined)
+			{
+				instance.params.before_close = function(){};
+			}
+
+			if(instance.params.after_close === undefined)
+			{
+				instance.params.after_close = function(){};
+			}
 		}
 
 		instance.check_params();
@@ -55,6 +85,11 @@ var Msg = (function()
 				return;
 			}
 
+			if(instance.params.before_close(instance) === false)
+			{
+				return;
+			}
+
 			instance.overlay.style.display = 'none';
 			instance.window.style.display = 'none';
 			
@@ -65,10 +100,17 @@ var Msg = (function()
 			{
 				document.body.classList.remove('Msg-overflow-hidden');
 			}
+
+			instance.params.after_close(instance);
 		}
 
 		instance.set = function(html)
 		{
+			if(instance.params.before_set(instance) === false)
+			{
+				return;
+			}
+
 			if(html !== undefined)
 			{
 				instance.create();
@@ -86,11 +128,18 @@ var Msg = (function()
 					instance.content.innerHTML = html;
 				}
 			}
+			
+			instance.params.after_set(instance);			
 		}	
 
 		instance.show = function(html)
 		{
 			instance.create();
+
+			if(instance.params.before_show(instance) === false)
+			{
+				return;
+			}
 
 			if(html !== undefined)
 			{
@@ -126,6 +175,8 @@ var Msg = (function()
 
 			instance.window.scrollTop = 0;
 			instance.content.focus();
+
+			instance.params.after_show(instance);
 		}
 
 		instance.create = function()
@@ -327,6 +378,19 @@ var Msg = (function()
 		instance.num_instances = function()
 		{
 			return num_instances;
+		}
+
+		instance.html = function()
+		{
+			if(instance.content !== undefined)
+			{
+				return instance.content.innerHTML;
+			}
+
+			else
+			{
+				return "";
+			}
 		}
 
 		num_instances += 1;
