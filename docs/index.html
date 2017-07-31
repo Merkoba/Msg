@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.js?v=8'></script>
+        <script src='../msg.js?v=8'></script>
 
         <script>
 
@@ -120,6 +120,8 @@
 
     <body>
 
+        <div>
+
         <br><h1>Msg</h1>
         
         A javascript library that quickly enables modal windows with any html inside.<br><br>
@@ -211,6 +213,10 @@ var msg2 = Msg(
         The following options can be passed inside an object when creating an instance:<br><br>
         <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo".<br><br>
         <i>class (Default: "default")</i>: The class of the instance. For example, class:"bar".<br><br>
+        <i>container_class (Default: undefined)</i>: If this is defined, the Msg-container will use this instead of the class parameter.<br><br>
+        <i>overlay_class (Default: undefined)</i>: If this is defined, the Msg-overlay will use this instead of the class parameter.<br><br>
+        <i>window_class (Default: undefined)</i>: If this is defined, the Msg-window will use this instead of the class parameter.<br><br>
+        <i>content_class (Default: undefined)</i>: If this is defined, the Msg-content will use this instead of the class parameter.<br><br>
         <i>lock (Default: true)</i>: Locks the background, prevents scrolling from propagating to the body. This is done through css by adding a class to the body temporarily.<br><br>
 
         Example:
@@ -219,6 +225,7 @@ var msg2 = Msg(
 {
     id: "foo",
     class: "bar",
+    overlay_class: "blur",
     lock: true
 });
         </code></pre></blockquote></i> 
@@ -240,7 +247,7 @@ var msg2 = Msg(
         <i>instance.num_open()</i>: Returns the number of windows open.<br><br>
         <i>instance.num_instances()</i>: Returns the number of instances created.<br><br>
         <i>instance.create()</i>: Creates the html elements if they don't exist yet. This is done automatically on the first show() or set(), but there might be cases where you might want to create them first without showing anything.<br><br>
-        <i>instance.recreate()</i>: Removes the html elements from the dom and creates them again.<br><br>
+        <i>instance.recreate()</i>: Removes the html elements from the dom and creates them again. This should be called after ids or classes are changed.<br><br>
         <i>instance.destroy()</i>: Removes the html elements from the dom.<br><br>
         <i>instance.highest_zIndex()</i>: Returns the highest z-index from all the created Msg-container elements. If it retuns -2000 it means no elements have been created.<br><br>
         <i>instance.check_params()</i>: This is done automatically when creating an instance. It checks the parameters object and applies the corresponding defaults to undefined properties.<br><br><br>
@@ -250,6 +257,8 @@ var msg2 = Msg(
 
         <br><br><br><br>
         <br><br><br><br>
+
+    </div>
 
     </body>
 </html>

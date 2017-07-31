@@ -1,4 +1,4 @@
-/* Msg v4.0.0 https://github.com/madprops/Msg */
+/* Msg v4.1.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -174,10 +174,50 @@ var Msg = (function()
 			style3 += "text-align:center; ";
 			style3 += "padding:1.6em;";
 
-			var container_html =  "<div class='Msg-container Msg-container-" + instance.params.class + "' id='Msg-container-" + instance.params.id + "'></div>";
-			var overlay_html = "<div class='Msg-overlay Msg-overlay-" + instance.params.class + "' style='" + style1 + "' id='Msg-overlay-" + instance.params.id + "'></div>";
-			var window_html = "<div class='Msg-window Msg-window-" + instance.params.class + "' style='" + style2 + "' id='Msg-window-" + instance.params.id + "'></div>";
-			var content_html = "<div class='Msg-content Msg-content-" + instance.params.class + "' style='" + style3 + "' id='Msg-content-" + instance.params.id + "'></div>";
+			if(instance.params.container_class !== undefined)
+			{
+				var container_class = instance.params.container_class;
+			}
+
+			else
+			{
+				var container_class = instance.params.class;
+			}
+
+			if(instance.params.overlay_class !== undefined)
+			{
+				var overlay_class = instance.params.overlay_class;
+			}
+
+			else
+			{
+				var overlay_class = instance.params.class;
+			}
+
+			if(instance.params.window_class !== undefined)
+			{
+				var window_class = instance.params.window_class;
+			}
+
+			else
+			{
+				var window_class = instance.params.class;
+			}
+
+			if(instance.params.content_class !== undefined)
+			{
+				var content_class = instance.params.content_class;
+			}
+
+			else
+			{
+				var content_class = instance.params.class;
+			}
+
+			var container_html =  "<div class='Msg-container Msg-container-" + container_class + "' id='Msg-container-" + instance.params.id + "'></div>";
+			var overlay_html = "<div class='Msg-overlay Msg-overlay-" + overlay_class + "' style='" + style1 + "' id='Msg-overlay-" + instance.params.id + "'></div>";
+			var window_html = "<div class='Msg-window Msg-window-" + window_class + "' style='" + style2 + "' id='Msg-window-" + instance.params.id + "'></div>";
+			var content_html = "<div class='Msg-content Msg-content-" + content_class + "' style='" + style3 + "' id='Msg-content-" + instance.params.id + "'></div>";
 
 			document.body.insertAdjacentHTML('beforeend', container_html);
 
