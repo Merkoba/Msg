@@ -1,4 +1,4 @@
-/* Msg v3.2.0 https://github.com/madprops/Msg */
+/* Msg v3.3.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -18,9 +18,9 @@ var Msg = (function()
 
 		instance.params = params;
 
-		check_params();
+		instance.check_params();
 
-		function check_params()
+		instance.check_params = function()
 		{
 			if(instance.params.id === undefined)
 			{
@@ -94,21 +94,21 @@ var Msg = (function()
 
 			if(instance.is_open())
 			{
-				var zindex = instance.highest_zindex();
+				var zIndex = Math.max(50000000, instance.highest_zIndex());
 
-				if(zindex > instance.container.style.zIndex)
+				if(zIndex > instance.container.style.zIndex)
 				{
-					instance.overlay.style.zIndex = zindex + 1;
-					instance.container.style.zIndex = zindex + 2;
+					instance.overlay.style.zIndex = zIndex + 1;
+					instance.container.style.zIndex = zIndex + 2;
 				}
 			}
 
 			else
 			{
-				var zindex = instance.highest_zindex();
+				var zIndex = Math.max(50000000, instance.highest_zIndex());
 
-				instance.overlay.style.zIndex = zindex + 1;
-				instance.container.style.zIndex = zindex + 2;
+				instance.overlay.style.zIndex = zIndex + 1;
+				instance.container.style.zIndex = zIndex + 2;
 				
 				instance.overlay.style.display = 'block';
 				instance.container.style.display = 'block';				
@@ -191,7 +191,28 @@ var Msg = (function()
 			{
 				instance.close();
 			});	
-		}	
+		}
+
+		instance.recreate = function()
+		{
+			instance.destroy();
+			instance.create();
+		}
+
+		instance.destroy = function()
+		{
+			if(instance.created())
+			{
+				instance.close();
+
+				document.body.removeChild(instance.overlay);
+				document.body.removeChild(instance.container);
+
+				instance.overlay = undefined;
+				instance.container = undefined;
+				instance.content = undefined;			
+			}
+		}
 
 		instance.is_open = function()
 		{
@@ -238,26 +259,23 @@ var Msg = (function()
 			return num_open;
 		}
 
-		instance.highest_zindex = function()
+		instance.highest_zIndex = function()
 		{
-			var highest = 0;
+			var highest = -2000;
 
 			var containers = Array.from(document.querySelectorAll('.Msg-container'));
 
 			for(var i=0; i<containers.length; i++)
 			{
-				if(containers[i].style.display !== 'none')
-				{
-					var zindex = containers[i].style.zIndex;
+				var zIndex = containers[i].style.zIndex;
 
-					if(zindex > highest)
-					{
-						highest = zindex;
-					}
+				if(zIndex > highest)
+				{
+					highest = zIndex;
 				}
 			}
 
-			return Math.max(50000000, highest);
+			return parseInt(highest);
 		}
 
 		instance.num_instances = function()
