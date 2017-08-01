@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.js?v=16'></script>
+        <script src='msg-min.js?v=17'></script>
 
         <script>
 
@@ -152,13 +152,16 @@
         To install just include the file:<br>
         <i><blockquote><pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
 
-        To use, first make an instance:<br>
+        <br>Or the minified, smaller file:<br>
+        <i><blockquote><pre><code>&lt;script src="msg-min.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
+
+        <br>To use, first make an instance:<br>
         <i><blockquote><pre><code>var msg = Msg();</code></pre></blockquote></i>
 
-        To show a window just pass a string to the instance's show method:<br>
+        <br>To show a window just pass a string to the instance's show method:<br>
         <i><blockquote><pre><code>msg.show("some string");</code></pre></blockquote></i>
 
-        You can also pass an html element:<br>
+        <br>You can also pass an html element:<br>
         <i><blockquote><pre><code>msg.show(document.getElementById("some-element"));</code></pre></blockquote></i>
 
         <br><span class='clicky' onclick='msg.show(s)'>Demo 1</span><br><br>
