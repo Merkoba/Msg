@@ -249,7 +249,9 @@ var msg2 = Msg(
 
         Example:
 
-        <i><blockquote><pre><code>var msg_test = Msg(
+        <i><blockquote><pre><code>// This is just to show some features. Not a recommended pattern.
+
+var msg_test = Msg(
 {
     id: "test",
     class: "bar",
@@ -260,9 +262,8 @@ var msg2 = Msg(
     clear_editables: true, // This is the default
     after_show: function(instance)
     {
-        // This is just to show some features. Not a recommended pattern. 
-
         var s = "&lt;br&gt;&lt;br&gt;&lt;input id='input1' type='text' value='Try Pressing Escape'&gt;";
+
         instance.set(instance.html() + s);
         
         var input = document.getElementById('input1');
@@ -284,6 +285,8 @@ var msg2 = Msg(
 msg_test.show("Original Text");
         </code></pre></blockquote></i> 
         <script>
+            // This is just to show some features. Not a recommended pattern.
+
             var msg_test = Msg(
             {
                 id: "test",
@@ -295,9 +298,8 @@ msg_test.show("Original Text");
                 clear_editables: true, // This is the default
                 after_show: function(instance)
                 {
-                    // This is just to show some features. Not a recommended pattern.
-
                     var s = "<br><br><input id='input1' type='text' value='Try Pressing Escape'>";
+                    
                     instance.set(instance.html() + s);
                     
                     var input = document.getElementById('input1');
