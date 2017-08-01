@@ -99,6 +99,12 @@
                 padding: 0 !important;
             }
 
+            .Msg-content-dark
+            {
+                background-color: #242424 !important;
+                color: #e7e7e7 !important;
+            }
+
             img 
             {
                 max-width: 100%;
@@ -116,7 +122,7 @@
 
             .Msg-overlay-blur
             {
-                filter: blur(5em);
+                filter: blur(5em) !important;
             }
 
             input
@@ -252,7 +258,7 @@ var msg2 = Msg(
         <i><blockquote><pre><code>var msg_test = Msg(
 {
     id: "test",
-    class: "bar",
+    class: "dark",
     overlay_class: "blur",
     after_show: function(instance)
     {
@@ -275,7 +281,7 @@ msg_test.show("Domo Arigato");
             var msg_test = Msg(
             {
                 id: "test",
-                class: "bar",
+                class: "dark",
                 overlay_class: "blur",
                 after_show: function(instance)
                 {
