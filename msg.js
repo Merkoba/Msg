@@ -1,4 +1,4 @@
-/* Msg v4.3.0 https://github.com/madprops/Msg */
+/* Msg v4.3.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -182,7 +182,7 @@ var Msg = (function()
 			{
 				var zIndex = Math.max(50000000, instance.highest_zIndex());
 
-				if(zIndex > instance.window.style.zIndex)
+				if(zIndex > parseInt(instance.window.style.zIndex))
 				{
 					instance.overlay.style.zIndex = zIndex + 1;
 					instance.window.style.zIndex = zIndex + 2;
@@ -421,6 +421,21 @@ var Msg = (function()
 			return parseInt(highest);
 		}
 
+		instance.is_highest = function()
+		{
+			if(instance.is_open())
+			{
+				var zIndex = instance.highest_zIndex();
+
+				if(parseInt(instance.window.style.zIndex) === zIndex)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		instance.num_instances = function()
 		{
 			return num_instances;
@@ -433,10 +448,7 @@ var Msg = (function()
 				return instance.content.innerHTML;
 			}
 
-			else
-			{
-				return "";
-			}
+			return "";
 		}
 
 		instance.check_add_overflow_hidden = function()
@@ -459,7 +471,7 @@ var Msg = (function()
 		{
 			if(e.keyCode === 27)
 			{
-				if(instance.is_open())
+				if(instance.is_highest())
 				{
 					if(instance.params.clear_editables)
 					{
