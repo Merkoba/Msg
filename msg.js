@@ -1,4 +1,4 @@
-/* Msg v4.3.2 https://github.com/madprops/Msg */
+/* Msg v4.3.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -138,27 +138,29 @@ var Msg = (function()
 
 		instance.set = function(html)
 		{
+			if(html === undefined)
+			{
+				return;
+			}
+
+			instance.create();
+
 			if(instance.params.before_set(instance) === false)
 			{
 				return;
 			}
 
-			if(html !== undefined)
+			if(typeof html === "object")
 			{
-				instance.create();
-
-				if(typeof html === "object")
+				if(html instanceof Element)
 				{
-					if(html instanceof Element)
-					{
-						instance.content.innerHTML = html.outerHTML;	
-					}
+					instance.content.innerHTML = html.outerHTML;	
 				}
+			}
 
-				else
-				{
-					instance.content.innerHTML = html;
-				}
+			else
+			{
+				instance.content.innerHTML = html;
 			}
 			
 			instance.params.after_set(instance);			
