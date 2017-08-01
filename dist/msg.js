@@ -1,4 +1,4 @@
-/* Msg v4.3.3 https://github.com/madprops/Msg */
+/* Msg v4.4.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -12,96 +12,96 @@ var Msg = (function()
 
 	document.querySelector('head').innerHTML += css;
 
-	var factory = function(params={})
+	var factory = function(options={})
 	{
 		var instance = {};
 
-		instance.params = params;
+		instance.options = options;
 
-		instance.check_params = function()
+		instance.check_options = function()
 		{
-			if(instance.params.id === undefined)
+			if(instance.options.id === undefined)
 			{
-				instance.params.id = num_instances + 1;
+				instance.options.id = num_instances + 1;
 			}
 
-			if(instance.params.class === undefined)
+			if(instance.options.class === undefined)
 			{
-				instance.params.class = "default";
+				instance.options.class = "default";
 			}
 
-			if(instance.params.lock === undefined)
+			if(instance.options.lock === undefined)
 			{
-				instance.params.lock = true;
+				instance.options.lock = true;
 			}
 
-			if(instance.params.close_on_overlay_click === undefined)
+			if(instance.options.close_on_overlay_click === undefined)
 			{
-				instance.params.close_on_overlay_click = true;
+				instance.options.close_on_overlay_click = true;
 			}
 
-			if(instance.params.close_on_escape === undefined)
+			if(instance.options.close_on_escape === undefined)
 			{
-				instance.params.close_on_escape = true;
+				instance.options.close_on_escape = true;
 			}
 
-			if(instance.params.clear_editables === undefined)
+			if(instance.options.clear_editables === undefined)
 			{
-				instance.params.clear_editables = false;
+				instance.options.clear_editables = false;
 			}
 
-			if(instance.params.before_show === undefined)
+			if(instance.options.before_show === undefined)
 			{
-				instance.params.before_show = function(){};
+				instance.options.before_show = function(){};
 			}
 
-			if(instance.params.after_show === undefined)
+			if(instance.options.after_show === undefined)
 			{
-				instance.params.after_show = function(){};
+				instance.options.after_show = function(){};
 			}
 
-			if(instance.params.before_set === undefined)
+			if(instance.options.before_set === undefined)
 			{
-				instance.params.before_set = function(){};
+				instance.options.before_set = function(){};
 			}
 
-			if(instance.params.after_set === undefined)
+			if(instance.options.after_set === undefined)
 			{
-				instance.params.after_set = function(){};
+				instance.options.after_set = function(){};
 			}
 
-			if(instance.params.before_close === undefined)
+			if(instance.options.before_close === undefined)
 			{
-				instance.params.before_close = function(){};
+				instance.options.before_close = function(){};
 			}
 
-			if(instance.params.after_close === undefined)
+			if(instance.options.after_close === undefined)
 			{
-				instance.params.after_close = function(){};
+				instance.options.after_close = function(){};
 			}
 
-			if(instance.params.before_create === undefined)
+			if(instance.options.before_create === undefined)
 			{
-				instance.params.before_create = function(){};
+				instance.options.before_create = function(){};
 			}
 
-			if(instance.params.after_create === undefined)
+			if(instance.options.after_create === undefined)
 			{
-				instance.params.after_create = function(){};
+				instance.options.after_create = function(){};
 			}
 
-			if(instance.params.before_destroy === undefined)
+			if(instance.options.before_destroy === undefined)
 			{
-				instance.params.before_destroy = function(){};
+				instance.options.before_destroy = function(){};
 			}
 
-			if(instance.params.after_destroy === undefined)
+			if(instance.options.after_destroy === undefined)
 			{
-				instance.params.after_destroy = function(){};
+				instance.options.after_destroy = function(){};
 			}
 		}
 
-		instance.check_params();
+		instance.check_options();
 
 		instance.created = function()
 		{
@@ -120,7 +120,7 @@ var Msg = (function()
 				return;
 			}
 
-			if(instance.params.before_close(instance) === false)
+			if(instance.options.before_close(instance) === false)
 			{
 				return;
 			}
@@ -133,7 +133,7 @@ var Msg = (function()
 
 			instance.check_remove_overflow_hidden();
 
-			instance.params.after_close(instance);
+			instance.options.after_close(instance);
 		}
 
 		instance.set = function(html)
@@ -145,7 +145,7 @@ var Msg = (function()
 
 			instance.create();
 
-			if(instance.params.before_set(instance) === false)
+			if(instance.options.before_set(instance) === false)
 			{
 				return;
 			}
@@ -163,14 +163,14 @@ var Msg = (function()
 				instance.content.innerHTML = html;
 			}
 			
-			instance.params.after_set(instance);			
+			instance.options.after_set(instance);			
 		}	
 
 		instance.show = function(html)
 		{
 			instance.create();
 
-			if(instance.params.before_show(instance) === false)
+			if(instance.options.before_show(instance) === false)
 			{
 				return;
 			}
@@ -180,34 +180,20 @@ var Msg = (function()
 				instance.set(html);
 			}			
 
-			if(instance.is_open())
-			{
-				var zIndex = Math.max(50000000, instance.highest_zIndex());
-
-				if(zIndex > parseInt(instance.window.style.zIndex))
-				{
-					instance.overlay.style.zIndex = zIndex + 1;
-					instance.window.style.zIndex = zIndex + 2;
-				}
-			}
-
-			else
-			{
-				var zIndex = Math.max(50000000, instance.highest_zIndex());
-
-				instance.overlay.style.zIndex = zIndex + 1;
-				instance.window.style.zIndex = zIndex + 2;
-				
+			if(!instance.is_open())
+			{	
 				instance.overlay.style.display = 'block';
 				instance.window.style.display = 'block';				
 
 				instance.check_add_overflow_hidden();
 			}
 
+			instance.to_top();
+
 			instance.window.scrollTop = 0;
 			instance.content.focus();
 
-			instance.params.after_show(instance);
+			instance.options.after_show(instance);
 		}
 
 		instance.create = function()
@@ -217,12 +203,12 @@ var Msg = (function()
 				return;
 			}
 
-			if(document.getElementById('Msg-container-' + instance.params.id) !== null)
+			if(document.getElementById('Msg-container-' + instance.options.id) !== null)
 			{
 				throw "Msg Error: The html elements for this id have already been created. Use a different id.";
 			}
 
-			if(instance.params.before_create(instance) === false)
+			if(instance.options.before_create(instance) === false)
 			{
 				return;
 			}			
@@ -261,74 +247,74 @@ var Msg = (function()
 			style3 += "text-align:center; ";
 			style3 += "padding:1.6em;";
 
-			if(instance.params.container_class !== undefined)
+			if(instance.options.container_class !== undefined)
 			{
-				var container_class = instance.params.container_class;
+				var container_class = instance.options.container_class;
 			}
 
 			else
 			{
-				var container_class = instance.params.class;
+				var container_class = instance.options.class;
 			}
 
-			if(instance.params.overlay_class !== undefined)
+			if(instance.options.overlay_class !== undefined)
 			{
-				var overlay_class = instance.params.overlay_class;
+				var overlay_class = instance.options.overlay_class;
 			}
 
 			else
 			{
-				var overlay_class = instance.params.class;
+				var overlay_class = instance.options.class;
 			}
 
-			if(instance.params.window_class !== undefined)
+			if(instance.options.window_class !== undefined)
 			{
-				var window_class = instance.params.window_class;
+				var window_class = instance.options.window_class;
 			}
 
 			else
 			{
-				var window_class = instance.params.class;
+				var window_class = instance.options.class;
 			}
 
-			if(instance.params.content_class !== undefined)
+			if(instance.options.content_class !== undefined)
 			{
-				var content_class = instance.params.content_class;
+				var content_class = instance.options.content_class;
 			}
 
 			else
 			{
-				var content_class = instance.params.class;
+				var content_class = instance.options.class;
 			}
 
-			var container_html =  "<div class='Msg-container Msg-container-" + container_class + "' id='Msg-container-" + instance.params.id + "'></div>";
-			var overlay_html = "<div class='Msg-overlay Msg-overlay-" + overlay_class + "' style='" + style1 + "' id='Msg-overlay-" + instance.params.id + "'></div>";
-			var window_html = "<div class='Msg-window Msg-window-" + window_class + "' style='" + style2 + "' id='Msg-window-" + instance.params.id + "'></div>";
-			var content_html = "<div class='Msg-content Msg-content-" + content_class + "' style='" + style3 + "' id='Msg-content-" + instance.params.id + "'></div>";
+			var container_html =  "<div class='Msg-container Msg-container-" + container_class + "' id='Msg-container-" + instance.options.id + "'></div>";
+			var overlay_html = "<div class='Msg-overlay Msg-overlay-" + overlay_class + "' style='" + style1 + "' id='Msg-overlay-" + instance.options.id + "'></div>";
+			var window_html = "<div class='Msg-window Msg-window-" + window_class + "' style='" + style2 + "' id='Msg-window-" + instance.options.id + "'></div>";
+			var content_html = "<div class='Msg-content Msg-content-" + content_class + "' style='" + style3 + "' id='Msg-content-" + instance.options.id + "'></div>";
 
 			document.body.insertAdjacentHTML('beforeend', container_html);
 
-			instance.container = document.getElementById('Msg-container-' + instance.params.id);
+			instance.container = document.getElementById('Msg-container-' + instance.options.id);
 
 			instance.container.insertAdjacentHTML('beforeend', overlay_html);
 			instance.container.insertAdjacentHTML('beforeend', window_html);
 
-			instance.overlay = document.getElementById('Msg-overlay-' + instance.params.id);
-			instance.window = document.getElementById('Msg-window-' + instance.params.id);
+			instance.overlay = document.getElementById('Msg-overlay-' + instance.options.id);
+			instance.window = document.getElementById('Msg-window-' + instance.options.id);
 
 			instance.window.insertAdjacentHTML('beforeend', content_html);
 
-			instance.content = document.getElementById('Msg-content-' + instance.params.id);
+			instance.content = document.getElementById('Msg-content-' + instance.options.id);
 
 			instance.overlay.addEventListener("click", function()
 			{
-				if(instance.params.close_on_overlay_click)
+				if(instance.options.close_on_overlay_click)
 				{
 					instance.close();
 				}
 			});	
 
-			instance.params.after_create(instance);
+			instance.options.after_create(instance);
 		}
 
 		instance.recreate = function()
@@ -341,7 +327,7 @@ var Msg = (function()
 		{
 			if(instance.created())
 			{
-				if(instance.params.before_destroy(instance) === false)
+				if(instance.options.before_destroy(instance) === false)
 				{
 					return;
 				}
@@ -355,7 +341,7 @@ var Msg = (function()
 				instance.window = undefined;
 				instance.content = undefined;
 
-				instance.params.after_destroy(instance);		
+				instance.options.after_destroy(instance);		
 			}
 		}
 
@@ -455,7 +441,7 @@ var Msg = (function()
 
 		instance.check_add_overflow_hidden = function()
 		{
-			if(instance.params.lock)
+			if(instance.options.lock)
 			{
 				document.body.classList.add('Msg-overflow-hidden');
 			}			
@@ -469,13 +455,28 @@ var Msg = (function()
 			}			
 		}
 
+		instance.to_top = function()
+		{
+			if(instance.is_open())
+			{
+				var zIndex = parseInt(instance.window.style.zIndex);
+				var highest = Math.max(50000000, instance.highest_zIndex());
+
+				if(highest > zIndex)
+				{
+					instance.overlay.style.zIndex = highest + 1;
+					instance.window.style.zIndex = highest + 2;
+				}			
+			}
+		}
+
 		document.addEventListener('keyup', function(e)
 		{
 			if(e.keyCode === 27)
 			{
 				if(instance.is_highest())
 				{
-					if(instance.params.clear_editables)
+					if(instance.options.clear_editables)
 					{
 						var el = document.activeElement;
 
@@ -492,7 +493,7 @@ var Msg = (function()
 						}
 					}
 
-					if(instance.params.close_on_escape)
+					if(instance.options.close_on_escape)
 					{
 						instance.close();
 					}
