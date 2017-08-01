@@ -1,4 +1,4 @@
-/* Msg v4.2.1 https://github.com/madprops/Msg */
+/* Msg v4.3.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -33,6 +33,21 @@ var Msg = (function()
 			if(instance.params.lock === undefined)
 			{
 				instance.params.lock = true;
+			}
+
+			if(instance.params.close_on_overlay_click === undefined)
+			{
+				instance.params.close_on_overlay_click = true;
+			}
+
+			if(instance.params.close_on_escape === undefined)
+			{
+				instance.params.close_on_escape = true;
+			}
+
+			if(instance.params.clear_editables === undefined)
+			{
+				instance.params.clear_editables = true;
 			}
 
 			if(instance.params.before_show === undefined)
@@ -74,6 +89,7 @@ var Msg = (function()
 			{
 				instance.params.after_create = function(){};
 			}
+
 			if(instance.params.before_destroy === undefined)
 			{
 				instance.params.before_destroy = function(){};
@@ -304,7 +320,10 @@ var Msg = (function()
 
 			instance.overlay.addEventListener("click", function()
 			{
-				instance.close();
+				if(instance.params.close_on_overlay_click)
+				{
+					instance.close();
+				}
 			});	
 
 			instance.params.after_create(instance);
@@ -435,6 +454,37 @@ var Msg = (function()
 				document.body.classList.remove('Msg-overflow-hidden');
 			}			
 		}
+
+		document.addEventListener('keyup', function(e)
+		{
+			if(e.keyCode === 27)
+			{
+				if(instance.is_open())
+				{
+					if(instance.params.clear_editables)
+					{
+						var el = document.activeElement;
+
+						if((el.nodeName === "INPUT" && el.type === "text") || el.nodeName === "TEXTAREA")
+						{
+							if(!el.readOnly && !el.disabled)
+							{
+								if(el.value !== '')
+								{
+									el.value = '';
+									return;
+								}
+							}
+						}
+					}
+
+					if(instance.params.close_on_escape)
+					{
+						instance.close();
+					}
+				}
+			}
+		});
 
 		num_instances += 1;
 
