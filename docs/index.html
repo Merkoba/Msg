@@ -2,7 +2,7 @@
     <head>
         <title>Msg</title>
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.js?v=13'></script>
+        <script src='msg.js?v=14'></script>
 
         <script>
 
@@ -235,7 +235,7 @@ var msg2 = Msg(
         <i>lock (Default: true)</i>: Locks the background, prevents scrolling from propagating to the body. This is done through css by adding a class to the body temporarily.<br><br>
         <i>close_on_overlay_click (Default: true)</i>: Closes the window when the overlay is clicked.<br><br>
         <i>close_on_escape (Default: true)</i>: Closes the window when Escape is pressed.<br><br>
-        <i>clear_editables (Default: true)</i>: When pressing Escape, it clears the text from an active input=text or textarea element, if it has a value. If it's empty and close_on_escape is true, it closes the window.<br><br>
+        <i>clear_editables (Default: false)</i>: When pressing Escape, it clears the text from an active input=text or textarea element, if it has a value. If it's empty and close_on_escape is true, it closes the window.<br><br>
         <i>before_show (Default: Empty Function)</i>: Function that triggers before the show method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         <i>after_show (Default: Empty Function)</i>: Function that triggers after the show method. Receives the instance as an argument.<br><br>
         <i>before_set (Default: Empty Function)</i>: Function that triggers before the set method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
@@ -247,30 +247,16 @@ var msg2 = Msg(
         <i>before_destroy (Default: Empty Function)</i>: Function that triggers after the destroy method Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         <i>after_destroy (Default: Empty Function)</i>: Function that triggers after the destroy method. Receives the instance as an argument.<br><br>
 
-        Example:
+        <br>Example:
 
-        <i><blockquote><pre><code>// This is just to show some features. Not a recommended pattern.
-
-var msg_test = Msg(
+        <i><blockquote><pre><code>var msg_test = Msg(
 {
     id: "test",
     class: "bar",
     overlay_class: "blur",
-    lock: false,
-    close_on_overlay_click: true, // This is the default
-    close_on_escape: true, // This is the default
-    clear_editables: true, // This is the default
     after_show: function(instance)
     {
-        var s = "&lt;br&gt;&lt;br&gt;&lt;input id='input1' type='text' value='Try Pressing Escape'&gt;";
-
-        instance.set(instance.html() + s);
-        
-        var input = document.getElementById('input1');
-        input.focus();
-
-        // Move caret to end
-        input.selectionStart = input.selectionEnd = input.value.length;
+        instance.set(instance.html() + ", Mr. Roboto");
     },
     after_set: function(instance)
     {
@@ -282,31 +268,18 @@ var msg_test = Msg(
     }
 });
 
-msg_test.show("Original Text");
-        </code></pre></blockquote></i> 
-        <script>
-            // This is just to show some features. Not a recommended pattern.
+msg_test.show("Domo Arigato");
+        </code></pre></blockquote></i>
 
+        <script>
             var msg_test = Msg(
             {
                 id: "test",
                 class: "bar",
                 overlay_class: "blur",
-                lock: false,
-                close_on_overlay_click: true, // This is the default
-                close_on_escape: true, // This is the default
-                clear_editables: true, // This is the default
                 after_show: function(instance)
                 {
-                    var s = "<br><br><input id='input1' type='text' value='Try Pressing Escape'>";
-                    
-                    instance.set(instance.html() + s);
-                    
-                    var input = document.getElementById('input1');
-                    input.focus();
-
-                    // Move caret to end
-                    input.selectionStart = input.selectionEnd = input.value.length;
+                    instance.set(instance.html() + ", Mr. Roboto");
                 },
                 after_set: function(instance)
                 {
@@ -318,7 +291,7 @@ msg_test.show("Original Text");
                 }
             });       
         </script>
-        <span class='clicky' onclick='msg_test.show("Original Text")'>Test It</span><br><br>
+        <span class='clicky' onclick='msg_test.show("Domo Arigato")'>Test It</span><br><br>
 
         <h2>Properties</h2>
         <i>instance.params</i>: The parameters object of the instance.<br><br>

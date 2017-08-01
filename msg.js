@@ -47,7 +47,7 @@ var Msg = (function()
 
 			if(instance.params.clear_editables === undefined)
 			{
-				instance.params.clear_editables = true;
+				instance.params.clear_editables = false;
 			}
 
 			if(instance.params.before_show === undefined)
