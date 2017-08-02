@@ -162,7 +162,7 @@ var Msg = (function()
 			}
 			
 			instance.options.after_set(instance);			
-		}	
+		}
 
 		instance.show = function(html)
 		{
