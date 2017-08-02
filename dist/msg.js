@@ -201,7 +201,7 @@ var Msg = (function()
 				return;
 			}
 
-			if(document.getElementById("Msg-container-" + instance.options.id) !== null)
+			if(document.getElementById(`Msg-container-${instance.options.id}`) !== null)
 			{
 				throw "Msg Error: The html elements for this id have already been created. Use a different id.";
 			}
@@ -253,17 +253,17 @@ var Msg = (function()
 
 			document.body.insertAdjacentHTML("beforeend", container_html);
 
-			instance.container = document.getElementById("Msg-container-" + instance.options.id);
+			instance.container = document.getElementById(`Msg-container-${instance.options.id}`);
 
 			instance.container.insertAdjacentHTML("beforeend", overlay_html);
 			instance.container.insertAdjacentHTML("beforeend", window_html);
 
-			instance.overlay = document.getElementById("Msg-overlay-" + instance.options.id);
-			instance.window = document.getElementById("Msg-window-" + instance.options.id);
+			instance.overlay = document.getElementById(`Msg-overlay-${instance.options.id}`);
+			instance.window = document.getElementById(`Msg-window-${instance.options.id}`);
 
 			instance.window.insertAdjacentHTML("beforeend", content_html);
 
-			instance.content = document.getElementById("Msg-content-" + instance.options.id);
+			instance.content = document.getElementById(`Msg-content-${instance.options.id}`);
 
 			instance.overlay.addEventListener("click", function()
 			{
