@@ -1,11 +1,11 @@
-/* Msg v4.4.2 https://github.com/madprops/Msg */
+/* Msg v4.4.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
 	var num_instances = 0;
 
 	var css = `<style>
-	.Msg-overflow-hidden{overflow:hidden}";
+	.Msg-overflow-hidden{overflow:hidden};
 	</style>`;
 
 	document.querySelector("head").innerHTML += css;
