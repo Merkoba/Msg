@@ -4,11 +4,9 @@ var Msg = (function()
 {
 	var num_instances = 0;
 
-	var css = "";
-
-	css += "<style>";
-	css += ".Msg-overflow-hidden{overflow:hidden}";
-	css += "</style>";
+	var css = `<style>
+	.Msg-overflow-hidden{overflow:hidden}";
+	</style>`;
 
 	document.querySelector('head').innerHTML += css;
 
@@ -213,39 +211,35 @@ var Msg = (function()
 				return;
 			}			
 
-			var style1 = "";
+			var styles = {};
 
-			style1 += "position:fixed; ";
-			style1 += "top:0; ";
-			style1 += "left:0; ";
-			style1 += "height:100%; ";
-			style1 += "width:100%; ";
-			style1 += "background-color:rgba(0, 0, 0, 0.7); ";
-			style1 += "z-index:-1000; ";
-			style1 += "display:none;";
+			styles.overlay = `position:fixed;
+			top:0;
+			left:0;
+			height:100%;
+			width:100%;
+			background-color:rgba(0, 0, 0, 0.7);
+			z-index:-1000;
+			display:none;`;
 
-			var style2 = "";
+			styles.window = `position:fixed;
+			left:50%;
+			top:50%;
+			max-height:80vh;
+			transform:translate(-50%, -50%);
+			overflow:auto;
+			overflow-x:hidden;
+			overflow-y:auto;
+			outline:0;
+			z-index:-1000;
+			display:none`;
 
-			style2 += "position:fixed; ";
-			style2 += "left:50%; ";
-			style2 += "top:50%; ";
-			style2 += "max-height:80vh; ";
-			style2 += "transform:translate(-50%, -50%); ";
-			style2 += "overflow:auto; ";
-			style2 += "overflow-x:hidden; ";
-			style2 += "overflow-y:auto; ";
-			style2 += "outline:0; ";
-			style2 += "z-index:-1000; ";
-			style2 += "display:none;";
-
-			var style3 = "";
-			
-			style3 += "color:black; ";
-			style3 += "background-color:white; ";
-			style3 += "font-size:23.8px; ";
-			style3 += "font-family:sans-serif; ";
-			style3 += "text-align:center; ";
-			style3 += "padding:1.6em;";
+			styles.content = `color:black;
+			background-color:white;
+			font-size:23.8px;
+			font-family:sans-serif;
+			text-align:center;
+			padding:1.6em`;
 
 			if(instance.options.container_class !== undefined)
 			{
@@ -288,9 +282,9 @@ var Msg = (function()
 			}
 
 			var container_html =  "<div class='Msg-container Msg-container-" + container_class + "' id='Msg-container-" + instance.options.id + "'></div>";
-			var overlay_html = "<div class='Msg-overlay Msg-overlay-" + overlay_class + "' style='" + style1 + "' id='Msg-overlay-" + instance.options.id + "'></div>";
-			var window_html = "<div class='Msg-window Msg-window-" + window_class + "' style='" + style2 + "' id='Msg-window-" + instance.options.id + "'></div>";
-			var content_html = "<div class='Msg-content Msg-content-" + content_class + "' style='" + style3 + "' id='Msg-content-" + instance.options.id + "'></div>";
+			var overlay_html = "<div class='Msg-overlay Msg-overlay-" + overlay_class + "' style='" + styles.overlay + "' id='Msg-overlay-" + instance.options.id + "'></div>";
+			var window_html = "<div class='Msg-window Msg-window-" + window_class + "' style='" + styles.window + "' id='Msg-window-" + instance.options.id + "'></div>";
+			var content_html = "<div class='Msg-content Msg-content-" + content_class + "' style='" + styles.content + "' id='Msg-content-" + instance.options.id + "'></div>";
 
 			document.body.insertAdjacentHTML('beforeend', container_html);
 
