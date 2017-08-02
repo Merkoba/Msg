@@ -246,10 +246,10 @@ var Msg = (function()
 			var window_class = (instance.options.window_class !== undefined) ? instance.options.window_class : instance.options.class;
 			var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class;
 
-			var container_html =  "<div class='Msg-container Msg-container-" + container_class + "' id='Msg-container-" + instance.options.id + "'></div>";
-			var overlay_html = "<div class='Msg-overlay Msg-overlay-" + overlay_class + "' style='" + styles.overlay + "' id='Msg-overlay-" + instance.options.id + "'></div>";
-			var window_html = "<div class='Msg-window Msg-window-" + window_class + "' style='" + styles.window + "' id='Msg-window-" + instance.options.id + "'></div>";
-			var content_html = "<div class='Msg-content Msg-content-" + content_class + "' style='" + styles.content + "' id='Msg-content-" + instance.options.id + "'></div>";
+			var container_html =  `<div class="Msg-container Msg-container-${container_class}" id="Msg-container-${instance.options.id}"></div>`;
+			var overlay_html = `<div class="Msg-overlay Msg-overlay-${overlay_class}"" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
+			var window_html = `<div class="Msg-window Msg-window-${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
+			var content_html = `<div class="Msg-content Msg-content-${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
 
 			document.body.insertAdjacentHTML('beforeend', container_html);
 
