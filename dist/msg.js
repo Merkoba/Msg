@@ -8,7 +8,7 @@ var Msg = (function()
 	.Msg-overflow-hidden{overflow:hidden}";
 	</style>`;
 
-	document.querySelector('head').innerHTML += css;
+	document.querySelector("head").innerHTML += css;
 
 	var factory = function(options={})
 	{
@@ -123,8 +123,8 @@ var Msg = (function()
 				return;
 			}
 
-			instance.overlay.style.display = 'none';
-			instance.window.style.display = 'none';
+			instance.overlay.style.display = "none";
+			instance.window.style.display = "none";
 			
 			instance.overlay.style.zIndex = -1000;
 			instance.window.style.zIndex = -1000;
@@ -180,8 +180,8 @@ var Msg = (function()
 
 			if(!instance.is_open())
 			{	
-				instance.overlay.style.display = 'block';
-				instance.window.style.display = 'block';				
+				instance.overlay.style.display = "block";
+				instance.window.style.display = "block";				
 
 				instance.check_add_overflow_hidden();
 			}
@@ -201,7 +201,7 @@ var Msg = (function()
 				return;
 			}
 
-			if(document.getElementById('Msg-container-' + instance.options.id) !== null)
+			if(document.getElementById("Msg-container-" + instance.options.id) !== null)
 			{
 				throw "Msg Error: The html elements for this id have already been created. Use a different id.";
 			}
@@ -251,19 +251,19 @@ var Msg = (function()
 			var window_html = `<div class="Msg-window Msg-window-${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
 			var content_html = `<div class="Msg-content Msg-content-${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
 
-			document.body.insertAdjacentHTML('beforeend', container_html);
+			document.body.insertAdjacentHTML("beforeend", container_html);
 
-			instance.container = document.getElementById('Msg-container-' + instance.options.id);
+			instance.container = document.getElementById("Msg-container-" + instance.options.id);
 
-			instance.container.insertAdjacentHTML('beforeend', overlay_html);
-			instance.container.insertAdjacentHTML('beforeend', window_html);
+			instance.container.insertAdjacentHTML("beforeend", overlay_html);
+			instance.container.insertAdjacentHTML("beforeend", window_html);
 
-			instance.overlay = document.getElementById('Msg-overlay-' + instance.options.id);
-			instance.window = document.getElementById('Msg-window-' + instance.options.id);
+			instance.overlay = document.getElementById("Msg-overlay-" + instance.options.id);
+			instance.window = document.getElementById("Msg-window-" + instance.options.id);
 
-			instance.window.insertAdjacentHTML('beforeend', content_html);
+			instance.window.insertAdjacentHTML("beforeend", content_html);
 
-			instance.content = document.getElementById('Msg-content-' + instance.options.id);
+			instance.content = document.getElementById("Msg-content-" + instance.options.id);
 
 			instance.overlay.addEventListener("click", function()
 			{
@@ -306,7 +306,7 @@ var Msg = (function()
 
 		instance.is_open = function()
 		{
-			if(!instance.created() || instance.window.style.display === 'none')
+			if(!instance.created() || instance.window.style.display === "none")
 			{
 				return false;
 			}
@@ -319,11 +319,11 @@ var Msg = (function()
 
 		instance.any_open = function()
 		{
-			var windows = Array.from(document.querySelectorAll('.Msg-window'));
+			var windows = Array.from(document.querySelectorAll(".Msg-window"));
 
 			for(var i=0; i<windows.length; i++)
 			{
-				if(windows[i].style.display !== 'none')
+				if(windows[i].style.display !== "none")
 				{
 					return true;
 				}
@@ -336,11 +336,11 @@ var Msg = (function()
 		{
 			var num_open = 0;
 
-			var windows = Array.from(document.querySelectorAll('.Msg-window'));
+			var windows = Array.from(document.querySelectorAll(".Msg-window"));
 
 			for(var i=0; i<windows.length; i++)
 			{
-				if(windows[i].style.display !== 'none')
+				if(windows[i].style.display !== "none")
 				{
 					num_open += 1;
 				}
@@ -353,7 +353,7 @@ var Msg = (function()
 		{
 			var highest = -2000;
 
-			var windows = Array.from(document.querySelectorAll('.Msg-window'));
+			var windows = Array.from(document.querySelectorAll(".Msg-window"));
 
 			for(var i=0; i<windows.length; i++)
 			{
@@ -402,7 +402,7 @@ var Msg = (function()
 		{
 			if(instance.options.lock)
 			{
-				document.body.classList.add('Msg-overflow-hidden');
+				document.body.classList.add("Msg-overflow-hidden");
 			}			
 		}
 
@@ -410,7 +410,7 @@ var Msg = (function()
 		{
 			if(instance.num_open() === 0)
 			{
-				document.body.classList.remove('Msg-overflow-hidden');
+				document.body.classList.remove("Msg-overflow-hidden");
 			}			
 		}
 
@@ -429,7 +429,7 @@ var Msg = (function()
 			}
 		}
 
-		document.addEventListener('keyup', function(e)
+		document.addEventListener("keyup", function(e)
 		{
 			if(e.keyCode === 27)
 			{
@@ -443,9 +443,9 @@ var Msg = (function()
 						{
 							if(!el.readOnly && !el.disabled)
 							{
-								if(el.value !== '')
+								if(el.value !== "")
 								{
-									el.value = '';
+									el.value = "";
 									return;
 								}
 							}
