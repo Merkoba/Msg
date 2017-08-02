@@ -2,7 +2,7 @@
 
 var Msg = (function()
 {
-	var num_instances = 0;
+	var instances = [];
 
 	var css = `<style>
 	.Msg-overflow-hidden{overflow:hidden};
@@ -20,7 +20,7 @@ var Msg = (function()
 		{
 			if(instance.options.id === undefined)
 			{
-				instance.options.id = num_instances + 1;
+				instance.options.id = instances.length + 1;
 			}
 
 			if(instance.options.class === undefined)
@@ -383,11 +383,6 @@ var Msg = (function()
 			return false;
 		}
 
-		instance.num_instances = function()
-		{
-			return num_instances;
-		}
-
 		instance.html = function()
 		{
 			if(instance.created())
@@ -429,6 +424,11 @@ var Msg = (function()
 			}
 		}
 
+		instance.instances = function()
+		{
+			return instances;
+		}
+
 		document.addEventListener("keyup", function(e)
 		{
 			if(e.keyCode === 27)
@@ -460,7 +460,7 @@ var Msg = (function()
 			}
 		});
 
-		num_instances += 1;
+		instances.push(instance);
 
 		return instance;	
 	}
