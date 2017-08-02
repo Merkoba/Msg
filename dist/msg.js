@@ -241,45 +241,10 @@ var Msg = (function()
 			text-align:center;
 			padding:1.6em`;
 
-			if(instance.options.container_class !== undefined)
-			{
-				var container_class = instance.options.container_class;
-			}
-
-			else
-			{
-				var container_class = instance.options.class;
-			}
-
-			if(instance.options.overlay_class !== undefined)
-			{
-				var overlay_class = instance.options.overlay_class;
-			}
-
-			else
-			{
-				var overlay_class = instance.options.class;
-			}
-
-			if(instance.options.window_class !== undefined)
-			{
-				var window_class = instance.options.window_class;
-			}
-
-			else
-			{
-				var window_class = instance.options.class;
-			}
-
-			if(instance.options.content_class !== undefined)
-			{
-				var content_class = instance.options.content_class;
-			}
-
-			else
-			{
-				var content_class = instance.options.class;
-			}
+			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
+			var overlay_class = (instance.options.overlay_class !== undefined) ? instance.options.overlay_class : instance.options.class;
+			var window_class = (instance.options.window_class !== undefined) ? instance.options.window_class : instance.options.class;
+			var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class;
 
 			var container_html =  "<div class='Msg-container Msg-container-" + container_class + "' id='Msg-container-" + instance.options.id + "'></div>";
 			var overlay_html = "<div class='Msg-overlay Msg-overlay-" + overlay_class + "' style='" + styles.overlay + "' id='Msg-overlay-" + instance.options.id + "'></div>";
