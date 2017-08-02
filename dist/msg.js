@@ -1,4 +1,4 @@
-/* Msg v4.4.0 https://github.com/madprops/Msg */
+/* Msg v4.4.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -8,7 +8,7 @@ var Msg = (function()
 
 	css += "<style>";
 	css += ".Msg-overflow-hidden{overflow:hidden}";
-	css += "<style>";
+	css += "</style>";
 
 	document.querySelector('head').innerHTML += css;
 
