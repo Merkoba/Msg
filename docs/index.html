@@ -155,7 +155,7 @@
         <i><blockquote><pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
 
         <br>Or the minified, smaller file:<br>
-        <i><blockquote><pre><code>&lt;script src="msg-min.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
+        <i><blockquote><pre><code>&lt;script src="msg.min.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
 
         <br>To use, first make an instance:<br>
         <i><blockquote><pre><code>var msg = Msg();</code></pre></blockquote></i>
@@ -327,8 +327,9 @@ msg_test.show("Domo Arigato");
         <i>instance.is_highest()</i>: Returns true if the window is visible and at the top of the stack.<br><br>
         <i>instance.to_top()</i>: Puts an already opened window at the top of the stack. This is done automatically by show(), but there might be cases where you want to do this without triggering the show events.<br><br>
         <i>instance.check_options()</i>: This is done automatically when creating an instance. It checks the options object and applies the corresponding defaults to undefined properties.<br><br>
-        <i>instance.instances()</i>: Returns a list with the created instances.<br><br><br>
-        Note: It's advised not to modify the "display" or "z-index" css properties of the Msg html elements since they are handled internally.<br><br>
+        <i>instance.instances()</i>: Returns a list with the created instances.<br><br>
+        
+       <br> Note: It's advised not to modify the "display" or "z-index" css properties of the Msg html elements since they are handled internally.<br><br>
 
         <br><a href='https://github.com/madprops/Msg'>Get the code at Github</a>
 
