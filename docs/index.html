@@ -8,7 +8,7 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
         
-        <script src='msg.js?v=21'></script>
+        <script src='msg.js?v=22'></script>
 
         <script>
 
@@ -34,6 +34,12 @@
             {
                 id: "poop",
                 lock: false
+            });
+
+            var msg6 = Msg(
+            {
+                temp_disable_close: true,
+                autoclose: true
             });
 
             var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
@@ -253,6 +259,10 @@ var msg2 = Msg(
         <i>close_on_overlay_click (Default: true)</i>: Closes the window when the overlay is clicked.<br><br>
         <i>close_on_escape (Default: true)</i>: Closes the window when Escape is pressed.<br><br>
         <i>clear_editables (Default: false)</i>: When pressing Escape, it clears the text from an active input=text or textarea element, if it has a value. If it's empty and close_on_escape is true, it closes the window.<br><br>
+        <i>temp_disable_close (Default: false)</i>: Makes it unable to close the window, either by clicking the overlay or by pressing escape, temporarily.<br><br>
+        <i>temp_disable_delay (Default: 1000)</i>: The amount of time in milliseconds the window is temporarily unclosable since it's shown.<br><br>
+        <i>autoclose (Default: false)</i>: Closes the window automatically after a certain amount of time.<br><br>
+        <i>autoclose_delay (Default: 3000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
         <i>before_show (Default: Empty Function)</i>: Function that triggers before the show method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         <i>after_show (Default: Empty Function)</i>: Function that triggers after the show method. Receives the instance as an argument.<br><br>
         <i>before_set (Default: Empty Function)</i>: Function that triggers before the set method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>

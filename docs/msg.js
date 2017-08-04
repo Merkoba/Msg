@@ -1,4 +1,4 @@
-/* Msg v4.4.5 https://github.com/madprops/Msg */
+/* Msg v4.5.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -13,6 +13,8 @@ var Msg = (function()
 	var factory = function(options={})
 	{
 		var instance = {};
+
+		instance.close_disabled = false;
 
 		instance.options = options;
 
@@ -97,6 +99,26 @@ var Msg = (function()
 			{
 				instance.options.after_destroy = function(){};
 			}
+
+			if(instance.options.temp_disable_close === undefined)
+			{
+				instance.options.temp_disable_close = false;
+			}
+
+			if(instance.options.temp_disable_close_delay === undefined)
+			{
+				instance.options.temp_disable_close_delay = 1000;
+			}
+
+			if(instance.options.autoclose === undefined)
+			{
+				instance.options.autoclose = false;
+			}
+
+			if(instance.options.autoclose_delay === undefined)
+			{
+				instance.options.autoclose_delay = 3000;
+			}
 		}
 
 		instance.check_options();
@@ -113,7 +135,12 @@ var Msg = (function()
 
 		instance.close = function()
 		{
-			if(!instance.created())
+			if(!instance.is_open())
+			{
+				return;
+			}
+
+			if(instance.close_disabled)
 			{
 				return;
 			}
@@ -190,6 +217,17 @@ var Msg = (function()
 
 			instance.window.scrollTop = 0;
 			instance.content.focus();
+
+			if(options.temp_disable_close)
+			{
+				instance.close_disabled = true;
+				instance.temp_disable_timer();
+			}
+
+			if(options.autoclose)
+			{
+				instance.autoclose_timer();
+			}
 
 			instance.options.after_show(instance);
 		}
@@ -433,6 +471,32 @@ var Msg = (function()
 		{
 			return instances;
 		}
+
+		instance.temp_disable_timer = (function()
+		{
+			var timer;
+			return function()
+			{
+				clearTimeout(timer);
+				timer = setTimeout(function()
+				{
+					instance.close_disabled = false;
+				}, options.temp_disable_close_delay);
+			};
+		})();
+
+		instance.autoclose_timer = (function()
+		{
+			var timer;
+			return function() 
+			{
+				clearTimeout(timer);
+				timer = setTimeout(function()
+				{
+					instance.close();
+				}, options.autoclose_delay);
+			};
+		})();
 
 		document.addEventListener("keyup", function(e)
 		{
