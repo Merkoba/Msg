@@ -1,4 +1,4 @@
-/* Msg v4.4.4 https://github.com/madprops/Msg */
+/* Msg v4.4.5 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -192,6 +192,11 @@ var Msg = (function()
 			instance.content.focus();
 
 			instance.options.after_show(instance);
+		}
+
+		instance.toggle = function()
+		{
+			instance.is_open() ? instance.close() : instance.show();
 		}
 
 		instance.create = function()

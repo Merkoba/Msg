@@ -7,7 +7,8 @@
         <meta name="keywords" content="javascript, library, modal, window, windows, open, source, mit">
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
-        <script src='msg.js?v=20'></script>
+        
+        <script src='msg.js?v=21'></script>
 
         <script>
 
@@ -321,6 +322,7 @@ msg_test.show("Domo Arigato");
         <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set() and puts it at the top of the stack.<br><br>
         <i>instance.set(html)</i>: Updates the html of the window without opening it.<br><br>
         <i>instance.close()</i>: Closes the window.<br><br>
+        <i>instance.toggle()</i>: If the window is closed it opens it. If the window open it closes it.<br><br>
         <i>instance.html()</i>: A shortcut for instance.content.innerHTML. Returns "" if the html elements have not been created yet.<br><br>
         <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
         <i>instance.any_open()</i>: Returns true if any window with any id is open.<br><br>
