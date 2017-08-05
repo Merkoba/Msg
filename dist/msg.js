@@ -1,4 +1,4 @@
-/* Msg v4.5.0 https://github.com/madprops/Msg */
+/* Msg v4.6.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -38,6 +38,26 @@ var Msg = (function()
 			if(instance.options.close_on_overlay_click === undefined)
 			{
 				instance.options.close_on_overlay_click = true;
+			}
+
+			if(instance.options.enable_inner_x === undefined)
+			{
+				instance.options.enable_inner_x = true;
+			}
+
+			if(instance.options.inner_x_position === undefined)
+			{
+				instance.options.inner_x_position = "right";
+			}
+
+			if(instance.options.enable_outer_x === undefined)
+			{
+				instance.options.enable_outer_x = false;
+			}
+
+			if(instance.options.outer_x_position === undefined)
+			{
+				instance.options.outer_x_position = "right";
 			}
 
 			if(instance.options.close_on_escape === undefined)
@@ -277,6 +297,40 @@ var Msg = (function()
 			z-index:-1000;
 			display:none`;
 
+			styles.inner_x = `color:#363636;
+			float:${options.inner_x_position};
+			cursor:pointer;
+			font-size:23.8px;
+			font-family:sans-serif;
+			position:sticky;
+			top:0px;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;	
+			padding-left:0.6em;
+			padding-right:0.6em;
+			padding-top:0.1em;
+			padding-bottom:0.2em;`;
+
+			styles.outer_x = `color:white;
+			float:${options.outer_x_position};
+			cursor:pointer;
+			font-size:28px;
+			font-family:sans-serif;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;	
+			padding-left:0.6em;
+			padding-right:0.6em;
+			padding-top:0.1em;
+			padding-bottom:0.2em;`;			
+
 			styles.content = `color:black;
 			background-color:white;
 			font-size:23.8px;
@@ -288,11 +342,15 @@ var Msg = (function()
 			var overlay_class = (instance.options.overlay_class !== undefined) ? instance.options.overlay_class : instance.options.class;
 			var window_class = (instance.options.window_class !== undefined) ? instance.options.window_class : instance.options.class;
 			var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class;
+			var inner_x_class = (instance.options.inner_x_class !== undefined) ? instance.options.inner_x_class : instance.options.class;
+			var outer_x_class = (instance.options.outer_x_class !== undefined) ? instance.options.outer_x_class : instance.options.class;
 
 			var container_html =  `<div class="Msg-container Msg-container-${container_class}" id="Msg-container-${instance.options.id}"></div>`;
 			var overlay_html = `<div class="Msg-overlay Msg-overlay-${overlay_class}"" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
 			var window_html = `<div class="Msg-window Msg-window-${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
 			var content_html = `<div class="Msg-content Msg-content-${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
+			var inner_x_html = `<div class="Msg-inner-x Msg-inner-x-${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
+			var outer_x_html = `<div class="Msg-outer-x Msg-outer-x-${outer_x_class}" style="${styles.outer_x}" id="Msg-outer-x-${instance.options.id }">x</div>`;
 
 			document.body.insertAdjacentHTML("beforeend", container_html);
 
@@ -302,7 +360,20 @@ var Msg = (function()
 			instance.container.insertAdjacentHTML("beforeend", window_html);
 
 			instance.overlay = document.getElementById(`Msg-overlay-${instance.options.id}`);
+			
+			if(options.enable_outer_x)
+			{
+				instance.overlay.insertAdjacentHTML("beforeend", outer_x_html);
+				instance.outer_x = document.getElementById(`Msg-outer-x-${instance.options.id}`);
+			}
+
 			instance.window = document.getElementById(`Msg-window-${instance.options.id}`);
+
+			if(options.enable_inner_x)
+			{
+				instance.window.insertAdjacentHTML("beforeend", inner_x_html);
+				instance.inner_x = document.getElementById(`Msg-inner-x-${instance.options.id}`);
+			}
 
 			instance.window.insertAdjacentHTML("beforeend", content_html);
 
@@ -315,6 +386,24 @@ var Msg = (function()
 					instance.close();
 				}
 			});	
+
+			if(instance.inner_x !== undefined)
+			{
+				instance.inner_x.addEventListener("click", function(e)
+				{
+					instance.close();
+					e.stopPropagation();
+				});	
+			}
+
+			if(instance.outer_x !== undefined)
+			{
+				instance.outer_x.addEventListener("click", function(e)
+				{
+					instance.close();
+					e.stopPropagation();
+				});	
+			}
 
 			instance.options.after_create(instance);
 		}
@@ -342,6 +431,8 @@ var Msg = (function()
 				instance.overlay = undefined;
 				instance.window = undefined;
 				instance.content = undefined;
+				instance.inner_x = undefined;
+				instance.outer_x = undefined;
 
 				instance.options.after_destroy(instance);		
 			}
@@ -390,6 +481,46 @@ var Msg = (function()
 			}
 
 			return num_open;
+		}
+
+		instance.show_all = function()
+		{
+			for(let i=0; i<instances.length; i++)
+			{
+				instances[i].show();
+			}
+		}
+
+		instance.close_all = function()
+		{
+			for(let i=0; i<instances.length; i++)
+			{
+				instances[i].close();
+			}
+		}
+
+		instance.create_all = function()
+		{
+			for(let i=0; i<instances.length; i++)
+			{
+				instances[i].create();
+			}			
+		}
+
+		instance.recreate_all = function()
+		{
+			for(let i=0; i<instances.length; i++)
+			{
+				instances[i].recreate();
+			}
+		}
+
+		instance.destroy_all = function()
+		{
+			for(let i=0; i<instances.length; i++)
+			{
+				instances[i].destroy();
+			}
 		}
 
 		instance.highest_zIndex = function()

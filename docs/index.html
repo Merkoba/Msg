@@ -8,7 +8,7 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
         
-        <script src='msg.js?v=22'></script>
+        <script src='msg.js?v=23'></script>
 
         <script>
 
@@ -17,12 +17,14 @@
             var msg2 = Msg(
             {
                 id: "foo",
-                class: "bar"
+                class: "bar",
             });
 
             var msg3 = Msg(
             {
-                id: "boom"
+                id: "boom",
+                enable_inner_x:false,
+                enable_outer_x:true
             });
 
             var msg4 = Msg(
@@ -50,7 +52,7 @@
 
             var s2 = "<div class='heading'>Bubbagum</div><br><img src='bubbagum.jpg'>";
 
-            var s3 = "<div class='btn' onclick='msg4.show(\"This window is on top. Click on the overlay to close this layer.\")'>Open Another Window</div>";
+            var s3 = "<div class='btn' onclick='msg4.show(\"This window is on top.\")'>Open Another Window</div>";
 
             var test1 = "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "</div>";
 
@@ -119,6 +121,18 @@
                 color: #e7e7e7 !important;
             }
 
+            .Msg-inner-x-dark
+            {
+                background-color: #242424 !important;
+                color: #e7e7e7 !important;
+            }
+
+            .Msg-outer-x-dark
+            {
+                background-color: #242424 !important;
+                color: #e7e7e7 !important;
+            }
+
             img 
             {
                 max-width: 100%;
@@ -161,7 +175,7 @@
         
         A javascript library that quickly enables modal windows with any html inside.<br><br>
         The window is centered and it grows or shrinks automatically by the content inside of it.<br><br>
-        To close the window just click on the overlay that is created around it, or press Escape.<br>
+        To close the window just click on the overlay that is created around it, or click on the x in the corner, or press Escape.<br>
         <br><br>
         To install just include the file:<br>
         <i><blockquote><pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
@@ -190,11 +204,18 @@
         "Msg-window-1" (with classes: "Msg-window" and "Msg-window-default")<br>
         "Msg-content-1" (with classes: "Msg-content" and "Msg-content-default")<br><br>
 
-        The structure looks likes this:
+        These other two elements are optional:<br><br>
+        "Msg-inner-x-1" (with classes: "Msg-inner-x" and "Msg-inner-x-default") (Created by default)<br>
+        "Msg-outer-x-1" (with classes: "Msg-outer-x" and "Msg-outer-x-default") (Not created by default)<br>
+
+        <br><br>The structure looks likes this:
 
         <blockquote><pre><code>[container]
-    [overlay][/overlay]
+    [overlay]
+        [outer-x][/outer-x] (Optional)
+    [/overlay]
     [window]
+        [inner-x][/inner-x] (Optional)
         [content][/content]
     [/window]
 [/container]
@@ -255,6 +276,8 @@ var msg2 = Msg(
         <i>overlay_class (Default: undefined)</i>: If this is defined, the Msg-overlay will use this instead of the class option.<br><br>
         <i>window_class (Default: undefined)</i>: If this is defined, the Msg-window will use this instead of the class option.<br><br>
         <i>content_class (Default: undefined)</i>: If this is defined, the Msg-content will use this instead of the class option.<br><br>
+        <i>inner_x_class (Default: undefined)</i>: If this is defined, the Msg-inner-x will use this instead of the class option.<br><br>
+        <i>outer_x_class (Default: undefined)</i>: If this is defined, the Msg-outer-x will use this instead of the class option.<br><br>
         <i>lock (Default: true)</i>: Prevents scrolling from propagating to the body. This is done through css by adding a class to the body temporarily.<br><br>
         <i>close_on_overlay_click (Default: true)</i>: Closes the window when the overlay is clicked.<br><br>
         <i>close_on_escape (Default: true)</i>: Closes the window when Escape is pressed.<br><br>
@@ -263,6 +286,10 @@ var msg2 = Msg(
         <i>temp_disable_delay (Default: 1000)</i>: The amount of time in milliseconds the window is temporarily unclosable since it's shown.<br><br>
         <i>autoclose (Default: false)</i>: Closes the window automatically after a certain amount of time.<br><br>
         <i>autoclose_delay (Default: 3000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
+        <i>enable_inner_x (Default: true)</i>: Makes an x, within the window, to close the window.<br><br>
+        <i>inner_x_position (Default: "right")</i>: The position of the inner x, either "left" or "right".<br><br>
+        <i>enable_outer_x (Default: false)</i>: Makes an x, within the overlay, to close the window.<br><br>
+        <i>outer_x_position (Default: "right")</i>: The position of the outer x, either "left" or "right".<br><br>
         <i>before_show (Default: Empty Function)</i>: Function that triggers before the show method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         <i>after_show (Default: Empty Function)</i>: Function that triggers after the show method. Receives the instance as an argument.<br><br>
         <i>before_set (Default: Empty Function)</i>: Function that triggers before the set method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
@@ -345,6 +372,11 @@ msg_test.show("Domo Arigato");
         <i>instance.to_top()</i>: Puts an already opened window at the top of the stack. This is done automatically by show(), but there might be cases where you want to do this without triggering the show events.<br><br>
         <i>instance.check_options()</i>: This is done automatically when creating an instance. It checks the options object and applies the corresponding defaults to undefined properties.<br><br>
         <i>instance.instances()</i>: Returns a list with the created instances.<br><br>
+        <i>instance.show_all()</i>: Opens all the windows.<br><br>
+        <i>instance.close_all()</i>: Closes all the windows.<br><br>
+        <i>instance.create_all()</i>: Creates the html elements of all the instances.<br><br>
+        <i>instance.recreate_all()</i>: Recreates all the html elements of all the instances.<br><br>
+        <i>instance.destroy_all()</i>: Removes all the html elements of all the instances.<br><br>
         
        <br> Note: It's advised not to modify the "display" or "z-index" css properties of the Msg html elements since they are handled internally.<br><br>
 
