@@ -1,4 +1,4 @@
-/* Msg v4.6.0 https://github.com/madprops/Msg */
+/* Msg v4.6.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -14,7 +14,8 @@ var Msg = (function()
 	{
 		var instance = {};
 
-		instance.close_disabled = false;
+		instance.close_enabled = true;
+		instance.click_enabled = true;
 
 		instance.options = options;
 
@@ -139,6 +140,16 @@ var Msg = (function()
 			{
 				instance.options.autoclose_delay = 3000;
 			}
+
+			if(instance.options.temp_disable_click === undefined)
+			{
+				instance.options.temp_disable_click = false;
+			}
+
+			if(instance.options.temp_disable_click_delay === undefined)
+			{
+				instance.options.temp_disable_click_delay = 1000;
+			}			
 		}
 
 		instance.check_options();
@@ -160,7 +171,7 @@ var Msg = (function()
 				return;
 			}
 
-			if(instance.close_disabled)
+			if(!instance.close_enabled)
 			{
 				return;
 			}
@@ -240,8 +251,14 @@ var Msg = (function()
 
 			if(options.temp_disable_close)
 			{
-				instance.close_disabled = true;
-				instance.temp_disable_timer();
+				instance.close_enabled = false;
+				instance.temp_disable_close_timer();
+			}
+
+			if(options.temp_disable_click)
+			{
+				instance.click_enabled = false;
+				instance.temp_disable_click_timer();
 			}
 
 			if(options.autoclose)
@@ -384,6 +401,20 @@ var Msg = (function()
 				if(instance.options.close_on_overlay_click)
 				{
 					instance.close();
+				}
+			});	
+
+			instance.content.addEventListener("mousedown", function(e)
+			{
+				if(!instance.click_enabled)
+				{
+					var captureClick = function(e) 
+					{
+						e.stopPropagation();
+						this.removeEventListener('click', captureClick, true);
+					}
+
+					instance.window.addEventListener('click', captureClick, true);
 				}
 			});	
 
@@ -603,7 +634,7 @@ var Msg = (function()
 			return instances;
 		}
 
-		instance.temp_disable_timer = (function()
+		instance.temp_disable_close_timer = (function()
 		{
 			var timer;
 			return function()
@@ -611,7 +642,7 @@ var Msg = (function()
 				clearTimeout(timer);
 				timer = setTimeout(function()
 				{
-					instance.close_disabled = false;
+					instance.close_enabled = true;
 				}, options.temp_disable_close_delay);
 			};
 		})();
@@ -628,6 +659,19 @@ var Msg = (function()
 				}, options.autoclose_delay);
 			};
 		})();
+
+		instance.temp_disable_click_timer = (function()
+		{
+			var timer;
+			return function()
+			{
+				clearTimeout(timer);
+				timer = setTimeout(function()
+				{
+					instance.click_enabled = true;
+				}, options.temp_disable_click_delay);
+			};
+		})();		
 
 		document.addEventListener("keyup", function(e)
 		{

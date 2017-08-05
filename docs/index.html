@@ -8,7 +8,7 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
         
-        <script src='msg.js?v=23'></script>
+        <script src='msg.js?v=24'></script>
 
         <script>
 
@@ -64,6 +64,36 @@
                 close_on_overlay_click:false
             });
 
+            var msg_delay = Msg(
+            {
+                temp_disable_close:true,
+                temp_disable_close_delay:3000,
+                after_show: function(instance)
+                {
+                    setTimeout(function()
+                    {
+                        instance.set("This has a 3 second delay before you can close it. Made to avoid closing the window by accident by misclicking. Default is 1 second.");
+                    }, 2500);
+                }
+            });
+
+            var msg_tst = Msg(
+            {
+                temp_disable_close: true,
+                temp_disable_click:true
+            });
+
+            var msg_dclick = Msg(
+            {
+                temp_disable_click:true,
+                temp_disable_click_delay:3000
+            });
+
+            var msg_edit = Msg(
+            {
+                clear_editables:true
+            });
+
             var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
 
             s += "<br><br><br><div class='heading'>Why do we use it?</div><br>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
@@ -77,6 +107,12 @@
             var s4 = "This message will autoclose.";
 
             var s5 = "Click the x in the corner outside the window to close this.";
+
+            var s6 = "Try to close the window.";
+
+            var s7 = "<div class='btn' onclick=\"alert(\'This deactivates click events inside the window for 3 seconds. Made to avoid clicking things by accident. Default is 1 second.\')\">Keep Clicking Me</div>";
+
+            var s8 = "When you focus the textarea and press escape it will clear it. Press escape again and it closes the window.<br><br><textarea id='texta' rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>";
 
             var test1 = "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "</div>";
 
@@ -170,6 +206,12 @@
                 font-size: 1.8em;
                 padding: 1em;
                 cursor: pointer;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;  
             }
 
             .Msg-overlay-blur
@@ -190,6 +232,12 @@
             .Msg-content-no-padding
             {
                 padding: 0 !important;
+            }
+
+            textarea
+            {
+                font-size: 1.2em;
+                width: 20em;
             }
 
         </style>
@@ -225,7 +273,11 @@
         <span class='clicky' onclick='msg.show(s)'>Demo 2</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg.show(s2)'>Demo 3</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg_autoclose.show(s4)'>Demo 4</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_ox.show(s5)'>Demo 5</span><br>
+        <br><br>
+        <span class='clicky' onclick='msg_ox.show(s5)'>Demo 5</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_delay.show(s6)'>Demo 6</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_dclick.show(s7)'>Demo 7</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick="msg_edit.show(s8);document.getElementById('texta').focus()">Demo 8</span><br>
 
         <br><h2>Structure</h2>
 
