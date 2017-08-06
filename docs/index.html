@@ -8,7 +8,7 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
         
-        <script src='msg.js?v=26'></script>
+        <script src='msg.js?v=27'></script>
 
         <script>
 
@@ -80,7 +80,15 @@
             var msg_tst = Msg(
             {
                 temp_disable_close: true,
-                temp_disable_click:true
+                temp_disable_click:true,
+                before_toggle:function(instance)
+                {
+                    console.log(instance.window.style.display);
+                },
+                after_toggle:function(instance)
+                {
+                    console.log(instance.window.style.display);
+                }
             });
 
             var msg_dclick = Msg(
@@ -404,11 +412,13 @@ var msg2 = Msg(
         <i>after_show (Default: Empty Function)</i>: Function that triggers after the show method. Receives the instance as an argument.<br><br>
         <i>before_set (Default: Empty Function)</i>: Function that triggers before the set method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         <i>after_set (Default: Empty Function)</i>: Function that triggers after the set method. Receives the instance as an argument.<br><br>
-        <i>before_close (Default: Empty Function)</i>: Function that triggers after the close method Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        <i>before_close (Default: Empty Function)</i>: Function that triggers before the close method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         <i>after_close (Default: Empty Function)</i>: Function that triggers after the close method. Receives the instance as an argument.<br><br>
-        <i>before_create (Default: Empty Function)</i>: Function that triggers after the create method Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        <i>before_toggle (Default: Empty Function)</i>: Function that triggers before the toggle method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        <i>after_toggle (Default: Empty Function)</i>: Function that triggers after the toggle method. Receives the instance as an argument.<br><br>
+        <i>before_create (Default: Empty Function)</i>: Function that triggers before the create method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         <i>after_create (Default: Empty Function)</i>: Function that triggers after the create method. Receives the instance as an argument.<br><br>
-        <i>before_destroy (Default: Empty Function)</i>: Function that triggers after the destroy method Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        <i>before_destroy (Default: Empty Function)</i>: Function that triggers before the destroy method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         <i>after_destroy (Default: Empty Function)</i>: Function that triggers after the destroy method. Receives the instance as an argument.<br><br>
 
         <br>Example:

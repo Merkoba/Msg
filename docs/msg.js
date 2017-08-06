@@ -1,4 +1,4 @@
-/* Msg v4.6.3 https://github.com/madprops/Msg */
+/* Msg v4.6.4 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -100,6 +100,16 @@ var Msg = (function()
 			if(instance.options.after_close === undefined)
 			{
 				instance.options.after_close = function(){};
+			}
+
+			if(instance.options.before_toggle === undefined)
+			{
+				instance.options.before_toggle = function(){};
+			}
+
+			if(instance.options.after_toggle === undefined)
+			{
+				instance.options.after_toggle = function(){};
 			}
 
 			if(instance.options.before_create === undefined)
@@ -288,7 +298,16 @@ var Msg = (function()
 
 		instance.toggle = function()
 		{
+			instance.create();
+
+			if(instance.options.before_toggle(instance) === false)
+			{
+				return;
+			}
+
 			instance.is_open() ? instance.close() : instance.show();
+
+			instance.options.after_toggle(instance);
 		}
 
 		instance.create = function()
