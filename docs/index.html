@@ -251,10 +251,21 @@
         <br><h1>Msg</h1>
         
         A javascript library to create and manage highly customizable modal windows.<br><br>
-        The window is centered and it grows or shrinks automatically by the content inside of it.<br><br>
-        To close the window just click on the overlay that is created around it, or click on the x in the corner, or press Escape.<br>
+        The window is centered and it grows or shrinks automatically by the content inside of it.
         <br><br>
-        To install just include the file:<br>
+        To close the window just click on the overlay that is created around it, or click on the x in the corner, or press Escape.
+
+        <br><br><br><span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 1</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg.show(s)'>Demo 2</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg.show(s2)'>Demo 3</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_autoclose.show(s4)'>Demo 4</span>&nbsp;&nbsp;&nbsp;
+        <br><br>
+        <span class='clicky' onclick='msg_ox.show(s5)'>Demo 5</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_delay.show(s6)'>Demo 6</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_dclick.show(s7)'>Demo 7</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick="msg_edit.show(s8);document.getElementById('texta').focus()">Demo 8</span>
+
+        <br><br><br>To install just include the file:<br>
         <i><blockquote><pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
 
         <br>Or the minified, smaller file:<br>
@@ -269,15 +280,6 @@
         <br>You can also pass an html element:<br>
         <i><blockquote><pre><code>msg.show(document.getElementById("some-element"));</code></pre></blockquote></i>
 
-        <br><span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 1</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg.show(s)'>Demo 2</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg.show(s2)'>Demo 3</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_autoclose.show(s4)'>Demo 4</span>&nbsp;&nbsp;&nbsp;
-        <br><br>
-        <span class='clicky' onclick='msg_ox.show(s5)'>Demo 5</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_delay.show(s6)'>Demo 6</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_dclick.show(s7)'>Demo 7</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick="msg_edit.show(s8);document.getElementById('texta').focus()">Demo 8</span><br>
 
         <br><h2>Structure</h2>
 
