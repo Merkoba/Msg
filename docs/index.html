@@ -108,6 +108,11 @@
                 temp_disable_keys_delay:3000
             });
 
+            var msg_cust = Msg(
+            {
+                class:"blue"
+            });
+
             var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
 
             s += "<br><br><br><div class='heading'>Why do we use it?</div><br>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
@@ -130,9 +135,7 @@
 
             var s9 = "Keep Pressing Enter";
 
-            var test1 = "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "</div>";
-
-            var test2 = "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "</div></div>";
+            var s10 = "This is a customized window.";
 
             document.addEventListener("keyup", function(e)
             {
@@ -172,7 +175,7 @@
             {
                 color: #be5959;
                 cursor: pointer;
-                user-select: none;
+             /   user-select: none;
             }
             
             a:visited, a:link, a:hover
@@ -268,6 +271,24 @@
                 width: 20em;
             }
 
+            .Msg-overlay-blue
+            {
+                background-color: rgba(136, 173, 148, 0.7) !important;
+                color: #e7e7e7 !important;
+            }
+
+            .Msg-content-blue
+            {
+                background-color: #4f84b8 !important;
+                color: #ffffff !important;
+            }
+
+            .Msg-inner-x-blue
+            {
+                background-color: #4f84b8 !important;
+                color: #ffffff !important;
+            }            
+
         </style>
 
     </head>
@@ -287,12 +308,13 @@
         <span class='clicky' onclick='msg.show(s)'>Demo 2</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg.show(s2)'>Demo 3</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg_autoclose.show(s4)'>Demo 4</span>&nbsp;&nbsp;&nbsp;
-        <br><br>
         <span class='clicky' onclick='msg_ox.show(s5)'>Demo 5</span>&nbsp;&nbsp;&nbsp;
+        <br><br>
         <span class='clicky' onclick='msg_delay.show(s6)'>Demo 6</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg_dclick.show(s7)'>Demo 7</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick="msg_edit.show(s8);document.getElementById('texta').focus()">Demo 8</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_dkeys.show(s9)'>Demo 9</span>
+        <span class='clicky' onclick='msg_dkeys.show(s9)'>Demo 9</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_cust.show(s10)'>Demo 10</span>
 
         <br><br><br>To install just include the file:<br>
         <i><blockquote><pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
