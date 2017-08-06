@@ -1,4 +1,4 @@
-/* Msg v4.6.5 https://github.com/madprops/Msg */
+/* Msg v4.6.6 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -343,7 +343,8 @@ var Msg = (function()
 			styles.window = `position:fixed;
 			left:50%;
 			top:50%;
-			max-height:80vh;
+			max-height:90vh;
+			max-width:100vw;
 			transform:translate(-50%, -50%);
 			overflow:auto;
 			overflow-x:hidden;
