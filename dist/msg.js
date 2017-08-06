@@ -1,4 +1,4 @@
-/* Msg v4.6.2 https://github.com/madprops/Msg */
+/* Msg v4.6.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -16,6 +16,7 @@ var Msg = (function()
 
 		instance.close_enabled = true;
 		instance.click_enabled = true;
+		instance.keys_enabled = true;
 
 		instance.options = options;
 
@@ -149,6 +150,16 @@ var Msg = (function()
 			if(instance.options.temp_disable_click_delay === undefined)
 			{
 				instance.options.temp_disable_click_delay = 1000;
+			}
+
+			if(instance.options.temp_disable_keys === undefined)
+			{
+				instance.options.temp_disable_keys = false;
+			}
+
+			if(instance.options.temp_disable_keys_delay === undefined)
+			{
+				instance.options.temp_disable_keys_delay = 1000;
 			}			
 		}
 
@@ -259,6 +270,12 @@ var Msg = (function()
 			{
 				instance.click_enabled = false;
 				instance.temp_disable_click_timer();
+			}
+
+			if(options.temp_disable_keys)
+			{
+				instance.keys_enabled = false;
+				instance.temp_disable_keys_timer();
 			}
 
 			if(options.autoclose)
@@ -647,6 +664,32 @@ var Msg = (function()
 			};
 		})();
 
+		instance.temp_disable_click_timer = (function()
+		{
+			var timer;
+			return function()
+			{
+				clearTimeout(timer);
+				timer = setTimeout(function()
+				{
+					instance.click_enabled = true;
+				}, options.temp_disable_click_delay);
+			};
+		})();
+
+		instance.temp_disable_keys_timer = (function()
+		{
+			var timer;
+			return function()
+			{
+				clearTimeout(timer);
+				timer = setTimeout(function()
+				{
+					instance.keys_enabled = true;
+				}, options.temp_disable_keys_delay);
+			};
+		})();
+
 		instance.autoclose_timer = (function()
 		{
 			var timer;
@@ -660,18 +703,22 @@ var Msg = (function()
 			};
 		})();
 
-		instance.temp_disable_click_timer = (function()
+		document.addEventListener("keydown", function(e)
 		{
-			var timer;
-			return function()
+			if(!instance.keys_enabled)
 			{
-				clearTimeout(timer);
-				timer = setTimeout(function()
+				if(instance.is_highest())
 				{
-					instance.click_enabled = true;
-				}, options.temp_disable_click_delay);
-			};
-		})();
+					var captureKey = function(e) 
+					{
+						e.stopPropagation();
+						this.removeEventListener('keyup', captureKey, true);
+					}
+
+					document.addEventListener('keyup', captureKey, true);
+				}
+			}
+		});		
 
 		document.addEventListener("keyup", function(e)
 		{

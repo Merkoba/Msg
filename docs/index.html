@@ -8,7 +8,7 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>         
         
-        <script src='msg.js?v=25'></script>
+        <script src='msg.js?v=26'></script>
 
         <script>
 
@@ -72,7 +72,7 @@
                 {
                     setTimeout(function()
                     {
-                        instance.set("This has a 3 second delay before you can close it. Made to avoid closing the window by accident by misclicking. Default for this option is 1 second.");
+                        instance.set("This had a 3 second delay before you could close it. Made to avoid closing the window by accident by misclicking. Default for this option is 1 second.");
                     }, 2500);
                 }
             });
@@ -94,6 +94,12 @@
                 clear_editables:true
             });
 
+            var msg_dkeys = Msg(
+            {
+                temp_disable_keys:true,
+                temp_disable_keys_delay:3000
+            });
+
             var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
 
             s += "<br><br><br><div class='heading'>Why do we use it?</div><br>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
@@ -110,13 +116,27 @@
 
             var s6 = "Try to close the window.";
 
-            var s7 = "<div class='btn' onclick=\"alert(\'This deactivates click events inside the window for 3 seconds. Made to avoid clicking things by accident. Default for this option is 1 second.\')\">Keep Clicking Me</div>";
+            var s7 = "<div class='btn' onclick=\"alert(\'This deactivated click events inside the window for 3 seconds. Made to avoid clicking things by accident. Default for this option is 1 second.\')\">Keep Clicking Me</div>";
 
             var s8 = "When you focus the textarea and press Escape it will clear it. Press Escape again and it closes the window. It also works on inputs type=text.<br><br><textarea id='texta' rows=5>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</textarea><br><br>";
 
+            var s9 = "Keep Pressing Enter";
+
             var test1 = "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "</div>";
 
-            var test2 = "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "</div></div>";            
+            var test2 = "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "<div style='height:500px; overflow:auto'>" + s + "<br><br><textarea rows=5>testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</textarea><br><br>" + s + "</div></div>";
+
+            document.addEventListener("keyup", function(e)
+            {
+                if(msg_dkeys.is_open())
+                {
+                    if(e.keyCode === 13)
+                    {
+                        console.log('Enter pressed.');
+                        alert("This deactivated key actions on the document for 3 seconds. Made to avoid typing/activating things by accident. Default for this option is 1 second.")
+                    }
+                }
+            });
 
         </script>
 
@@ -263,7 +283,8 @@
         <span class='clicky' onclick='msg_ox.show(s5)'>Demo 5</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg_delay.show(s6)'>Demo 6</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg_dclick.show(s7)'>Demo 7</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick="msg_edit.show(s8);document.getElementById('texta').focus()">Demo 8</span>
+        <span class='clicky' onclick="msg_edit.show(s8);document.getElementById('texta').focus()">Demo 8</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_dkeys.show(s9)'>Demo 9</span>
 
         <br><br><br>To install just include the file:<br>
         <i><blockquote><pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
@@ -371,6 +392,9 @@ var msg2 = Msg(
         <i>temp_disable_close_delay (Default: 1000)</i>: The amount of time in milliseconds the window is temporarily unclosable since it's shown.<br><br>
         <i>temp_disable_click (Default: false)</i>: Disables clicks inside the window temporarily.<br><br>
         <i>temp_disable_click_delay (Default: 1000)</i>: The amount of time in milliseconds clicks inside the window are disabled since it's shown.<br><br>
+        <i>temp_disable_keys (Default: false)</i>: Disables key input on the whole document temporarily.<br><br>
+        <i>temp_disable_keys_delay (Default: 1000)</i>: The amount of time in milliseconds keys will be disabled since the window is shown.<br><br>
+        <i>autoclose (Default: false)</i>: Closes the window automatically after a certain amount of time.<br><br>
         <i>autoclose (Default: false)</i>: Closes the window automatically after a certain amount of time.<br><br>
         <i>autoclose_delay (Default: 3000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
         <i>enable_inner_x (Default: true)</i>: Makes an x, within the window, to close the window.<br><br>
