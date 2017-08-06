@@ -18,6 +18,7 @@
             {
                 id: "foo",
                 class: "bar",
+                inner_x_class:"red"
             });
 
             var msg3 = Msg(
@@ -110,8 +111,11 @@
 
             var msg_cust = Msg(
             {
-                class:"blue"
+                class:"blue",
+                inner_x_class:"red"
             });
+
+            var sc = "There are options to give elements different ids and classes. Then it's a matter of customizing and reusing parts however you want."
 
             var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
 
@@ -193,12 +197,16 @@
             
             .Msg-overlay-bar
             {
-                background-color: rgba(0, 128, 0, 0.7) !important;
+                background-color: rgba(61, 157, 192, 0.7) !important;
             }
 
             #Msg-content-foo
             {
-                background-color: #a3a3ba !important;
+                background-color: #ffff62 !important;
+                padding: 4em !important;
+                line-height: 2em!important;
+                font-size: 1.4em !important;
+                font-family: cursive !important;
             }
 
             #Msg-content-boom
@@ -283,11 +291,21 @@
                 color: #ffffff !important;
             }
 
-            .Msg-inner-x-blue
+            .Msg-inner-x-red
             {
-                background-color: #4f84b8 !important;
+                background-color: #ca4e4e !important;
                 color: #ffffff !important;
-            }            
+            } 
+
+            .Msg-inner-x-red:hover
+            {
+                background-color: #a72b2b !important;
+            } 
+
+            #Msg-inner-x-foo
+            {
+                font-size:1.8em !important;
+            }           
 
         </style>
 
@@ -367,7 +385,7 @@
 
         To override the css you will probably need to use !important declarations.<br>
 
-        <br><span class='clicky' onclick='msg2.show(s)'>Customized Demo</span><br>
+        <br><span class='clicky' onclick='msg2.show(sc)'>Customized Demo</span><br>
 
         <i><blockquote><pre><code>Demo Code:
 
@@ -376,7 +394,8 @@
 var msg2 = Msg(
 {
     id: "foo",
-    class: "bar"
+    class: "bar",
+    inner_x_class:"red"
 });
 
 
@@ -384,13 +403,33 @@ var msg2 = Msg(
 
 .Msg-overlay-bar
 {
-    background-color: rgba(0, 128, 0, 0.7) !important;
+    background-color: rgba(61, 157, 192, 0.7) !important;
 }
 
 #Msg-content-foo
 {
-    background-color: #a3a3ba !important;
+    background-color: #ffff62 !important;
+    padding: 4em !important;
+    line-height: 2em!important;
+    font-size: 1.4em !important;
+    font-family: cursive !important;
 }
+
+.Msg-inner-x-red
+{
+    background-color: #ca4e4e !important;
+    color: #ffffff !important;
+}
+
+.Msg-inner-x-red:hover
+{
+    background-color: #a72b2b !important;
+} 
+
+#Msg-inner-x-foo
+{
+    font-size:1.8em !important;
+} 
         </code></pre></blockquote></i>      
 
         <br>The .show() or .set() functions can either receive a string, which would render any html inside of it, or an html element directly.<br><br>
