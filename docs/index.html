@@ -172,6 +172,12 @@
                 }
             });
 
+            function clicked(el)
+            {
+                console.log(el);
+                el.classList.add('clicked');
+            }
+
         </script>
 
         <style>
@@ -200,7 +206,7 @@
             {
                 color: #be5959;
                 cursor: pointer;
-             /   user-select: none;
+                user-select: none;
             }
             
             a:visited, a:link, a:hover
@@ -331,7 +337,12 @@
             #canv
             {
                 max-width: 100%;
-            }         
+            }
+
+            .clicked
+            {
+                color: #531111 !important;
+            }
 
         </style>
 
@@ -350,17 +361,17 @@
         <br><br>
         To close the window just click the overlay that is created around it, or click the x in the corner, or press Escape.
 
-        <br><br><br><span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 1</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg.show(s)'>Demo 2</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg.show(s2)'>Demo 3</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_autoclose.show(s4)'>Demo 4</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_ox.show(s5)'>Demo 5</span>&nbsp;&nbsp;&nbsp;
+        <br><br><br><span class='clicky' onclick='msg.show("This is a simple message.");clicked(this)'>Demo 1</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg.show(s);clicked(this)'>Demo 2</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg.show(s2);clicked(this)'>Demo 3</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_autoclose.show(s4);clicked(this)'>Demo 4</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_ox.show(s5);clicked(this)'>Demo 5</span>&nbsp;&nbsp;&nbsp;
         <br><br>
-        <span class='clicky' onclick='msg_delay.show(s6)'>Demo 6</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_dclick.show(s7)'>Demo 7</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick="msg_edit.show(s8);document.getElementById('texta').focus()">Demo 8</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_dkeys.show(s9)'>Demo 9</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_cust.show(s10)'>Demo 10</span>
+        <span class='clicky' onclick='msg_delay.show(s6);clicked(this)'>Demo 6</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_dclick.show(s7);clicked(this)'>Demo 7</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick="msg_edit.show(s8);document.getElementById('texta').focus();clicked(this)">Demo 8</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_dkeys.show(s9);clicked(this)'>Demo 9</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_cust.show(s10);clicked(this)'>Demo 10</span>
 
         <br><br><br>To install just include the file:<br>
         <i><blockquote><pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
@@ -413,7 +424,7 @@
 
         To override the css you will probably need to use !important declarations.<br>
 
-        <br><span class='clicky' onclick='msg2.show(sc)'>Customized Demo</span><br>
+        <br><span class='clicky' onclick='msg2.show(sc);clicked(this)'>Customized Demo</span><br>
 
         <i><blockquote><pre><code>Demo Code:
 
@@ -464,12 +475,12 @@ var msg2 = Msg(
 
         They change the html content of Msg-content elements.<br>
 
-        <br><span class='clicky' onclick='msg.show("<i>Hello</i> <b>World</b>")'>msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span><br>
-        <br><span class='clicky' onclick='msg.show(document.getElementsByTagName("h1")[0])'>msg.show(document.getElementsByTagName("h1")[0])</span><br><br>
+        <br><span class='clicky' onclick='msg.show("<i>Hello</i> <b>World</b>");clicked(this)'>msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span><br>
+        <br><span class='clicky' onclick='msg.show(document.getElementsByTagName("h1")[0]);clicked(this)'>msg.show(document.getElementsByTagName("h1")[0])</span><br><br>
 
         <br>The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
 
-        <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>
+        <br><span class='clicky' onclick='msg3.show(s3);clicked(this)'>Stack Demo</span><br>
 
         <br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
@@ -554,7 +565,7 @@ msg_test.show("Domo Arigato");
                 }
             });       
         </script>
-        <span class='clicky' onclick='msg_test.show("Domo Arigato")'>Test It</span><br><br>
+        <span class='clicky' onclick='msg_test.show("Domo Arigato");clicked(this)'>Test It</span><br><br>
 
         <h2>Properties</h2>
         <i>instance.container</i>: The Msg-container html element.<br><br>
@@ -591,7 +602,7 @@ msg_test.show("Domo Arigato");
 
         <br>
         
-        <span class='clicky' onclick='msg_toy.show(stoy)'>One Last Demo</span>
+        <span class='clicky' onclick='msg_toy.show(stoy);clicked(this)'>One Last Demo</span>
 
         <br><br><br><br>
         <br><br><br><br>
