@@ -1,11 +1,13 @@
-/* Msg v4.6.4 https://github.com/madprops/Msg */
+/* Msg v4.6.5 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
 	var instances = [];
 
 	var css = `<style>
-	.Msg-overflow-hidden{overflow:hidden};
+	.Msg-overflow-hidden{overflow:hidden}
+	.Msg-inner-x-default:hover{background-color: #cacaca}
+	.Msg-outer-x-default:hover{background-color: #424242}
 	</style>`;
 
 	document.querySelector("head").innerHTML += css;
@@ -350,6 +352,13 @@ var Msg = (function()
 			z-index:-1000;
 			display:none`;
 
+			styles.content = `color:black;
+			background-color:white;
+			font-size:23.8px;
+			font-family:sans-serif;
+			text-align:center;
+			padding:1.6em`;
+
 			styles.inner_x = `color:#363636;
 			float:${options.inner_x_position};
 			cursor:pointer;
@@ -383,13 +392,6 @@ var Msg = (function()
 			padding-right:0.6em;
 			padding-top:0.1em;
 			padding-bottom:0.2em;`;			
-
-			styles.content = `color:black;
-			background-color:white;
-			font-size:23.8px;
-			font-family:sans-serif;
-			text-align:center;
-			padding:1.6em`;
 
 			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
 			var overlay_class = (instance.options.overlay_class !== undefined) ? instance.options.overlay_class : instance.options.class;
