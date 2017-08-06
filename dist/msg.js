@@ -1,4 +1,4 @@
-/* Msg v4.6.1 https://github.com/madprops/Msg */
+/* Msg v4.6.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -671,7 +671,7 @@ var Msg = (function()
 					instance.click_enabled = true;
 				}, options.temp_disable_click_delay);
 			};
-		})();		
+		})();
 
 		document.addEventListener("keyup", function(e)
 		{
@@ -689,7 +689,13 @@ var Msg = (function()
 							{
 								if(el.value !== "")
 								{
-									el.value = "";
+									el.select();
+
+									if(!document.execCommand('insertText', false, ""))
+									{
+										el.value = "";
+									}
+
 									return;
 								}
 							}
