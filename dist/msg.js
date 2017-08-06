@@ -1,4 +1,4 @@
-/* Msg v4.6.7 https://github.com/madprops/Msg */
+/* Msg v4.6.8 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -375,7 +375,7 @@ var Msg = (function()
 			user-select: none;	
 			padding-left:0.6em;
 			padding-right:0.6em;
-			padding-top:0.05em;
+			padding-top:0.035em;
 			padding-bottom:0.2em;`;
 
 			styles.outer_x = `color:white;
@@ -391,7 +391,7 @@ var Msg = (function()
 			user-select: none;	
 			padding-left:0.6em;
 			padding-right:0.6em;
-			padding-top:0.05em;
+			padding-top:0.035em;
 			padding-bottom:0.2em;`;			
 
 			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
