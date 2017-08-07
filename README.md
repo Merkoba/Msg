@@ -22,12 +22,12 @@ npm install msg-modal
 ```
 
 ```html
-<script src="node_modules/dist/msg.js"></script>
+<script src="node_modules/msg-modal/dist/msg.js"></script>
 ```
 or 
 
 ```html
-<script src="node_modules/dist/msg.min.js"></script>
+<script src="node_modules/msg-modal/dist/msg.min.js"></script>
 ```
 
 [Demo and Documentation](https://madprops.github.io/Msg/)
