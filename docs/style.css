@@ -1,0 +1,159 @@
+body
+{
+    max-width: 80%;
+    font-family: sans-serif;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+h1
+{
+    letter-spacing: 0.2em;
+}
+
+h2
+{
+    letter-spacing: 0.2em;
+}            
+
+.clicky
+{
+    color: #be5959;
+    cursor: pointer;
+    user-select: none;
+}
+
+a:visited, a:link, a:hover
+{
+    color: #be5959;
+    text-decoration: none;
+}
+
+.heading
+{
+    font-size: 1.4em;
+    letter-spacing: 0.3em;
+    font-style: italic;
+}
+
+.Msg-overlay-bar
+{
+    background-color: rgba(61, 157, 192, 0.7) !important;
+}
+
+#Msg-content-foo
+{
+    background-color: #ffff62 !important;
+    padding: 4em !important;
+    line-height: 2em!important;
+    font-size: 1.4em !important;
+}
+
+#Msg-content-boom
+{
+    padding: 0 !important;
+}
+
+.Msg-content-dark
+{
+    background-color: #242424 !important;
+    color: #e7e7e7 !important;
+}
+
+.Msg-inner-x-dark
+{
+    background-color: #242424 !important;
+    color: #e7e7e7 !important;
+}
+
+.Msg-inner-x-dark:hover
+{
+    background-color: grey !important;
+}
+
+.Msg-outer-x-dark
+{
+    background-color: #242424 !important;
+    color: #e7e7e7 !important;
+}
+
+img 
+{
+    max-width: 100%;
+}
+
+.btn
+{
+    color: white;
+    background-color: orange;
+    border-color: orange;
+    font-size: 1.8em;
+    padding: 1em;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;  
+}
+
+.Msg-overlay-blur
+{
+    filter: blur(5em) !important;
+}
+
+input
+{
+    font-size: 1.2em;
+    padding: 0.4em;
+    text-align: center;
+    width: 14em;
+    border-width: 0.05em;
+    border-color: black;
+}
+
+.Msg-content-no-padding
+{
+    padding: 0 !important;
+}
+
+textarea
+{
+    font-size: 1.2em;
+    width: 20em;
+    border: 0.05em solid black;
+}
+
+.Msg-overlay-blue
+{
+    background-color: rgba(136, 173, 148, 0.7) !important;
+    color: #e7e7e7 !important;
+}
+
+.Msg-content-blue
+{
+    background-color: #4f84b8 !important;
+    color: #ffffff !important;
+}
+
+.Msg-inner-x-red
+{
+    background-color: #ca4e4e !important;
+    color: #ffffff !important;
+} 
+
+.Msg-inner-x-red:hover
+{
+    background-color: #a72b2b !important;
+} 
+
+#Msg-inner-x-foo
+{
+    font-size:1.8em !important;
+}
+
+#canv
+{
+    max-width: 100%;
+}
