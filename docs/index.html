@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=31'></script>
+        <script src='msg.js?v=32'></script>
 
-        <script src='base.js?v=2'></script>
+        <script src='base.js?v=3'></script>
 
     </head>
 
@@ -211,6 +211,14 @@ var msg2 = Msg(
         <i>enable_outer_x (Default: false)</i>: Makes an x, within the overlay, to close the window.<br><br>
         
         <i>outer_x_position (Default: "right")</i>: The position of the outer x, either "left" or "right".<br><br>
+
+        <i>fade_in (Default: true)</i>: Whether it has a fade-in effect when shown.<br><br>
+
+        <i>fade_in_duration (Default: 300)</i>: The amount of time in milliseconds it takes to complete the fade-in.<br><br>
+
+        <i>fade_out (Default: true)</i>: Whether it has a fade-out effect when closed.<br><br>
+
+        <i>fade_out_duration (Default: 300)</i>: The amount of time in milliseconds it takes to complete the fade-out.<br><br>
         
         <i>before_show (Default: Empty Function)</i>: Function that triggers before the show method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         
@@ -299,10 +307,28 @@ msg_test.show("Domo Arigato");
         <i>instance.show(html)</i>: Opens a window with the received string or html element as its content and puts it at the top of the stack.<br><br>
         
         <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set() and puts it at the top of the stack.<br><br>
+
+        Note: instance.show can receive a callback function argument which is returned at the end of the function. It returns after the after_show event. This is useful if you have fade_in enabled and you want to do something as soon as the window is fully open.<br><br>
+
+        For example:<br>
+        <i><blockquote><pre><code>msg.show("some text", function()
+{
+    console.log("Window is fully open.");
+});
+        </code></pre></blockquote></i>
         
-        <i>instance.set(html)</i>: Updates the html of the window without opening it.<br><br>
+        <i>instance.set(html)</i>: Updates the html of the window without opening it. This is useful if you want to prepare the content without showing the window or if you want to change the content of the window without triggering all the show events.<br><br>
         
         <i>instance.close()</i>: Closes the window.<br><br>
+
+        Note: instance.close can receive a callback function argument which is returned at the end of the function. It returns after the after_close event. This is useful if you have fade_out enabled and you want to do something as soon as the window is fully closed.<br><br>
+
+        For example:<br>
+        <i><blockquote><pre><code>msg.close(function()
+{
+    console.log("Window is fully closed.")
+});
+        </code></pre></blockquote></i>
         
         <i>instance.toggle()</i>: If the window is closed it opens it. If the window is open it closes it.<br><br>
         

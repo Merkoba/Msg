@@ -1,4 +1,4 @@
-/* Msg v4.6.9 https://github.com/madprops/Msg */
+/* Msg v4.7.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -177,6 +177,22 @@ var Msg = (function()
 			if(instance.options.persistent === undefined)
 			{
 				instance.options.persistent = true;
+			}
+			if(instance.options.fade_in === undefined)
+			{
+				instance.options.fade_in = true;
+			}
+			if(instance.options.fade_in_duration === undefined)
+			{
+				instance.options.fade_in_duration = 350;
+			}
+			if(instance.options.fade_out === undefined)
+			{
+				instance.options.fade_out = true;
+			}
+			if(instance.options.fade_out_duration === undefined)
+			{
+				instance.options.fade_out_duration = 350;
 			}			
 		}
 
@@ -192,7 +208,7 @@ var Msg = (function()
 			return true;
 		}
 
-		instance.close = function()
+		instance.close = function(callback=false)
 		{
 			if(!instance.is_open())
 			{
@@ -209,11 +225,26 @@ var Msg = (function()
 				return;
 			}
 
+			if(instance.options.fade_out)
+			{
+				instance.fade_out(callback);
+			}
+
+			else
+			{
+				instance.close_window(callback);
+			}
+		}
+
+		instance.close_window = function(callback)
+		{
 			instance.overlay.style.display = "none";
 			instance.window.style.display = "none";
 			
 			instance.overlay.style.zIndex = -1000;
 			instance.window.style.zIndex = -1000;
+			
+			instance.container.style.opacity = 0;
 
 			instance.check_remove_overflow_hidden();
 
@@ -223,6 +254,11 @@ var Msg = (function()
 			}
 
 			instance.options.after_close(instance);
+
+			if(callback)
+			{
+				return callback(instance);
+			}			
 		}
 
 		instance.set = function(html)
@@ -255,8 +291,14 @@ var Msg = (function()
 			instance.options.after_set(instance);			
 		}
 
-		instance.show = function(html)
+		instance.show = function(html, callback=false)
 		{
+			if(typeof html === "function")
+			{
+				callback = html;
+				html = undefined;
+			}
+
 			instance.create();
 
 			if(instance.options.before_show(instance) === false)
@@ -272,12 +314,22 @@ var Msg = (function()
 			if(!instance.is_open())
 			{	
 				instance.overlay.style.display = "block";
-				instance.window.style.display = "block";				
+				instance.window.style.display = "block";
 
 				instance.check_add_overflow_hidden();
 			}
 
 			instance.to_top();
+
+			if(instance.options.fade_in)
+			{
+				instance.fade_in(callback);					
+			}
+
+			else
+			{
+				instance.container.style.opacity = 1;
+			}
 
 			instance.window.scrollTop = 0;
 			instance.content.focus();
@@ -306,6 +358,14 @@ var Msg = (function()
 			}
 
 			instance.options.after_show(instance);
+
+			if(!instance.options.fade_in)
+			{
+				if(callback)
+				{
+					return callback(instance);
+				}
+			}
 		}
 
 		instance.toggle = function()
@@ -340,6 +400,8 @@ var Msg = (function()
 			}			
 
 			var styles = {};
+
+			styles.container = `opacity:0;`;
 
 			styles.overlay = `position:fixed;
 			top:0;
@@ -411,7 +473,7 @@ var Msg = (function()
 			var inner_x_class = (instance.options.inner_x_class !== undefined) ? instance.options.inner_x_class : instance.options.class;
 			var outer_x_class = (instance.options.outer_x_class !== undefined) ? instance.options.outer_x_class : instance.options.class;
 
-			var container_html =  `<div class="Msg-container Msg-container-${container_class}" id="Msg-container-${instance.options.id}"></div>`;
+			var container_html =  `<div class="Msg-container Msg-container-${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`;
 			var overlay_html = `<div class="Msg-overlay Msg-overlay-${overlay_class}"" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
 			var window_html = `<div class="Msg-window Msg-window-${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
 			var content_html = `<div class="Msg-content Msg-content-${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
@@ -734,6 +796,52 @@ var Msg = (function()
 				}, options.autoclose_delay);
 			};
 		})();
+
+		instance.fade_in = function(callback) 
+		{
+			clearInterval(instance.fade_in_interval);
+			clearInterval(instance.fade_out_interval);
+
+			instance.container.style.opacity = 0;
+
+			var speed = instance.options.fade_in_duration / 50;
+
+			instance.fade_in_interval = setInterval(function() 
+			{
+				instance.container.style.opacity = Number(instance.container.style.opacity) + 0.02;
+				
+				if (instance.container.style.opacity >= 1) 
+				{
+					clearInterval(instance.fade_in_interval);
+
+					if(callback)
+					{
+						return callback(instance);
+					}
+				}
+			}, speed);	
+		}
+
+		instance.fade_out = function(callback) 
+		{
+			clearInterval(instance.fade_in_interval);
+			clearInterval(instance.fade_out_interval);
+
+			instance.container.style.opacity = 1;
+
+			var speed = instance.options.fade_out_duration / 50;
+
+			instance.fade_out_interval = setInterval(function() 
+			{
+				instance.container.style.opacity = Number(instance.container.style.opacity) - 0.02;
+				
+				if(instance.container.style.opacity <= 0) 
+				{
+					clearInterval(instance.fade_out_interval);
+					instance.close_window(callback);
+				}
+			}, speed);	
+		}	
 
 		document.addEventListener("keydown", function(e)
 		{
