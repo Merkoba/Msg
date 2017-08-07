@@ -194,11 +194,6 @@ function run_symmetric_harmony()
           copyPasteImage(src, setImage);
       });
 
-      window.addEventListener('resize',function(){
-          c1.width = c2.width = w = src.naturalWidth || src.width;
-          c1.height = c2.height = h = src.naturalHeight || src.height;
-      });
-
       window.addEventListener('deviceorientation', function(e) {
           kx = opts.segmentSize * Math.sin(e.beta * Math.PI / 180);
           ky = opts.segmentSize * Math.sin(e.gamma * Math.PI / 90);
