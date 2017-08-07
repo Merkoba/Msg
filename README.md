@@ -1,4 +1,4 @@
-# MSg
+# Msg
 
 A javascript library to create and manage highly customizable modal windows.
 
