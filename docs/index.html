@@ -308,10 +308,10 @@ msg_test.show("Domo Arigato");
         
         <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set() and puts it at the top of the stack.<br><br>
 
-        Note: instance.show can receive a callback function argument which is returned at the end of the function. It returns after the after_show event. This is useful if you have fade_in enabled and you want to do something as soon as the window is fully open.<br><br>
+        Note: instance.show can receive a callback function argument which is returned at the end of the function with the instance as an argument. It returns after the after_show event. This is useful if you have fade_in enabled and you want to do something as soon as the window is fully open.<br><br>
 
         For example:<br>
-        <i><blockquote><pre><code>msg.show("some text", function()
+        <i><blockquote><pre><code>msg.show("some text", function(instance)
 {
     console.log("Window is fully open.");
 });
@@ -321,10 +321,10 @@ msg_test.show("Domo Arigato");
         
         <i>instance.close()</i>: Closes the window.<br><br>
 
-        Note: instance.close can receive a callback function argument which is returned at the end of the function. It returns after the after_close event. This is useful if you have fade_out enabled and you want to do something as soon as the window is fully closed.<br><br>
+        Note: instance.close can receive a callback function argument which is returned at the end of the function with the instance as an argument. It returns after the after_close event. This is useful if you have fade_out enabled and you want to do something as soon as the window is fully closed.<br><br>
 
         For example:<br>
-        <i><blockquote><pre><code>msg.close(function()
+        <i><blockquote><pre><code>msg.close(function(instance)
 {
     console.log("Window is fully closed.")
 });

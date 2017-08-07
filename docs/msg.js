@@ -178,18 +178,22 @@ var Msg = (function()
 			{
 				instance.options.persistent = true;
 			}
+
 			if(instance.options.fade_in === undefined)
 			{
 				instance.options.fade_in = true;
 			}
+
 			if(instance.options.fade_in_duration === undefined)
 			{
 				instance.options.fade_in_duration = 350;
 			}
+
 			if(instance.options.fade_out === undefined)
 			{
 				instance.options.fade_out = true;
 			}
+			
 			if(instance.options.fade_out_duration === undefined)
 			{
 				instance.options.fade_out_duration = 350;
