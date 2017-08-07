@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=30'></script>
+        <script src='msg.js?v=31'></script>
 
-        <script src='base.js?v=1'></script>
+        <script src='base.js?v=2'></script>
 
     </head>
 
@@ -161,41 +161,79 @@ var msg2 = Msg(
 
         <br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
+        
         <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo".<br><br>
+        
         <i>class (Default: "default")</i>: The class of the instance. For example, class:"bar".<br><br>
+        
         <i>container_class (Default: undefined)</i>: If this is defined, the Msg-container will use this instead of the class option.<br><br>
+        
         <i>overlay_class (Default: undefined)</i>: If this is defined, the Msg-overlay will use this instead of the class option.<br><br>
+        
         <i>window_class (Default: undefined)</i>: If this is defined, the Msg-window will use this instead of the class option.<br><br>
+        
         <i>content_class (Default: undefined)</i>: If this is defined, the Msg-content will use this instead of the class option.<br><br>
+        
         <i>inner_x_class (Default: undefined)</i>: If this is defined, the Msg-inner-x will use this instead of the class option.<br><br>
+        
         <i>outer_x_class (Default: undefined)</i>: If this is defined, the Msg-outer-x will use this instead of the class option.<br><br>
+        
         <i>lock (Default: true)</i>: Prevents scrolling from propagating to the body. This is done through css by adding a class to the body temporarily.<br><br>
+        
         <i>close_on_overlay_click (Default: true)</i>: Closes the window when the overlay is clicked.<br><br>
+        
         <i>close_on_escape (Default: true)</i>: Closes the window when Escape is pressed.<br><br>
+        
         <i>clear_editables (Default: false)</i>: When pressing Escape, it clears the text from an active input=text or textarea element, if it has a value. If it's empty and close_on_escape is true, it closes the window.<br><br>
+        
+        <i>persistent (Default: true)</i>: When true, it keeps the html elements in the dom when the window is closed. If false, it destroys the html elements on close.<br><br>
+        
         <i>temp_disable_close (Default: false)</i>: Makes it unable to close the window temporarily.<br><br>
+        
         <i>temp_disable_close_delay (Default: 1000)</i>: The amount of time in milliseconds the window is temporarily unclosable since it's shown.<br><br>
+        
         <i>temp_disable_click (Default: false)</i>: Disables clicks inside the window temporarily.<br><br>
+        
         <i>temp_disable_click_delay (Default: 1000)</i>: The amount of time in milliseconds clicks inside the window are disabled since it's shown.<br><br>
+        
         <i>temp_disable_keys (Default: false)</i>: Disables key input on the whole document temporarily.<br><br>
+        
         <i>temp_disable_keys_delay (Default: 1000)</i>: The amount of time in milliseconds keys will be disabled since the window is shown.<br><br>
+        
         <i>autoclose (Default: false)</i>: Closes the window automatically after a certain amount of time.<br><br>
+        
         <i>autoclose_delay (Default: 3000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
+        
         <i>enable_inner_x (Default: true)</i>: Makes an x, within the window, to close the window.<br><br>
+        
         <i>inner_x_position (Default: "right")</i>: The position of the inner x, either "left" or "right".<br><br>
+        
         <i>enable_outer_x (Default: false)</i>: Makes an x, within the overlay, to close the window.<br><br>
+        
         <i>outer_x_position (Default: "right")</i>: The position of the outer x, either "left" or "right".<br><br>
+        
         <i>before_show (Default: Empty Function)</i>: Function that triggers before the show method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        
         <i>after_show (Default: Empty Function)</i>: Function that triggers after the show method. Receives the instance as an argument.<br><br>
+        
         <i>before_set (Default: Empty Function)</i>: Function that triggers before the set method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        
         <i>after_set (Default: Empty Function)</i>: Function that triggers after the set method. Receives the instance as an argument.<br><br>
+        
         <i>before_close (Default: Empty Function)</i>: Function that triggers before the close method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        
         <i>after_close (Default: Empty Function)</i>: Function that triggers after the close method. Receives the instance as an argument.<br><br>
+        
         <i>before_toggle (Default: Empty Function)</i>: Function that triggers before the toggle method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        
         <i>after_toggle (Default: Empty Function)</i>: Function that triggers after the toggle method. Receives the instance as an argument.<br><br>
+        
         <i>before_create (Default: Empty Function)</i>: Function that triggers before the create method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        
         <i>after_create (Default: Empty Function)</i>: Function that triggers after the create method. Receives the instance as an argument.<br><br>
+        
         <i>before_destroy (Default: Empty Function)</i>: Function that triggers before the destroy method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        
         <i>after_destroy (Default: Empty Function)</i>: Function that triggers after the destroy method. Receives the instance as an argument.<br><br>
 
         <br>Example:
@@ -245,34 +283,61 @@ msg_test.show("Domo Arigato");
         <span class='clicky' onclick='msg_test.show("Domo Arigato")'>Test It</span><br><br>
 
         <h2>Properties</h2>
+        
         <i>instance.container</i>: The Msg-container html element.<br><br>
+        
         <i>instance.overlay</i>: The Msg-overlay html element.<br><br>
+        
         <i>instance.window</i>: The Msg-window html element.<br><br>
+        
         <i>instance.content</i>: The Msg-content html element.<br><br>
+        
         <i>instance.options</i>: The options object of the instance.<br>
 
         <br><h2>Methods</h2>
+        
         <i>instance.show(html)</i>: Opens a window with the received string or html element as its content and puts it at the top of the stack.<br><br>
+        
         <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set() and puts it at the top of the stack.<br><br>
+        
         <i>instance.set(html)</i>: Updates the html of the window without opening it.<br><br>
+        
         <i>instance.close()</i>: Closes the window.<br><br>
+        
         <i>instance.toggle()</i>: If the window is closed it opens it. If the window is open it closes it.<br><br>
+        
         <i>instance.html()</i>: A shortcut for instance.content.innerHTML. Returns "" if the html elements have not been created yet.<br><br>
+        
         <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
+        
         <i>instance.any_open()</i>: Returns true if any window with any id is open.<br><br>
+        
         <i>instance.num_open()</i>: Returns the number of windows open.<br><br>
+        
         <i>instance.create()</i>: Creates the html elements if they don't exist yet. This is done automatically on the first show() or set(), but there might be cases where you might want to create them first without showing anything.<br><br>
+        
         <i>instance.recreate()</i>: Removes the html elements from the dom and creates them again. This should be called after ids or classes are changed.<br><br>
+        
         <i>instance.destroy()</i>: Removes the html elements from the dom.<br><br>
+        
         <i>instance.highest_zIndex()</i>: Returns the highest z-index among all the created Msg-container elements. If it retuns -2000 it means no elements have been created.<br><br>
+        
         <i>instance.is_highest()</i>: Returns true if the window is visible and at the top of the stack.<br><br>
+        
         <i>instance.to_top()</i>: Puts an already opened window at the top of the stack. This is done automatically by show(), but there might be cases where you want to do this without triggering the show events.<br><br>
+        
         <i>instance.check_options()</i>: This is done automatically when creating an instance. It checks the options object and applies the corresponding defaults to undefined properties.<br><br>
+        
         <i>instance.instances()</i>: Returns a list with the created instances.<br><br>
+        
         <i>instance.show_all()</i>: Opens all the windows.<br><br>
+        
         <i>instance.close_all()</i>: Closes all the windows.<br><br>
+        
         <i>instance.create_all()</i>: Creates the html elements of all the instances.<br><br>
+        
         <i>instance.recreate_all()</i>: Recreates the html elements of all the instances.<br><br>
+        
         <i>instance.destroy_all()</i>: Removes the html elements of all the instances.<br><br>
         
        <br> Note: It's advised not to modify the "display" or "z-index" css properties of the Msg html elements since they are handled internally.<br><br>

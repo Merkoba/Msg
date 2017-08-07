@@ -1,4 +1,4 @@
-/* Msg v4.6.8 https://github.com/madprops/Msg */
+/* Msg v4.6.9 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -172,6 +172,11 @@ var Msg = (function()
 			if(instance.options.temp_disable_keys_delay === undefined)
 			{
 				instance.options.temp_disable_keys_delay = 1000;
+			}
+
+			if(instance.options.persistent === undefined)
+			{
+				instance.options.persistent = true;
 			}			
 		}
 
@@ -211,6 +216,11 @@ var Msg = (function()
 			instance.window.style.zIndex = -1000;
 
 			instance.check_remove_overflow_hidden();
+
+			if(!instance.options.persistent)
+			{
+				instance.destroy();
+			}
 
 			instance.options.after_close(instance);
 		}
