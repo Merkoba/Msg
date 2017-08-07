@@ -1,0 +1,31 @@
+{
+	"name": "msg-modal",
+	"version": "4.6.8",
+	"description": "Create and manage highly customizable modal windows.",
+	"repository": 
+	{
+		"type": "git",
+		"url": "git+https://github.com/madprops/Msg.git"
+	},
+	"files":
+	[
+		"dist/msg.js",
+		"dist/msg.min.js"
+	],
+	"keywords": 
+	[
+		"accessibility",
+		"modal",
+		"dialog",
+		"html",
+		"window",
+		"javascript"
+	],
+	"author": "madprops <mfmadprops@gmail.com>",
+	"license": "MIT",
+	"bugs": 
+	{
+		"url": "https://github.com/madprops/Msg/issues"
+	},
+	"homepage": "https://madprops.github.io/Msg/"
+}

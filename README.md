@@ -1,3 +1,3 @@
-[Demo and Documentation](https://madprops.github.io/Msg/)
+A javascript library to create and manage highly customizable modal windows.
 
-[Wiki](https://github.com/madprops/Msg/wiki)
+[Demo and Documentation](https://madprops.github.io/Msg/)
