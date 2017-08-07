@@ -6,9 +6,7 @@
 
         <meta name="keywords" content="javascript, library, modal, window, windows, open, source, mit">
 
-        <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>  
-
-        <link rel='stylesheet' href="github-ribbon.css?v=2">       
+        <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>        
         
         <script src='symmetric_harmony.js?v=2'></script>
         
@@ -370,7 +368,9 @@
 
         <br><br><h2>Installation</h2>
 
-        To install just include the file:<br>
+        <a href='https://github.com/madprops/Msg'>Get the code here</a>
+
+        <br><br>To install just include the file in /dist:<br>
         <i><blockquote><pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
 
         <br>Or the minified, smaller file:<br>
@@ -388,14 +388,15 @@
 
         <i><blockquote><pre><code>&lt;script src="node_modules/dist/msg.min.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
 
-        <br>To use, first make an instance:<br>
+        <br><h2>Basic Usage</h2>
+
+        To use, first make an instance:<br>
         <i><blockquote><pre><code>var msg = Msg();</code></pre></blockquote></i>
 
-        <br>To show a window just pass a string to the instance's show method:<br>
-        <i><blockquote><pre><code>msg.show("some string");</code></pre></blockquote></i>
+        <br>To show a window just pass a string or an html element to the show method:
 
-        <br>You can also pass an html element:<br>
-        <i><blockquote><pre><code>msg.show(document.getElementById("some-element"));</code></pre></blockquote></i>
+        <br><br><span class='clicky' onclick='msg.show("<i>Hello</i> <b>World</b>")'>msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span><br>
+        <br><span class='clicky' onclick='msg.show(document.getElementsByTagName("h1")[0])'>msg.show(document.getElementsByTagName("h1")[0])</span><br><br>
 
 
         <br><h2>Structure</h2>
@@ -479,14 +480,7 @@ var msg2 = Msg(
 } 
         </code></pre></blockquote></i>      
 
-        <br>The .show() or .set() functions can either receive a string, which would render any html inside of it, or an html element directly.<br><br>
-
-        They change the html content of Msg-content elements.<br>
-
-        <br><span class='clicky' onclick='msg.show("<i>Hello</i> <b>World</b>")'>msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span><br>
-        <br><span class='clicky' onclick='msg.show(document.getElementsByTagName("h1")[0])'>msg.show(document.getElementsByTagName("h1")[0])</span><br><br>
-
-        <br>The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
+        The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
 
         <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>
 
