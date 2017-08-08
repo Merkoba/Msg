@@ -557,10 +557,10 @@ var Msg = (function()
 					var captureClick = function(e) 
 					{
 						e.stopPropagation();
-						this.removeEventListener('click', captureClick, true);
+						this.removeEventListener("click", captureClick, true);
 					}
 
-					instance.window.addEventListener('click', captureClick, true);
+					instance.window.addEventListener("click", captureClick, true);
 				}
 			});	
 
@@ -887,10 +887,10 @@ var Msg = (function()
 					var captureKey = function(e) 
 					{
 						e.stopPropagation();
-						this.removeEventListener('keyup', captureKey, true);
+						this.removeEventListener("keyup", captureKey, true);
 					}
 
-					document.addEventListener('keyup', captureKey, true);
+					document.addEventListener("keyup", captureKey, true);
 				}
 			}
 		});		
@@ -913,7 +913,7 @@ var Msg = (function()
 								{
 									el.select();
 
-									if(!document.execCommand('insertText', false, ""))
+									if(!document.execCommand("insertText", false, ""))
 									{
 										el.value = "";
 									}
