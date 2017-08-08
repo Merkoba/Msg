@@ -130,13 +130,13 @@ var msg_blur = Msg(
 var msg_toy = Msg(
 {
     id:"toy",
+    persistent:false,
     after_show: function()
     {
         run_symmetric_harmony();
     },
     after_close: function(instance)
     {
-        instance.destroy();
         clearInterval(sym_interval);
     }
 });
