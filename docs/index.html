@@ -8,13 +8,13 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>  
               
-        <link rel='stylesheet' href="style.css?v=1">  
+        <link rel='stylesheet' href="style.css?v=2">  
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=33'></script>
+        <script src='msg.js?v=34'></script>
 
-        <script src='base.js?v=3'></script>
+        <script src='base.js?v=4'></script>
 
     </head>
 
@@ -71,8 +71,7 @@
         <br>To show a window just pass a string or an html element to the show method:
 
         <br><br><span class='clicky' onclick='msg.show("<i>Hello</i> <b>World</b>")'>msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span><br>
-        <br><span class='clicky' onclick='msg.show(document.getElementsByTagName("h1")[0])'>msg.show(document.getElementsByTagName("h1")[0])</span><br><br>
-
+        <br><span class='clicky' onclick='msg.show(document.getElementsByTagName("h1")[0])'>msg.show(document.getElementsByTagName("h1")[0])</span><br>
 
         <br><h2>Structure</h2>
 
@@ -102,6 +101,12 @@
         The instance id in this case is "1".<br><br>
 
         By default, ids are based on the number of instances created, they are incremental.<br><br>
+
+        The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
+
+        <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>        
+
+        <br><h2>Styling</h2>
 
         You can set custom ids and classes via options.<br><br>
 
@@ -153,13 +158,21 @@ var msg2 = Msg(
 {
     font-size: 1.8em !important;
 } 
-        </code></pre></blockquote></i>      
+        </code></pre></blockquote></i>  
 
-        The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
+        There are some pre-made classes:
 
-        <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>
+        <br><br>
 
-        <br><h2>Options</h2>
+        <span class='clicky' onclick='msg_red.show("This is the red theme.")'>class: "red"</span>&nbsp;&nbsp;&nbsp; 
+
+        <span class='clicky' onclick='msg_blue.show("This is the blue theme.")'>class: "blue"</span>&nbsp;&nbsp;&nbsp;  
+
+        <span class='clicky' onclick='msg_green.show("This is the green theme.")'>class: "green"</span>&nbsp;&nbsp;&nbsp; 
+        
+        <span class='clicky' onclick='msg_black.show("This is the black theme.")'>class: "black"</span><br><br>
+
+        <h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
         
         <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo".<br><br>
@@ -249,8 +262,7 @@ var msg2 = Msg(
         <i><blockquote><pre><code>var msg_test = Msg(
 {
     id: "test",
-    class: "dark",
-    overlay_class: "blur",
+    class: "black",
     after_show: function(instance)
     {
         instance.set(instance.html() + ", Mr. Roboto");
@@ -272,8 +284,7 @@ msg_test.show("Domo Arigato");
             var msg_test = Msg(
             {
                 id: "test",
-                class: "dark",
-                overlay_class: "blur",
+                class: "black",
                 after_show: function(instance)
                 {
                     instance.set(instance.html() + ", Mr. Roboto");

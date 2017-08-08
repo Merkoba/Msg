@@ -98,7 +98,33 @@ var msg_dkeys = Msg(
 var msg_cust = Msg(
 {
     class:"blue",
+    overlay_class:"green",
     inner_x_class:"red"
+});
+
+var msg_red = Msg(
+{
+    class:"red"
+});
+
+var msg_blue = Msg(
+{
+    class:"blue"
+});
+
+var msg_green = Msg(
+{
+    class:"green"
+});
+
+var msg_black = Msg(
+{
+    class:"black"
+});
+
+var msg_blur = Msg(
+{
+    overlay_class:"blur"
 });
 
 var msg_toy = Msg(

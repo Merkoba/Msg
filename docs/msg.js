@@ -1,4 +1,4 @@
-/* Msg v4.7.1 https://github.com/madprops/Msg */
+/* Msg v4.8.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -6,8 +6,29 @@ var Msg = (function()
 
 	var css = `<style>
 	.Msg-overflow-hidden{overflow:hidden}
-	.Msg-inner-x-default:hover{background-color: #cacaca}
-	.Msg-outer-x-default:hover{background-color: #424242}
+	
+	.Msg-inner-x-default:hover{background-color:#cacaca}
+	.Msg-outer-x-default:hover{background-color:#424242}
+	
+	.Msg-overlay-blue{background-color:rgba(101, 107, 124, 0.7) !important}
+	.Msg-content-blue{background-color:#4f84b8 !important;color:white !important}
+	.Msg-inner-x-blue{background-color:#4f84b8 !important;color:white !important}
+	.Msg-inner-x-blue:hover{background-color:#476b8f !important}
+	
+	.Msg-overlay-red{background-color:rgba(104, 64, 64, 0.7) !important}
+	.Msg-content-red{background-color:#ca4e4e !important;color:white !important}
+	.Msg-inner-x-red{background-color:#ca4e4e !important;color:white !important}
+	.Msg-inner-x-red:hover{background-color:#9d4d4d !important}
+	
+	.Msg-overlay-green{background-color:rgba(136, 173, 148, 0.7) !important}
+	.Msg-content-green{background-color:#58a564 !important;color:white !important}
+	.Msg-inner-x-green{background-color:#58a564 !important;color:white !important}
+	.Msg-inner-x-green:hover{background-color:#4e8456 !important}
+	
+	.Msg-overlay-black{background-color:rgba(0, 0, 0, 0.7) !important}
+	.Msg-content-black{background-color:#2a2a2a !important;color:white !important}
+	.Msg-inner-x-black{background-color:#2a2a2a !important;color:white !important}
+	.Msg-inner-x-black:hover{background-color:#424242 !important}
 	</style>`;
 
 	document.querySelector("head").innerHTML += css;
