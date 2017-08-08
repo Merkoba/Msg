@@ -1,4 +1,4 @@
-/* Msg v4.8.1 https://github.com/madprops/Msg */
+/* Msg v4.8.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -507,13 +507,20 @@ var Msg = (function()
 			var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class;
 			var inner_x_class = (instance.options.inner_x_class !== undefined) ? instance.options.inner_x_class : instance.options.class;
 			var outer_x_class = (instance.options.outer_x_class !== undefined) ? instance.options.outer_x_class : instance.options.class;
+			
+			container_class = container_class.split(/\s+/).map(w => `Msg-container-${w}`).join(' ');
+			overlay_class = overlay_class.split(/\s+/).map(w => `Msg-overlay-${w}`).join(' ');
+			window_class = window_class.split(/\s+/).map(w => `Msg-window-${w}`).join(' ');
+			content_class = content_class.split(/\s+/).map(w => `Msg-content-${w}`).join(' ');
+			inner_x_class = inner_x_class.split(/\s+/).map(w => `Msg-inner-x-${w}`).join(' ');
+			outer_x_class = outer_x_class.split(/\s+/).map(w => `Msg-outer-x-${w}`).join(' ');
 
-			var container_html =  `<div class="Msg-container Msg-container-${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`;
-			var overlay_html = `<div class="Msg-overlay Msg-overlay-${overlay_class}"" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
-			var window_html = `<div class="Msg-window Msg-window-${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
-			var content_html = `<div class="Msg-content Msg-content-${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
-			var inner_x_html = `<div class="Msg-inner-x Msg-inner-x-${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
-			var outer_x_html = `<div class="Msg-outer-x Msg-outer-x-${outer_x_class}" style="${styles.outer_x}" id="Msg-outer-x-${instance.options.id }">x</div>`;
+			var container_html =  `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`;
+			var overlay_html = `<div class="Msg-overlay ${overlay_class}"" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
+			var window_html = `<div class="Msg-window ${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
+			var content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
+			var inner_x_html = `<div class="Msg-inner-x ${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
+			var outer_x_html = `<div class="Msg-outer-x ${outer_x_class}" style="${styles.outer_x}" id="Msg-outer-x-${instance.options.id }">x</div>`;
 
 			document.body.insertAdjacentHTML("beforeend", container_html);
 
