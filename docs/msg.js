@@ -516,7 +516,7 @@ var Msg = (function()
 			outer_x_class = outer_x_class.split(/\s+/).map(w => `Msg-outer-x-${w}`).join(' ');
 
 			var container_html =  `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`;
-			var overlay_html = `<div class="Msg-overlay ${overlay_class}"" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
+			var overlay_html = `<div class="Msg-overlay ${overlay_class}" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
 			var window_html = `<div class="Msg-window ${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
 			var content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
 			var inner_x_html = `<div class="Msg-inner-x ${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
