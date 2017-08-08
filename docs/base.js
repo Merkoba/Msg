@@ -102,29 +102,34 @@ var msg_cust = Msg(
     inner_x_class:"red"
 });
 
+var msg_default = Msg(
+{
+    class:"default",
+    enable_outer_x:true
+});
+
 var msg_red = Msg(
 {
-    class:"red"
+    class:"red",
+    enable_outer_x:true
 });
 
 var msg_blue = Msg(
 {
-    class:"blue"
+    class:"blue",
+    enable_outer_x:true
 });
 
 var msg_green = Msg(
 {
-    class:"green"
+    class:"green",
+    enable_outer_x:true
 });
 
 var msg_black = Msg(
 {
-    class:"black"
-});
-
-var msg_blur = Msg(
-{
-    overlay_class:"blur"
+    class:"black",
+    enable_outer_x:true
 });
 
 var msg_toy = Msg(

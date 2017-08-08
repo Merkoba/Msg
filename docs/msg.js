@@ -1,34 +1,48 @@
-/* Msg v4.8.0 https://github.com/madprops/Msg */
+/* Msg v4.8.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
 	var instances = [];
 
 	var css = `<style>
+
 	.Msg-overflow-hidden{overflow:hidden}
 	
+	.Msg-overlay-default{background-color:rgba(0, 0, 0, 0.7)}
+	.Msg-content-default{background-color:white;color:black}
+	.Msg-inner-x-default{background-color:white;color:#363636}
 	.Msg-inner-x-default:hover{background-color:#cacaca}
-	.Msg-outer-x-default:hover{background-color:#424242}
+	.Msg-outer-x-default{color:white}
+	.Msg-outer-x-default:hover{background-color:#686868}		
+
+	.Msg-overlay-blue{background-color:rgba(101, 107, 124, 0.7)}
+	.Msg-content-blue{background-color:#4f84b8;color:white}
+	.Msg-inner-x-blue{background-color:#4f84b8;color:white}
+	.Msg-inner-x-blue:hover{background-color:#476b8f}
+	.Msg-outer-x-blue{color:white}
+	.Msg-outer-x-blue:hover{background-color:#747484}	
 	
-	.Msg-overlay-blue{background-color:rgba(101, 107, 124, 0.7) !important}
-	.Msg-content-blue{background-color:#4f84b8 !important;color:white !important}
-	.Msg-inner-x-blue{background-color:#4f84b8 !important;color:white !important}
-	.Msg-inner-x-blue:hover{background-color:#476b8f !important}
+	.Msg-overlay-red{background-color:rgba(104, 64, 64, 0.7)}
+	.Msg-content-red{background-color:#ca4e4e;color:white}
+	.Msg-inner-x-red{background-color:#ca4e4e;color:white}
+	.Msg-inner-x-red:hover{background-color:#9d4d4d}
+	.Msg-outer-x-red{color:white}
+	.Msg-outer-x-red:hover{background-color:#805e5e}	
 	
-	.Msg-overlay-red{background-color:rgba(104, 64, 64, 0.7) !important}
-	.Msg-content-red{background-color:#ca4e4e !important;color:white !important}
-	.Msg-inner-x-red{background-color:#ca4e4e !important;color:white !important}
-	.Msg-inner-x-red:hover{background-color:#9d4d4d !important}
+	.Msg-overlay-green{background-color:rgba(121, 159, 133, 0.7)}
+	.Msg-content-green{background-color:#58a564;color:white}
+	.Msg-inner-x-green{background-color:#58a564;color:white}
+	.Msg-inner-x-green:hover{background-color:#4e8456}
+	.Msg-outer-x-green{color:white}
+	.Msg-outer-x-green:hover{background-color:#7c957c}	
 	
-	.Msg-overlay-green{background-color:rgba(136, 173, 148, 0.7) !important}
-	.Msg-content-green{background-color:#58a564 !important;color:white !important}
-	.Msg-inner-x-green{background-color:#58a564 !important;color:white !important}
-	.Msg-inner-x-green:hover{background-color:#4e8456 !important}
-	
-	.Msg-overlay-black{background-color:rgba(0, 0, 0, 0.7) !important}
-	.Msg-content-black{background-color:#2a2a2a !important;color:white !important}
-	.Msg-inner-x-black{background-color:#2a2a2a !important;color:white !important}
-	.Msg-inner-x-black:hover{background-color:#424242 !important}
+	.Msg-overlay-black{background-color:rgba(0, 0, 0, 0.7)}
+	.Msg-content-black{background-color:#2a2a2a;color:white}
+	.Msg-inner-x-black{background-color:#2a2a2a;color:white}
+	.Msg-inner-x-black:hover{background-color:#424242}
+	.Msg-outer-x-black{color:white}
+	.Msg-outer-x-black:hover{background-color:#686868}
+
 	</style>`;
 
 	document.querySelector("head").innerHTML += css;
@@ -433,7 +447,6 @@ var Msg = (function()
 			left:0;
 			height:100%;
 			width:100%;
-			background-color:rgba(0, 0, 0, 0.7);
 			z-index:-1000;
 			display:none;`;
 
@@ -450,17 +463,14 @@ var Msg = (function()
 			z-index:-1000;
 			display:none`;
 
-			styles.content = `color:black;
-			background-color:white;
-			font-size:23.8px;
+			styles.content = `font-size:23.8px;
 			font-family:sans-serif;
 			text-align:center;
 			overflow-wrap: break-word;
 			padding:1.6em`;
 
-			styles.inner_x = `color:#363636;
+			styles.inner_x = `cursor:pointer;
 			float:${options.inner_x_position};
-			cursor:pointer;
 			font-size:23.8px;
 			font-family:sans-serif;
 			position:sticky;
@@ -476,9 +486,8 @@ var Msg = (function()
 			padding-top:0.035em;
 			padding-bottom:0.2em;`;
 
-			styles.outer_x = `color:white;
+			styles.outer_x = `cursor:pointer;
 			float:${options.outer_x_position};
-			cursor:pointer;
 			font-size:28px;
 			font-family:sans-serif;
 			-webkit-touch-callout: none;
