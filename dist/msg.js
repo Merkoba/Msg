@@ -1,4 +1,4 @@
-/* Msg v4.7.0 https://github.com/madprops/Msg */
+/* Msg v4.7.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -193,7 +193,7 @@ var Msg = (function()
 			{
 				instance.options.fade_out = true;
 			}
-			
+
 			if(instance.options.fade_out_duration === undefined)
 			{
 				instance.options.fade_out_duration = 350;
@@ -434,6 +434,7 @@ var Msg = (function()
 			font-size:23.8px;
 			font-family:sans-serif;
 			text-align:center;
+			overflow-wrap: break-word;
 			padding:1.6em`;
 
 			styles.inner_x = `color:#363636;
