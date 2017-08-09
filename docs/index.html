@@ -340,7 +340,7 @@ msg_test.show("Domo Arigato");
         
         <i>instance.set(html)</i>: Updates the html of the window without opening it. This is useful if you want to prepare the content without showing the window or if you want to change the content of the window without triggering the show events.<br><br>
         
-        <i>instance.set_or_show(html)</i>: If the window is open, it changes the html content by calling set(). If the window is closed, it opens the window and shows the html content by calling show().<br><br>
+        <i>instance.set_or_show(html)</i>: If the window is open and on top of the stack, it changes the html content by calling set(). If the window is closed or not in the stop of the stack, it opens the window and shows the html content by calling show().<br><br>
         
         <i>instance.close()</i>: Closes the window.<br><br>
 
