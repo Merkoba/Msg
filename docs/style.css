@@ -97,12 +97,12 @@ textarea
     border: 0.05em solid black;
 }
 
-#Msg-inner-x-foo
-{
-    font-size:1.8em !important;
-}
-
 #canv
 {
     max-width: 100%;
 }
+
+.big
+{
+    font-size: 1.8em !important;
+} 

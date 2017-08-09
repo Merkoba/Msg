@@ -4,7 +4,7 @@ var msg2 = Msg(
 {
     id: "foo",
     class: "bar",
-    inner_x_class:"red"
+    inner_x_class:"red !big"
 });
 
 var msg3 = Msg(
