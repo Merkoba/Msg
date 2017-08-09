@@ -1,4 +1,4 @@
-/* Msg v4.9.1 https://github.com/madprops/Msg */
+/* Msg v4.9.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -264,6 +264,8 @@ var Msg = (function()
 				return;
 			}
 
+			instance.clear_fade_intervals();
+
 			if(instance.options.fade_out)
 			{
 				instance.fade_out(callback);
@@ -349,6 +351,8 @@ var Msg = (function()
 			{
 				return;
 			}
+
+			instance.clear_fade_intervals();
 
 			if(html !== undefined)
 			{
@@ -844,11 +848,14 @@ var Msg = (function()
 			};
 		})();
 
-		instance.fade_in = function(callback) 
+		instance.clear_fade_intervals = function()
 		{
 			clearInterval(instance.fade_in_interval);
 			clearInterval(instance.fade_out_interval);
+		}
 
+		instance.fade_in = function(callback) 
+		{
 			instance.container.style.opacity = 0;
 
 			var speed = instance.options.fade_in_duration / 50;
@@ -871,9 +878,6 @@ var Msg = (function()
 
 		instance.fade_out = function(callback) 
 		{
-			clearInterval(instance.fade_in_interval);
-			clearInterval(instance.fade_out_interval);
-
 			instance.container.style.opacity = 1;
 
 			var speed = instance.options.fade_out_duration / 50;
