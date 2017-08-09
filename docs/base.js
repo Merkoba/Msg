@@ -165,6 +165,20 @@ var msg_nf = Msg(
     fade_out:false
 });
 
+var msg_nfi = Msg(
+{
+    fade_in:false,
+    fade_out:true,
+    fade_out_duration:3000
+});
+
+var msg_nfo = Msg(
+{
+    fade_in:true,
+    fade_out:false,
+    fade_in_duration:3000
+});
+
 var msg_lf = Msg(
 {
     fade_in_duration:1000,

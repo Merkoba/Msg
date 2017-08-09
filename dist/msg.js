@@ -1,4 +1,4 @@
-/* Msg v4.9.2 https://github.com/madprops/Msg */
+/* Msg v4.9.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -284,7 +284,7 @@ var Msg = (function()
 			
 			instance.overlay.style.zIndex = -1000;
 			instance.window.style.zIndex = -1000;
-			
+
 			instance.container.style.opacity = 0;
 
 			instance.check_remove_overflow_hidden();
@@ -856,15 +856,13 @@ var Msg = (function()
 
 		instance.fade_in = function(callback) 
 		{
-			instance.container.style.opacity = 0;
-
 			var speed = instance.options.fade_in_duration / 50;
 
 			instance.fade_in_interval = setInterval(function() 
 			{
 				instance.container.style.opacity = Number(instance.container.style.opacity) + 0.02;
 				
-				if (instance.container.style.opacity >= 1) 
+				if(instance.container.style.opacity >= 1) 
 				{
 					clearInterval(instance.fade_in_interval);
 
@@ -878,8 +876,6 @@ var Msg = (function()
 
 		instance.fade_out = function(callback) 
 		{
-			instance.container.style.opacity = 1;
-
 			var speed = instance.options.fade_out_duration / 50;
 
 			instance.fade_out_interval = setInterval(function() 
