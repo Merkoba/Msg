@@ -41,16 +41,19 @@ a:visited, a:link, a:hover
     font-style: italic;
 }
 
-.Msg-overlay-bar
+#Msg-overlay-foo
 {
     background-color: rgba(61, 157, 192, 0.7) !important;
 }
 
-#Msg-content-foo
+.Msg-window-bar
 {
     background-color: #ffff62 !important;
-    padding: 4em !important;
-    line-height: 2em!important;
+}
+
+.Msg-content-bar
+{
+    line-height: 2em !important;
     font-size: 1.4em !important;
 }
 

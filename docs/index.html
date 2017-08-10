@@ -80,24 +80,30 @@
         <br><h2>Structure</h2>
 
         Four elements are created with the following ids:<br><br>
-        "Msg-container-1" (with classes: "Msg-container" and "Msg-container-default")<br>
-        "Msg-overlay-1" (with classes: "Msg-overlay" and "Msg-overlay-default")<br>
-        "Msg-window-1" (with classes: "Msg-window" and "Msg-window-default")<br>
-        "Msg-content-1" (with classes: "Msg-content" and "Msg-content-default")<br><br>
+        "Msg-container-id" (with classes: "Msg-container" and "Msg-container-default")<br>
+        "Msg-overlay-id" (with classes: "Msg-overlay" and "Msg-overlay-default")<br>
+        "Msg-window-id" (with classes: "Msg-window" and "Msg-window-default")<br>
+        "Msg-content-container-id" (with classes: "Msg-content-container" and "Msg-content-container-default")<br>
+        "Msg-content-id" (with classes: "Msg-content" and "Msg-content-default")<br><br>
 
-        These other two elements are optional:<br><br>
-        "Msg-inner-x-1" (with classes: "Msg-inner-x" and "Msg-inner-x-default") (Created by default)<br>
-        "Msg-outer-x-1" (with classes: "Msg-outer-x" and "Msg-outer-x-default") (Not created by default)<br>
+        These elements are optional:<br><br>
+        "Msg-inner-x-id" (with classes: "Msg-inner-x" and "Msg-inner-x-default") (Created by default)<br>
+        "Msg-topbar-id" (with classes: "Msg-topbar" and "Msg-topbar-default") (Created if Msg-inner-x is enabled)<br>
+        "Msg-outer-x-id" (with classes: "Msg-outer-x" and "Msg-outer-x-default") (Not created by default)<br>
 
-        <br><br>The structure looks likes this:
+        <br><br>The structure looks like this:
 
         <blockquote><pre><code>[container]
     [overlay]
         [outer-x][/outer-x] (Optional)
     [/overlay]
     [window]
-        [inner-x][/inner-x] (Optional)
-        [content][/content]
+        [topbar]
+            [inner-x][/inner-x] (Optional)
+        [/topbar]
+        [content-container]
+            [content][/content]
+        [/content-container]
     [/window]
 [/container]
         </code></pre></blockquote>
@@ -138,16 +144,19 @@ var msg2 = Msg(
 
 //css
 
-.Msg-overlay-bar
+#Msg-overlay-foo
 {
     background-color: rgba(61, 157, 192, 0.7) !important;
 }
 
-#Msg-content-foo
+.Msg-window-bar
 {
     background-color: #ffff62 !important;
-    padding: 4em !important;
-    line-height: 2em!important;
+}
+
+.Msg-content-bar
+{
+    line-height: 2em !important;
     font-size: 1.4em !important;
 }
 
@@ -171,8 +180,6 @@ var msg2 = Msg(
         There are some pre-made classes:
 
         <br><br>
-
-        <span class='clicky' onclick='msg_default.show("This is the default theme.")'>class: "default"</span>&nbsp;&nbsp;&nbsp;
 
         <span class='clicky' onclick='msg_red.show("This is the red theme.")'>class: "red"</span>&nbsp;&nbsp;&nbsp; 
 
@@ -273,6 +280,7 @@ var msg2 = Msg(
 {
     id: "test",
     class: "black",
+    inner_x_position: "left",    
     after_show: function(instance)
     {
         instance.set(instance.html() + ", Mr. Roboto");
@@ -295,6 +303,7 @@ msg_test.show("Domo Arigato");
             {
                 id: "test",
                 class: "black",
+                inner_x_position: "left",
                 after_show: function(instance)
                 {
                     instance.set(instance.html() + ", Mr. Roboto");

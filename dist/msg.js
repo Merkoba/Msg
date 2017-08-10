@@ -1,4 +1,4 @@
-/* Msg v4.9.3 https://github.com/madprops/Msg */
+/* Msg v5.0.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -8,36 +8,36 @@ var Msg = (function()
 
 	.Msg-overflow-hidden{overflow:hidden}
 	
-	.Msg-overlay-default{background-color:rgba(0, 0, 0, 0.7)}
-	.Msg-content-default{background-color:white;color:black}
-	.Msg-inner-x-default{background-color:white;color:#363636}
-	.Msg-inner-x-default:hover{background-color:#cacaca}
-	.Msg-outer-x-default{color:white}
-	.Msg-outer-x-default:hover{background-color:#686868}		
+	.Msg-overlay{background-color:rgba(0, 0, 0, 0.7)}
+	.Msg-window{background-color:white;color:black}
+	.Msg-inner-x{background-color:white;color:#363636}
+	.Msg-inner-x:hover{background-color:#cacaca}
+	.Msg-outer-x{color:white}
+	.Msg-outer-x:hover{background-color:#686868}		
 
 	.Msg-overlay-blue{background-color:rgba(101, 107, 124, 0.7)}
-	.Msg-content-blue{background-color:#4f84b8;color:white}
+	.Msg-window-blue{background-color:#4f84b8;color:white}
 	.Msg-inner-x-blue{background-color:#4f84b8;color:white}
 	.Msg-inner-x-blue:hover{background-color:#476b8f}
 	.Msg-outer-x-blue{color:white}
 	.Msg-outer-x-blue:hover{background-color:#747484}	
 	
 	.Msg-overlay-red{background-color:rgba(104, 64, 64, 0.7)}
-	.Msg-content-red{background-color:#ca4e4e;color:white}
+	.Msg-window-red{background-color:#ca4e4e;color:white}
 	.Msg-inner-x-red{background-color:#ca4e4e;color:white}
 	.Msg-inner-x-red:hover{background-color:#9d4d4d}
 	.Msg-outer-x-red{color:white}
 	.Msg-outer-x-red:hover{background-color:#805e5e}	
 	
 	.Msg-overlay-green{background-color:rgba(121, 159, 133, 0.7)}
-	.Msg-content-green{background-color:#58a564;color:white}
+	.Msg-window-green{background-color:#58a564;color:white}
 	.Msg-inner-x-green{background-color:#58a564;color:white}
 	.Msg-inner-x-green:hover{background-color:#4e8456}
 	.Msg-outer-x-green{color:white}
 	.Msg-outer-x-green:hover{background-color:#7c957c}	
 	
 	.Msg-overlay-black{background-color:rgba(0, 0, 0, 0.7)}
-	.Msg-content-black{background-color:#2a2a2a;color:white}
+	.Msg-window-black{background-color:#2a2a2a;color:white}
 	.Msg-inner-x-black{background-color:#2a2a2a;color:white}
 	.Msg-inner-x-black:hover{background-color:#424242}
 	.Msg-outer-x-black{color:white}
@@ -279,8 +279,7 @@ var Msg = (function()
 
 		instance.close_window = function(callback)
 		{
-			instance.overlay.style.display = "none";
-			instance.window.style.display = "none";
+			instance.container.style.display = "none";
 			
 			instance.overlay.style.zIndex = -1000;
 			instance.window.style.zIndex = -1000;
@@ -361,9 +360,7 @@ var Msg = (function()
 
 			if(!instance.is_open())
 			{	
-				instance.overlay.style.display = "block";
-				instance.window.style.display = "block";
-
+				instance.container.style.display = "block";
 				instance.check_add_overflow_hidden();
 			}
 
@@ -449,70 +446,105 @@ var Msg = (function()
 
 			var styles = {};
 
-			styles.container = `opacity:0;`;
+			styles.container = `
+			display:none;
+			opacity:0;
+			`;
 
-			styles.overlay = `position:fixed;
+			styles.overlay = `
+			position:fixed;
 			top:0;
 			left:0;
 			height:100%;
 			width:100%;
 			z-index:-1000;
-			display:none;`;
+			`;
 
-			styles.window = `position:fixed;
+			styles.window = `
+			display:flex;
+			flex-direction:column;
 			left:50%;
 			top:50%;
+			position:fixed;
 			max-height:80vh;
 			max-width:80vw;
 			transform:translate(-50%, -50%);
-			overflow:auto;
-			overflow-x:hidden;
-			overflow-y:auto;
+			overflow:hidden;
 			outline:0;
 			z-index:-1000;
-			display:none`;
+			`;
 
-			styles.content = `font-size:23.8px;
-			font-family:sans-serif;
-			text-align:center;
-			overflow-wrap: break-word;
-			padding:1.6em`;
+			styles.topbar = `
+      		overflow:hidden;
+      		flex-shrink:0;
+      		height:100%;
+      		`;
 
-			styles.inner_x = `cursor:pointer;
-			float:${options.inner_x_position};
+			styles.content_container = `
+			overflow-y:auto;
+			overflow-x:hidden;
+			border:none;
+			outline:0;
+			margin:0;
+			box-shadow:0 1px white;
+			`;
+
+			var cpt;
+
+			options.enable_inner_x ? cpt = "0.2em" : cpt = "1.6em";
+
+			styles.content = `
 			font-size:23.8px;
 			font-family:sans-serif;
-			position:sticky;
-			top:0px;
-			-webkit-touch-callout: none;
-			-webkit-user-select: none;
-			-khtml-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;	
+			text-align:center;
+			overflow:hidden;
+			overflow-wrap: break-word;
+			padding-top:${cpt};
+			padding-bottom:1.6em;
+			padding-left:1.6em;
+			padding-right:1.6em;
+			`;
+
+			styles.inner_x = `
+			cursor:pointer;
+			float:${instance.options.inner_x_position};
+			font-size:23.8px;
+			font-family:sans-serif;
+			-webkit-touch-callout:none;
+			-webkit-user-select:none;
+			-khtml-user-select:none;
+			-moz-user-select:none;
+			-ms-user-select:none;
+			user-select:none;
+			overflow:hidden;	
 			padding-left:0.6em;
 			padding-right:0.6em;
 			padding-top:0.035em;
-			padding-bottom:0.2em;`;
+			padding-bottom:0.2em;
+			`;
 
-			styles.outer_x = `cursor:pointer;
+			styles.outer_x = `
+			cursor:pointer;
 			float:${options.outer_x_position};
 			font-size:28px;
 			font-family:sans-serif;
-			-webkit-touch-callout: none;
-			-webkit-user-select: none;
-			-khtml-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;	
+			-webkit-touch-callout:none;
+			-webkit-user-select:none;
+			-khtml-user-select:none;
+			-moz-user-select:none;
+			-ms-user-select:none;
+			user-select:none;	
 			padding-left:0.6em;
 			padding-right:0.6em;
 			padding-top:0.035em;
-			padding-bottom:0.2em;`;			
+			padding-bottom:0.2em;
+			`;			
 
 			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
 			var overlay_class = (instance.options.overlay_class !== undefined) ? instance.options.overlay_class : instance.options.class;
 			var window_class = (instance.options.window_class !== undefined) ? instance.options.window_class : instance.options.class;
+			var topbar_class = (instance.options.topbar_class !== undefined) ? instance.options.topbar_class : instance.options.class;
+			var content_container_class = (instance.options.content_container_class !== undefined) ? instance.options.content_container_class : instance.options.class;
 			var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class;
 			var inner_x_class = (instance.options.inner_x_class !== undefined) ? instance.options.inner_x_class : instance.options.class;
 			var outer_x_class = (instance.options.outer_x_class !== undefined) ? instance.options.outer_x_class : instance.options.class;
@@ -520,6 +552,8 @@ var Msg = (function()
 			container_class = container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-container-${w}`).join(" ");
 			overlay_class = overlay_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-overlay-${w}`).join(" ");
 			window_class = window_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-window-${w}`).join(" ");
+			topbar_class = topbar_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-topbar-${w}`).join(" ");
+			content_container_class = content_container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-container-${w}`).join(" ");
 			content_class = content_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-${w}`).join(" ");
 			inner_x_class = inner_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-inner-x-${w}`).join(" ");
 			outer_x_class = outer_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-outer-x-${w}`).join(" ");
@@ -527,6 +561,8 @@ var Msg = (function()
 			var container_html =  `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`;
 			var overlay_html = `<div class="Msg-overlay ${overlay_class}" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
 			var window_html = `<div class="Msg-window ${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
+			var topbar_html = `<div class="Msg-topbar ${topbar_class}" style="${styles.topbar}" id="Msg-topbar-${instance.options.id}"></div>`;
+			var content_container_html = `<div class="Msg-content-container ${content_container_class}" style="${styles.content_container}" id="Msg-content-container-${instance.options.id }"></div>`;
 			var content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
 			var inner_x_html = `<div class="Msg-inner-x ${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
 			var outer_x_html = `<div class="Msg-outer-x ${outer_x_class}" style="${styles.outer_x}" id="Msg-outer-x-${instance.options.id }">x</div>`;
@@ -548,14 +584,23 @@ var Msg = (function()
 
 			instance.window = document.getElementById(`Msg-window-${instance.options.id}`);
 
-			if(options.enable_inner_x)
+			if(true)
 			{
-				instance.window.insertAdjacentHTML("beforeend", inner_x_html);
-				instance.inner_x = document.getElementById(`Msg-inner-x-${instance.options.id}`);
+				
+				if(options.enable_inner_x)
+				{
+					instance.window.insertAdjacentHTML("beforeend", topbar_html);
+					instance.topbar = document.getElementById(`Msg-topbar-${instance.options.id}`);
+
+					instance.topbar.insertAdjacentHTML("beforeend", inner_x_html);
+					instance.inner_x = document.getElementById(`Msg-inner-x-${instance.options.id}`);
+				}
 			}
 
-			instance.window.insertAdjacentHTML("beforeend", content_html);
-
+			instance.window.insertAdjacentHTML("beforeend", content_container_html);
+			instance.content_container = document.getElementById(`Msg-content-container-${instance.options.id}`);
+			
+			instance.content_container.insertAdjacentHTML("beforeend", content_html);
 			instance.content = document.getElementById(`Msg-content-${instance.options.id}`);
 
 			instance.overlay.addEventListener("click", function()
@@ -622,10 +667,12 @@ var Msg = (function()
 
 				instance.container = undefined;
 				instance.overlay = undefined;
-				instance.window = undefined;
-				instance.content = undefined;
-				instance.inner_x = undefined;
 				instance.outer_x = undefined;
+				instance.window = undefined;
+				instance.topbar = undefined;
+				instance.inner_x = undefined;
+				instance.content_container = undefined;
+				instance.content = undefined;
 
 				instance.options.after_destroy(instance);		
 			}
@@ -633,7 +680,7 @@ var Msg = (function()
 
 		instance.is_open = function()
 		{
-			if(!instance.created() || instance.window.style.display === "none")
+			if(!instance.created() || instance.container.style.display === "none")
 			{
 				return false;
 			}
@@ -646,11 +693,11 @@ var Msg = (function()
 
 		instance.any_open = function()
 		{
-			var windows = Array.from(document.querySelectorAll(".Msg-window"));
+			var containers = Array.from(document.querySelectorAll(".Msg-container"));
 
-			for(var i=0; i<windows.length; i++)
+			for(var i=0; i<containers.length; i++)
 			{
-				if(windows[i].style.display !== "none")
+				if(containers[i].style.display !== "none")
 				{
 					return true;
 				}
@@ -663,11 +710,11 @@ var Msg = (function()
 		{
 			var num_open = 0;
 
-			var windows = Array.from(document.querySelectorAll(".Msg-window"));
+			var containers = Array.from(document.querySelectorAll(".Msg-container"));
 
-			for(var i=0; i<windows.length; i++)
+			for(var i=0; i<containers.length; i++)
 			{
-				if(windows[i].style.display !== "none")
+				if(containers[i].style.display !== "none")
 				{
 					num_open += 1;
 				}
