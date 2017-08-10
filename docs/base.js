@@ -215,6 +215,28 @@ var msg_lf = Msg(
     fade_out_duration:1000
 });
 
+var msg_ptop = Msg(
+{
+    position:"top"
+});
+
+var msg_pbottom = Msg(
+{
+    position:"bottom"
+});
+
+var msg_pleft = Msg(
+{
+    position:"left"
+});
+
+var msg_pright = Msg(
+{
+    position:"right"
+});
+
+var sm = "This is a simple message.";
+
 var sc = "There are options to give elements different ids and classes. Then it's a matter of customizing and reusing parts however you want. By default, the titlebar is not enabled, I enabled it here to show that it's possible to have a titlebar."
 
 var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';

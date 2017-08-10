@@ -1,4 +1,4 @@
-/* Msg v5.1.0 https://github.com/madprops/Msg */
+/* Msg v5.2.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -252,6 +252,11 @@ var Msg = (function()
 			if(instance.options.fade_out_duration === undefined)
 			{
 				instance.options.fade_out_duration = 350;
+			}
+
+			if(instance.options.position === undefined)
+			{
+				instance.options.position = "center";
 			}			
 		}
 
@@ -399,25 +404,25 @@ var Msg = (function()
 			instance.window.scrollTop = 0;
 			instance.content.focus();
 
-			if(options.temp_disable_close)
+			if(instance.options.temp_disable_close)
 			{
 				instance.close_enabled = false;
 				instance.temp_disable_close_timer();
 			}
 
-			if(options.temp_disable_click)
+			if(instance.options.temp_disable_click)
 			{
 				instance.click_enabled = false;
 				instance.temp_disable_click_timer();
 			}
 
-			if(options.temp_disable_keys)
+			if(instance.options.temp_disable_keys)
 			{
 				instance.keys_enabled = false;
 				instance.temp_disable_keys_timer();
 			}
 
-			if(options.autoclose)
+			if(instance.options.autoclose)
 			{
 				instance.autoclose_timer();
 			}
@@ -480,15 +485,50 @@ var Msg = (function()
 			z-index:-1000;
 			`;
 
+			if(instance.options.position === "top")
+			{
+				var win_x = "left:50%;";
+				var win_y = "top:33px;";
+				var win_translate = "translateX(-50%)";
+			}
+
+			else if(instance.options.position === "bottom")
+			{
+				var win_x = "left:50%;";
+				var win_y = "bottom:33px;";
+				var win_translate = "translateX(-50%)";
+			}
+
+			else if(instance.options.position === "left")
+			{
+				var win_x = "left:33px;";
+				var win_y = "top:50%;";
+				var win_translate = "translateY(-50%)";
+			}
+
+			else if(instance.options.position === "right")
+			{
+				var win_x = "right:33px;";
+				var win_y = "top:50%;";
+				var win_translate = "translateY(-50%)";
+			}
+
+			else
+			{
+				var win_x = "left:50%;";
+				var win_y = "top:50%;";
+				var win_translate = "translate(-50%, -50%)";
+			}
+
 			styles.window = `
 			display:flex;
 			flex-direction:column;
-			left:50%;
-			top:50%;
+			${win_x}
+			${win_y}
 			position:fixed;
 			max-height:80vh;
 			max-width:80vw;
-			transform:translate(-50%, -50%);
+			transform:${win_translate};
 			overflow:hidden;
 			outline:0;
 			z-index:-1000;
@@ -513,7 +553,7 @@ var Msg = (function()
 			font-family:sans-serif;    		
       		`;
 
-      		if(options.inner_x_position === "left")
+      		if(instance.options.inner_x_position === "left")
       		{
       			var ix_order = "1";
       			var ix_margin = "";
@@ -585,7 +625,7 @@ var Msg = (function()
 
 			styles.outer_x = `
 			cursor:pointer;
-			float:${options.outer_x_position};
+			float:${instance.options.outer_x_position};
 			font-size:28px;
 			font-family:sans-serif;
 			-webkit-touch-callout:none;
@@ -639,7 +679,7 @@ var Msg = (function()
 
 			instance.overlay = document.getElementById(`Msg-overlay-${instance.options.id}`);
 			
-			if(options.enable_outer_x)
+			if(instance.options.enable_outer_x)
 			{
 				instance.overlay.insertAdjacentHTML("beforeend", outer_x_html);
 				instance.outer_x = document.getElementById(`Msg-outer-x-${instance.options.id}`);
@@ -652,13 +692,13 @@ var Msg = (function()
 				instance.window.insertAdjacentHTML("beforeend", topbar_html);
 				instance.topbar = document.getElementById(`Msg-topbar-${instance.options.id}`);
 
-				if(options.enable_titlebar)
+				if(instance.options.enable_titlebar)
 				{
 					instance.topbar.insertAdjacentHTML("beforeend", titlebar_html);
 					instance.titlebar = document.getElementById(`Msg-titlebar-${instance.options.id}`);
 				}
 				
-				if(options.enable_inner_x)
+				if(instance.options.enable_inner_x)
 				{
 					instance.topbar.insertAdjacentHTML("beforeend", inner_x_html);
 					instance.inner_x = document.getElementById(`Msg-inner-x-${instance.options.id}`);
@@ -921,7 +961,7 @@ var Msg = (function()
 				timer = setTimeout(function()
 				{
 					instance.close_enabled = true;
-				}, options.temp_disable_close_delay);
+				}, instance.options.temp_disable_close_delay);
 			};
 		})();
 
@@ -934,7 +974,7 @@ var Msg = (function()
 				timer = setTimeout(function()
 				{
 					instance.click_enabled = true;
-				}, options.temp_disable_click_delay);
+				}, instance.options.temp_disable_click_delay);
 			};
 		})();
 
@@ -947,7 +987,7 @@ var Msg = (function()
 				timer = setTimeout(function()
 				{
 					instance.keys_enabled = true;
-				}, options.temp_disable_keys_delay);
+				}, instance.options.temp_disable_keys_delay);
 			};
 		})();
 
@@ -960,7 +1000,7 @@ var Msg = (function()
 				timer = setTimeout(function()
 				{
 					instance.close();
-				}, options.autoclose_delay);
+				}, instance.options.autoclose_delay);
 			};
 		})();
 
