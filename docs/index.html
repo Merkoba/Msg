@@ -8,13 +8,13 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>  
               
-        <link rel='stylesheet' href="style.css?v=5">  
+        <link rel='stylesheet' href="style.css?v=6">  
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=43'></script>
+        <script src='msg.js?v=44'></script>
 
-        <script src='base.js?v=9'></script>
+        <script src='base.js?v=10'></script>
 
     </head>
 
@@ -34,7 +34,7 @@
         <br><br><br><span class='clicky' onclick='msg.show("This is a simple message.")'>Demo 1</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg.show(s)'>Demo 2</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg.show(s2)'>Demo 3</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='msg_autoclose.show(s4)'>Demo 4</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_autoclose.show(s4);msg_autoclose.set_title("Warning")'>Demo 4</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg_ox.show(s5)'>Demo 5</span>&nbsp;&nbsp;&nbsp;
         <br><br>
         <span class='clicky' onclick='msg_delay.show(s6)'>Demo 6</span>&nbsp;&nbsp;&nbsp;
@@ -87,8 +87,9 @@
         "Msg-content-id" (with classes: "Msg-content" and "Msg-content-class")<br><br>
 
         These elements are optional:<br><br>
+        "Msg-topbar-id" (with classes: "Msg-topbar" and "Msg-topbar-class") (Created if Msg-inner-x or Msg-titlebar are created)<br>
+        "Msg-titlebar-id" (with classes: "Msg-titlebar" and "Msg-titlebar-class") (Not created by default)<br>
         "Msg-inner-x-id" (with classes: "Msg-inner-x" and "Msg-inner-x-class") (Created by default)<br>
-        "Msg-topbar-id" (with classes: "Msg-topbar" and "Msg-topbar-class") (Created if Msg-inner-x is created)<br>
         "Msg-outer-x-id" (with classes: "Msg-outer-x" and "Msg-outer-x-class") (Not created by default)<br>
 
         <br><br>The structure looks like this:
@@ -99,6 +100,7 @@
     [/overlay]
     [window]
         [topbar]
+            [titlebar][/titlebar] (Optional)
             [inner-x][/inner-x] (Optional)
         [/topbar]
         [content-container]
@@ -126,11 +128,11 @@
 
         If you don't want a class name to be turned into the Msg-element-classname format, you can append a "!" to it. For example overlay_class:"!glow" would use "glow" instead of "Msg-overlay-glow".<br><br>
 
+        The Msg-content's padding is set depending on your settings, to try to make it look pleasing in different situations.<br><br>
+
         To override the css you will probably need to use !important declarations.<br><br>
 
-        To change the background-color window-wide, modify the window element. To modify the content inside, modify the content element.<br>
-
-        <br><span class='clicky' onclick='msg2.show(sc)'>Customized Demo</span><br>
+        <br><span class='clicky' onclick='msg2.show(sc);msg2.set_title("Window Example")'>Customized Demo</span><br>
 
         <i><blockquote><pre><code>Demo Code:
 
@@ -140,7 +142,8 @@ var msg2 = Msg(
 {
     id: "foo",
     class: "bar",
-    inner_x_class: "red !big"
+    inner_x_class: "red !big",
+    enable_titlebar: true
 });
 
 
@@ -158,8 +161,16 @@ var msg2 = Msg(
 
 .Msg-content-bar
 {
+    padding-top: 1em !important;
     line-height: 2em !important;
     font-size: 1.4em !important;
+}
+
+.Msg-titlebar-bar
+{
+    background-color: #589958 !important;
+    color: white !important;
+    font-size:1.25em !important;
 }
 
 .Msg-inner-x-red
@@ -176,7 +187,11 @@ var msg2 = Msg(
 .big
 {
     font-size: 1.8em !important;
-} 
+}
+
+msg.show(some_text);
+msg.set_title("Window Example");
+
         </code></pre></blockquote></i>  
 
         There are some pre-made classes:
@@ -189,7 +204,19 @@ var msg2 = Msg(
 
         <span class='clicky' onclick='msg_green.show("This is the green theme.")'>class: "green"</span>&nbsp;&nbsp;&nbsp; 
         
-        <span class='clicky' onclick='msg_black.show("This is the black theme.")'>class: "black"</span><br><br>
+        <span class='clicky' onclick='msg_black.show("This is the black theme.")'>class: "black"</span><br><br> 
+
+        <br>With titlebars enabled:
+
+        <br><br>       
+
+        <span class='clicky' onclick='msg_red_tb.show("This is the red theme.");msg_red_tb.set_title("Theme")'>class: "red"</span>&nbsp;&nbsp;&nbsp; 
+
+        <span class='clicky' onclick='msg_blue_tb.show("This is the blue theme.");msg_blue_tb.set_title("Theme")'>class: "blue"</span>&nbsp;&nbsp;&nbsp;  
+
+        <span class='clicky' onclick='msg_green_tb.show("This is the green theme.");msg_green_tb.set_title("Theme")'>class: "green"</span>&nbsp;&nbsp;&nbsp; 
+        
+        <span class='clicky' onclick='msg_black_tb.show("This is the black theme.");msg_black_tb.set_title("Theme")'>class: "black"</span><br><br>
 
         <h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
@@ -258,7 +285,11 @@ var msg2 = Msg(
         
         <i>before_set (Default: Empty Function)</i>: Function that triggers before the set method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         
-        <i>after_set (Default: Empty Function)</i>: Function that triggers after the set method. Receives the instance as an argument.<br><br>
+        <i>after_set (Default: Empty Function)</i>: Function that triggers after the set method. Receives the instance as an argument.<br><br>  
+
+        <i>before_set_title (Default: Empty Function)</i>: Function that triggers before the set_title method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        
+        <i>after_set_title (Default: Empty Function)</i>: Function that triggers after the set_title method. Receives the instance as an argument.<br><br>
         
         <i>before_close (Default: Empty Function)</i>: Function that triggers before the close method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         

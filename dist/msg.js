@@ -1,4 +1,4 @@
-/* Msg v5.0.0 https://github.com/madprops/Msg */
+/* Msg v5.1.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -10,6 +10,7 @@ var Msg = (function()
 	
 	.Msg-overlay{background-color:rgba(0, 0, 0, 0.7)}
 	.Msg-window{background-color:white;color:black}
+	.Msg-titlebar{background-color:#c8c8c8;color:black}
 	.Msg-inner-x{background-color:white;color:#363636}
 	.Msg-inner-x:hover{background-color:#cacaca}
 	.Msg-outer-x{color:white}
@@ -17,6 +18,7 @@ var Msg = (function()
 
 	.Msg-overlay-blue{background-color:rgba(101, 107, 124, 0.7)}
 	.Msg-window-blue{background-color:#4f84b8;color:white}
+	.Msg-titlebar-blue{background-color:#43729f;color:white}
 	.Msg-inner-x-blue{background-color:#4f84b8;color:white}
 	.Msg-inner-x-blue:hover{background-color:#476b8f}
 	.Msg-outer-x-blue{color:white}
@@ -24,6 +26,7 @@ var Msg = (function()
 	
 	.Msg-overlay-red{background-color:rgba(104, 64, 64, 0.7)}
 	.Msg-window-red{background-color:#ca4e4e;color:white}
+	.Msg-titlebar-red{background-color:#af3f3f;color:white}
 	.Msg-inner-x-red{background-color:#ca4e4e;color:white}
 	.Msg-inner-x-red:hover{background-color:#9d4d4d}
 	.Msg-outer-x-red{color:white}
@@ -31,6 +34,7 @@ var Msg = (function()
 	
 	.Msg-overlay-green{background-color:rgba(121, 159, 133, 0.7)}
 	.Msg-window-green{background-color:#58a564;color:white}
+	.Msg-titlebar-green{background-color:#52935c;color:white}
 	.Msg-inner-x-green{background-color:#58a564;color:white}
 	.Msg-inner-x-green:hover{background-color:#4e8456}
 	.Msg-outer-x-green{color:white}
@@ -38,6 +42,7 @@ var Msg = (function()
 	
 	.Msg-overlay-black{background-color:rgba(0, 0, 0, 0.7)}
 	.Msg-window-black{background-color:#2a2a2a;color:white}
+	.Msg-titlebar-black{background-color:#3c3c3c;color:white}
 	.Msg-inner-x-black{background-color:#2a2a2a;color:white}
 	.Msg-inner-x-black:hover{background-color:#424242}
 	.Msg-outer-x-black{color:white}
@@ -77,6 +82,11 @@ var Msg = (function()
 			if(instance.options.close_on_overlay_click === undefined)
 			{
 				instance.options.close_on_overlay_click = true;
+			}
+
+			if(instance.options.enable_titlebar === undefined)
+			{
+				instance.options.enable_titlebar = false;
 			}
 
 			if(instance.options.enable_inner_x === undefined)
@@ -127,6 +137,16 @@ var Msg = (function()
 			if(instance.options.after_set === undefined)
 			{
 				instance.options.after_set = function(){};
+			}
+
+			if(instance.options.before_set_title === undefined)
+			{
+				instance.options.before_set_title = function(){};
+			}
+
+			if(instance.options.after_set_title === undefined)
+			{
+				instance.options.after_set_title = function(){};
 			}
 
 			if(instance.options.before_close === undefined)
@@ -477,8 +497,52 @@ var Msg = (function()
 			styles.topbar = `
       		overflow:hidden;
       		flex-shrink:0;
+      		display:flex;
+      		flex-direction:row;
       		height:100%;
       		`;
+
+			styles.titlebar = `
+      		overflow:hidden;
+      		order:2;
+      		flex-grow:1;
+			padding-top:0.38em;
+			padding-left:0.4em;
+			min-height:27px;
+			font-size: 18px;
+			font-family:sans-serif;    		
+      		`;
+
+      		if(options.inner_x_position === "left")
+      		{
+      			var ix_order = "1";
+      			var ix_margin = "";
+      		}
+
+      		else
+      		{
+      			var ix_order = "3";
+      			var ix_margin = "auto";
+      		}
+
+			styles.inner_x = `
+			cursor:pointer;
+			margin-left:${ix_margin};
+			font-size:23.8px;
+			font-family:sans-serif;
+			-webkit-touch-callout:none;
+			-webkit-user-select:none;
+			-khtml-user-select:none;
+			-moz-user-select:none;
+			-ms-user-select:none;
+			user-select:none;
+			overflow:hidden;
+			order:${ix_order};
+			padding-left:0.6em;
+			padding-right:0.6em;
+			padding-top:0.035em;
+			padding-bottom:0.2em;
+			`;
 
 			styles.content_container = `
 			overflow-y:auto;
@@ -489,9 +553,23 @@ var Msg = (function()
 			box-shadow:0 1px white;
 			`;
 
-			var cpt;
+			if(instance.options.enable_titlebar || instance.options.enable_inner_x)
+			{
+				if(instance.options.enable_titlebar)
+				{
+					var cpt = "1.2em";
+				}
 
-			options.enable_inner_x ? cpt = "0.2em" : cpt = "1.6em";
+				else
+				{
+					var cpt = "0.2em";
+				}
+			}
+
+			else
+			{
+				var cpt = "1.6em";
+			}
 
 			styles.content = `
 			font-size:23.8px;
@@ -503,24 +581,6 @@ var Msg = (function()
 			padding-bottom:1.6em;
 			padding-left:1.6em;
 			padding-right:1.6em;
-			`;
-
-			styles.inner_x = `
-			cursor:pointer;
-			float:${instance.options.inner_x_position};
-			font-size:23.8px;
-			font-family:sans-serif;
-			-webkit-touch-callout:none;
-			-webkit-user-select:none;
-			-khtml-user-select:none;
-			-moz-user-select:none;
-			-ms-user-select:none;
-			user-select:none;
-			overflow:hidden;	
-			padding-left:0.6em;
-			padding-right:0.6em;
-			padding-top:0.035em;
-			padding-bottom:0.2em;
 			`;
 
 			styles.outer_x = `
@@ -542,30 +602,33 @@ var Msg = (function()
 
 			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
 			var overlay_class = (instance.options.overlay_class !== undefined) ? instance.options.overlay_class : instance.options.class;
+			var outer_x_class = (instance.options.outer_x_class !== undefined) ? instance.options.outer_x_class : instance.options.class;
 			var window_class = (instance.options.window_class !== undefined) ? instance.options.window_class : instance.options.class;
 			var topbar_class = (instance.options.topbar_class !== undefined) ? instance.options.topbar_class : instance.options.class;
+			var titlebar_class = (instance.options.titlebar_class !== undefined) ? instance.options.titlebar_class : instance.options.class;
+			var inner_x_class = (instance.options.inner_x_class !== undefined) ? instance.options.inner_x_class : instance.options.class;
 			var content_container_class = (instance.options.content_container_class !== undefined) ? instance.options.content_container_class : instance.options.class;
 			var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class;
-			var inner_x_class = (instance.options.inner_x_class !== undefined) ? instance.options.inner_x_class : instance.options.class;
-			var outer_x_class = (instance.options.outer_x_class !== undefined) ? instance.options.outer_x_class : instance.options.class;
 			
 			container_class = container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-container-${w}`).join(" ");
 			overlay_class = overlay_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-overlay-${w}`).join(" ");
+			outer_x_class = outer_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-outer-x-${w}`).join(" ");
 			window_class = window_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-window-${w}`).join(" ");
 			topbar_class = topbar_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-topbar-${w}`).join(" ");
+			titlebar_class = titlebar_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-titlebar-${w}`).join(" ");
+			inner_x_class = inner_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-inner-x-${w}`).join(" ");
 			content_container_class = content_container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-container-${w}`).join(" ");
 			content_class = content_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-${w}`).join(" ");
-			inner_x_class = inner_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-inner-x-${w}`).join(" ");
-			outer_x_class = outer_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-outer-x-${w}`).join(" ");
 
 			var container_html =  `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`;
 			var overlay_html = `<div class="Msg-overlay ${overlay_class}" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
+			var outer_x_html = `<div class="Msg-outer-x ${outer_x_class}" style="${styles.outer_x}" id="Msg-outer-x-${instance.options.id }">x</div>`;
 			var window_html = `<div class="Msg-window ${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
 			var topbar_html = `<div class="Msg-topbar ${topbar_class}" style="${styles.topbar}" id="Msg-topbar-${instance.options.id}"></div>`;
+			var titlebar_html = `<div class="Msg-titlebar ${titlebar_class}" style="${styles.titlebar}" id="Msg-titlebar-${instance.options.id}"></div>`;
+			var inner_x_html = `<div class="Msg-inner-x ${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
 			var content_container_html = `<div class="Msg-content-container ${content_container_class}" style="${styles.content_container}" id="Msg-content-container-${instance.options.id }"></div>`;
 			var content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
-			var inner_x_html = `<div class="Msg-inner-x ${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
-			var outer_x_html = `<div class="Msg-outer-x ${outer_x_class}" style="${styles.outer_x}" id="Msg-outer-x-${instance.options.id }">x</div>`;
 
 			document.body.insertAdjacentHTML("beforeend", container_html);
 
@@ -584,14 +647,19 @@ var Msg = (function()
 
 			instance.window = document.getElementById(`Msg-window-${instance.options.id}`);
 
-			if(true)
+			if(instance.options.enable_titlebar || instance.options.enable_inner_x)
 			{
+				instance.window.insertAdjacentHTML("beforeend", topbar_html);
+				instance.topbar = document.getElementById(`Msg-topbar-${instance.options.id}`);
+
+				if(options.enable_titlebar)
+				{
+					instance.topbar.insertAdjacentHTML("beforeend", titlebar_html);
+					instance.titlebar = document.getElementById(`Msg-titlebar-${instance.options.id}`);
+				}
 				
 				if(options.enable_inner_x)
 				{
-					instance.window.insertAdjacentHTML("beforeend", topbar_html);
-					instance.topbar = document.getElementById(`Msg-topbar-${instance.options.id}`);
-
 					instance.topbar.insertAdjacentHTML("beforeend", inner_x_html);
 					instance.inner_x = document.getElementById(`Msg-inner-x-${instance.options.id}`);
 				}
@@ -670,6 +738,7 @@ var Msg = (function()
 				instance.outer_x = undefined;
 				instance.window = undefined;
 				instance.topbar = undefined;
+				instance.titlebar = undefined;
 				instance.inner_x = undefined;
 				instance.content_container = undefined;
 				instance.content = undefined;
@@ -921,6 +990,23 @@ var Msg = (function()
 			}, speed);	
 		}
 
+		instance.set_title = function(html)
+		{
+			if(instance.titlebar === undefined)
+			{
+				return;
+			}
+
+			if(instance.options.before_set_title(instance) === false)
+			{
+				return;
+			}
+
+			instance.titlebar.innerHTML = html;
+
+			instance.options.after_set_title(instance);
+		}
+
 		instance.fade_out = function(callback) 
 		{
 			var speed = instance.options.fade_out_duration / 50;
@@ -935,7 +1021,7 @@ var Msg = (function()
 					instance.close_window(callback);
 				}
 			}, speed);	
-		}	
+		}
 
 		document.addEventListener("keydown", function(e)
 		{

@@ -4,7 +4,8 @@ var msg2 = Msg(
 {
     id: "foo",
     class: "bar",
-    inner_x_class:"red !big"
+    inner_x_class:"red !big",
+    enable_titlebar: true
 });
 
 var msg3 = Msg(
@@ -41,7 +42,8 @@ var msg_autoclose = Msg(
 {
     autoclose:true,
     enable_inner_x:false,
-    close_on_overlay_click:false
+    close_on_overlay_click:false,
+    enable_titlebar:true
 });
 
 var msg_ox = Msg(
@@ -132,6 +134,34 @@ var msg_black = Msg(
     enable_outer_x:true
 });
 
+var msg_red_tb = Msg(
+{
+    class:"red",
+    enable_outer_x:true,
+    enable_titlebar:true
+});
+
+var msg_blue_tb = Msg(
+{
+    class:"blue",
+    enable_outer_x:true,
+    enable_titlebar:true
+});
+
+var msg_green_tb = Msg(
+{
+    class:"green",
+    enable_outer_x:true,
+    enable_titlebar:true
+});
+
+var msg_black_tb = Msg(
+{
+    class:"black",
+    enable_outer_x:true,
+    enable_titlebar:true
+});
+
 var msg_toy = Msg(
 {
     id:"toy",
@@ -185,7 +215,7 @@ var msg_lf = Msg(
     fade_out_duration:1000
 });
 
-var sc = "There are options to give elements different ids and classes. Then it's a matter of customizing and reusing parts however you want."
+var sc = "There are options to give elements different ids and classes. Then it's a matter of customizing and reusing parts however you want. By default, the titlebar is not enabled, I enabled it here to show that it's possible to have a titlebar."
 
 var s = '<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.';
 
