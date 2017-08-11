@@ -120,7 +120,7 @@ var msg_red = Msg(
     class:"red",
     enable_outer_x:true,
     autoclose:true,
-    autoclose_delay:50000,
+    autoclose_delay:5000,
     enable_progressbar:true
 });
 
