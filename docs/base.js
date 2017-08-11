@@ -235,6 +235,26 @@ var msg_pright = Msg(
     position:"right"
 });
 
+var msg_ptright = Msg(
+{
+    position:"topright"
+});
+
+var msg_ptleft = Msg(
+{
+    position:"topleft"
+});
+
+var msg_pbright = Msg(
+{
+    position:"bottomright"
+});
+
+var msg_pbleft = Msg(
+{
+    position:"bottomleft"
+});
+
 var sm = "This is a simple message.";
 
 var sc = "There are options to give elements different ids and classes. Then it's a matter of customizing and reusing parts however you want. By default, the titlebar is not enabled, I enabled it here to show that it's possible to have a titlebar."

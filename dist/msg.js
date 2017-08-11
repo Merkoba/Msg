@@ -1,4 +1,4 @@
-/* Msg v5.2.0 https://github.com/madprops/Msg */
+/* Msg v5.3.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -77,6 +77,11 @@ var Msg = (function()
 			if(instance.options.lock === undefined)
 			{
 				instance.options.lock = true;
+			}
+
+			if(instance.options.enable_overlay === undefined)
+			{
+				instance.options.enable_overlay = true;
 			}
 
 			if(instance.options.close_on_overlay_click === undefined)
@@ -306,7 +311,11 @@ var Msg = (function()
 		{
 			instance.container.style.display = "none";
 			
-			instance.overlay.style.zIndex = -1000;
+			if(instance.overlay !== undefined)
+			{
+				instance.overlay.style.zIndex = -1000;
+			}
+
 			instance.window.style.zIndex = -1000;
 
 			instance.container.style.opacity = 0;
@@ -489,36 +498,65 @@ var Msg = (function()
 			{
 				var win_x = "left:50%;";
 				var win_y = "top:33px;";
-				var win_translate = "translateX(-50%)";
+				var win_trans = "transform:translateX(-50%);";
 			}
+
 
 			else if(instance.options.position === "bottom")
 			{
 				var win_x = "left:50%;";
 				var win_y = "bottom:33px;";
-				var win_translate = "translateX(-50%)";
+				var win_trans = "transform:translateX(-50%);";
 			}
 
 			else if(instance.options.position === "left")
 			{
 				var win_x = "left:33px;";
 				var win_y = "top:50%;";
-				var win_translate = "translateY(-50%)";
+				var win_trans = "transform:translateY(-50%);";
 			}
 
 			else if(instance.options.position === "right")
 			{
 				var win_x = "right:33px;";
 				var win_y = "top:50%;";
-				var win_translate = "translateY(-50%)";
+				var win_trans = "transform:translateY(-50%);";
+			}
+
+			else if(instance.options.position === "topleft")
+			{
+				var win_x = "left:33px;";
+				var win_y = "top:33px;";
+				var win_trans = "";
+			}
+
+			else if(instance.options.position === "topright")
+			{
+				var win_x = "right:33px;";
+				var win_y = "top:33px;";
+				var win_trans = "";
+			}
+
+			else if(instance.options.position === "bottomleft")
+			{
+				var win_x = "left:33px;";
+				var win_y = "bottom:33px;";
+				var win_trans = "";
+			}
+
+			else if(instance.options.position === "bottomright")
+			{
+				var win_x = "right:33px;";
+				var win_y = "bottom:33px;";
+				var win_trans = "";
 			}
 
 			else
 			{
 				var win_x = "left:50%;";
 				var win_y = "top:50%;";
-				var win_translate = "translate(-50%, -50%)";
-			}
+				var win_trans = "transform:translate(-50%, -50%);";
+			}			
 
 			styles.window = `
 			display:flex;
@@ -528,7 +566,7 @@ var Msg = (function()
 			position:fixed;
 			max-height:80vh;
 			max-width:80vw;
-			transform:${win_translate};
+			${win_trans}
 			overflow:hidden;
 			outline:0;
 			z-index:-1000;
@@ -674,17 +712,19 @@ var Msg = (function()
 
 			instance.container = document.getElementById(`Msg-container-${instance.options.id}`);
 
-			instance.container.insertAdjacentHTML("beforeend", overlay_html);
-			instance.container.insertAdjacentHTML("beforeend", window_html);
-
-			instance.overlay = document.getElementById(`Msg-overlay-${instance.options.id}`);
-			
-			if(instance.options.enable_outer_x)
+			if(instance.options.enable_overlay)
 			{
-				instance.overlay.insertAdjacentHTML("beforeend", outer_x_html);
-				instance.outer_x = document.getElementById(`Msg-outer-x-${instance.options.id}`);
+				instance.container.insertAdjacentHTML("beforeend", overlay_html);
+				instance.overlay = document.getElementById(`Msg-overlay-${instance.options.id}`);
+				
+				if(instance.options.enable_outer_x)
+				{
+					instance.overlay.insertAdjacentHTML("beforeend", outer_x_html);
+					instance.outer_x = document.getElementById(`Msg-outer-x-${instance.options.id}`);
+				}
 			}
 
+			instance.container.insertAdjacentHTML("beforeend", window_html);
 			instance.window = document.getElementById(`Msg-window-${instance.options.id}`);
 
 			if(instance.options.enable_titlebar || instance.options.enable_inner_x)
@@ -711,13 +751,16 @@ var Msg = (function()
 			instance.content_container.insertAdjacentHTML("beforeend", content_html);
 			instance.content = document.getElementById(`Msg-content-${instance.options.id}`);
 
-			instance.overlay.addEventListener("click", function()
+			if(instance.overlay !== undefined)
 			{
-				if(instance.options.close_on_overlay_click)
+				instance.overlay.addEventListener("click", function()
 				{
-					instance.close();
-				}
-			});	
+					if(instance.options.close_on_overlay_click)
+					{
+						instance.close();
+					}
+				});	
+			}
 
 			instance.content.addEventListener("mousedown", function(e)
 			{
@@ -941,7 +984,11 @@ var Msg = (function()
 
 				if(highest > zIndex)
 				{
-					instance.overlay.style.zIndex = highest + 1;
+					if(instance.overlay !== undefined)
+					{
+						instance.overlay.style.zIndex = highest + 1;
+					}
+
 					instance.window.style.zIndex = highest + 2;
 				}			
 			}

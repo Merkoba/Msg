@@ -12,15 +12,19 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=45'></script>
+        <script src='msg.js?v=46'></script>
 
-        <script src='base.js?v=11'></script>
+        <script src='base.js?v=12'></script>
 
     </head>
 
     <body>
 
         <div>
+            if(instance.options.enable_titlebar === undefined)
+            {
+                instance.options.enable_titlebar = false;
+            }
 
         <br><h1>Msg</h1>
         
@@ -49,6 +53,13 @@
         <span class='clicky' onclick='msg_pbottom.show(sm)'>position:bottom</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg_pleft.show(sm)'>position:left</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg_pright.show(sm)'>position:right</span>
+
+        <br><br>
+
+        <span class='clicky' onclick='msg_ptleft.show(sm)'>position:topleft</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_ptright.show(sm)'>position:topright</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_pbleft.show(sm)'>position:bottomleft</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg_pbright.show(sm)'>position:bottomright</span>
 
         </span>
 
@@ -88,12 +99,12 @@
 
         Four elements are created with the following ids:<br><br>
         "Msg-container-id" (with classes: "Msg-container" and "Msg-container-class")<br>
-        "Msg-overlay-id" (with classes: "Msg-overlay" and "Msg-overlay-class")<br>
         "Msg-window-id" (with classes: "Msg-window" and "Msg-window-class")<br>
         "Msg-content-container-id" (with classes: "Msg-content-container" and "Msg-content-container-class")<br>
         "Msg-content-id" (with classes: "Msg-content" and "Msg-content-class")<br><br>
 
         These elements are optional:<br><br>
+        "Msg-overlay-id" (with classes: "Msg-overlay" and "Msg-overlay-class") (Created by default)<br>
         "Msg-topbar-id" (with classes: "Msg-topbar" and "Msg-topbar-class") (Created if Msg-inner-x or Msg-titlebar are created)<br>
         "Msg-titlebar-id" (with classes: "Msg-titlebar" and "Msg-titlebar-class") (Not created by default)<br>
         "Msg-inner-x-id" (with classes: "Msg-inner-x" and "Msg-inner-x-class") (Created by default)<br>
@@ -269,12 +280,14 @@ msg.set_title("Window Example");
         
         <i>temp_disable_keys_delay (Default: 1000)</i>: The amount of time in milliseconds keys will be disabled since the window is shown.<br><br>
         
-        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "top", "bottom", "left", or "right".<br><br>
+        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft", or "bottomright".<br><br>
 
         <i>autoclose (Default: false)</i>: Closes the window automatically after a certain amount of time.<br><br>
         
         <i>autoclose_delay (Default: 3000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
         
+        <i>enable_overlay (Default: true)</i>: Whether the overlay is created or not.<br><br>
+
         <i>enable_inner_x (Default: true)</i>: Makes an x, within the window, to close the window.<br><br>
         
         <i>inner_x_position (Default: "right")</i>: The position of the inner x, either "left" or "right".<br><br>
