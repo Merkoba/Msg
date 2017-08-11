@@ -326,9 +326,13 @@ var num_pops = 1;
 
 function pop()
 {
+    var colors = ["green", "blue", "red", "black"];
+
+    var color = colors[get_random_int(0, colors.length - 1)];
+
     var msg = Msg(
     {
-        class: "green",
+        class: color,
         enable_overlay: false,
         position: "bottomright",
         autoclose: true,
@@ -341,4 +345,9 @@ function pop()
     msg.show(`Task #${num_pops} completed succesfully.`);
 
     num_pops += 1;
+}
+
+function get_random_int(min, max)
+{
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

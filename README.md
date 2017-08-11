@@ -1,6 +1,6 @@
 # Msg
 
-A javascript library to create and manage highly customizable modal windows.
+A javascript library to create and manage highly customizable modal windows and popup messages.
 
 ### Manual Installation:
 

@@ -1,4 +1,4 @@
-/* Msg v5.4.0 https://github.com/madprops/Msg */
+/* Msg v5.4.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -633,7 +633,6 @@ var Msg = (function()
       		flex-shrink:0;
       		display:flex;
       		flex-direction:row;
-      		height:100%;
       		`;
 
 			styles.titlebar = `
@@ -684,7 +683,6 @@ var Msg = (function()
 			border:none;
 			outline:0;
 			margin:0;
-			box-shadow:0 1px white;
 			`;
 
 			if(instance.options.enable_titlebar || instance.options.enable_inner_x)
@@ -728,7 +726,7 @@ var Msg = (function()
 			`;
 
 			styles.progressbar = `
-			height:8px;
+			height:10px;
 			`;	
 
 			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
