@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=51'></script>
+        <script src='msg.js?v=52'></script>
 
-        <script src='base.js?v=18'></script>
+        <script src='base.js?v=19'></script>
 
     </head>
 
@@ -77,7 +77,15 @@
     stack_level: 1,
     lock: false
 });
-        </code></pre></blockquote>          
+        </code></pre></blockquote>
+
+        Or, you can just use a preset and work from there. 
+
+        <blockquote><pre><code>var msg_pop = Msg(
+{
+    preset:"popup" // or "popup_autoclose"
+});
+        </code></pre></blockquote>              
 
         <h2>Installation</h2>
 
@@ -404,7 +412,28 @@ msg_test.show("Domo Arigato");
         </script>
         <span class='clicky' onclick='msg_test.show("Domo Arigato")'>Test It</span><br><br>
 
-        <h2>Properties</h2>
+        <h2>Presets</h2>
+
+        <i><b>preset:"popup"</b></i><br>
+instance.options.class = "green";<br>
+instance.options.enable_overlay = false;<br>
+instance.options.position = "bottomright";<br>
+instance.options.autoclose = true;<br>
+instance.options.autoclose_delay = 5000;<br>
+instance.options.enable_progressbar = true;<br>
+instance.options.persistent = false;<br>
+instance.options.zStack_level = 1;<br>
+instance.options.lock = false;<br>
+
+        <br><i><b>preset:"popup_autoclose"</b></i><br>
+instance.options.class = "green";<br>
+instance.options.enable_overlay = false;<br>
+instance.options.position = "bottomright";<br>
+instance.options.persistent = false;<br>
+instance.options.zStack_level = 1;<br>
+instance.options.lock = false;<br>
+
+        <br><h2>Properties</h2>
         
         <i>instance.container</i>: The Msg-container html element.<br><br>
         

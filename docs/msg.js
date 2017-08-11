@@ -1,4 +1,4 @@
-/* Msg v5.5.1 https://github.com/madprops/Msg */
+/* Msg v5.6.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -69,6 +69,32 @@ var Msg = (function()
 
 		instance.check_options = function()
 		{
+			if(instance.options.preset !== undefined)
+			{
+				if(instance.options.preset === "popup")
+				{
+					instance.options.class = "green";
+					instance.options.enable_overlay = false;
+					instance.options.position = "bottomright";
+					instance.options.persistent = false;
+					instance.options.zStack_level = 1;
+					instance.options.lock = false;
+				}
+
+				if(instance.options.preset === "popup_autoclose")
+				{
+					instance.options.class = "green";
+					instance.options.enable_overlay = false;
+					instance.options.position = "bottomright";
+					instance.options.autoclose = true;
+					instance.options.autoclose_delay = 5000;
+					instance.options.enable_progressbar = true;
+					instance.options.persistent = false;
+					instance.options.zStack_level = 1;
+					instance.options.lock = false;
+				}
+			}	
+
 			if(instance.options.id === undefined)
 			{
 				instance.options.id = instances.length + 1;

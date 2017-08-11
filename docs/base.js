@@ -339,7 +339,7 @@ function pop()
         enable_overlay: false,
         position: "bottomright",
         autoclose: true,
-        autoclose_delay: 3000,
+        autoclose_delay: 5000,
         enable_progressbar: true,
         persistent: false,
         zStack_level: 1,
@@ -355,24 +355,12 @@ function pop()
 
 function pop2()
 {
-    var colors = ["green", "blue", "red", "black"];
-
-    var color = colors[get_random_int(0, colors.length - 1)];
-
     var msg = Msg(
     {
-        class: color,
-        enable_overlay: false,
-        position: "bottomright",
-        autoclose: true,
-        autoclose_delay: 3000,
-        enable_progressbar: true,
-        persistent: false,
-        zStack_level: 2,
-        lock: false,
+        preset:"popup_autoclose",
         after_last_closed:function()
         {
-            alert("All windows are closed!");
+            alert("All windows were closed!");
         }
     });
 
