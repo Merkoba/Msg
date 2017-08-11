@@ -1,4 +1,4 @@
-/* Msg v5.5.0 https://github.com/madprops/Msg */
+/* Msg v5.5.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -169,6 +169,11 @@ var Msg = (function()
 				instance.options.after_close = function(){};
 			}
 
+			if(instance.options.after_last_closed === undefined)
+			{
+				instance.options.after_last_closed = function(){};
+			}
+
 			if(instance.options.before_toggle === undefined)
 			{
 				instance.options.before_toggle = function(){};
@@ -279,14 +284,14 @@ var Msg = (function()
 				instance.options.edge_padding = "33px";
 			}
 
-			if(instance.options.stack === undefined)
+			if(instance.options.vStack === undefined)
 			{
-				instance.options.stack = true;
+				instance.options.vStack = true;
 			}
 
-			if(instance.options.stack_level === undefined)
+			if(instance.options.zstack_level === undefined)
 			{
-				instance.options.stack_level = 2;
+				instance.options.zstack_level = 2;
 			}
 		}
 
@@ -354,8 +359,12 @@ var Msg = (function()
 				instance.destroy();
 			}
 
-
 			instance.options.after_close(instance);
+
+			if(instance.num_open() === 0)
+			{
+				instance.options.after_last_closed(instance);
+			}
 
 			if(callback)
 			{
@@ -395,7 +404,15 @@ var Msg = (function()
 
 		instance.set_or_show = function(html)
 		{
-			instance.is_highest() ? instance.set(html) : instance.show(html);
+			if(instance.stackable && instance.options.vStack)
+			{
+				instance.is_open() ? instance.set(html) : instance.show(html);
+			}
+
+			else
+			{
+				instance.is_highest() ? instance.set(html) : instance.show(html);
+			}
 		}
 
 		instance.show = function(html, callback=false)
@@ -1101,7 +1118,7 @@ var Msg = (function()
 
 				var highest_common = instance.highest_common_zIndex();
 
-				if(instance.options.stack_level === 1)
+				if(instance.options.zstack_level === 1)
 				{
 					var highest = Math.max(5000000, 5000000 + highest_common);
 				}
@@ -1311,7 +1328,7 @@ var Msg = (function()
 
 			for(var i of instances)
 			{
-				if(i.is_open() && i.options.stack)
+				if(i.is_open() && i.options.vStack)
 				{
 					if(i.options.position === instance.options.position)
 					{
@@ -1354,7 +1371,7 @@ var Msg = (function()
 
 		instance.check_stack = function()
 		{
-			if(instance.stackable && instance.options.stack)
+			if(instance.stackable && instance.options.vStack)
 			{
 				var p = instance.options.position;
 

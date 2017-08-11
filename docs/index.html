@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=50'></script>
+        <script src='msg.js?v=51'></script>
 
-        <script src='base.js?v=17'></script>
+        <script src='base.js?v=18'></script>
 
     </head>
 
@@ -146,7 +146,7 @@
 
         By default, ids are based on the number of instances created, they are incremental. Custom ids and classes can be specified via options.<br><br>
 
-        The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
+        The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other. This stack is called the zStack.<br>
 
         <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>        
 
@@ -296,13 +296,13 @@ msg.set_title("Window Example");
         
         <i>temp_disable_keys_delay (Default: 1000)</i>: The amount of time in milliseconds keys will be disabled since the window is shown.<br><br>
         
-        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "top", "bottom", "left", "right", "topleft" (Stackable), "topright" (Stackable), "bottomleft" (Stackable), or "bottomright" (Stackable).<br><br>
+        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "top", "bottom", "left", "right", "topleft" (vStackable), "topright" (vStackable), "bottomleft" (vStackable), or "bottomright" (vStackable).<br><br>
 
         <i>edge_padding (Default: "33px")</i>: The padding from the edge of the screen the window will have if it's not of position "center".<br><br>
 
-        <i>stack (Default: true)</i>: Whether to vertically stack new windows in their position. This only affects stackable positions. Useful for popup messages.<br><br>
+        <i>vStack (Default: true)</i>: Whether to vertically stack new windows in their position. This only affects stackable positions. Useful for popup messages.<br><br>
         
-        <i>stack_level (Default: 2)</i>: Level 1 stacks start at a z-index of 5000000 (5 with 6 zeros), Level 2 stacks start at a z-index of 50000000 (5 with 7 zeros). This is useful if you want to have popup messages that don't go above the modal windows.<br><br>
+        <i>zStack_level (Default: 2)</i>: Level 1 zStacks start at a z-index of 5000000 (5 with 6 zeros), Level 2 zStacks start at a z-index of 50000000 (5 with 7 zeros). This is useful if you want to have popup messages that don't go above the modal windows.<br><br>
 
         <i>autoclose (Default: false)</i>: Closes the window automatically after a certain amount of time.<br><br>
         
@@ -343,6 +343,8 @@ msg.set_title("Window Example");
         <i>before_close (Default: Empty Function)</i>: Function that triggers before the close method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         
         <i>after_close (Default: Empty Function)</i>: Function that triggers after the close method. Receives the instance as an argument.<br><br>
+
+        <i>after_last_closed (Default: Empty Function)</i>: Function that triggers after the last remaining open window was closed. Receives the instance as an argument.<br><br>
         
         <i>before_toggle (Default: Empty Function)</i>: Function that triggers before the toggle method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         
@@ -416,9 +418,9 @@ msg_test.show("Domo Arigato");
 
         <br><h2>Methods</h2>
         
-        <i>instance.show(html)</i>: Opens a window with the received string or html element as its content and puts it at the top of the stack.<br><br>
+        <i>instance.show(html)</i>: Opens a window with the received string or html element as its content and puts it at the top of the zStack.<br><br>
         
-        <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set() and puts it at the top of the stack.<br><br>
+        <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set() and puts it at the top of the zStack.<br><br>
 
         Note: instance.show can receive a callback function argument which is returned at the end of the function with the instance as an argument. It returns after the after_show event. This is useful if you have fade_in enabled and you want to do something as soon as the window is fully open.<br><br>
 
@@ -431,7 +433,7 @@ msg_test.show("Domo Arigato");
         
         <i>instance.set(html)</i>: Updates the html of the window without opening it. This is useful if you want to prepare the content without showing the window or if you want to change the content of the window without triggering the show events.<br><br>
 
-        <i>instance.set_or_show(html)</i>: If the window is open and at the top of the stack, it changes the html content by calling set(). If the window is closed or not at the top of the stack, it opens the window and shows the html content by calling show().<br><br>
+        <i>instance.set_or_show(html)</i>: If the window is open it changes the html content by calling set(). If the window is closed it opens the window and shows the html content by calling show(). If it's not vStackable it will also call show() if the window is not at the top of the zStack.<br><br>
         
         <i>instance.set_title(html)</i>: Updates the html of the titlebar. This doesn't open the window.<br><br>
         
@@ -464,9 +466,9 @@ msg_test.show("Domo Arigato");
         
         <i>instance.highest_zIndex()</i>: Returns the highest z-index among all the created Msg-container elements. If it retuns -2000 it means no elements have been created.<br><br>
         
-        <i>instance.is_highest()</i>: Returns true if the window is visible and at the top of the stack.<br><br>
+        <i>instance.is_highest()</i>: Returns true if the window is visible and at the top of the zStack.<br><br>
         
-        <i>instance.to_top()</i>: Puts an already opened window at the top of the stack. This is done automatically by show(), but there might be cases where you want to do this without triggering the show events.<br><br>
+        <i>instance.to_top()</i>: Puts an already opened window at the top of the zStack. This is done automatically by show(), but there might be cases where you want to do this without triggering the show events.<br><br>
         
         <i>instance.check_options()</i>: This is done automatically when creating an instance. It checks the options object and applies the corresponding defaults to undefined properties.<br><br>
         

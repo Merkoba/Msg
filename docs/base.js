@@ -325,6 +325,8 @@ var msg_pop = Msg(
 
 var num_pops = 1;
 
+var pops = [];
+
 function pop()
 {
     var colors = ["green", "blue", "red", "black"];
@@ -340,9 +342,11 @@ function pop()
         autoclose_delay: 3000,
         enable_progressbar: true,
         persistent: false,
-        stack_level: 1,
+        zStack_level: 1,
         lock: false
     });
+
+    pops.push(msg);
 
     msg.show(`Task #${num_pops} completed succesfully.`);
 
@@ -364,8 +368,12 @@ function pop2()
         autoclose_delay: 3000,
         enable_progressbar: true,
         persistent: false,
-        stack_level: 2,
-        lock: false
+        zStack_level: 2,
+        lock: false,
+        after_last_closed:function()
+        {
+            alert("All windows are closed!");
+        }
     });
 
     msg.show(`Task #${num_pops} completed succesfully.`);
