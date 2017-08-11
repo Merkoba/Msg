@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=47'></script>
+        <script src='msg.js?v=48'></script>
 
-        <script src='base.js?v=13'></script>
+        <script src='base.js?v=14'></script>
 
     </head>
 
@@ -24,14 +24,13 @@
 
         <br><h1>Msg</h1>
         
-        A javascript library to create and manage highly customizable modal windows.<br><br>
-        The window is centered and it grows or shrinks automatically by the content inside of it.
-        <br><br>
-        To close the window just click the overlay that is created around it, or click the x in the corner, or press Escape.
+        A javascript library to create and manage highly customizable modal windows and popup messages.<br><br>
+
+        <h2>Modal</h2>
 
         <span class='unselectable'>
 
-        <br><br><br><span class='clicky' onclick='msg.show(sm)'>Demo 1</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='msg.show(sm)'>Demo 1</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg.show(s)'>Demo 2</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg.show(s2)'>Demo 3</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='msg_autoclose.show(s4);msg_autoclose.set_title("Warning")'>Demo 4</span>&nbsp;&nbsp;&nbsp;
@@ -59,7 +58,26 @@
 
         </span>
 
-        <br><br><h2>Installation</h2>
+        <br><br><h2>Popups</h2>
+
+        It's possible to create stackable popup messages using certain options.<br>
+
+        <br><span class='clicky' onclick='pop()'>Click To Open A New Popup</span><br> 
+
+        <blockquote><pre><code>var msg_pop = Msg(
+{
+    class: "green",
+    enable_overlay: false,
+    position: "bottomright",
+    autoclose: true,
+    autoclose_delay: 3000,
+    enable_progressbar: true,
+    persistent: false,
+    lock: false
+});
+        </code></pre></blockquote>          
+
+        <h2>Installation</h2>
 
         <a target='_blank' href='https://github.com/madprops/Msg'>Get the code here</a>
 
@@ -128,24 +146,9 @@
 
         The z-index values of the windows are generated when they are shown, allowing for windows with different ids to stack on top of each other.<br>
 
-        <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>  
+        <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>        
 
-        <br><br>
-
-        It's possible to create simple "popup messages" with certain options.<br>
-
-        <br><span class='clicky' onclick='msg_pop.show("Task completed succesfully.")'>Popup Demo</span><br> 
-
-        <blockquote><pre><code>var msg_pop = Msg(
-{
-    class:"green",
-    enable_overlay:false,
-    position:"bottomright",
-    lock:false
-});
-        </code></pre></blockquote>         
-
-        <h2>Styling</h2>
+        <br><h2>Styling</h2>
 
         You can set custom ids and classes via options.<br><br>
 
@@ -246,11 +249,11 @@ msg.set_title("Window Example");
 
         <span class='clicky' onclick='msg_green_tb.show("This is the green theme with the titlebar enabled.");msg_green_tb.set_title("Theme")'>class: "green"</span>&nbsp;&nbsp;&nbsp; 
         
-        <span class='clicky' onclick='msg_black_tb.show("This is the black theme with the titlebar enabled.");msg_black_tb.set_title("Theme")'>class: "black"</span><br><br>
+        <span class='clicky' onclick='msg_black_tb.show("This is the black theme with the titlebar enabled.");msg_black_tb.set_title("Theme")'>class: "black"</span>
 
-        </span>
+        </span>       
 
-        <h2>Options</h2>
+        <br><br><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
         
         <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo".<br><br>
@@ -298,6 +301,8 @@ msg.set_title("Window Example");
         <i>autoclose_delay (Default: 3000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
         
         <i>enable_overlay (Default: true)</i>: Whether the overlay is created or not.<br><br>
+        
+        <i>enable_progressbar (Default: false)</i>: Whether a progressbar to complement autoclose is created or not.<br><br>
 
         <i>enable_inner_x (Default: true)</i>: Makes an x, within the window, to close the window.<br><br>
         

@@ -1,8 +1,9 @@
-/* Msg v5.3.1 https://github.com/madprops/Msg */
+/* Msg v5.4.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
 	var instances = [];
+	var edge_padding = "33px";
 
 	var css = `<style>
 
@@ -11,6 +12,7 @@ var Msg = (function()
 	.Msg-overlay{background-color:rgba(0, 0, 0, 0.7)}
 	.Msg-window{background-color:white;color:black}
 	.Msg-titlebar{background-color:#c8c8c8;color:black}
+	.Msg-progressbar{background-color:#c8c8c8}
 	.Msg-inner-x{background-color:white;color:#363636}
 	.Msg-inner-x:hover{background-color:#cacaca}
 	.Msg-outer-x{color:white}
@@ -19,6 +21,7 @@ var Msg = (function()
 	.Msg-overlay-blue{background-color:rgba(101, 107, 124, 0.7)}
 	.Msg-window-blue{background-color:#4f84b8;color:white}
 	.Msg-titlebar-blue{background-color:#43729f;color:white}
+	.Msg-progressbar-blue{background-color:#43729f}
 	.Msg-inner-x-blue{background-color:#4f84b8;color:white}
 	.Msg-inner-x-blue:hover{background-color:#476b8f}
 	.Msg-outer-x-blue{color:white}
@@ -27,6 +30,7 @@ var Msg = (function()
 	.Msg-overlay-red{background-color:rgba(104, 64, 64, 0.7)}
 	.Msg-window-red{background-color:#ca4e4e;color:white}
 	.Msg-titlebar-red{background-color:#af3f3f;color:white}
+	.Msg-progressbar-red{background-color:#af3f3f}
 	.Msg-inner-x-red{background-color:#ca4e4e;color:white}
 	.Msg-inner-x-red:hover{background-color:#9d4d4d}
 	.Msg-outer-x-red{color:white}
@@ -35,6 +39,7 @@ var Msg = (function()
 	.Msg-overlay-green{background-color:rgba(121, 159, 133, 0.7)}
 	.Msg-window-green{background-color:#58a564;color:white}
 	.Msg-titlebar-green{background-color:#52935c;color:white}
+	.Msg-progressbar-green{background-color:#52935c}
 	.Msg-inner-x-green{background-color:#58a564;color:white}
 	.Msg-inner-x-green:hover{background-color:#4e8456}
 	.Msg-outer-x-green{color:white}
@@ -43,6 +48,7 @@ var Msg = (function()
 	.Msg-overlay-black{background-color:rgba(0, 0, 0, 0.7)}
 	.Msg-window-black{background-color:#2a2a2a;color:white}
 	.Msg-titlebar-black{background-color:#3c3c3c;color:white}
+	.Msg-progressbar-black{background-color:black}
 	.Msg-inner-x-black{background-color:#2a2a2a;color:white}
 	.Msg-inner-x-black:hover{background-color:#424242}
 	.Msg-outer-x-black{color:white}
@@ -262,7 +268,12 @@ var Msg = (function()
 			if(instance.options.position === undefined)
 			{
 				instance.options.position = "center";
-			}			
+			}
+
+			if(instance.options.enable_progressbar === undefined)
+			{
+				instance.options.enable_progressbar = false;
+			}
 		}
 
 		instance.check_options();
@@ -316,6 +327,8 @@ var Msg = (function()
 				instance.overlay.style.zIndex = -1000;
 			}
 
+			instance.collapse_stack();
+
 			instance.window.style.zIndex = -1000;
 
 			instance.container.style.opacity = 0;
@@ -326,6 +339,7 @@ var Msg = (function()
 			{
 				instance.destroy();
 			}
+
 
 			instance.options.after_close(instance);
 
@@ -396,6 +410,8 @@ var Msg = (function()
 			{	
 				instance.container.style.display = "block";
 				instance.check_add_overflow_hidden();
+
+				instance.check_stack();
 			}
 
 			instance.to_top();
@@ -434,6 +450,11 @@ var Msg = (function()
 			if(instance.options.autoclose)
 			{
 				instance.autoclose_timer();
+
+				if(instance.options.enable_progressbar)
+				{
+					instance.animate_progressbar();
+				}
 			}
 
 			instance.options.after_show(instance);
@@ -497,58 +518,74 @@ var Msg = (function()
 			if(instance.options.position === "top")
 			{
 				var win_x = "left:50%;";
-				var win_y = "top:33px;";
+				var win_y = `top:${edge_padding};`;
 				var win_trans = "transform:translateX(-50%);";
+
+				instance.stackable = false;
 			}
 
 
 			else if(instance.options.position === "bottom")
 			{
 				var win_x = "left:50%;";
-				var win_y = "bottom:33px;";
+				var win_y = `bottom:${edge_padding};`;
 				var win_trans = "transform:translateX(-50%);";
+
+				instance.stackable = false;
 			}
 
 			else if(instance.options.position === "left")
 			{
-				var win_x = "left:33px;";
+				var win_x = `left:${edge_padding};`;
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
+
+				instance.stackable = false;
 			}
 
 			else if(instance.options.position === "right")
 			{
-				var win_x = "right:33px;";
+				var win_x = `right:${edge_padding};`;
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
+
+				instance.stackable = false;
 			}
 
 			else if(instance.options.position === "topleft")
 			{
-				var win_x = "left:33px;";
-				var win_y = "top:33px;";
+				var win_x = `left:${edge_padding};`;
+				var win_y = `top:${edge_padding};`;
 				var win_trans = "";
+
+				instance.stackable = true;
 			}
 
 			else if(instance.options.position === "topright")
 			{
-				var win_x = "right:33px;";
-				var win_y = "top:33px;";
+				var win_x = `right:${edge_padding};`;
+				var win_y = `top:${edge_padding};`;
 				var win_trans = "";
+
+				instance.stackable = true;
 			}
 
 			else if(instance.options.position === "bottomleft")
 			{
-				var win_x = "left:33px;";
-				var win_y = "bottom:33px;";
+				var win_x = `left:${edge_padding};`;
+				var win_y = `bottom:${edge_padding};`;
 				var win_trans = "";
+
+				instance.stackable = true;
 			}
 
 			else if(instance.options.position === "bottomright")
 			{
-				var win_x = "right:33px;";
-				var win_y = "bottom:33px;";
+				var win_x = `right:${edge_padding};`;
+				var win_y = `bottom:${edge_padding};`;
 				var win_trans = "";
+
+				instance.stackable = true;
 			}
 
 			else
@@ -556,7 +593,26 @@ var Msg = (function()
 				var win_x = "left:50%;";
 				var win_y = "top:50%;";
 				var win_trans = "transform:translate(-50%, -50%);";
-			}			
+
+				instance.stackable = false;
+			}
+
+			styles.outer_x = `
+			cursor:pointer;
+			float:${instance.options.outer_x_position};
+			font-size:28px;
+			font-family:sans-serif;
+			-webkit-touch-callout:none;
+			-webkit-user-select:none;
+			-khtml-user-select:none;
+			-moz-user-select:none;
+			-ms-user-select:none;
+			user-select:none;	
+			padding-left:0.6em;
+			padding-right:0.6em;
+			padding-top:0.035em;
+			padding-bottom:0.2em;
+			`;						
 
 			styles.window = `
 			display:flex;
@@ -649,6 +705,16 @@ var Msg = (function()
 				var cpt = "1.6em";
 			}
 
+			if(instance.options.enable_progressbar)
+			{
+				var cpb = "1.3em";
+			}
+
+			else
+			{
+				var cpb = "1.6em";
+			}
+
 			styles.content = `
 			font-size:23.8px;
 			font-family:sans-serif;
@@ -656,27 +722,14 @@ var Msg = (function()
 			overflow:hidden;
 			overflow-wrap: break-word;
 			padding-top:${cpt};
-			padding-bottom:1.6em;
+			padding-bottom:${cpb};
 			padding-left:1.6em;
 			padding-right:1.6em;
 			`;
 
-			styles.outer_x = `
-			cursor:pointer;
-			float:${instance.options.outer_x_position};
-			font-size:28px;
-			font-family:sans-serif;
-			-webkit-touch-callout:none;
-			-webkit-user-select:none;
-			-khtml-user-select:none;
-			-moz-user-select:none;
-			-ms-user-select:none;
-			user-select:none;	
-			padding-left:0.6em;
-			padding-right:0.6em;
-			padding-top:0.035em;
-			padding-bottom:0.2em;
-			`;			
+			styles.progressbar = `
+			height:8px;
+			`;	
 
 			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
 			var overlay_class = (instance.options.overlay_class !== undefined) ? instance.options.overlay_class : instance.options.class;
@@ -687,6 +740,7 @@ var Msg = (function()
 			var inner_x_class = (instance.options.inner_x_class !== undefined) ? instance.options.inner_x_class : instance.options.class;
 			var content_container_class = (instance.options.content_container_class !== undefined) ? instance.options.content_container_class : instance.options.class;
 			var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class;
+			var progressbar_class = (instance.options.progressbar_class !== undefined) ? instance.options.progressbar_class : instance.options.class;
 			
 			container_class = container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-container-${w}`).join(" ");
 			overlay_class = overlay_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-overlay-${w}`).join(" ");
@@ -697,6 +751,7 @@ var Msg = (function()
 			inner_x_class = inner_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-inner-x-${w}`).join(" ");
 			content_container_class = content_container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-container-${w}`).join(" ");
 			content_class = content_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-${w}`).join(" ");
+			progressbar_class = progressbar_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-progressbar-${w}`).join(" ");
 
 			var container_html =  `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`;
 			var overlay_html = `<div class="Msg-overlay ${overlay_class}" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
@@ -707,6 +762,7 @@ var Msg = (function()
 			var inner_x_html = `<div class="Msg-inner-x ${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
 			var content_container_html = `<div class="Msg-content-container ${content_container_class}" style="${styles.content_container}" id="Msg-content-container-${instance.options.id }"></div>`;
 			var content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
+			var progressbar_html = `<div class="Msg-progressbar ${progressbar_class}" style="${styles.progressbar}" id="Msg-progressbar-${instance.options.id }"></div>`;
 
 			document.body.insertAdjacentHTML("beforeend", container_html);
 
@@ -749,7 +805,13 @@ var Msg = (function()
 			instance.content_container = document.getElementById(`Msg-content-container-${instance.options.id}`);
 			
 			instance.content_container.insertAdjacentHTML("beforeend", content_html);
-			instance.content = document.getElementById(`Msg-content-${instance.options.id}`);
+			instance.content = document.getElementById(`Msg-content-${instance.options.id}`);	
+
+			if(instance.options.enable_progressbar)
+			{
+				instance.window.insertAdjacentHTML("beforeend", progressbar_html);
+				instance.progressbar = document.getElementById(`Msg-progressbar-${instance.options.id}`);
+			}
 
 			if(instance.overlay !== undefined)
 			{
@@ -1059,6 +1121,34 @@ var Msg = (function()
 			};
 		})();
 
+		instance.animate_progressbar = function()
+		{
+			clearInterval(instance.progressbar_animation);
+
+			instance.progressbar.style.width = "100%";
+
+			var width = instance.progressbar.offsetWidth;
+
+			var width_cent = width / 100;
+
+			instance.progressbar_animation = setInterval(function()
+			{
+				width -= width_cent;
+
+				if(width < 0)
+				{
+					width = 0;
+				}
+
+				instance.progressbar.style.width = `${width}px`;
+
+				if(width <= 0)
+				{
+					clearInterval(instance.progressbar_animation);
+				}
+			}, instance.options.autoclose_delay / 100)
+		}		
+
 		instance.clear_fade_intervals = function()
 		{
 			clearInterval(instance.fade_in_interval);
@@ -1116,6 +1206,177 @@ var Msg = (function()
 					instance.close_window(callback);
 				}
 			}, speed);	
+		}
+
+		instance.highest_in_position = function()
+		{
+			var highest = -1;
+			var highest_ins;
+
+			for(var i of instances)
+			{
+				if(i.is_open())
+				{
+					if(i.options.position === instance.options.position)
+					{
+						var zIndex = i.window.style.zIndex;
+
+						if(zIndex > highest)
+						{
+							highest = zIndex;
+							highest_ins = i;
+						}
+					}
+				}
+			}
+
+			return highest_ins;
+		}
+
+		instance.zIndex_sort = function(a, b)
+		{
+			return a.window.style.zIndex - b.window.style.zIndex;
+		}
+
+		instance.zIndex_sort2 = function(a, b)
+		{
+			return b.window.style.zIndex - a.window.style.zIndex;
+		}
+
+		instance.above_in_position = function()
+		{
+			var lowest = 5000000000;
+			var lowest_el;
+
+			var ins_above = [];
+
+			for(var i of instances)
+			{
+				if(i.is_open())
+				{
+					if(i.options.position === instance.options.position)
+					{
+						if(i.window.style.zIndex > instance.window.style.zIndex)
+						{
+							ins_above.push(i);
+						}
+					}
+				}
+			}
+
+			return ins_above.sort(instance.zIndex_sort);
+		}
+
+		instance.nextbelow_in_position = function(ins)
+		{
+			var lowest = 5000000000;
+			var lowest_el;
+
+			var ins_below = [];
+
+			for(var i of instances)
+			{
+				if(i.is_open())
+				{
+					if(i.options.position === ins.options.position)
+					{
+						if(i.window.style.zIndex < ins.window.style.zIndex)
+						{
+							ins_below.push(i);
+						}
+					}
+				}
+			}
+
+			ins_below.sort(instance.zIndex_sort2);
+
+			return ins_below[0];
+		}
+
+		instance.check_stack = function()
+		{
+			if(instance.stackable)
+			{
+				var p = instance.options.position;
+
+				var highest = instance.highest_in_position();
+
+				if(highest !== undefined)
+				{
+					if(p === "topleft" || p === "topright")
+					{
+						var top = parseInt(highest.window.style.top);
+						var new_top = top + highest.window.offsetHeight + 20 + "px";
+						
+						instance.window.style.top = new_top;
+					}
+
+					else if(p === "bottomleft" || p === "bottomright")
+					{
+						var bottom = parseInt(highest.window.style.bottom);
+						var new_bottom = bottom + highest.window.offsetHeight + 20 + "px";
+
+						instance.window.style.bottom = new_bottom;
+					}
+				}
+
+				else
+				{
+					if(p === "topleft" || p === "topright")
+					{
+						instance.window.style.top = edge_padding;
+					}
+
+					else if(p === "bottomleft" || p === "bottomright")
+					{
+						instance.window.style.bottom = edge_padding;
+					}
+				}
+			}
+		}
+
+		instance.collapse_stack = function()
+		{
+			var p = instance.options.position;
+
+			var ins_above = instance.above_in_position();
+
+			for(var i of ins_above)
+			{
+				var below = instance.nextbelow_in_position(i);
+
+				if(below !== undefined)
+				{
+					if(p === "topleft" || p === "topright")
+					{
+						var top = parseInt(below.window.style.top);
+						var new_top = top + below.window.offsetHeight + 20 + "px";
+						
+						i.window.style.top = new_top;
+					}
+
+					else if(p === "bottomleft" || p === "bottomright")
+					{
+						var bottom = parseInt(below.window.style.bottom);
+						var new_bottom = bottom + below.window.offsetHeight + 20 + "px";
+
+						i.window.style.bottom = new_bottom;
+					}		
+				}
+
+				else
+				{
+					if(p === "topleft" || p === "topright")
+					{
+						i.window.style.top = edge_padding;
+					}
+
+					else if(p === "bottomleft" || p === "bottomright")
+					{
+						i.window.style.bottom = edge_padding;
+					}
+				}				
+			}
 		}
 
 		document.addEventListener("keydown", function(e)

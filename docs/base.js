@@ -1,4 +1,7 @@
-var msg = Msg();
+var msg = Msg(
+{
+
+});
 
 var msg2 = Msg(
 {
@@ -29,7 +32,8 @@ var msg5 = Msg(
 var msg6 = Msg(
 {
     temp_disable_close: true,
-    autoclose: true
+    autoclose: true,
+    enable_progressbar: true
 });
 
 var msg7 = Msg(
@@ -43,7 +47,8 @@ var msg_autoclose = Msg(
     autoclose:true,
     enable_inner_x:false,
     close_on_overlay_click:false,
-    enable_titlebar:true
+    enable_titlebar:true,
+    enable_progressbar:true
 });
 
 var msg_ox = Msg(
@@ -113,25 +118,37 @@ var msg_default = Msg(
 var msg_red = Msg(
 {
     class:"red",
-    enable_outer_x:true
+    enable_outer_x:true,
+    autoclose:true,
+    autoclose_delay:50000,
+    enable_progressbar:true
 });
 
 var msg_blue = Msg(
 {
     class:"blue",
-    enable_outer_x:true
+    enable_outer_x:true,
+    autoclose:true,
+    autoclose_delay:5000,
+    enable_progressbar:true
 });
 
 var msg_green = Msg(
 {
     class:"green",
-    enable_outer_x:true
+    enable_outer_x:true,
+    autoclose:true,
+    autoclose_delay:5000,
+    enable_progressbar:true
 });
 
 var msg_black = Msg(
 {
     class:"black",
-    enable_outer_x:true
+    enable_outer_x:true,
+    autoclose:true,
+    autoclose_delay:5000,
+    enable_progressbar:true
 });
 
 var msg_red_tb = Msg(
@@ -160,14 +177,6 @@ var msg_black_tb = Msg(
     class:"black",
     enable_outer_x:true,
     enable_titlebar:true
-});
-
-var msg_pop = Msg(
-{
-    class:"green",
-    enable_overlay:false,
-    position:"bottomright",
-    lock:false
 });
 
 var msg_toy = Msg(
@@ -304,3 +313,32 @@ document.addEventListener("keyup", function(e)
         }
     }
 });
+
+var msg_pop = Msg(
+{
+    class:"green",
+    enable_overlay:false,
+    position:"bottomright",
+    lock:false
+});
+
+var num_pops = 1;
+
+function pop()
+{
+    var msg = Msg(
+    {
+        class: "green",
+        enable_overlay: false,
+        position: "bottomright",
+        autoclose: true,
+        autoclose_delay: 3000,
+        enable_progressbar: true,
+        persistent: false,
+        lock: false
+    });
+
+    msg.show(`Task #${num_pops} completed succesfully.`);
+
+    num_pops += 1;
+}
