@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=52'></script>
+        <script src='msg.js?v=53'></script>
 
-        <script src='base.js?v=19'></script>
+        <script src='base.js?v=20'></script>
 
     </head>
 
@@ -366,6 +366,10 @@ msg.set_title("Window Example");
         
         <i>after_destroy (Default: Empty Function)</i>: Function that triggers after the destroy method. Receives the instance as an argument.<br><br>
 
+        <i>while_open (Default: Empty Function)</i>: Function that runs in an interval as long as the window is open. Receives the instance as an argument.<br><br>
+
+        <i>while_open_interval (Default: 1000)</i>: Function that triggers after the destroy method. Receives the instance as an argument.<br><br>
+
         <br>Example:
 
         <i><blockquote><pre><code>var msg_test = Msg(
@@ -480,7 +484,9 @@ instance.options.lock = false;<br>
         
         <i>instance.toggle()</i>: If the window is closed it opens it. If the window is open it closes it.<br><br>
         
-        <i>instance.html()</i>: A shortcut for instance.content.innerHTML. Returns "" if the html elements have not been created yet.<br><br>
+        <i>instance.html()</i>: A shortcut for instance.content.innerHTML. Returns "" if the html elements have not been created yet.<br><br>  
+
+        <i>instance.title_html()</i>: A shortcut for instance.titlebar.innerHTML. Returns "" if the titlebar element is not created.<br><br>
         
         <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
         

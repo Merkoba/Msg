@@ -1,4 +1,4 @@
-/* Msg v5.6.0 https://github.com/madprops/Msg */
+/* Msg v5.6.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -230,6 +230,16 @@ var Msg = (function()
 				instance.options.after_destroy = function(){};
 			}
 
+			if(instance.options.while_open === undefined)
+			{
+				instance.options.while_open = function(){};
+			}
+
+			if(instance.options.while_open_interval === undefined)
+			{
+				instance.options.while_open_interval = 1000;
+			}
+
 			if(instance.options.temp_disable_close === undefined)
 			{
 				instance.options.temp_disable_close = false;
@@ -351,6 +361,7 @@ var Msg = (function()
 			}
 
 			instance.clear_fade_intervals();
+			instance.clear_while_open_interval();
 
 			if(instance.options.fade_out)
 			{
@@ -428,6 +439,23 @@ var Msg = (function()
 			instance.options.after_set(instance);			
 		}
 
+		instance.set_title = function(html)
+		{
+			if(instance.titlebar === undefined)
+			{
+				return;
+			}
+
+			if(instance.options.before_set_title(instance) === false)
+			{
+				return;
+			}
+
+			instance.titlebar.innerHTML = html;
+
+			instance.options.after_set_title(instance);
+		}		
+
 		instance.set_or_show = function(html)
 		{
 			if(instance.stackable && instance.options.vStack)
@@ -467,8 +495,12 @@ var Msg = (function()
 			{	
 				instance.container.style.display = "block";
 				instance.check_add_overflow_hidden();
-
 				instance.check_stack();
+
+				if(instance.options.while_open !== undefined)
+				{
+					instance.start_while_open_interval();
+				}
 			}
 
 			instance.to_top();
@@ -1112,6 +1144,16 @@ var Msg = (function()
 			return "";
 		}
 
+		instance.title_html = function()
+		{
+			if(instance.titlebar !== undefined)
+			{
+				return instance.titlebar.innerHTML;
+			}
+
+			return "";
+		}
+
 		instance.check_add_overflow_hidden = function()
 		{
 			if(instance.options.lock)
@@ -1277,21 +1319,19 @@ var Msg = (function()
 			}, speed);	
 		}
 
-		instance.set_title = function(html)
+		instance.start_while_open_interval = function()
 		{
-			if(instance.titlebar === undefined)
+			instance.clear_while_open_interval();
+
+			instance.while_open_interval = setInterval(function()
 			{
-				return;
-			}
+				instance.options.while_open(instance);
+			}, instance.options.while_open_interval);
+		}
 
-			if(instance.options.before_set_title(instance) === false)
-			{
-				return;
-			}
-
-			instance.titlebar.innerHTML = html;
-
-			instance.options.after_set_title(instance);
+		instance.clear_while_open_interval = function()
+		{
+			clearInterval(instance.while_open_interval);
 		}
 
 		instance.fade_out = function(callback) 
@@ -1347,9 +1387,6 @@ var Msg = (function()
 
 		instance.above_in_position = function()
 		{
-			var lowest = 5000000000;
-			var lowest_el;
-
 			var ins_above = [];
 
 			for(var i of instances)
@@ -1371,9 +1408,6 @@ var Msg = (function()
 
 		instance.nextbelow_in_position = function(ins)
 		{
-			var lowest = 5000000000;
-			var lowest_el;
-
 			var ins_below = [];
 
 			for(var i of instances)
