@@ -1,4 +1,4 @@
-/* Msg v5.3.0 https://github.com/madprops/Msg */
+/* Msg v5.3.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -969,10 +969,18 @@ var Msg = (function()
 
 		instance.check_remove_overflow_hidden = function()
 		{
-			if(instance.num_open() === 0)
+			for(var i of instances)
 			{
-				document.body.classList.remove("Msg-overflow-hidden");
-			}			
+				if(i.is_open())
+				{
+					if(i.options.lock)
+					{
+						return;
+					}
+				}
+			}
+
+			document.body.classList.remove("Msg-overflow-hidden");
 		}
 
 		instance.to_top = function()
