@@ -1,4 +1,4 @@
-/* Msg v5.6.1 https://github.com/madprops/Msg */
+/* Msg v5.6.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -325,9 +325,9 @@ var Msg = (function()
 				instance.options.vStack = true;
 			}
 
-			if(instance.options.zstack_level === undefined)
+			if(instance.options.zStack_level === undefined)
 			{
-				instance.options.zstack_level = 2;
+				instance.options.zStack_level = 2;
 			}
 		}
 
@@ -1186,7 +1186,7 @@ var Msg = (function()
 
 				var highest_common = instance.highest_common_zIndex();
 
-				if(instance.options.zstack_level === 1)
+				if(instance.options.zStack_level === 1)
 				{
 					var highest = Math.max(5000000, 5000000 + highest_common);
 				}
