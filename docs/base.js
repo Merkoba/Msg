@@ -162,6 +162,14 @@ var msg_black_tb = Msg(
     enable_titlebar:true
 });
 
+var msg_pop = Msg(
+{
+    class:"green",
+    enable_overlay:false,
+    position:"bottomright",
+    lock:false
+});
+
 var msg_toy = Msg(
 {
     id:"toy",
