@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=49'></script>
+        <script src='msg.js?v=50'></script>
 
-        <script src='base.js?v=16'></script>
+        <script src='base.js?v=17'></script>
 
     </head>
 
@@ -62,17 +62,19 @@
 
         It's possible to create stackable popup messages using certain options.<br>
 
-        <br><span class='clicky' onclick='pop()'>Click To Open A New Popup</span><br> 
+        <br><span class='clicky' onclick='pop()'>Click To Open A New Popup</span><br>
+        <!-- <br><span class='clicky' onclick='pop2()'>Click To Open A New Popup 2</span><br> -->
 
         <blockquote><pre><code>var msg_pop = Msg(
 {
-    class: "green",
+    class: "green", // This demo picks random classes
     enable_overlay: false,
     position: "bottomright",
     autoclose: true,
     autoclose_delay: 3000,
     enable_progressbar: true,
     persistent: false,
+    stack_level: 1,
     lock: false
 });
         </code></pre></blockquote>          
@@ -294,7 +296,13 @@ msg.set_title("Window Example");
         
         <i>temp_disable_keys_delay (Default: 1000)</i>: The amount of time in milliseconds keys will be disabled since the window is shown.<br><br>
         
-        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft", or "bottomright".<br><br>
+        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "top", "bottom", "left", "right", "topleft" (Stackable), "topright" (Stackable), "bottomleft" (Stackable), or "bottomright" (Stackable).<br><br>
+
+        <i>edge_padding (Default: "33px")</i>: The padding from the edge of the screen the window will have if it's not of position "center".<br><br>
+
+        <i>stack (Default: true)</i>: Whether to vertically stack new windows in their position. This only affects stackable positions. Useful for popup messages.<br><br>
+        
+        <i>stack_level (Default: 2)</i>: Level 1 stacks start at a z-index of 5000000 (5 with 6 zeros), Level 2 stacks start at a z-index of 50000000 (5 with 7 zeros). This is useful if you want to have popup messages that don't go above the modal windows.<br><br>
 
         <i>autoclose (Default: false)</i>: Closes the window automatically after a certain amount of time.<br><br>
         

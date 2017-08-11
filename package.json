@@ -1,6 +1,6 @@
 {
 	"name": "msg-modal",
-	"version": "5.4.1",
+	"version": "5.5.0-r1",
 	"description": "A javascript library to create and manage highly customizable modal windows and popup messages.",
 	"repository": 
 	{
@@ -16,6 +16,8 @@
 	[
 		"accessibility",
 		"modal",
+		"popup",
+		"toaster",
 		"dialog",
 		"html",
 		"window",

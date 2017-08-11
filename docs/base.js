@@ -319,6 +319,7 @@ var msg_pop = Msg(
     class:"green",
     enable_overlay:false,
     position:"bottomright",
+    stack:false,
     lock:false
 });
 
@@ -339,6 +340,31 @@ function pop()
         autoclose_delay: 3000,
         enable_progressbar: true,
         persistent: false,
+        stack_level: 1,
+        lock: false
+    });
+
+    msg.show(`Task #${num_pops} completed succesfully.`);
+
+    num_pops += 1;
+}
+
+function pop2()
+{
+    var colors = ["green", "blue", "red", "black"];
+
+    var color = colors[get_random_int(0, colors.length - 1)];
+
+    var msg = Msg(
+    {
+        class: color,
+        enable_overlay: false,
+        position: "bottomright",
+        autoclose: true,
+        autoclose_delay: 3000,
+        enable_progressbar: true,
+        persistent: false,
+        stack_level: 2,
         lock: false
     });
 

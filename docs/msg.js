@@ -1,9 +1,8 @@
-/* Msg v5.4.1 https://github.com/madprops/Msg */
+/* Msg v5.5.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
 	var instances = [];
-	var edge_padding = "33px";
 
 	var css = `<style>
 
@@ -274,6 +273,21 @@ var Msg = (function()
 			{
 				instance.options.enable_progressbar = false;
 			}
+
+			if(instance.options.edge_padding === undefined)
+			{
+				instance.options.edge_padding = "33px";
+			}
+
+			if(instance.options.stack === undefined)
+			{
+				instance.options.stack = true;
+			}
+
+			if(instance.options.stack_level === undefined)
+			{
+				instance.options.stack_level = 2;
+			}
 		}
 
 		instance.check_options();
@@ -518,7 +532,7 @@ var Msg = (function()
 			if(instance.options.position === "top")
 			{
 				var win_x = "left:50%;";
-				var win_y = `top:${edge_padding};`;
+				var win_y = `top:${instance.options.edge_padding};`;
 				var win_trans = "transform:translateX(-50%);";
 
 				instance.stackable = false;
@@ -528,7 +542,7 @@ var Msg = (function()
 			else if(instance.options.position === "bottom")
 			{
 				var win_x = "left:50%;";
-				var win_y = `bottom:${edge_padding};`;
+				var win_y = `bottom:${instance.options.edge_padding};`;
 				var win_trans = "transform:translateX(-50%);";
 
 				instance.stackable = false;
@@ -536,7 +550,7 @@ var Msg = (function()
 
 			else if(instance.options.position === "left")
 			{
-				var win_x = `left:${edge_padding};`;
+				var win_x = `left:${instance.options.edge_padding};`;
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
 
@@ -545,7 +559,7 @@ var Msg = (function()
 
 			else if(instance.options.position === "right")
 			{
-				var win_x = `right:${edge_padding};`;
+				var win_x = `right:${instance.options.edge_padding};`;
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
 
@@ -554,8 +568,8 @@ var Msg = (function()
 
 			else if(instance.options.position === "topleft")
 			{
-				var win_x = `left:${edge_padding};`;
-				var win_y = `top:${edge_padding};`;
+				var win_x = `left:${instance.options.edge_padding};`;
+				var win_y = `top:${instance.options.edge_padding};`;
 				var win_trans = "";
 
 				instance.stackable = true;
@@ -563,8 +577,8 @@ var Msg = (function()
 
 			else if(instance.options.position === "topright")
 			{
-				var win_x = `right:${edge_padding};`;
-				var win_y = `top:${edge_padding};`;
+				var win_x = `right:${instance.options.edge_padding};`;
+				var win_y = `top:${instance.options.edge_padding};`;
 				var win_trans = "";
 
 				instance.stackable = true;
@@ -572,8 +586,8 @@ var Msg = (function()
 
 			else if(instance.options.position === "bottomleft")
 			{
-				var win_x = `left:${edge_padding};`;
-				var win_y = `bottom:${edge_padding};`;
+				var win_x = `left:${instance.options.edge_padding};`;
+				var win_y = `bottom:${instance.options.edge_padding};`;
 				var win_trans = "";
 
 				instance.stackable = true;
@@ -581,8 +595,8 @@ var Msg = (function()
 
 			else if(instance.options.position === "bottomright")
 			{
-				var win_x = `right:${edge_padding};`;
-				var win_y = `bottom:${edge_padding};`;
+				var win_x = `right:${instance.options.edge_padding};`;
+				var win_y = `bottom:${instance.options.edge_padding};`;
 				var win_trans = "";
 
 				instance.stackable = true;
@@ -975,6 +989,23 @@ var Msg = (function()
 			}
 		}
 
+		instance.common_zIndex = function(zIndex)
+		{
+			zIndex = parseInt(zIndex);
+
+			if(zIndex > 0)
+			{
+				var common = parseInt(zIndex.toString().substring(1));
+			}
+
+			else
+			{
+				var common = -2000;
+			}
+
+			return common;
+		}		
+
 		instance.highest_zIndex = function()
 		{
 			var highest = -2000;
@@ -983,7 +1014,7 @@ var Msg = (function()
 
 			for(var i=0; i<windows.length; i++)
 			{
-				var zIndex = windows[i].style.zIndex;
+				var zIndex = parseInt(windows[i].style.zIndex);
 
 				if(zIndex > highest)
 				{
@@ -992,6 +1023,25 @@ var Msg = (function()
 			}
 
 			return parseInt(highest);
+		}
+
+		instance.highest_common_zIndex = function()
+		{
+			var highest = -2000;
+
+			var windows = Array.from(document.querySelectorAll(".Msg-window"));
+
+			for(var i=0; i<windows.length; i++)
+			{
+				var zIndex = instance.common_zIndex(windows[i].style.zIndex);
+
+				if(zIndex > highest)
+				{
+					highest = zIndex;
+				}
+			}
+
+			return highest;
 		}
 
 		instance.is_highest = function()
@@ -1048,7 +1098,18 @@ var Msg = (function()
 			if(instance.is_open())
 			{
 				var zIndex = parseInt(instance.window.style.zIndex);
-				var highest = Math.max(50000000, instance.highest_zIndex());
+
+				var highest_common = instance.highest_common_zIndex();
+
+				if(instance.options.stack_level === 1)
+				{
+					var highest = Math.max(5000000, 5000000 + highest_common);
+				}
+
+				else
+				{
+					var highest = Math.max(50000000, 50000000 + highest_common);
+				}
 
 				if(highest > zIndex)
 				{
@@ -1217,7 +1278,7 @@ var Msg = (function()
 				{
 					if(i.options.position === instance.options.position)
 					{
-						var zIndex = i.window.style.zIndex;
+						var zIndex = instance.common_zIndex(i.window.style.zIndex);
 
 						if(zIndex > highest)
 						{
@@ -1229,16 +1290,16 @@ var Msg = (function()
 			}
 
 			return highest_ins;
+		}	
+
+		instance.common_zIndex_sort = function(a, b)
+		{
+			return instance.common_zIndex(a.window.style.zIndex) - instance.common_zIndex(b.window.style.zIndex);
 		}
 
-		instance.zIndex_sort = function(a, b)
+		instance.common_zIndex_sort2 = function(a, b)
 		{
-			return a.window.style.zIndex - b.window.style.zIndex;
-		}
-
-		instance.zIndex_sort2 = function(a, b)
-		{
-			return b.window.style.zIndex - a.window.style.zIndex;
+			return instance.common_zIndex(b.window.style.zIndex) - instance.common_zIndex(a.window.style.zIndex);
 		}
 
 		instance.above_in_position = function()
@@ -1250,11 +1311,11 @@ var Msg = (function()
 
 			for(var i of instances)
 			{
-				if(i.is_open())
+				if(i.is_open() && i.options.stack)
 				{
 					if(i.options.position === instance.options.position)
 					{
-						if(i.window.style.zIndex > instance.window.style.zIndex)
+						if(instance.common_zIndex(i.window.style.zIndex) > instance.common_zIndex(instance.window.style.zIndex))
 						{
 							ins_above.push(i);
 						}
@@ -1262,7 +1323,7 @@ var Msg = (function()
 				}
 			}
 
-			return ins_above.sort(instance.zIndex_sort);
+			return ins_above.sort(instance.common_zIndex_sort);
 		}
 
 		instance.nextbelow_in_position = function(ins)
@@ -1278,7 +1339,7 @@ var Msg = (function()
 				{
 					if(i.options.position === ins.options.position)
 					{
-						if(i.window.style.zIndex < ins.window.style.zIndex)
+						if(instance.common_zIndex(i.window.style.zIndex) < instance.common_zIndex(ins.window.style.zIndex))
 						{
 							ins_below.push(i);
 						}
@@ -1286,19 +1347,18 @@ var Msg = (function()
 				}
 			}
 
-			ins_below.sort(instance.zIndex_sort2);
+			ins_below.sort(instance.common_zIndex_sort2);
 
 			return ins_below[0];
 		}
 
 		instance.check_stack = function()
 		{
-			if(instance.stackable)
+			if(instance.stackable && instance.options.stack)
 			{
 				var p = instance.options.position;
 
 				var highest = instance.highest_in_position();
-
 				if(highest !== undefined)
 				{
 					if(p === "topleft" || p === "topright")
@@ -1322,12 +1382,12 @@ var Msg = (function()
 				{
 					if(p === "topleft" || p === "topright")
 					{
-						instance.window.style.top = edge_padding;
+						instance.window.style.top = instance.options.edge_padding;
 					}
 
 					else if(p === "bottomleft" || p === "bottomright")
 					{
-						instance.window.style.bottom = edge_padding;
+						instance.window.style.bottom = instance.options.edge_padding;
 					}
 				}
 			}
@@ -1335,6 +1395,11 @@ var Msg = (function()
 
 		instance.collapse_stack = function()
 		{
+			if(!instance.stackable)
+			{
+				return;
+			}
+
 			var p = instance.options.position;
 
 			var ins_above = instance.above_in_position();
@@ -1366,12 +1431,12 @@ var Msg = (function()
 				{
 					if(p === "topleft" || p === "topright")
 					{
-						i.window.style.top = edge_padding;
+						i.window.style.top = instance.options.edge_padding;
 					}
 
 					else if(p === "bottomleft" || p === "bottomright")
 					{
-						i.window.style.bottom = edge_padding;
+						i.window.style.bottom = instance.options.edge_padding;
 					}
 				}				
 			}
