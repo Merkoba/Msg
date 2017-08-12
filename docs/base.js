@@ -386,5 +386,5 @@ var msg_wo = Msg(
 
 function init()
 {
-    Msg({preset:"popup_autoclose", show_delay:true}).show("Welcome to the Msg documentation");
+    Msg({preset:"popup_autoclose", show_delay:1000}).show("Welcome to the Msg documentation");
 }

@@ -1,4 +1,4 @@
-/* Msg v5.8.1 https://github.com/madprops/Msg */
+/* Msg v5.8.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -340,22 +340,12 @@ var Msg = (function()
 
 			if(instance.options.show_delay === undefined)
 			{
-				instance.options.show_delay = false;
-			}
-
-			if(instance.options.show_delay_duration === undefined)
-			{
-				instance.options.show_delay_duration = 1000;
+				instance.options.show_delay = 0;
 			}
 
 			if(instance.options.close_delay === undefined)
 			{
-				instance.options.close_delay = false;
-			}
-
-			if(instance.options.close_delay_duration === undefined)
-			{
-				instance.options.close_delay_duration = 1000;
+				instance.options.close_delay = 0;
 			}
 		}
 
@@ -375,12 +365,12 @@ var Msg = (function()
 		{
 			clearTimeout(instance.close_delay_timeout);
 
-			if(instance.options.close_delay)
+			if(instance.options.close_delay > 0)
 			{
 				instance.close_delay_timeout = setTimeout(function()
 				{
 					instance.do_close(callback);
-				}, instance.options.close_delay_duration);
+				}, instance.options.close_delay);
 
 				return;
 			}
@@ -510,12 +500,12 @@ var Msg = (function()
 		{
 			clearTimeout(instance.show_delay_timeout);
 
-			if(instance.options.show_delay)
+			if(instance.options.show_delay > 0)
 			{
 				instance.show_delay_timeout = setTimeout(function()
 				{
 					instance.do_show(html, callback);
-				}, instance.options.show_delay_duration);
+				}, instance.options.show_delay);
 
 				return;
 			}
