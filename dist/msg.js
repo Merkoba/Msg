@@ -1,4 +1,4 @@
-/* Msg v5.8.0 https://github.com/madprops/Msg */
+/* Msg v5.8.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -338,14 +338,24 @@ var Msg = (function()
 				instance.options.zStack_level = 2;
 			}
 
-			if(instance.options.delay === undefined)
+			if(instance.options.show_delay === undefined)
 			{
-				instance.options.delay = false;
+				instance.options.show_delay = false;
 			}
 
-			if(instance.options.delay_duration === undefined)
+			if(instance.options.show_delay_duration === undefined)
 			{
-				instance.options.delay_duration = 1000;
+				instance.options.show_delay_duration = 1000;
+			}
+
+			if(instance.options.close_delay === undefined)
+			{
+				instance.options.close_delay = false;
+			}
+
+			if(instance.options.close_delay_duration === undefined)
+			{
+				instance.options.close_delay_duration = 1000;
 			}
 		}
 
@@ -362,6 +372,23 @@ var Msg = (function()
 		}
 
 		instance.close = function(callback=false)
+		{
+			clearTimeout(instance.close_delay_timeout);
+
+			if(instance.options.close_delay)
+			{
+				instance.close_delay_timeout = setTimeout(function()
+				{
+					instance.do_close(callback);
+				}, instance.options.close_delay_duration);
+
+				return;
+			}
+
+			instance.do_close(callback);
+		}
+
+		instance.do_close = function(callback=false)
 		{
 			if(!instance.is_open())
 			{
@@ -389,7 +416,7 @@ var Msg = (function()
 			else
 			{
 				instance.close_window(callback);
-			}
+			}			
 		}
 
 		instance.close_window = function(callback)
@@ -481,19 +508,19 @@ var Msg = (function()
 
 		instance.show = function(html, callback=false)
 		{
-			clearTimeout(instance.delay_timeout);
+			clearTimeout(instance.show_delay_timeout);
 
-			if(instance.options.delay)
+			if(instance.options.show_delay)
 			{
-				instance.delay_timeout = setTimeout(function()
+				instance.show_delay_timeout = setTimeout(function()
 				{
 					instance.do_show(html, callback);
-				}, instance.options.delay_duration);
+				}, instance.options.show_delay_duration);
 
 				return;
 			}
 
-			instance.do_show(html, callback)
+			instance.do_show(html, callback);
 		}
 
 		instance.do_show = function(html, callback=false)

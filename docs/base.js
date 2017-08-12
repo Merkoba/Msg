@@ -1,6 +1,5 @@
 var msg = Msg(
 {
-delay:true
 });
 
 var msg2 = Msg(
