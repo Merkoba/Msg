@@ -336,6 +336,7 @@ function pop(position)
     var vStack = document.getElementById('input_vStack').checked;
     var autoclose = document.getElementById('input_autoclose').checked;
     var collapse = document.getElementById('input_collapse').checked;
+    var enable_titlebar = document.getElementById('input_enable_titlebar').checked;
 
     if(autoclose)
     {
@@ -358,16 +359,45 @@ function pop(position)
         persistent: false,
         vStack: vStack,
         collapse:collapse,
+        enable_titlebar:enable_titlebar,
         edge_padding:document.getElementById('input_edge_padding').value,
+        vStack_padding:document.getElementById('input_vStack_padding').value,
         zStack_level: 1,
-        lock: false
+        clicky:true,
+        lock: false,
+        on_click: function(instance)
+        {
+            show_options(instance);
+        }
     });
 
     pops.push(msg);
 
     msg.show(`Task #${num_pops} completed succesfully.`);
 
+    if(enable_titlebar)
+    {
+        msg.set_title("Success")
+    }
+
     num_pops += 1;
+}
+
+function show_options(popup)
+{
+    var msg = Msg({class:popup.options.class});
+
+    var s = '';
+
+    var keys = Object.keys(popup.options);
+
+    for(key of keys)
+    {
+        s += key + ": ";
+        s += popup.options[key] + "<br><br>";
+    }
+
+    msg.show(s);
 }
 
 function pop2()
@@ -403,5 +433,5 @@ var msg_wo = Msg(
 
 function init()
 {
-    Msg({preset:"popup_autoclose", show_delay:1000}).show("Welcome to the Msg documentation");
+    // Msg({preset:"popup_autoclose", show_delay:1000}).show("Welcome to the Msg documentation");
 }

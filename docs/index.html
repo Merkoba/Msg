@@ -8,13 +8,13 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>  
               
-        <link rel='stylesheet' href="style.css?v=7">  
+        <link rel='stylesheet' href="style.css?v=8">  
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=58'></script>
+        <script src='msg.js?v=59'></script>
 
-        <script src='base.js?v=26'></script>
+        <script src='base.js?v=27'></script>
 
         <script>
             init();
@@ -66,11 +66,15 @@
 
         You can create stackable popup messages using certain options.<br><br>
 
-        Keep clicking the demos to stack the popups:<br><br><br>
+        Keep clicking the demos to stack the popups:<br><br>
+
+        Click on a displayed popup to see its options.
+
+        <br><br><br>
 
         <span class='unselectable'>
 
-        edge_padding: &nbsp; <input id='input_edge_padding' type='text' value='20px'>
+        edge_padding: &nbsp; <input id='input_edge_padding' type='text' value='20'>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -78,11 +82,19 @@
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+        vStack_padding: &nbsp; <input id='input_vStack_padding' type='text' value='20'>
+
+        <br><br>
+
         autoclose: &nbsp; <input id='input_autoclose' type='checkbox' checked>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
         collapse: &nbsp; <input id='input_collapse' type='checkbox' checked>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        enable_titlebar: &nbsp; <input id='input_enable_titlebar' type='checkbox'>
 
         <br><br>
 
@@ -341,9 +353,11 @@ msg.set_title("Window Example");
         
         <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "left", "right", "top" (vStackable), "bottom" (vStackable), "topleft" (vStackable), "topright" (vStackable), "bottomleft" (vStackable), or "bottomright" (vStackable).<br><br>
 
-        <i>edge_padding (Default: "20px")</i>: The padding from the edge of the screen the window will have if it's not of position "center".<br><br>
+        <i>edge_padding (Default: 20)</i>: The padding in pixels from the edge of the screen the window will have if it's not of position "center".<br><br>
 
         <i>vStack (Default: true)</i>: Whether to vertically stack new windows in their position. This only affects vStackable positions. Useful for popup messages.<br><br>
+        
+        <i>vStack_padding (Default: 20)</i>: The separation in pixels between vertically stacked windows.<br><br>
 
         <i>collapse (Default: true)</i>: Whether windows in a vertical stack collapse when a window is closed. Useful for popup messages.<br><br>
         
@@ -410,6 +424,10 @@ msg.set_title("Window Example");
         <i>while_open (Default: Empty Function)</i>: Function that runs in an interval as long as the window is open. Receives the instance as an argument.<br><br>
 
         <i>while_open_interval (Default: 1000)</i>: Function that triggers after the destroy method. Receives the instance as an argument.<br><br>
+
+        <i>on_click (Default: Empty Function)</i>: Function that triggers when either Msg-content, Msg-topbar, Msg-titlebar or Msg-progressbar are clicked.<br><br>
+
+        <i>clicky (Default: Empty Function)</i>: Adds "cursor:pointer" to the Msg-window's style when created.<br><br>
 
         <br>Example:
 
