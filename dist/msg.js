@@ -1,4 +1,4 @@
-/* Msg v5.7.2 https://github.com/madprops/Msg */
+/* Msg v5.8.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -337,6 +337,16 @@ var Msg = (function()
 			{
 				instance.options.zStack_level = 2;
 			}
+
+			if(instance.options.delay === undefined)
+			{
+				instance.options.delay = false;
+			}
+
+			if(instance.options.delay_duration === undefined)
+			{
+				instance.options.delay_duration = 1000;
+			}
 		}
 
 		instance.check_options();
@@ -471,6 +481,23 @@ var Msg = (function()
 
 		instance.show = function(html, callback=false)
 		{
+			clearTimeout(instance.delay_timeout);
+
+			if(instance.options.delay)
+			{
+				instance.delay_timeout = setTimeout(function()
+				{
+					instance.do_show(html, callback);
+				}, instance.options.delay_duration);
+
+				return;
+			}
+
+			instance.do_show(html, callback)
+		}
+
+		instance.do_show = function(html, callback=false)
+		{
 			if(typeof html === "function")
 			{
 				callback = html;
@@ -554,7 +581,7 @@ var Msg = (function()
 				{
 					return callback(instance);
 				}
-			}
+			}			
 		}
 
 		instance.toggle = function()
@@ -610,7 +637,7 @@ var Msg = (function()
 				var win_y = `top:${instance.options.edge_padding};`;
 				var win_trans = "transform:translateX(-50%);";
 
-				instance.stackable = false;
+				instance.stackable = true;
 			}
 
 
@@ -620,7 +647,7 @@ var Msg = (function()
 				var win_y = `bottom:${instance.options.edge_padding};`;
 				var win_trans = "transform:translateX(-50%);";
 
-				instance.stackable = false;
+				instance.stackable = true;
 			}
 
 			else if(instance.options.position === "left")
@@ -1388,20 +1415,20 @@ var Msg = (function()
 			var highest = -2000;
 			var highest_ins;
 
+			var p = instance.options.position;
+
 			for(var i of instances)
 			{
 				if(i.is_open())
 				{
-					var p = instance.options.position;
-
 					if(i.options.position === p)
 					{
-						if(p === "topleft" || p === "topright")
+						if(p.indexOf("top") !== -1)
 						{
 							var pos = parseInt(i.window.style.top);
 						}
 
-						else if(p === "bottomleft" || p === "bottomright")
+						else if(p.indexOf("bottom") !== -1)
 						{
 							var pos = parseInt(i.window.style.bottom);
 						}
@@ -1422,15 +1449,15 @@ var Msg = (function()
 		{
 			var ins_above = [];
 
+			var p = instance.options.position;
+
 			for(var i of instances)
 			{
 				if(i.is_open() && i.options.vStack)
 				{
-					var p = instance.options.position;
-
 					if(i.options.position === p)
 					{
-						if(p === "topleft" || p === "topright")
+						if(p.indexOf("top") !== -1)
 						{
 							if(parseInt(i.window.style.top) > parseInt(instance.window.style.top))
 							{
@@ -1438,7 +1465,7 @@ var Msg = (function()
 							}
 						}
 
-						else if(p === "bottomleft" || p === "bottomright")
+						else if(p.indexOf("bottom") !== -1)
 						{
 							if(parseInt(i.window.style.bottom) > parseInt(instance.window.style.bottom))
 							{
@@ -1449,14 +1476,13 @@ var Msg = (function()
 				}
 			}
 
-			if(p === "topleft" || p === "topright")
+			if(p.indexOf("top") !== -1)
 			{
 				ins_above.sort(instance.top_sort);
 			}
 
-			else if(p === "bottomleft" || p === "bottomright")
+			else if(p.indexOf("bottom") !== -1)
 			{
-				
 				ins_above.sort(instance.bottom_sort);
 			}			
 
@@ -1467,15 +1493,15 @@ var Msg = (function()
 		{
 			var ins_below = [];
 
+			var p = ins.options.position;
+
 			for(var i of instances)
 			{
 				if(i.is_open())
 				{
-					var p = ins.options.position;
-
 					if(i.options.position === p)
 					{
-						if(p === "topleft" || p === "topright")
+						if(p.indexOf("top") !== -1)
 						{
 							if(parseInt(i.window.style.top) < parseInt(ins.window.style.top))
 							{
@@ -1483,7 +1509,7 @@ var Msg = (function()
 							}
 						}
 
-						else if(p === "bottomleft" || p === "bottomright")
+						else if(p.indexOf("bottom") !== -1)
 						{
 							if(parseInt(i.window.style.bottom) < parseInt(ins.window.style.bottom))
 							{
@@ -1494,12 +1520,12 @@ var Msg = (function()
 				}
 			}
 
-			if(p === "topleft" || p === "topright")
+			if(p.indexOf("top") !== -1)
 			{
 				ins_below.sort(instance.top_sort2);
 			}
 
-			else if(p === "bottomleft" || p === "bottomright")
+			else if(p.indexOf("bottom") !== -1)
 			{
 				
 				ins_below.sort(instance.bottom_sort2);
@@ -1518,7 +1544,7 @@ var Msg = (function()
 
 				if(highest !== undefined && highest !== instance)
 				{
-					if(p === "topleft" || p === "topright")
+					if(p.indexOf("top") !== -1)
 					{
 						var top = parseInt(highest.window.style.top);
 						var new_top = top + highest.window.offsetHeight + 20 + "px";
@@ -1526,7 +1552,7 @@ var Msg = (function()
 						instance.window.style.top = new_top;
 					}
 
-					else if(p === "bottomleft" || p === "bottomright")
+					else if(p.indexOf("bottom") !== -1)
 					{
 						var bottom = parseInt(highest.window.style.bottom);
 						var new_bottom = bottom + highest.window.offsetHeight + 20 + "px";
@@ -1537,12 +1563,12 @@ var Msg = (function()
 
 				else
 				{
-					if(p === "topleft" || p === "topright")
+					if(p.indexOf("top") !== -1)
 					{
 						instance.window.style.top = instance.options.edge_padding;
 					}
 
-					else if(p === "bottomleft" || p === "bottomright")
+					else if(p.indexOf("bottom") !== -1)
 					{
 						instance.window.style.bottom = instance.options.edge_padding;
 					}
@@ -1572,7 +1598,7 @@ var Msg = (function()
 
 				if(below !== undefined)
 				{
-					if(p === "topleft" || p === "topright")
+					if(p.indexOf("top") !== -1)
 					{
 						var top = parseInt(below.window.style.top);
 						var new_top = top + below.window.offsetHeight + 20 + "px";
@@ -1580,7 +1606,7 @@ var Msg = (function()
 						i.window.style.top = new_top;
 					}
 
-					else if(p === "bottomleft" || p === "bottomright")
+					else if(p.indexOf("bottom") !== -1)
 					{
 						var bottom = parseInt(below.window.style.bottom);
 						var new_bottom = bottom + below.window.offsetHeight + 20 + "px";
@@ -1591,12 +1617,12 @@ var Msg = (function()
 
 				else
 				{
-					if(p === "topleft" || p === "topright")
+					if(p.indexOf("top") !== -1)
 					{
 						i.window.style.top = instance.options.edge_padding;
 					}
 
-					else if(p === "bottomleft" || p === "bottomright")
+					else if(p.indexOf("bottom") !== -1)
 					{
 						i.window.style.bottom = instance.options.edge_padding;
 					}

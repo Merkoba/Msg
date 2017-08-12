@@ -12,9 +12,13 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=56'></script>
+        <script src='msg.js?v=57'></script>
 
-        <script src='base.js?v=22'></script>
+        <script src='base.js?v=23'></script>
+
+        <script>
+            init();
+        </script>
 
     </head>
 
@@ -60,14 +64,30 @@
 
         <br><br><h2>Popups</h2>
 
-        It's possible to create stackable popup messages using certain options.<br>
+        You can create stackable popup messages using certain options.<br><br>
 
-        <br><span class='clicky' onclick='pop()'>Click To Open A New Popup</span><br>
+        Keep clicking the demos to stack the popups:<br><br>
+
+        <span class='unselectable'>
+
+        <span class='clicky' onclick='pop("top")'>position:top</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='pop("topleft")'>position:topleft</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='pop("topright")'>position:topright</span>
+
+        <br><br>
+
+        <span class='clicky' onclick='pop("bottom")'>position:bottom</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='pop("bottomleft")'>position:bottomleft</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='pop("bottomright")'>position:bottomright</span>
         <!-- <br><span class='clicky' onclick='pop2()'>Click To Open A New Popup 2</span><br> -->
+
+        </span>
+
+        <br><br>
 
         <blockquote><pre><code>var msg_pop = Msg(
 {
-    class: "green", // This demo picks random classes
+    class: "green",
     enable_overlay: false,
     position: "bottomright",
     autoclose: true,
@@ -304,7 +324,7 @@ msg.set_title("Window Example");
         
         <i>temp_disable_keys_delay (Default: 1000)</i>: The amount of time in milliseconds keys will be disabled since the window is shown.<br><br>
         
-        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "top", "bottom", "left", "right", "topleft" (vStackable), "topright" (vStackable), "bottomleft" (vStackable), or "bottomright" (vStackable).<br><br>
+        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "left", "right", "top" (vStackable), "bottom" (vStackable), "topleft" (vStackable), "topright" (vStackable), "bottomleft" (vStackable), or "bottomright" (vStackable).<br><br>
 
         <i>edge_padding (Default: "20px")</i>: The padding from the edge of the screen the window will have if it's not of position "center".<br><br>
 

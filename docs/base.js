@@ -1,6 +1,6 @@
 var msg = Msg(
 {
-
+delay:true
 });
 
 var msg2 = Msg(
@@ -328,7 +328,7 @@ var num_pops = 1;
 
 var pops = [];
 
-function pop()
+function pop(position)
 {
     var colors = ["green", "blue", "red", "black"];
 
@@ -338,7 +338,7 @@ function pop()
     {
         class: color,
         enable_overlay: false,
-        position: "bottomright",
+        position: position,
         autoclose: true,
         autoclose_delay: 5000,
         enable_progressbar: true,
@@ -384,3 +384,8 @@ var msg_wo = Msg(
         }
     }
 });
+
+function init()
+{
+    Msg({preset:"popup_autoclose", delay:true}).show("Welcome to the Msg documentation");
+}
