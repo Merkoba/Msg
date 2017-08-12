@@ -323,7 +323,7 @@ var msg_pop = Msg(
     lock:false
 });
 
-var num_pops = 1;
+var num_pops = 100;
 
 var pops = [];
 
@@ -333,15 +333,32 @@ function pop(position)
 
     var color = colors[get_random_int(0, colors.length - 1)];
 
+    var vStack = document.getElementById('input_vStack').checked;
+    var autoclose = document.getElementById('input_autoclose').checked;
+    var collapse = document.getElementById('input_collapse').checked;
+
+    if(autoclose)
+    {
+        var enable_progressbar = true;
+    }
+
+    else
+    {
+        var enable_progressbar = false;
+    }
+
     var msg = Msg(
     {
         class: color,
         enable_overlay: false,
         position: position,
-        autoclose: true,
+        autoclose: autoclose,
         autoclose_delay: 5000,
-        enable_progressbar: true,
+        enable_progressbar: enable_progressbar,
         persistent: false,
+        vStack: vStack,
+        collapse:collapse,
+        edge_padding:document.getElementById('input_edge_padding').value,
         zStack_level: 1,
         lock: false
     });

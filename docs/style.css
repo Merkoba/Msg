@@ -91,16 +91,6 @@ img
     user-select: none;  
 }
 
-input
-{
-    font-size: 1.2em;
-    padding: 0.4em;
-    text-align: center;
-    width: 14em;
-    border-width: 0.05em;
-    border-color: black;
-}
-
 .Msg-content-no-padding
 {
     padding: 0 !important;
@@ -131,4 +121,11 @@ textarea
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;    
+}
+
+input[type=text]
+{
+    width:4em;
+    text-align:center;
+    font-size: 0.8em;
 }

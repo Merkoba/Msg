@@ -8,13 +8,13 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>  
               
-        <link rel='stylesheet' href="style.css?v=6">  
+        <link rel='stylesheet' href="style.css?v=7">  
 
         <script src='symmetric_harmony.js?v=3'></script>
         
         <script src='msg.js?v=58'></script>
 
-        <script src='base.js?v=25'></script>
+        <script src='base.js?v=26'></script>
 
         <script>
             init();
@@ -66,9 +66,25 @@
 
         You can create stackable popup messages using certain options.<br><br>
 
-        Keep clicking the demos to stack the popups:<br><br>
+        Keep clicking the demos to stack the popups:<br><br><br>
 
         <span class='unselectable'>
+
+        edge_padding: &nbsp; <input id='input_edge_padding' type='text' value='20px'>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        vStack: &nbsp; <input id='input_vStack' type='checkbox' checked>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        autoclose: &nbsp; <input id='input_autoclose' type='checkbox' checked>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        collapse: &nbsp; <input id='input_collapse' type='checkbox' checked>
+
+        <br><br>
 
         <span class='clicky' onclick='pop("top")'>position:top</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("topleft")'>position:topleft</span>&nbsp;&nbsp;&nbsp;
@@ -79,11 +95,10 @@
         <span class='clicky' onclick='pop("bottom")'>position:bottom</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("bottomleft")'>position:bottomleft</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("bottomright")'>position:bottomright</span>
-        <!-- <br><span class='clicky' onclick='pop2()'>Click To Open A New Popup 2</span><br> -->
-
-        </span>
 
         <br><br>
+
+        </span>
 
         <blockquote><pre><code>var msg_pop = Msg(
 {

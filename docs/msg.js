@@ -384,17 +384,17 @@ var Msg = (function()
 			{
 				return;
 			}
-
+			
 			if(!instance.close_enabled)
 			{
 				return;
 			}
-
+			
 			if(instance.options.before_close(instance) === false)
 			{
 				return;
 			}
-
+			
 			instance.clear_fade_intervals();
 			instance.clear_while_open_interval();
 
