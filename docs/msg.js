@@ -1,4 +1,4 @@
-/* Msg v5.6.2 https://github.com/madprops/Msg */
+/* Msg v5.7.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -458,15 +458,7 @@ var Msg = (function()
 
 		instance.set_or_show = function(html)
 		{
-			if(instance.stackable && instance.options.vStack)
-			{
-				instance.is_open() ? instance.set(html) : instance.show(html);
-			}
-
-			else
-			{
-				instance.is_highest() ? instance.set(html) : instance.show(html);
-			}
+			instance.is_highest() ? instance.set(html) : instance.show(html);
 		}
 
 		instance.show = function(html, callback=false)
@@ -1350,31 +1342,6 @@ var Msg = (function()
 			}, speed);	
 		}
 
-		instance.highest_in_position = function()
-		{
-			var highest = -1;
-			var highest_ins;
-
-			for(var i of instances)
-			{
-				if(i.is_open())
-				{
-					if(i.options.position === instance.options.position)
-					{
-						var zIndex = instance.common_zIndex(i.window.style.zIndex);
-
-						if(zIndex > highest)
-						{
-							highest = zIndex;
-							highest_ins = i;
-						}
-					}
-				}
-			}
-
-			return highest_ins;
-		}	
-
 		instance.common_zIndex_sort = function(a, b)
 		{
 			return instance.common_zIndex(a.window.style.zIndex) - instance.common_zIndex(b.window.style.zIndex);
@@ -1385,6 +1352,64 @@ var Msg = (function()
 			return instance.common_zIndex(b.window.style.zIndex) - instance.common_zIndex(a.window.style.zIndex);
 		}
 
+
+		instance.top_sort = function(a, b)
+		{
+			return parseInt(a.window.style.top) - parseInt(b.window.style.top);
+		}
+
+
+		instance.top_sort2 = function(a, b)
+		{
+			return parseInt(b.window.style.top) - parseInt(a.window.style.top);
+		}
+
+		instance.bottom_sort = function(a, b)
+		{
+			return parseInt(a.window.style.bottom) - parseInt(b.window.style.bottom);
+		}
+
+
+		instance.bottom_sort2 = function(a, b)
+		{
+			return parseInt(b.window.style.bottom) - parseInt(a.window.style.bottom);
+		}
+
+		instance.highest_in_position = function()
+		{
+			var highest = -2000;
+			var highest_ins;
+
+			for(var i of instances)
+			{
+				if(i.is_open())
+				{
+					var p = instance.options.position;
+
+					if(i.options.position === p)
+					{
+						if(p === "topleft" || p === "topright")
+						{
+							var pos = parseInt(i.window.style.top);
+						}
+
+						else if(p === "bottomleft" || p === "bottomright")
+						{
+							var pos = parseInt(i.window.style.bottom);
+						}
+
+						if(pos > highest)
+						{
+							highest = pos;
+							highest_ins = i;
+						}
+					}
+				}
+			}
+
+			return highest_ins;
+		}					
+
 		instance.above_in_position = function()
 		{
 			var ins_above = [];
@@ -1393,17 +1418,41 @@ var Msg = (function()
 			{
 				if(i.is_open() && i.options.vStack)
 				{
-					if(i.options.position === instance.options.position)
+					var p = instance.options.position;
+
+					if(i.options.position === p)
 					{
-						if(instance.common_zIndex(i.window.style.zIndex) > instance.common_zIndex(instance.window.style.zIndex))
+						if(p === "topleft" || p === "topright")
 						{
-							ins_above.push(i);
+							if(parseInt(i.window.style.top) > parseInt(instance.window.style.top))
+							{
+								ins_above.push(i);
+							}
+						}
+
+						else if(p === "bottomleft" || p === "bottomright")
+						{
+							if(parseInt(i.window.style.bottom) > parseInt(instance.window.style.bottom))
+							{
+								ins_above.push(i);
+							}
 						}
 					}
 				}
 			}
 
-			return ins_above.sort(instance.common_zIndex_sort);
+			if(p === "topleft" || p === "topright")
+			{
+				ins_above.sort(instance.top_sort);
+			}
+
+			else if(p === "bottomleft" || p === "bottomright")
+			{
+				
+				ins_above.sort(instance.bottom_sort);
+			}			
+
+			return ins_above;
 		}
 
 		instance.nextbelow_in_position = function(ins)
@@ -1414,17 +1463,39 @@ var Msg = (function()
 			{
 				if(i.is_open())
 				{
-					if(i.options.position === ins.options.position)
+					var p = ins.options.position;
+
+					if(i.options.position === p)
 					{
-						if(instance.common_zIndex(i.window.style.zIndex) < instance.common_zIndex(ins.window.style.zIndex))
+						if(p === "topleft" || p === "topright")
 						{
-							ins_below.push(i);
+							if(parseInt(i.window.style.top) < parseInt(ins.window.style.top))
+							{
+								ins_below.push(i);
+							}
+						}
+
+						else if(p === "bottomleft" || p === "bottomright")
+						{
+							if(parseInt(i.window.style.bottom) < parseInt(ins.window.style.bottom))
+							{
+								ins_below.push(i);
+							}
 						}
 					}
 				}
 			}
 
-			ins_below.sort(instance.common_zIndex_sort2);
+			if(p === "topleft" || p === "topright")
+			{
+				ins_below.sort(instance.top_sort2);
+			}
+
+			else if(p === "bottomleft" || p === "bottomright")
+			{
+				
+				ins_below.sort(instance.bottom_sort2);
+			}				
 
 			return ins_below[0];
 		}
@@ -1436,7 +1507,8 @@ var Msg = (function()
 				var p = instance.options.position;
 
 				var highest = instance.highest_in_position();
-				if(highest !== undefined)
+
+				if(highest !== undefined && highest !== instance)
 				{
 					if(p === "topleft" || p === "topright")
 					{
