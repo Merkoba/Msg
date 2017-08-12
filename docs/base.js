@@ -359,7 +359,8 @@ function pop2()
     var msg = Msg(
     {
         preset:"popup_autoclose",
-        class:"red"
+        class:"red",
+        collapse:false
     });
 
     msg.show(`Task #${num_pops} completed succesfully.`);
