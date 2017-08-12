@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=55'></script>
+        <script src='msg.js?v=56'></script>
 
-        <script src='base.js?v=21'></script>
+        <script src='base.js?v=22'></script>
 
     </head>
 
@@ -309,6 +309,8 @@ msg.set_title("Window Example");
         <i>edge_padding (Default: "20px")</i>: The padding from the edge of the screen the window will have if it's not of position "center".<br><br>
 
         <i>vStack (Default: true)</i>: Whether to vertically stack new windows in their position. This only affects stackable positions. Useful for popup messages.<br><br>
+
+        <i>collapse (Default: true)</i>: Whether windows in a vertical stack collapse when a window is closed. Useful for popup messages.<br><br>
         
         <i>zStack_level (Default: 2)</i>: Level 1 zStacks start at a z-index of 5000000 (5 with 6 zeros), Level 2 zStacks start at a z-index of 50000000 (5 with 7 zeros). This is useful if you want to have popup messages that don't go above the modal windows.<br><br>
 
@@ -422,6 +424,8 @@ msg_test.show("Domo Arigato");
 instance.options.class = "green";<br>
 instance.options.enable_overlay = false;<br>
 instance.options.position = "bottomright";<br>
+instance.options.fade_in = true;<br>
+instance.options.fade_out = true;<br>
 instance.options.persistent = false;<br>
 instance.options.zStack_level = 1;<br>
 instance.options.lock = false;<br>
@@ -431,8 +435,9 @@ instance.options.class = "green";<br>
 instance.options.enable_overlay = false;<br>
 instance.options.position = "bottomright";<br>
 instance.options.autoclose = true;<br>
-instance.options.autoclose_delay = 5000;<br>
 instance.options.enable_progressbar = true;<br>
+instance.options.fade_in = true;<br>
+instance.options.fade_out = true;<br>
 instance.options.persistent = false;<br>
 instance.options.zStack_level = 1;<br>
 instance.options.lock = false;<br>

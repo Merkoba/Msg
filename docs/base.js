@@ -61,13 +61,13 @@ var msg_ox = Msg(
 var msg_delay = Msg(
 {
     temp_disable_close:true,
-    temp_disable_close_delay:3000,
+    temp_disable_close_delay:5000,
     after_show: function(instance)
     {
         setTimeout(function()
         {
-            instance.set("This had a 3 second delay before you could close it. Made to avoid closing the window by accident by misclicking. Default for this option is 1 second.");
-        }, 2500);
+            instance.set("This had a 5 second delay before you could close it. Made to avoid closing the window by accident by misclicking. Default for this option is 1 second.");
+        }, 4500);
     }
 });
 
@@ -317,9 +317,10 @@ document.addEventListener("keyup", function(e)
 var msg_pop = Msg(
 {
     class:"green",
+    autoclose:true,
+    enable_progressbar:true,
     enable_overlay:false,
     position:"bottomright",
-    stack:false,
     lock:false
 });
 
@@ -358,10 +359,7 @@ function pop2()
     var msg = Msg(
     {
         preset:"popup_autoclose",
-        after_last_closed:function()
-        {
-            alert("All windows were closed!");
-        }
+        class:"red"
     });
 
     msg.show(`Task #${num_pops} completed succesfully.`);
