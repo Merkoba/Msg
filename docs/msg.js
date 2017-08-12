@@ -1,4 +1,4 @@
-/* Msg v5.7.0 https://github.com/madprops/Msg */
+/* Msg v5.7.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -317,7 +317,7 @@ var Msg = (function()
 
 			if(instance.options.edge_padding === undefined)
 			{
-				instance.options.edge_padding = "33px";
+				instance.options.edge_padding = "20px";
 			}
 
 			if(instance.options.vStack === undefined)
