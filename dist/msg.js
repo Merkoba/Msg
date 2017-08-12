@@ -1,4 +1,4 @@
-/* Msg v5.7.1 https://github.com/madprops/Msg */
+/* Msg v5.7.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -73,25 +73,28 @@ var Msg = (function()
 			{
 				if(instance.options.preset === "popup")
 				{
-					instance.options.class = "green";
-					instance.options.enable_overlay = false;
-					instance.options.position = "bottomright";
-					instance.options.persistent = false;
-					instance.options.zStack_level = 1;
-					instance.options.lock = false;
+					if(instance.options.class === undefined) instance.options.class = "green";
+					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
+					if(instance.options.position === undefined) instance.options.position = "bottomright";
+					if(instance.options.fade_in === undefined) instance.options.fade_in = true;
+					if(instance.options.fade_out === undefined) instance.options.fade_out = true;
+					if(instance.options.persistent === undefined) instance.options.persistent = false;
+					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
+					if(instance.options.lock === undefined) instance.options.lock = false;
 				}
 
 				if(instance.options.preset === "popup_autoclose")
 				{
-					instance.options.class = "green";
-					instance.options.enable_overlay = false;
-					instance.options.position = "bottomright";
-					instance.options.autoclose = true;
-					instance.options.autoclose_delay = 5000;
-					instance.options.enable_progressbar = true;
-					instance.options.persistent = false;
-					instance.options.zStack_level = 1;
-					instance.options.lock = false;
+					if(instance.options.class === undefined) instance.options.class = "green";
+					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
+					if(instance.options.position === undefined) instance.options.position = "bottomright";
+					if(instance.options.autoclose === undefined) instance.options.autoclose = true;
+					if(instance.options.enable_progressbar === undefined) instance.options.enable_progressbar = true;
+					if(instance.options.fade_in === undefined) instance.options.fade_in = true;
+					if(instance.options.fade_out === undefined) instance.options.fade_out = true;
+					if(instance.options.persistent === undefined) instance.options.persistent = false;
+					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
+					if(instance.options.lock === undefined) instance.options.lock = false;
 				}
 			}	
 
@@ -257,7 +260,7 @@ var Msg = (function()
 
 			if(instance.options.autoclose_delay === undefined)
 			{
-				instance.options.autoclose_delay = 3000;
+				instance.options.autoclose_delay = 5000;
 			}
 
 			if(instance.options.temp_disable_click === undefined)
@@ -323,6 +326,11 @@ var Msg = (function()
 			if(instance.options.vStack === undefined)
 			{
 				instance.options.vStack = true;
+			}
+
+			if(instance.options.collapse === undefined)
+			{
+				instance.options.collapse = true;
 			}
 
 			if(instance.options.zStack_level === undefined)
@@ -1555,6 +1563,11 @@ var Msg = (function()
 
 			for(var i of ins_above)
 			{
+				if(!i.options.collapse)
+				{
+					return;
+				}
+
 				var below = instance.nextbelow_in_position(i);
 
 				if(below !== undefined)
