@@ -1,4 +1,4 @@
-/* Msg v6.2.2 https://github.com/madprops/Msg */
+/* Msg v6.2.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -396,6 +396,11 @@ var Msg = (function()
 			if(instance.options.bind_progressbar_to_autoclose === undefined)
 			{
 				instance.options.bind_progressbar_to_autoclose = true;
+			}
+
+			if(instance.options.reverse_autoclose_progressbar === undefined)
+			{
+				instance.options.reverse_autoclose_progressbar = false;
 			}
 
 			if(instance.options.edge_padding === undefined)
@@ -1547,22 +1552,46 @@ var Msg = (function()
 		{
 			clearInterval(instance.progressbar_animation);
 
-			var percentage = 100;
-
-			instance.progressbar.style.width = "100%";
-
-			instance.progressbar_animation = setInterval(function()
+			if(instance.options.reverse_autoclose_progressbar)
 			{
-				percentage -= 1;
+				var percentage = 0;
 
-				instance.set_progress(percentage);
+				instance.progressbar.style.width = "0%";
 
-				if(percentage <= 0)
+				instance.progressbar_animation = setInterval(function()
 				{
-					clearInterval(instance.progressbar_animation);
-				}
+					percentage += 1;
 
-			}, instance.options.autoclose_delay / 100)
+					instance.set_progress(percentage);
+
+					if(percentage >= 100)
+					{
+						clearInterval(instance.progressbar_animation);
+					}
+
+				}, instance.options.autoclose_delay / 100);
+			}
+
+			else
+			{
+				var percentage = 100;
+
+				instance.progressbar.style.width = "100%";
+
+				instance.progressbar_animation = setInterval(function()
+				{
+					percentage -= 1;
+
+					instance.set_progress(percentage);
+
+					if(percentage <= 0)
+					{
+						clearInterval(instance.progressbar_animation);
+					}
+
+				}, instance.options.autoclose_delay / 100);
+			}
+
 		}
 
 		instance.set_progress = function(percentage)

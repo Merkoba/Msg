@@ -586,16 +586,22 @@ var msg_update = Msg(
     class:"blue",
     autoclose:true,
     enable_progressbar:true,
+    reverse_autoclose_progressbar:true,
     enable_inner_x: false,
     close_on_overlay_click:false,
-    close_on_escape:false
+    close_on_escape:false,
+    after_set_progress:function(instance)
+    {
+        update_progress.innerHTML = instance.get_progress() + "%";
+    }
 });
 
 function update()
 {
     msg_snack.close();
 
-    msg_update.show("We're applying an update. Do not turn off your computer.")
+    msg_update.show("We're applying an update. Do not turn off your computer.<br><br><div id='update_progress'></div>");
+    update_progress = document.getElementById('update_progress');
 }
 
 var msg_psnack = Msg(
