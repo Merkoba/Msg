@@ -1,4 +1,4 @@
-/* Msg v6.1.1 https://github.com/madprops/Msg */
+/* Msg v6.2.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -133,6 +133,11 @@ var Msg = (function()
 				instance.options.lock = true;
 			}
 
+			if(instance.options.closeable === undefined)
+			{
+				instance.options.closeable = true;
+			}
+
 			if(instance.options.enable_overlay === undefined)
 			{
 				instance.options.enable_overlay = true;
@@ -206,6 +211,16 @@ var Msg = (function()
 			if(instance.options.after_set_title === undefined)
 			{
 				instance.options.after_set_title = function(){};
+			}
+
+			if(instance.options.before_set_progress === undefined)
+			{
+				instance.options.before_set_progress = function(){};
+			}			
+
+			if(instance.options.after_set_progress === undefined)
+			{
+				instance.options.after_set_progress = function(){};
 			}
 
 			if(instance.options.before_close === undefined)
@@ -378,6 +393,11 @@ var Msg = (function()
 				instance.options.enable_progressbar = false;
 			}
 
+			if(instance.options.bind_progressbar_to_autoclose === undefined)
+			{
+				instance.options.bind_progressbar_to_autoclose = true;
+			}
+
 			if(instance.options.edge_padding === undefined)
 			{
 				instance.options.edge_padding = 20;
@@ -521,6 +541,11 @@ var Msg = (function()
 			}
 
 			if(!instance.close_enabled)
+			{
+				return;
+			}
+
+			if(!instance.options.closeable)
 			{
 				return;
 			}
@@ -778,9 +803,9 @@ var Msg = (function()
 			{
 				instance.autoclose_timer();
 
-				if(instance.options.enable_progressbar)
+				if(instance.options.enable_progressbar && instance.options.bind_progressbar_to_autoclose)
 				{
-					instance.animate_progressbar();
+					instance.animate_autoclose_progressbar();
 				}
 			}
 
@@ -1060,6 +1085,7 @@ var Msg = (function()
 
 			styles.progressbar = `
 			height:10px;
+			width:0px;
 			`;	
 
 			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
@@ -1517,7 +1543,7 @@ var Msg = (function()
 			};
 		})();
 
-		instance.animate_progressbar = function()
+		instance.animate_autoclose_progressbar = function()
 		{
 			clearInterval(instance.progressbar_animation);
 
@@ -1543,7 +1569,53 @@ var Msg = (function()
 					clearInterval(instance.progressbar_animation);
 				}
 			}, instance.options.autoclose_delay / 100)
-		}		
+		}
+
+		instance.set_progress = function(percentage)
+		{
+			if(percentage === undefined)
+			{
+				return;
+			}
+
+			instance.create();
+
+			if(instance.progressbar === undefined)
+			{
+				return;
+			}
+
+			if(instance.options.before_set_progress(instance) === false)
+			{
+				return;
+			}			
+
+			if(percentage > 100)
+			{
+				percentage = 100;
+			}
+
+			if(percentage < 0)
+			{
+				percentage = 0;
+			}
+
+			var width = (instance.window.offsetWidth / 100) * percentage;
+
+			instance.progressbar.style.width = `${width}px`;
+
+			instance.options.after_set_progress(instance);
+		}
+
+		instance.get_progress = function()
+		{
+			if(instance.progressbar === undefined)
+			{
+				return;
+			}
+
+			return Math.round((instance.progressbar.offsetWidth / instance.window.offsetWidth) * 100);
+		}
 
 		instance.clear_fade_intervals = function()
 		{

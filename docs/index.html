@@ -443,7 +443,9 @@ msg2.show(["Window Example", some_text]);
         
         <i>autoclose_delay (Default: 3000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
         
-        <i>enable_progressbar (Default: false)</i>: Whether a progressbar to complement autoclose is created or not.<br><br>
+        <i>enable_progressbar (Default: false)</i>: Whether Msg-progressbar is created or not.<br><br>  
+
+        <i>bind_progressbar_to_autoclose (Default: true)</i>: If this is true, the progressbar will reflect the autoclose delay when the window is shown.<br><br>
 
         <i>show_delay (Default: 0)</i>: The amount of time in milliseconds show() is delayed from executing when called. Useful if you want to open the window after the body has fully loaded or other cases.<br><br>
 
@@ -482,6 +484,10 @@ msg2.show(["Window Example", some_text]);
         <i>before_set_title (Default: Empty Function)</i>: Function that triggers before the set_title method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         
         <i>after_set_title (Default: Empty Function)</i>: Function that triggers after the set_title method. Receives the instance as an argument.<br><br>
+
+        <i>before_set_progress (Default: Empty Function)</i>: Function that triggers before the set_progress method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
+        
+        <i>after_set_progress (Default: Empty Function)</i>: Function that triggers after the set_progress method. Receives the instance as an argument.<br><br>
         
         <i>before_close (Default: Empty Function)</i>: Function that triggers before the close method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         
@@ -665,6 +671,10 @@ instance.options.lock = false;<br>
         <i>instance.to_top()</i>: Puts an already opened window at the top of the zStack. This is done automatically by show(), but there might be cases where you want to do this without triggering the show events.<br><br>
         
         <i>instance.check_options()</i>: This is done automatically when creating an instance. It checks the options object and applies the corresponding defaults to undefined properties.<br><br>
+
+        <i>instance.set_progress(percentage)</i>: Fill the progressbar to the specified percentage.<br><br>
+
+        <i>instance.get_progress()</i>: Returns the current percentage of the progressbar.<br><br>
         
         <i>instance.instances()</i>: Returns a list with the created instances.<br><br>
         
