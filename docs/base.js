@@ -525,3 +525,77 @@ var msg_wo = Msg(
         }
     }
 });
+
+var msg_snack = Msg({
+    class: "black",
+    content_class: "snackbar",
+    position: "bottom",
+    edge_padding: 0,
+    window_min_width: "25em",
+    enable_inner_x: false,
+    enable_overlay: false,
+    fade_out: false,
+    subsequent_fade_ins: true,
+    autoclose: true,
+    autoclose_delay: 10000,
+    vStack: false,
+    zStack_level: 1,
+    lock: false
+});
+
+var scks = [];
+
+var sck = "";
+
+sck += "<span class='snack_msg'>New message arrived</span>";
+sck += "<span class='snack_btn' onclick='open_snack_message()'>open</span>";
+
+var sck2 = "";
+
+sck2 += "<span class='snack_msg'>An update is required</span>";
+sck2 += "<span class='snack_btn2' onclick='update()'>Update</span>";
+
+scks.push(sck);
+scks.push(sck2);
+
+var current_sck = 0;
+
+function snack()
+{
+    msg_snack.show(scks[current_sck]);
+
+    current_sck += 1;
+
+    if(current_sck === scks.length)
+    {
+        current_sck = 0;
+    }
+}
+
+function open_snack_message()
+{
+    msg_snack.close();
+
+    var s = "I updated the database.\n\n - Tim";
+    
+    msg_green_tb.show(['Message', s]);
+}
+
+var msg_update = Msg(
+{
+    class:"blue",
+    autoclose:true,
+    enable_progressbar:true
+});
+
+function update()
+{
+    msg_snack.close();
+
+    msg_update.show("We're applying an update. Do not turn off your computer.")
+}
+
+var msg_psnack = Msg(
+{
+    preset:"snackbar"
+});

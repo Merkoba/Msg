@@ -1,4 +1,4 @@
-/* Msg v6.0.2 https://github.com/madprops/Msg */
+/* Msg v6.1.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -53,6 +53,8 @@ var Msg = (function()
 	.Msg-outer-x-black{color:white}
 	.Msg-outer-x-black:hover{background-color:#686868}
 
+	.Msg-content-snackbar{padding:1.2em !important}
+
 	</style>`;
 
 	document.querySelector("head").innerHTML += css;
@@ -93,6 +95,24 @@ var Msg = (function()
 					if(instance.options.fade_in === undefined) instance.options.fade_in = true;
 					if(instance.options.fade_out === undefined) instance.options.fade_out = true;
 					if(instance.options.persistent === undefined) instance.options.persistent = false;
+					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
+					if(instance.options.lock === undefined) instance.options.lock = false;
+				}
+
+				if(instance.options.preset === "snackbar")
+				{
+					if(instance.options.class === undefined) instance.options.class = "black";
+					if(instance.options.content_class === undefined) instance.options.content_class = "snackbar";
+					if(instance.options.position === undefined) instance.options.position = "bottom";
+					if(instance.options.edge_padding === undefined) instance.options.edge_padding = 0;
+					if(instance.options.window_min_width === undefined) instance.options.window_min_width = "25em";
+					if(instance.options.enable_inner_x === undefined) instance.options.enable_inner_x = false;
+					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
+					if(instance.options.fade_out === undefined) instance.options.fade_out = false;
+					if(instance.options.subsequent_fade_ins === undefined) instance.options.subsequent_fade_ins = true;
+					if(instance.options.autoclose === undefined) instance.options.autoclose = true;
+					if(instance.options.autoclose_delay === undefined) instance.options.autoclose_delay = 10000;
+					if(instance.options.vStack === undefined) instance.options.vStack = false;
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.lock === undefined) instance.options.lock = false;
 				}
@@ -452,6 +472,16 @@ var Msg = (function()
 			{
 				instance.options.window_cursor = "default";
 			}
+
+			if(instance.options.subsequent_fade_ins === undefined)
+			{
+				instance.options.subsequent_fade_ins = false;
+			}
+
+			if(instance.options.replace_linebreaks === undefined)
+			{
+				instance.options.replace_linebreaks = true;
+			}
 		}
 
 		instance.check_options();
@@ -523,7 +553,7 @@ var Msg = (function()
 				instance.overlay.style.zIndex = -1000;
 			}
 
-			instance.collapse_stack();
+			instance.collapse_vStack();
 
 			instance.window.style.zIndex = -1000;
 
@@ -573,6 +603,13 @@ var Msg = (function()
 
 			else
 			{
+				html = html.toString();
+
+				if(instance.options.replace_linebreaks)
+				{
+					html = html.replace(/(\n)/g, "<br>");
+				}
+
 				instance.content.innerHTML = html;
 			}
 			
@@ -597,6 +634,8 @@ var Msg = (function()
 			{
 				return;
 			}
+
+			html = html.toString();
 
 			instance.titlebar.innerHTML = html;
 
@@ -675,19 +714,28 @@ var Msg = (function()
 				{
 					instance.start_while_open_interval();
 				}
-			}
 
-			instance.to_top();
+				if(instance.options.fade_in)
+				{
+					instance.fade_in(callback);					
+				}
 
-			if(instance.options.fade_in)
-			{
-				instance.fade_in(callback);					
+				else
+				{
+					instance.container.style.opacity = 1;
+				}
 			}
 
 			else
 			{
-				instance.container.style.opacity = 1;
+				if(instance.options.fade_in && instance.options.subsequent_fade_ins)
+				{
+					instance.container.style.opacity = 0;
+					instance.fade_in(callback);
+				}
 			}
+
+			instance.to_top();
 
 			instance.window.scrollTop = 0;
 			instance.content.focus();
@@ -930,7 +978,7 @@ var Msg = (function()
 			styles.inner_x = `
 			cursor:pointer;
 			margin-left:${ix_margin};
-			font-size:23.8px;
+			font-size:24px;
 			font-family:sans-serif;
 			-webkit-touch-callout:none;
 			-webkit-user-select:none;
@@ -983,7 +1031,7 @@ var Msg = (function()
 			}
 
 			styles.content = `
-			font-size:23.8px;
+			font-size:24px;
 			font-family:sans-serif;
 			text-align:center;
 			overflow:hidden;
@@ -1507,21 +1555,6 @@ var Msg = (function()
 			}, speed);	
 		}
 
-		instance.start_while_open_interval = function()
-		{
-			instance.clear_while_open_interval();
-
-			instance.while_open_interval = setInterval(function()
-			{
-				instance.options.while_open(instance);
-			}, instance.options.while_open_interval);
-		}
-
-		instance.clear_while_open_interval = function()
-		{
-			clearInterval(instance.while_open_interval);
-		}
-
 		instance.fade_out = function(callback) 
 		{
 			var speed = instance.options.fade_out_duration / 50;
@@ -1536,6 +1569,21 @@ var Msg = (function()
 					instance.close_window(callback);
 				}
 			}, speed);	
+		}		
+
+		instance.start_while_open_interval = function()
+		{
+			instance.clear_while_open_interval();
+
+			instance.while_open_interval = setInterval(function()
+			{
+				instance.options.while_open(instance);
+			}, instance.options.while_open_interval);
+		}
+
+		instance.clear_while_open_interval = function()
+		{
+			clearInterval(instance.while_open_interval);
 		}
 
 		instance.common_zIndex_sort = function(a, b)
@@ -1737,7 +1785,7 @@ var Msg = (function()
 			}
 		}
 
-		instance.collapse_stack = function()
+		instance.collapse_vStack = function()
 		{
 			if(!instance.stackable)
 			{
@@ -1762,7 +1810,7 @@ var Msg = (function()
 					if(p.indexOf("top") !== -1)
 					{
 						var top = parseInt(below.window.style.top);
-						var new_top = top + below.window.offsetHeight + instance.options.vStack_padding + "px";
+						var new_top = top + below.window.offsetHeight + i.options.vStack_padding + "px";
 						
 						i.window.style.top = new_top;
 					}
@@ -1770,7 +1818,7 @@ var Msg = (function()
 					else if(p.indexOf("bottom") !== -1)
 					{
 						var bottom = parseInt(below.window.style.bottom);
-						var new_bottom = bottom + below.window.offsetHeight + instance.options.vStack_padding + "px";
+						var new_bottom = bottom + below.window.offsetHeight + i.options.vStack_padding + "px";
 
 						i.window.style.bottom = new_bottom;
 					}		
@@ -1780,12 +1828,12 @@ var Msg = (function()
 				{
 					if(p.indexOf("top") !== -1)
 					{
-						i.window.style.top = instance.options.edge_padding + "px";
+						i.window.style.top = i.options.edge_padding + "px";
 					}
 
 					else if(p.indexOf("bottom") !== -1)
 					{
-						i.window.style.bottom = instance.options.edge_padding + "px";
+						i.window.style.bottom = i.options.edge_padding + "px";
 					}
 				}				
 			}

@@ -139,3 +139,24 @@ input[type=text]
 {
     padding: 0 !important;
 }
+
+.snack_msg
+{
+    padding-right: 200px;
+}
+
+.snack_btn
+{
+    color:#5fce49;
+    text-transform: uppercase;
+    letter-spacing:3px;
+    cursor:pointer;
+}
+
+.snack_btn2
+{
+    color:#7f7fef;
+    text-transform: uppercase;
+    letter-spacing:3px;
+    cursor:pointer;
+}

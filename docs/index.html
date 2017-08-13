@@ -8,15 +8,15 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>  
               
-        <link rel='stylesheet' href="style.css?v=9">  
+        <link rel='stylesheet' href="style.css?v=10">  
 
         <script src='symmetric_harmony.js?v=3'></script>
         
         <script src='screenfull.js?v=1'></script>
 
-        <script src='msg.js?v=62'></script>
+        <script src='msg.js?v=63'></script>
 
-        <script src='base.js?v=35'></script>
+        <script src='base.js?v=36'></script>
 
     </head>
 
@@ -115,6 +115,7 @@
     position: "bottomright",
     autoclose: true,
     autoclose_delay: 5000,
+    enable_titlebar: true,
     enable_progressbar: true,
     persistent: false,
     zStack_level: 1,
@@ -126,9 +127,39 @@
 
         <blockquote><pre><code>var msg_pop = Msg(
 {
-    preset:"popup" // or "popup_autoclose"
+    preset:"popup" // or "popup_autoclose",
+    enable_titlebar:true
 });
-        </code></pre></blockquote>              
+        </code></pre></blockquote>   
+
+        <h2>Snackbars</h2>
+
+        <span class='clicky' onclick='snack()'>Open Snackbar</span>&nbsp;&nbsp;&nbsp;
+
+        <i><blockquote><pre><code>var msg_snack = Msg({
+    class: "black",
+    content_class: "snackbar",
+    position: "bottom",
+    edge_padding: 0,
+    window_min_width: "25em",
+    enable_inner_x: false,
+    enable_overlay: false,
+    fade_out: false,
+    subsequent_fade_ins: true,
+    autoclose: true,
+    autoclose_delay: 10000,
+    vStack: false,
+    zStack_level: 1,
+    lock: false
+});
+        </code></pre></blockquote></i>  
+
+        Or just:       
+
+        <i><blockquote><pre><code>var msg_snack = Msg({
+    preset: "snackbar"
+});
+        </code></pre></blockquote></i>                    
 
         <h2>Installation</h2>
 
@@ -162,7 +193,44 @@
         <br><br><span class='clicky' onclick='msg.show("<i>Hello</i> <b>World</b>")'>msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span><br>
         <br><span class='clicky' onclick='msg.show(document.getElementsByTagName("h1")[0])'>msg.show(document.getElementsByTagName("h1")[0])</span><br>
 
-        <br><h2>Structure</h2>
+        <br>You can re-use the same instance to display different things. 
+        <br><br>Note that an instance can only show one thing at a time. 
+        <br><br>If you want to have multiple windows open you need to create multiple instances.
+        <br><br>You can create factory functions to create and show instances on the fly. 
+        <br><br>The "persistent" option is to be considered when creating on the fly instances. If you're not going to use the instance again, it's advised to use persistent:false, which destroys the html elements after close, to avoid filling the dom with unncecesary elements.
+
+        <i><blockquote><pre><code>function remind(html)
+{
+    var msg = Msg(
+    {
+        class: "green",
+        enable_titlebar: true,
+        persistent: false
+    });
+
+    msg.show(["Reminder", html]);
+}
+
+remind("Water the trees.");
+        </code></pre></blockquote></i>
+
+        <script>
+            function remind(html)
+            {
+                var msg = Msg(
+                {
+                    class: "green",
+                    enable_titlebar: true,
+                    persistent: false
+                });
+
+                msg.show(["Reminder", html]);
+            }            
+        </script>
+
+        <span class='clicky' onclick='remind("Water the trees.");'>Run This Demo</span>
+
+        <h2>Structure</h2>
 
         Four elements are created with the following ids:<br><br>
         "Msg-container-id" (with classes: "Msg-container" and "Msg-container-class")<br>
@@ -395,9 +463,13 @@ msg2.show(["Window Example", some_text]);
 
         <i>fade_in_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the fade-in.<br><br>
 
+        <i>subsequent_fade_ins (Default: false)</i>: If true, it will show the fade-in effect on show() even if the window is already open.<br><br>
+
         <i>fade_out (Default: true)</i>: Whether it has a fade-out effect when closed.<br><br>
 
         <i>fade_out_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the fade-out.<br><br>
+
+        <i>replace_linebreaks (Default: true)</i>: If true, strings passed to show() or set() will have every "\n" replaced with an html linebreak.<br><br>        
         
         <i>before_show (Default: Empty Function)</i>: Function that triggers before the show method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
         
@@ -483,7 +555,7 @@ msg_test.show("Domo Arigato");
 
         <h2>Presets</h2>
 
-        <i><b>preset:"popup"</b></i><br>
+        <i><b>preset: "popup"</b></i><br>
 instance.options.class = "green";<br>
 instance.options.enable_overlay = false;<br>
 instance.options.position = "bottomright";<br>
@@ -493,7 +565,7 @@ instance.options.persistent = false;<br>
 instance.options.zStack_level = 1;<br>
 instance.options.lock = false;<br>
 
-        <br><i><b>preset:"popup_autoclose"</b></i><br>
+        <br><i><b>preset: "popup_autoclose"</b></i><br>
 instance.options.class = "green";<br>
 instance.options.enable_overlay = false;<br>
 instance.options.position = "bottomright";<br>
@@ -502,6 +574,22 @@ instance.options.enable_progressbar = true;<br>
 instance.options.fade_in = true;<br>
 instance.options.fade_out = true;<br>
 instance.options.persistent = false;<br>
+instance.options.zStack_level = 1;<br>
+instance.options.lock = false;<br>
+
+        <br><i><b>preset: "snackbar"</b></i><br>
+instance.options.class = "black";<br>
+instance.options.content_class = "snackbar";<br>
+instance.options.position = "bottom";<br>
+instance.options.edge_padding = 0;<br>
+instance.options.window_min_width = "25em";<br>
+instance.options.enable_inner_x = false;<br>
+instance.options.enable_overlay = false;<br>
+instance.options.fade_out = false;<br>
+instance.options.subsequent_fade_ins = true;<br>
+instance.options.autoclose = true;<br>
+instance.options.autoclose_delay = 10000;<br>
+instance.options.vStack = false;<br>
 instance.options.zStack_level = 1;<br>
 instance.options.lock = false;<br>
 
