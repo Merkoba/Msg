@@ -181,6 +181,11 @@ var msg_black_tb = Msg(
 
 function play_audio(id)
 {
+    if(audio_fadeout_interval !== undefined)
+    {
+        clearInterval(audio_fadeout_interval);
+    }
+
     var audio = document.getElementById(id);
 
     audio.pause();

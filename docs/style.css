@@ -129,3 +129,13 @@ input[type=text]
     text-align:center;
     font-size: 0.8em;
 }
+
+#Msg-content-container-toy
+{
+    overflow:hidden !important;
+}
+
+#Msg-content-toy
+{
+    padding: 0 !important;
+}
