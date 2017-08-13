@@ -213,12 +213,12 @@ function stop_audio(id)
     audio_fadeout_interval = setInterval(function()
     {
         audio_fadeout(audio);
-    }, 50);
+    }, 100);
 }
 
 function audio_fadeout(audio) 
 {
-    var newVolume = audio.volume - 0.01;
+    var newVolume = audio.volume - 0.04;
 
     if(newVolume >= 0)
     {
