@@ -1,4 +1,4 @@
-/* Msg v6.1.0 https://github.com/madprops/Msg */
+/* Msg v6.1.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -635,9 +635,25 @@ var Msg = (function()
 				return;
 			}
 
-			html = html.toString();
+			if(typeof html === "object")
+			{
+				if(html instanceof Element)
+				{
+					instance.titlebar.innerHTML = html.outerHTML;	
+				}
+			}
 
-			instance.titlebar.innerHTML = html;
+			else
+			{
+				html = html.toString();
+
+				if(instance.options.replace_linebreaks)
+				{
+					html = html.replace(/(\n)/g, "<br>");
+				}
+
+				instance.titlebar.innerHTML = html;
+			}
 
 			instance.options.after_set_title(instance);
 		}		
