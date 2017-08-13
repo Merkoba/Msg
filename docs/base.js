@@ -184,6 +184,7 @@ function play_audio(id)
     var audio = document.getElementById(id);
 
     audio.pause();
+    audio.volume = 1;
     audio.currentTime = 0;
     audio.play();
 }
@@ -191,8 +192,46 @@ function play_audio(id)
 function stop_audio(id)
 {
     var audio = document.getElementById(id);
+}
 
-    audio.pause();
+var audio_fadeout_interval;
+
+function stop_audio(id)
+{
+    var audio = document.getElementById(id);
+
+    if(audio_fadeout_interval !== undefined)
+    {
+        clearInterval(audio_fadeout_interval);
+    }
+    
+    audio_fadeout_interval = setInterval(function()
+    {
+        audio_fadeout(audio);
+    }, 50);
+}
+
+function audio_fadeout(audio) 
+{
+    var newVolume = audio.volume - 0.01;
+
+    if(newVolume >= 0)
+    {
+        audio.volume = newVolume;
+    }
+
+    else
+    {
+        if(audio_fadeout_interval !== undefined)
+        {
+            clearInterval(audio_fadeout_interval);
+        }
+
+        audio.volume = 0;
+        audio.pause();
+        audio.currentTIme = 0;
+    }
+
 }
 
 var msg_toy = Msg(
