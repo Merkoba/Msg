@@ -245,10 +245,15 @@ var msg_toy = Msg(
     persistent:false,
     window_min_width:"100vw",
     window_min_height:"100vh",
-    after_show: function()
+    after_show: function(instance)
     {
         run_symmetric_harmony();
         play_audio('toymusic');
+
+        if(screenfull.enabled)
+        {
+            screenfull.request(instance.window);
+        }
 
     },
     after_close: function(instance)
