@@ -1,4 +1,4 @@
-/* Msg v6.2.1 https://github.com/madprops/Msg */
+/* Msg v6.2.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -1555,12 +1555,7 @@ var Msg = (function()
 			{
 				percentage -= 1;
 
-				if(percentage < 0)
-				{
-					percentage = 0;
-				}
-
-				instance.progressbar.style.width = `${percentage}%`;
+				instance.set_progress(percentage);
 
 				if(percentage <= 0)
 				{
