@@ -1,4 +1,4 @@
-/* Msg v6.0.1 https://github.com/madprops/Msg */
+/* Msg v6.0.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -418,11 +418,6 @@ var Msg = (function()
 				instance.options.close_delay = parseInt(instance.options.close_delay);
 			}
 
-			if(instance.options.clicky === undefined)
-			{
-				instance.options.clicky = false;
-			}
-
 			if(instance.options.window_width === undefined)
 			{
 				instance.options.window_width = "auto";
@@ -451,6 +446,11 @@ var Msg = (function()
 			if(instance.options.window_max_height === undefined)
 			{
 				instance.options.window_max_height = "80vh";
+			}
+
+			if(instance.options.window_cursor === undefined)
+			{
+				instance.options.window_cursor = "default";
 			}
 		}
 
@@ -877,16 +877,6 @@ var Msg = (function()
 				instance.stackable = false;
 			}
 
-			if(instance.options.clicky)
-			{
-				var cw = "cursor:pointer;";
-			}
-
-			else
-			{
-				var cw = "cursor:default;";
-			}
-
 			styles.window = `
 			display:flex;
 			flex-direction:column;
@@ -902,7 +892,7 @@ var Msg = (function()
 			${win_trans}
 			overflow:hidden;
 			outline:0;
-			${cw}
+			cursor:${instance.options.window_cursor};
 			z-index:-1000;
 			`;
 

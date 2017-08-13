@@ -247,6 +247,7 @@ var msg_toy = Msg(
     window_min_height:"100vh",
     fade_in:false,
     fade_out:false,
+    window_cursor:"none",
     after_show: function(instance)
     {
         run_symmetric_harmony();
@@ -458,7 +459,7 @@ function pop(position)
         edge_padding:document.getElementById('input_edge_padding').value,
         vStack_padding:document.getElementById('input_vStack_padding').value,
         zStack_level: 1,
-        clicky:true,
+        window_cursor:"pointer",
         lock: false,
         on_click: function(instance)
         {

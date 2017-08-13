@@ -14,9 +14,9 @@
         
         <script src='screenfull.js?v=1'></script>
 
-        <script src='msg.js?v=61'></script>
+        <script src='msg.js?v=62'></script>
 
-        <script src='base.js?v=33'></script>
+        <script src='base.js?v=34'></script>
 
     </head>
 
@@ -359,6 +359,8 @@ msg2.show(["Window Example", some_text]);
 
         <i>window_max_height (Default: "80vh")</i>: The max-height of the Msg-window.<br><br>
 
+        <i>window_cursor (Default: "default")</i>: The cursor of the Msg-window. For example, "pointer" or "none".<br><br>
+
         <i>edge_padding (Default: 20)</i>: The padding in pixels from the edge of the screen the window will have if it's not of position "center".<br><br>
 
         <i>vStack (Default: true)</i>: Whether to vertically stack new windows in their position. This only affects vStackable positions. Useful for popup messages.<br><br>
@@ -432,8 +434,6 @@ msg2.show(["Window Example", some_text]);
         <i>while_open_interval (Default: 1000)</i>: Function that triggers after the destroy method. Receives the instance as an argument.<br><br>
 
         <i>on_click (Default: Empty Function)</i>: Function that triggers when either Msg-content, Msg-topbar, Msg-titlebar or Msg-progressbar are clicked.<br><br>
-
-        <i>clicky (Default: Empty Function)</i>: Adds "cursor:pointer" to the Msg-window's style when created.<br><br>
 
         <br>Example:
 
