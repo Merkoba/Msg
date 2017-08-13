@@ -522,7 +522,9 @@ instance.options.lock = false;<br>
 
         <br><h2>Methods</h2>
         
-        <i>instance.show(html)</i>: Opens a window with the received string or html element as its content and puts it at the top of the zStack.<br><br>
+        <i>instance.show(html)</i>: Opens a window with the received string or html element as its content and puts it at the top of the zStack.<br><br>  
+
+        <i>instance.show([title, html])</i>: An alternative way to call show is passing an array with the title for the titlebar and the content html. Useful if you have the titlebar enabled and you want to change both things in the same call.<br><br>
         
         <i>instance.show()</i>: If no arguments are passed to show(), it displays the window with the last used html or the one passed to set() and puts it at the top of the zStack.<br><br>
 

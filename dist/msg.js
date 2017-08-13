@@ -1,4 +1,4 @@
-/* Msg v6.0.0 https://github.com/madprops/Msg */
+/* Msg v6.0.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -581,6 +581,13 @@ var Msg = (function()
 
 		instance.set_title = function(html)
 		{
+			if(html === undefined)
+			{
+				return;
+			}
+
+			instance.create();
+
 			if(instance.titlebar === undefined)
 			{
 				return;
@@ -601,7 +608,7 @@ var Msg = (function()
 			instance.is_highest() ? instance.set(html) : instance.show(html);
 		}
 
-		instance.show = function(html, callback=false)
+		instance.show = function(content, callback=false)
 		{
 			clearTimeout(instance.show_delay_timeout);
 
@@ -609,21 +616,34 @@ var Msg = (function()
 			{
 				instance.show_delay_timeout = setTimeout(function()
 				{
-					instance.do_show(html, callback);
+					instance.do_show(content, callback);
 				}, instance.options.show_delay);
 
 				return;
 			}
 
-			instance.do_show(html, callback);
+			instance.do_show(content, callback);
 		}
 
-		instance.do_show = function(html, callback=false)
+		instance.do_show = function(content, callback=false)
 		{
-			if(typeof html === "function")
+			var title;
+			var html;
+
+			if(typeof content === "function")
 			{
-				callback = html;
-				html = undefined;
+				callback = content;
+			}
+
+			if(typeof content === "object")
+			{
+				title = content[0];
+				html = content[1];
+			}
+
+			else
+			{
+				html = content;
 			}
 
 			instance.create();
@@ -638,6 +658,11 @@ var Msg = (function()
 			if(html !== undefined)
 			{
 				instance.set(html);
+			}
+
+			if(title !== undefined)
+			{
+				instance.set_title(title);
 			}			
 
 			if(!instance.is_open())
@@ -894,6 +919,7 @@ var Msg = (function()
       		flex-grow:1;
 			padding-top:0.38em;
 			padding-left:0.4em;
+			padding-right:0.4em;
 			min-height:27px;
 			font-size: 18px;
 			font-family:sans-serif;    		
