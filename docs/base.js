@@ -245,6 +245,8 @@ var msg_toy = Msg(
     persistent:false,
     window_min_width:"100vw",
     window_min_height:"100vh",
+    fade_in:false,
+    fade_out:false,
     after_show: function(instance)
     {
         run_symmetric_harmony();
