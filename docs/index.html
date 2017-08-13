@@ -12,13 +12,9 @@
 
         <script src='symmetric_harmony.js?v=3'></script>
         
-        <script src='msg.js?v=59'></script>
+        <script src='msg.js?v=60'></script>
 
-        <script src='base.js?v=27'></script>
-
-        <script>
-            init();
-        </script>
+        <script src='base.js?v=28'></script>
 
     </head>
 
@@ -94,7 +90,7 @@
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        enable_titlebar: &nbsp; <input id='input_enable_titlebar' type='checkbox'>
+        enable_titlebar: &nbsp; <input id='input_enable_titlebar' type='checkbox' checked>
 
         <br><br>
 
@@ -353,6 +349,18 @@ msg.set_title("Window Example");
         
         <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "left", "right", "top" (vStackable), "bottom" (vStackable), "topleft" (vStackable), "topright" (vStackable), "bottomleft" (vStackable), or "bottomright" (vStackable).<br><br>
 
+        <i>window_width (Default: "auto")</i>: The width of the Msg-window.<br><br>
+
+        <i>window_height (Default: "auto")</i>: The height of the Msg-window.<br><br>
+        
+        <i>window_min_width (Default: "auto")</i>: The min-width of the Msg-window.<br><br>
+        
+        <i>window_min_height (Default: "auto")</i>: The min-height of the Msg-window.<br><br>
+
+        <i>window_max_width (Default: "80vw")</i>: The max-width of the Msg-window.<br><br>
+
+        <i>window_max_height (Default: "80vh")</i>: The max-height of the Msg-window.<br><br>
+
         <i>edge_padding (Default: 20)</i>: The padding in pixels from the edge of the screen the window will have if it's not of position "center".<br><br>
 
         <i>vStack (Default: true)</i>: Whether to vertically stack new windows in their position. This only affects vStackable positions. Useful for popup messages.<br><br>
@@ -608,6 +616,8 @@ instance.options.lock = false;<br>
         <br><br><br><br>
 
     </div>
+
+    <audio id='toymusic' src='toymusic.mp3?v=1' loop></audio>
 
     </body>
 </html>

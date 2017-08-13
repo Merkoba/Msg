@@ -1,5 +1,6 @@
 var msg = Msg(
 {
+
 });
 
 var msg2 = Msg(
@@ -178,17 +179,38 @@ var msg_black_tb = Msg(
     enable_titlebar:true
 });
 
+function play_audio(id)
+{
+    var audio = document.getElementById(id);
+
+    audio.pause();
+    audio.currentTime = 0;
+    audio.play();
+}
+
+function stop_audio(id)
+{
+    var audio = document.getElementById(id);
+
+    audio.pause();
+}
+
 var msg_toy = Msg(
 {
     id:"toy",
     persistent:false,
+    window_min_width:"100vw",
+    window_min_height:"100vh",
     after_show: function()
     {
         run_symmetric_harmony();
+        play_audio('toymusic');
+
     },
     after_close: function(instance)
     {
         clearInterval(sym_interval);
+        stop_audio('toymusic');
     }
 });
 
@@ -323,8 +345,6 @@ var msg_pop = Msg(
     lock:false
 });
 
-var num_pops = 100;
-
 var pops = [];
 
 function pop(position)
@@ -332,6 +352,30 @@ function pop(position)
     var colors = ["green", "blue", "red", "black"];
 
     var color = colors[get_random_int(0, colors.length - 1)];
+
+    if(color === "green")
+    {
+        var message = "Click me to know about my options.";
+        var title = "Success";
+    }
+
+    else if(color === "blue")
+    {
+        var message = "Click me to know about my options.";
+        var title = "Reminder";        
+    }
+
+    else if(color === "red")
+    {
+        var message = "Click me to know about my options.";
+        var title = "Warning";        
+    }
+
+    else if(color === "black")
+    {
+        var message = "Click me to know about my options.";
+        var title = "Tip";        
+    }
 
     var vStack = document.getElementById('input_vStack').checked;
     var autoclose = document.getElementById('input_autoclose').checked;
@@ -373,14 +417,12 @@ function pop(position)
 
     pops.push(msg);
 
-    msg.show(`Task #${num_pops} completed succesfully.`);
+    msg.show(message);
 
     if(enable_titlebar)
     {
-        msg.set_title("Success")
+        msg.set_title(title);
     }
-
-    num_pops += 1;
 }
 
 function show_options(popup)
@@ -430,8 +472,3 @@ var msg_wo = Msg(
         }
     }
 });
-
-function init()
-{
-    // Msg({preset:"popup_autoclose", show_delay:1000}).show("Welcome to the Msg documentation");
-}

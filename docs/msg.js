@@ -1,4 +1,4 @@
-/* Msg v5.9.0 https://github.com/madprops/Msg */
+/* Msg v6.0.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -422,6 +422,36 @@ var Msg = (function()
 			{
 				instance.options.clicky = false;
 			}
+
+			if(instance.options.window_width === undefined)
+			{
+				instance.options.window_width = "auto";
+			}
+
+			if(instance.options.window_height === undefined)
+			{
+				instance.options.window_height = "auto";
+			}
+
+			if(instance.options.window_min_width === undefined)
+			{
+				instance.options.window_min_width = "auto";
+			}
+
+			if(instance.options.window_min_height === undefined)
+			{
+				instance.options.window_min_height = "auto";
+			}
+
+			if(instance.options.window_max_width === undefined)
+			{
+				instance.options.window_max_width = "80vw";
+			}
+
+			if(instance.options.window_max_height === undefined)
+			{
+				instance.options.window_max_height = "80vh";
+			}
 		}
 
 		instance.check_options();
@@ -723,6 +753,23 @@ var Msg = (function()
 			z-index:-1000;
 			`;
 
+			styles.outer_x = `
+			cursor:pointer;
+			float:${instance.options.outer_x_position};
+			font-size:28px;
+			font-family:sans-serif;
+			-webkit-touch-callout:none;
+			-webkit-user-select:none;
+			-khtml-user-select:none;
+			-moz-user-select:none;
+			-ms-user-select:none;
+			user-select:none;	
+			padding-left:0.6em;
+			padding-right:0.6em;
+			padding-top:0.035em;
+			padding-bottom:0.2em;
+			`;
+
 			if(instance.options.position === "top")
 			{
 				var win_x = "left:50%;";
@@ -805,23 +852,6 @@ var Msg = (function()
 				instance.stackable = false;
 			}
 
-			styles.outer_x = `
-			cursor:pointer;
-			float:${instance.options.outer_x_position};
-			font-size:28px;
-			font-family:sans-serif;
-			-webkit-touch-callout:none;
-			-webkit-user-select:none;
-			-khtml-user-select:none;
-			-moz-user-select:none;
-			-ms-user-select:none;
-			user-select:none;	
-			padding-left:0.6em;
-			padding-right:0.6em;
-			padding-top:0.035em;
-			padding-bottom:0.2em;
-			`;
-
 			if(instance.options.clicky)
 			{
 				var cw = "cursor:pointer;";
@@ -838,8 +868,12 @@ var Msg = (function()
 			${win_x}
 			${win_y}
 			position:fixed;
-			max-height:80vh;
-			max-width:80vw;
+			width:${instance.options.window_width};
+			height:${instance.options.window_height};
+			min-width:${instance.options.window_min_width};
+			min-height:${instance.options.window_min_height};
+			max-width:${instance.options.window_max_width};
+			max-height:${instance.options.window_max_height};
 			${win_trans}
 			overflow:hidden;
 			outline:0;
