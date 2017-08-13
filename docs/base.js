@@ -248,6 +248,7 @@ var msg_toy = Msg(
     fade_in:false,
     fade_out:false,
     window_cursor:"none",
+    enable_overlay:false,
     after_show: function(instance)
     {
         run_symmetric_harmony();
