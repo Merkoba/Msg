@@ -1,4 +1,4 @@
-/* Msg v6.2.0 https://github.com/madprops/Msg */
+/* Msg v6.2.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -1547,27 +1547,26 @@ var Msg = (function()
 		{
 			clearInterval(instance.progressbar_animation);
 
+			var percentage = 100;
+
 			instance.progressbar.style.width = "100%";
-
-			var width = instance.progressbar.offsetWidth;
-
-			var width_cent = width / 100;
 
 			instance.progressbar_animation = setInterval(function()
 			{
-				width -= width_cent;
+				percentage -= 1;
 
-				if(width < 0)
+				if(percentage < 0)
 				{
-					width = 0;
+					percentage = 0;
 				}
 
-				instance.progressbar.style.width = `${width}px`;
+				instance.progressbar.style.width = `${percentage}%`;
 
-				if(width <= 0)
+				if(percentage <= 0)
 				{
 					clearInterval(instance.progressbar_animation);
 				}
+
 			}, instance.options.autoclose_delay / 100)
 		}
 
@@ -1600,9 +1599,7 @@ var Msg = (function()
 				percentage = 0;
 			}
 
-			var width = (instance.window.offsetWidth / 100) * percentage;
-
-			instance.progressbar.style.width = `${width}px`;
+			instance.progressbar.style.width = `${percentage}%`;
 
 			instance.options.after_set_progress(instance);
 		}
