@@ -16,7 +16,7 @@
 
         <script src='msg.js?v=61'></script>
 
-        <script src='base.js?v=32'></script>
+        <script src='base.js?v=33'></script>
 
     </head>
 
@@ -215,7 +215,7 @@
 
         To override the css you will probably need to use !important declarations.<br><br>
 
-        <br><span class='clicky' onclick='msg2.show(sc);msg2.set_title("Window Example")'>Customized Demo</span><br>
+        <br><span class='clicky' onclick='msg2.show(["Window Example", sc]);'>Customized Demo</span><br>
 
         <i><blockquote><pre><code>Demo Code:
 
@@ -272,8 +272,7 @@ var msg2 = Msg(
     font-size: 1.8em !important;
 }
 
-msg.show(some_text);
-msg.set_title("Window Example");
+msg2.show(["Window Example", some_text]);
 
         </code></pre></blockquote></i>  
 
@@ -282,7 +281,6 @@ msg.set_title("Window Example");
         There are some pre-made classes:
 
         <br><br>
-
 
         <span class='clicky' onclick='msg_red.show("This is the red theme.")'>class: "red"</span>&nbsp;&nbsp;&nbsp; 
 
