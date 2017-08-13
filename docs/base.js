@@ -585,7 +585,10 @@ var msg_update = Msg(
 {
     class:"blue",
     autoclose:true,
-    enable_progressbar:true
+    enable_progressbar:true,
+    enable_inner_x: false,
+    close_on_overlay_click:false,
+    close_on_escape:false
 });
 
 function update()
