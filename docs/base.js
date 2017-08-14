@@ -249,16 +249,27 @@ var msg_toy = Msg(
     fade_out:false,
     window_cursor:"none",
     enable_overlay:false,
-    after_show: function(instance)
+    before_show: function(instance)
     {
-        run_symmetric_harmony();
-        play_audio('toymusic');
-
         if(screenfull.enabled)
         {
             screenfull.request(instance.window);
-        }
+        }   
+    },
+    after_show: function(instance)
+    {
+        run_symmetric_harmony();
+        
+        play_audio('toymusic');
 
+        setTimeout(function()
+        {
+            var spinner = document.getElementById('spinner');
+            spinner.style.display = "none";
+
+            var canv = document.getElementById('canv');
+            canv.style.display = "block";
+        },2500);
     },
     after_close: function(instance)
     {
@@ -374,7 +385,7 @@ var s9 = "Keep Pressing Enter";
 
 var s10 = "This is a customized window.";
 
-var stoy = `<div class='heading'>Symmetric Harmony</div>By Tiffany Rayside<br><br><div><canvas id="canv"></canvas></div>`;
+var stoy = `<div class='heading'>Symmetric Harmony</div>By Tiffany Rayside<br><br><div><canvas id="canv"></canvas></div><img id='spinner' src='spinner.gif'>`;
 
 document.addEventListener("keyup", function(e)
 {
