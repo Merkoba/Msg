@@ -181,9 +181,10 @@
 
         <br>Or the minified version:
 
-        <i><blockquote><pre><code>&lt;script src="node_modules/msg-modal/dist/msg.min.js"&gt;&lt;/script&gt;</code></pre></blockquote></i>
+        <i><blockquote><pre><code>&lt;script src="node_modules/msg-modal/dist/msg.min.js"&gt;&lt;/script&gt;
+        </code></pre></blockquote></i>
 
-        <br><h2>Basic Usage</h2>
+        <h2>Basic Usage</h2>
 
         To use, first make an instance:<br>
         <i><blockquote><pre><code>var msg = Msg();</code></pre></blockquote></i>
@@ -230,6 +231,8 @@ remind("Water the trees.");
 
         <span class='clicky' onclick='remind("Water the trees.");'>Run This Demo</span>
 
+        <br><br>
+
         <h2>Structure</h2>
 
         Four elements are created with the following ids:<br><br>
@@ -249,25 +252,25 @@ remind("Water the trees.");
 
         <br><br>The structure looks like this:
 
-        <blockquote><pre><code>[container]
+        <blockquote><pre><code>[container] (instance.container)
 
-    [overlay] (Optional)
-        [outer-x][/outer-x] (Optional)
+    [overlay] (Optional) (instance.overlay)
+        [outer-x][/outer-x] (Optional) (instance.outer_x)
     [/overlay]
 
-    [window]
+    [window] (instance.window)
 
-        [topbar]
-            [titlebar][/titlebar] (Optional)
-            [inner-x][/inner-x] (Optional)
+        [topbar] (instance.topbar)
+            [titlebar][/titlebar] (Optional) (instance.titlebar)
+            [inner-x][/inner-x] (Optional) (instance.inner_x)
         [/topbar]
 
-        [content-container]
-            [content][/content]
+        [content-container] (instance.content_container)
+            [content][/content] (instance.content)
         [/content-container]
 
-        [progressbar-container]
-            [progressbar][/progressbar]
+        [progressbar-container] (instance.progressbar_container)
+            [progressbar][/progressbar] (instance.progressbar)
         [/progressbar-container]
 
     [/window]
@@ -631,10 +634,24 @@ instance.options.lock = false;<br>
         <i>instance.container</i>: The Msg-container html element.<br><br>
         
         <i>instance.overlay</i>: The Msg-overlay html element.<br><br>
+
+        <i>instance.outer_x</i>: The Msg-outer-x html element.<br><br>
+
+        <i>instance.topbar</i>: The Msg-topbar html element.<br><br>
         
+        <i>instance.titlebar</i>: The Msg-titlebar html element.<br><br>
+        
+        <i>instance.inner_x</i>: The Msg-inner-x html element.<br><br>
+
         <i>instance.window</i>: The Msg-window html element.<br><br>
         
+        <i>instance.content-container</i>: The Msg-content-container html element.<br><br>
+
         <i>instance.content</i>: The Msg-content html element.<br><br>
+
+        <i>instance.progressbar-container</i>: The Msg-progressbar-container html element.<br><br>
+
+        <i>instance.progressbar</i>: The Msg-progressbar html element.<br><br>
         
         <i>instance.options</i>: The options object of the instance.<br>
 
