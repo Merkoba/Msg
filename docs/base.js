@@ -601,7 +601,7 @@ function update()
 {
     msg_snack.close();
 
-    msg_update.show("We're applying an update. Do not turn off your computer.<br><br><div id='update_progress'></div>");
+    msg_update.show("We're applying an update. Do not turn off the computer.<br><br><div id='update_progress'></div>");
     update_progress = document.getElementById('update_progress');
 }
 
