@@ -586,50 +586,11 @@ msg_test.show("Domo Arigato");
                 }
             });       
         </script>
-        <span class='clicky' onclick='msg_test.show("Domo Arigato")'>Test It</span><br><br>
+        <span class='clicky' onclick='msg_test.show("Domo Arigato")'>Test It</span>
 
-        <h2>Presets</h2>
+        <br><br>
 
-        <i><b>preset: "popup"</b></i><br>
-instance.options.class = "green";<br>
-instance.options.enable_overlay = false;<br>
-instance.options.position = "bottomright";<br>
-instance.options.fade_in = true;<br>
-instance.options.fade_out = true;<br>
-instance.options.persistent = false;<br>
-instance.options.zStack_level = 1;<br>
-instance.options.lock = false;<br>
-
-        <br><i><b>preset: "popup_autoclose"</b></i><br>
-instance.options.class = "green";<br>
-instance.options.enable_overlay = false;<br>
-instance.options.position = "bottomright";<br>
-instance.options.autoclose = true;<br>
-instance.options.enable_progressbar = true;<br>
-instance.options.fade_in = true;<br>
-instance.options.fade_out = true;<br>
-instance.options.persistent = false;<br>
-instance.options.zStack_level = 1;<br>
-instance.options.lock = false;<br>
-
-        <br><i><b>preset: "snackbar"</b></i><br>
-instance.options.class = "black";<br>
-instance.options.content_class = "snackbar";<br>
-instance.options.position = "bottom";<br>
-instance.options.edge_padding = 0;<br>
-instance.options.window_min_width = "25em";<br>
-instance.options.enable_inner_x = false;<br>
-instance.options.enable_overlay = false;<br>
-instance.options.fade_out = false;<br>
-instance.options.subsequent_fade_ins = true;<br>
-instance.options.autoclose = true;<br>
-instance.options.autoclose_delay = 10000;<br>
-instance.options.vStack = false;<br>
-instance.options.zStack_level = 1;<br>
-instance.options.lock = false;<br>
-
-
-        <br><h2>Properties</h2>
+        <h2>Properties</h2>
         
         <i>instance.container</i>: The Msg-container html element.<br><br>
         
@@ -730,8 +691,48 @@ instance.options.lock = false;<br>
         <i>instance.recreate_all()</i>: Recreates the html elements of all the instances.<br><br>
         
         <i>instance.destroy_all()</i>: Removes the html elements of all the instances.<br><br>
+
+        <h2>Presets</h2>
+
+        <i><b>preset: "popup"</b></i><br>
+        instance.options.class = "green";<br>
+        instance.options.enable_overlay = false;<br>
+        instance.options.position = "bottomright";<br>
+        instance.options.fade_in = true;<br>
+        instance.options.fade_out = true;<br>
+        instance.options.persistent = false;<br>
+        instance.options.zStack_level = 1;<br>
+        instance.options.lock = false;<br>
+
+                <br><i><b>preset: "popup_autoclose"</b></i><br>
+        instance.options.class = "green";<br>
+        instance.options.enable_overlay = false;<br>
+        instance.options.position = "bottomright";<br>
+        instance.options.autoclose = true;<br>
+        instance.options.enable_progressbar = true;<br>
+        instance.options.fade_in = true;<br>
+        instance.options.fade_out = true;<br>
+        instance.options.persistent = false;<br>
+        instance.options.zStack_level = 1;<br>
+        instance.options.lock = false;<br>
+
+                <br><i><b>preset: "snackbar"</b></i><br>
+        instance.options.class = "black";<br>
+        instance.options.content_class = "snackbar";<br>
+        instance.options.position = "bottom";<br>
+        instance.options.edge_padding = 0;<br>
+        instance.options.window_min_width = "25em";<br>
+        instance.options.enable_inner_x = false;<br>
+        instance.options.enable_overlay = false;<br>
+        instance.options.fade_out = false;<br>
+        instance.options.subsequent_fade_ins = true;<br>
+        instance.options.autoclose = true;<br>
+        instance.options.autoclose_delay = 10000;<br>
+        instance.options.vStack = false;<br>
+        instance.options.zStack_level = 1;<br>
+        instance.options.lock = false;<br>        
         
-       <br> Note: It's advised not to modify the "display" or "z-index" css properties of the Msg html elements since they are handled internally.<br><br>
+       <br><br> Note: It's advised not to modify the "display" or "z-index" css properties of the Msg html elements since they are handled internally.<br><br>
 
         <br>
         
