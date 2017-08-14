@@ -269,7 +269,7 @@ var msg_toy = Msg(
 
             var canv = document.getElementById('canv');
             canv.style.display = "block";
-        },2500);
+        },2000);
     },
     after_close: function(instance)
     {
