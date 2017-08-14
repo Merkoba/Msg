@@ -461,6 +461,7 @@ function pop(position)
         vStack_padding:document.getElementById('input_vStack_padding').value,
         zStack_level: 1,
         window_cursor:"pointer",
+        window_unselectable:true,
         lock: false,
         on_click: function(instance)
         {

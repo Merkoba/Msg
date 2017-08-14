@@ -14,9 +14,9 @@
         
         <script src='screenfull.js?v=1'></script>
 
-        <script src='msg.js?v=67'></script>
+        <script src='msg.js?v=69'></script>
 
-        <script src='base.js?v=38'></script>
+        <script src='base.js?v=39'></script>
 
     </head>
 
@@ -244,22 +244,34 @@ remind("Water the trees.");
         "Msg-titlebar-id" (with classes: "Msg-titlebar" and "Msg-titlebar-class") (Not created by default)<br>
         "Msg-inner-x-id" (with classes: "Msg-inner-x" and "Msg-inner-x-class") (Created by default)<br>
         "Msg-outer-x-id" (with classes: "Msg-outer-x" and "Msg-outer-x-class") (Not created by default)<br>
+        "Msg-progressbar-container-id" (with classes: "Msg-progressbar-container" and "Msg-progressbar-container-class") (Created if Msg-progressbar is created)<br>
+        "Msg-progressbar-id" (with classes: "Msg-progressbar" and "Msg-progressbar-class") (Not created by default)<br>
 
         <br><br>The structure looks like this:
 
         <blockquote><pre><code>[container]
+
     [overlay] (Optional)
         [outer-x][/outer-x] (Optional)
     [/overlay]
+
     [window]
+
         [topbar]
             [titlebar][/titlebar] (Optional)
             [inner-x][/inner-x] (Optional)
         [/topbar]
+
         [content-container]
             [content][/content]
         [/content-container]
+
+        [progressbar-container]
+            [progressbar][/progressbar]
+        [/progressbar-container]
+
     [/window]
+
 [/container]
         </code></pre></blockquote>
 
@@ -385,11 +397,19 @@ msg2.show(["Window Example", some_text]);
         
         <i>window_class (Default: undefined)</i>: If this is defined, the Msg-window will use this instead of the class option.<br><br>
         
+        <i>topbar_class (Default: undefined)</i>: If this is defined, the Msg-topbar will use this instead of the class option.<br><br>
+
+        <i>titlebar_class (Default: undefined)</i>: If this is defined, the Msg-titlebar will use this instead of the class option.<br><br>   
+
         <i>content_class (Default: undefined)</i>: If this is defined, the Msg-content will use this instead of the class option.<br><br>
         
         <i>inner_x_class (Default: undefined)</i>: If this is defined, the Msg-inner-x will use this instead of the class option.<br><br>
         
-        <i>outer_x_class (Default: undefined)</i>: If this is defined, the Msg-outer-x will use this instead of the class option.<br><br>
+        <i>outer_x_class (Default: undefined)</i>: If this is defined, the Msg-outer-x will use this instead of the class option.<br><br>  
+
+        <i>progressbar_container_class (Default: undefined)</i>: If this is defined, the Msg-progressbar-container will use this instead of the class option.<br><br> 
+
+        <i>progressbar_class (Default: undefined)</i>: If this is defined, the Msg-progressbar will use this instead of the class option.<br><br>
         
         <i>lock (Default: true)</i>: Prevents scrolling from propagating to the body. This is done through css by adding a class to the body temporarily.<br><br>
         
@@ -431,6 +451,8 @@ msg2.show(["Window Example", some_text]);
 
         <i>window_cursor (Default: "default")</i>: The cursor of the Msg-window. For example, "pointer" or "none".<br><br>
 
+        <i>window_unselectable (Default: false)</i>: If true, it will make the window's content unselectable. For example by dragging with the mouse.".<br><br>
+
         <i>edge_padding (Default: 20)</i>: The padding in pixels from the edge of the screen the window will have if it's not of position "center".<br><br>
 
         <i>vStack (Default: true)</i>: Whether to vertically stack new windows in their position. This only affects vStackable positions. Useful for popup messages.<br><br>
@@ -443,7 +465,7 @@ msg2.show(["Window Example", some_text]);
 
         <i>autoclose (Default: false)</i>: Closes the window automatically after a certain amount of time.<br><br>
         
-        <i>autoclose_delay (Default: 3000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
+        <i>autoclose_delay (Default: 5000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
         
         <i>enable_progressbar (Default: false)</i>: Whether Msg-progressbar is created or not.<br><br>  
 

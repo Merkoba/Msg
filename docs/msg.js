@@ -1,4 +1,4 @@
-/* Msg v6.2.3 https://github.com/madprops/Msg */
+/* Msg v6.3.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -498,6 +498,11 @@ var Msg = (function()
 				instance.options.window_cursor = "default";
 			}
 
+			if(instance.options.window_unselectable === undefined)
+			{
+				instance.options.window_unselectable = false;
+			}
+
 			if(instance.options.subsequent_fade_ins === undefined)
 			{
 				instance.options.subsequent_fade_ins = false;
@@ -971,6 +976,17 @@ var Msg = (function()
 				instance.stackable = false;
 			}
 
+			if(instance.options.window_unselectable)
+			{
+			
+				var wun = "-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;"
+			}
+
+			else
+			{
+				var wun = "";
+			}			
+
 			styles.window = `
 			display:flex;
 			flex-direction:column;
@@ -986,6 +1002,7 @@ var Msg = (function()
 			${win_trans}
 			overflow:hidden;
 			outline:0;
+			${wun}
 			cursor:${instance.options.window_cursor};
 			z-index:-1000;
 			`;
@@ -1068,7 +1085,7 @@ var Msg = (function()
 
 			if(instance.options.enable_progressbar)
 			{
-				var cpb = "1.3em";
+				var cpb = "1.34em";
 			}
 
 			else
@@ -1088,9 +1105,14 @@ var Msg = (function()
 			padding-right:1.6em;
 			`;
 
+			styles.progressbar_container = `
+			height:12px;
+			width:100%;
+			`;
+
 			styles.progressbar = `
-			height:10px;
-			width:0px;
+			height:100%;
+			width:0%;
 			`;	
 
 			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
@@ -1102,6 +1124,7 @@ var Msg = (function()
 			var inner_x_class = (instance.options.inner_x_class !== undefined) ? instance.options.inner_x_class : instance.options.class;
 			var content_container_class = (instance.options.content_container_class !== undefined) ? instance.options.content_container_class : instance.options.class;
 			var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class;
+			var progressbar_container_class = (instance.options.progressbar_container_class !== undefined) ? instance.options.progressbar_container_class : instance.options.class;
 			var progressbar_class = (instance.options.progressbar_class !== undefined) ? instance.options.progressbar_class : instance.options.class;
 			
 			container_class = container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-container-${w}`).join(" ");
@@ -1113,6 +1136,7 @@ var Msg = (function()
 			inner_x_class = inner_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-inner-x-${w}`).join(" ");
 			content_container_class = content_container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-container-${w}`).join(" ");
 			content_class = content_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-${w}`).join(" ");
+			progressbar_container_class = progressbar_container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-progressbar-container-${w}`).join(" ");
 			progressbar_class = progressbar_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-progressbar-${w}`).join(" ");
 
 			var container_html =  `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`;
@@ -1124,6 +1148,7 @@ var Msg = (function()
 			var inner_x_html = `<div class="Msg-inner-x ${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
 			var content_container_html = `<div class="Msg-content-container ${content_container_class}" style="${styles.content_container}" id="Msg-content-container-${instance.options.id }"></div>`;
 			var content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
+			var progressbar_container_html = `<div class="Msg-progressbar-container ${progressbar_container_class}" style="${styles.progressbar_container}" id="Msg-progressbar-container-${instance.options.id }"></div>`;
 			var progressbar_html = `<div class="Msg-progressbar ${progressbar_class}" style="${styles.progressbar}" id="Msg-progressbar-${instance.options.id }"></div>`;
 
 			document.body.insertAdjacentHTML("beforeend", container_html);
@@ -1171,7 +1196,10 @@ var Msg = (function()
 
 			if(instance.options.enable_progressbar)
 			{
-				instance.window.insertAdjacentHTML("beforeend", progressbar_html);
+				instance.window.insertAdjacentHTML("beforeend", progressbar_container_html);
+				instance.progressbar_container = document.getElementById(`Msg-progressbar-container-${instance.options.id}`);
+
+				instance.progressbar_container.insertAdjacentHTML("beforeend", progressbar_html);
 				instance.progressbar = document.getElementById(`Msg-progressbar-${instance.options.id}`);
 			}
 
@@ -1257,6 +1285,8 @@ var Msg = (function()
 				instance.inner_x = undefined;
 				instance.content_container = undefined;
 				instance.content = undefined;
+				instance.progressbar_container = undefined;
+				instance.progressbar = undefined;
 
 				instance.options.after_destroy(instance);		
 			}
