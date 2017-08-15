@@ -1,4 +1,4 @@
-/* Msg v6.4.0 https://github.com/madprops/Msg */
+/* Msg v6.4.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -109,7 +109,6 @@ var Msg = (function()
 					if(instance.options.window_min_width === undefined) instance.options.window_min_width = "25em";
 					if(instance.options.enable_inner_x === undefined) instance.options.enable_inner_x = false;
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
-					if(instance.options.subsequent_show_effects === undefined) instance.options.subsequent_show_effects = true;
 					if(instance.options.autoclose === undefined) instance.options.autoclose = true;
 					if(instance.options.autoclose_delay === undefined) instance.options.autoclose_delay = 10000;
 					if(instance.options.close_on_show === undefined) instance.options.close_on_show = true;
@@ -568,7 +567,6 @@ var Msg = (function()
 				return;
 			}
 
-			instance.clear_effect_intervals();
 			instance.clear_while_open_interval();
 
 			if(instance.options.close_effect === "fade")
@@ -767,8 +765,6 @@ var Msg = (function()
 				return;
 			}
 
-			instance.clear_effect_intervals();
-
 			if(html !== undefined)
 			{
 				instance.set(html);
@@ -810,9 +806,7 @@ var Msg = (function()
 
 				if(instance.options.show_effect.indexOf("slide" !== -1) && instance.options.subsequent_show_effects)
 				{
-					var direction = instance.options.show_effect.split("_")[1];
-
-					instance.slide_in(direction, callback);
+					instance.slide_in(callback);
 				}
 			}
 
@@ -1712,6 +1706,8 @@ var Msg = (function()
 
 		instance.fade_in = function(callback) 
 		{
+			instance.clear_effect_intervals();
+
 			instance.closing_for_show = false;
 
 			instance.container.style.opacity = 0;
@@ -1742,6 +1738,8 @@ var Msg = (function()
 
 		instance.fade_out = function(callback) 
 		{
+			instance.clear_effect_intervals();
+
 			var speed = instance.options.show_effect_duration / 50;
 
 			instance.fade_out_interval = setInterval(function() 
@@ -1764,6 +1762,8 @@ var Msg = (function()
 
 		instance.slide_in = function(callback) 
 		{
+			instance.clear_effect_intervals();
+
 			instance.closing_for_show = false;
 
 			var pos = false;
@@ -1831,6 +1831,8 @@ var Msg = (function()
 
 		instance.slide_out = function(callback) 
 		{
+			instance.clear_effect_intervals();
+
 			var pos = false;
 
 			if(instance.options.position === "bottom")
