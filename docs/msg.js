@@ -1,4 +1,4 @@
-/* Msg v6.6.1 https://github.com/madprops/Msg */
+/* Msg v6.6.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -895,6 +895,7 @@ var Msg = (function()
 
 			styles.container = `
 			display:none;
+			opacity:1;
 			`;
 
 			styles.overlay = `
@@ -1799,7 +1800,7 @@ var Msg = (function()
 		{
 			instance.clear_effect_intervals();
 
-			var speed = instance.options.show_effect_duration / 50;
+			var speed = instance.options.close_effect_duration / 50;
 
 			instance.fade_out_interval = setInterval(function() 
 			{
@@ -1829,29 +1830,33 @@ var Msg = (function()
 
 			if(instance.options.position === "bottom")
 			{
+				var og = parseInt(instance.window.style.bottom);
 				instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
-				var diff = ((instance.window.offsetHeight + instance.options.edge_padding) / instance.options.show_effect_duration) * 10;
+				var diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 				var pos = "bottom";
 			}
 
 			else if(instance.options.position === "top")
 			{
+				var og = parseInt(instance.window.style.top);
 				instance.window.style.top = 0 - instance.window.offsetHeight + "px";
-				var diff = ((instance.window.offsetHeight + instance.options.edge_padding) / instance.options.show_effect_duration) * 10;
+				var diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 				var pos = "top";
 			}
 
 			else if((instance.options.position.indexOf("right") !== -1))
 			{
+				var og = parseInt(instance.window.style.right);
 				instance.window.style.right = 0 - instance.window.offsetWidth + "px";
-				var diff = ((instance.window.offsetWidth + instance.options.edge_padding) / instance.options.show_effect_duration) * 10;
+				var diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
 				var pos = "right";
 			}
 
 			else if((instance.options.position.indexOf("left") !== -1))
 			{
+				var og = parseInt(instance.window.style.left);
 				instance.window.style.left = 0 - instance.window.offsetWidth + "px";
-				var diff = ((instance.window.offsetWidth + instance.options.edge_padding) / instance.options.show_effect_duration) * 10;
+				var diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
 				var pos = "left";
 			}
 
@@ -1872,9 +1877,9 @@ var Msg = (function()
 
 				instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
 
-				if(parseInt(instance.window.style[pos]) >= instance.options.edge_padding) 
+				if(parseInt(instance.window.style[pos]) >= og) 
 				{
-					instance.window.style[pos] = instance.options.edge_padding + "px";
+					instance.window.style[pos] = og + "px";
 
 					instance.clear_effect_intervals();
 
@@ -1897,28 +1902,28 @@ var Msg = (function()
 			if(instance.options.position === "bottom")
 			{
 				var distance = (2 * instance.window.offsetHeight) + instance.options.edge_padding;
-				var diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.show_effect_duration) * 10;
+				var diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
 				var npos = 0 - instance.window.offsetHeight;
 				var pos = "bottom";
 			}
 
 			else if(instance.options.position === "top")
 			{
-				var diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.show_effect_duration) * 10;
+				var diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
 				var npos = 0 - instance.window.offsetHeight;
 				var pos = "top";
 			}
 
 			else if((instance.options.position.indexOf("right") !== -1))
 			{
-				var diff = ((parseInt(instance.window.style.right) + instance.window.offsetWidth) / instance.options.show_effect_duration) * 10;
+				var diff = ((parseInt(instance.window.style.right) + instance.window.offsetWidth) / instance.options.close_effect_duration) * 10;
 				var npos = 0 - instance.window.offsetWidth;
 				var pos = "right";
 			}
 
 			else if((instance.options.position.indexOf("left") !== -1))
 			{
-				var diff = ((parseInt(instance.window.style.left) + instance.window.offsetWidth) / instance.options.show_effect_duration) * 10;
+				var diff = ((parseInt(instance.window.style.left) + instance.window.offsetWidth) / instance.options.close_effect_duration) * 10;
 				var npos = 0 - instance.window.offsetWidth;
 				var pos = "left";
 			}
