@@ -1,4 +1,4 @@
-/* Msg v6.6.0 https://github.com/madprops/Msg */
+/* Msg v6.6.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -2028,16 +2028,18 @@ var Msg = (function()
 				{
 					if(i.options.position === p)
 					{
+						let pos;
+
 						if(mode === "vertical")
 						{
 							if(p.indexOf("top") !== -1)
 							{
-								var pos = parseInt(i.window.style.top);
+								pos = parseInt(i.window.style.top);
 							}
 
 							else if(p.indexOf("bottom") !== -1)
 							{
-								var pos = parseInt(i.window.style.bottom);
+								pos = parseInt(i.window.style.bottom);
 							}
 						}
 
@@ -2045,20 +2047,23 @@ var Msg = (function()
 						{
 							if(p.indexOf("left") !== -1)
 							{
-								var pos = parseInt(i.window.style.left);
+								pos = parseInt(i.window.style.left);
 							}
 
 							else if(p.indexOf("right") !== -1)
 							{
-								var pos = parseInt(i.window.style.right);
+								pos = parseInt(i.window.style.right);
 							}
 
 						}
 
-						if(pos > highest)
+						if(pos !== undefined)
 						{
-							highest = pos;
-							highest_ins = i;
+							if(pos > highest)
+							{
+								highest = pos;
+								highest_ins = i;
+							}
 						}
 					}
 				}
@@ -2159,10 +2164,34 @@ var Msg = (function()
 			{
 				if(i.is_open())
 				{
-					if(i.options.position === p)
+					let ip = i.options.position;
+
+					if(ip === p)
 					{
 						if(mode === "vertical")
 						{
+							let sp;
+
+							if(ip.indexOf("left") !== -1)
+							{
+								sp = "left";
+							}
+
+							else if(ip.indexOf("right") !== -1)
+							{
+								sp = "right";
+							}
+
+							if(sp !== undefined)
+							{
+								let ps = parseInt(i.window.style[sp]);
+
+								if((ps > i.options.edge_padding + 2) || (ps < i.options.edge_padding - 2))
+								{
+									continue;
+								}
+							}
+
 							if(p.indexOf("top") !== -1)
 							{
 								if(parseInt(i.window.style.top) < parseInt(ins.window.style.top))
