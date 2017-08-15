@@ -483,7 +483,7 @@ msg2.show(["Window Example", some_text]);
 
         <i>edge_padding (Default: 20)</i>: The padding in pixels from the edge of the screen the window will have if it's not of position "center".<br><br>
 
-        <i>sideStack (Default: "vertical")</i>: Either "vertical", "horizontal" or "none". This is what allows popup windows to stack on top of each other vertically or appear side by side horizontally.<br><br>
+        <i>sideStack (Default: "vertical")</i>: Either "vertical", "horizontal" or "none". This is what allows popup windows to stack on top of each other vertically or appear side by side horizontally. Horizontal stacks with the "slide" effect don't work properly on quick successive shows, it's recommended to give them a delay between shows, you can use the show_delay option for this.<br><br>
         
         <i>sideStack_padding (Default: 20)</i>: The separation in pixels between vertically or horizontally stacked windows.<br><br>
 
