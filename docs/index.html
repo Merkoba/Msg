@@ -518,6 +518,10 @@ msg2.show(["Window Example", some_text]);
 
         <i>subsequent_show_effects (Default: false)</i>: If true, it will show the show_effect on show() even if the window is already open.<br><br>
 
+        <i>close_effect (Default: "fade")</i>: Either "fade", "slide" or "none". Position "center" doesn't support slide.<br><br>
+
+        <i>close_effect_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the close_effect.<br><br>
+
         <i>replace_linebreaks (Default: true)</i>: If true, strings passed to show() or set() will have every "\n" replaced with an html linebreak.<br><br>        
         
         <i>before_show (Default: Empty Function)</i>: Function that triggers before the show method. Receives the instance as an argument. If false is returned it aborts the execution.<br><br>
