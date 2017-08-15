@@ -1,4 +1,4 @@
-/* Msg v6.4.2 https://github.com/madprops/Msg */
+/* Msg v6.5.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -1436,6 +1436,29 @@ var Msg = (function()
 			return parseInt(highest);
 		}
 
+		instance.highest_instance = function()
+		{
+			var zIndex = instance.highest_zIndex();
+
+			if(zIndex < 0)
+			{
+				return false;
+			}
+
+			for(var i of instances)
+			{
+				if(i.window !== undefined)
+				{
+					if(parseInt(i.window.style.zIndex) === zIndex)
+					{
+						return i;
+					}
+				}
+			}
+
+			return false;
+		}
+
 		instance.highest_common_zIndex = function()
 		{
 			var highest = -2000;
@@ -2159,64 +2182,71 @@ var Msg = (function()
 			}
 		}
 
-		document.addEventListener("keydown", function(e)
+		if(instance.options.id !== "__internal_instance__")
 		{
-			if(!instance.keys_enabled)
-			{
-				if(instance.is_highest())
-				{
-					var captureKey = function(e) 
-					{
-						e.stopPropagation();
-						this.removeEventListener("keyup", captureKey, true);
-					}
-
-					document.addEventListener("keyup", captureKey, true);
-				}
-			}
-		});		
-
-		document.addEventListener("keyup", function(e)
-		{
-			if(e.keyCode === 27)
-			{
-				if(instance.is_highest())
-				{
-					if(instance.options.clear_editables)
-					{
-						var el = document.activeElement;
-
-						if((el.nodeName === "INPUT" && el.type === "text") || el.nodeName === "TEXTAREA")
-						{
-							if(!el.readOnly && !el.disabled)
-							{
-								if(el.value !== "")
-								{
-									el.select();
-
-									if(!document.execCommand("insertText", false, ""))
-									{
-										el.value = "";
-									}
-
-									return;
-								}
-							}
-						}
-					}
-
-					if(instance.options.close_on_escape)
-					{
-						instance.close();
-					}
-				}
-			}
-		});
-
-		instances.push(instance);
+			instances.push(instance);
+		}
 
 		return instance;	
 	}
+
+	var msg = factory({id:"__internal_instance__"});
+
+	document.addEventListener("keydown", function(e)
+	{
+		var highest = msg.highest_instance();
+
+		if(!highest) return;
+
+		if(!highest.keys_enabled)
+		{
+			var captureKey = function(e) 
+			{
+				e.stopPropagation();
+				this.removeEventListener("keyup", captureKey, true);
+			}
+
+			document.addEventListener("keyup", captureKey, true);
+		}
+	});		
+
+	document.addEventListener("keyup", function(e)
+	{
+		if(e.keyCode === 27)
+		{
+			var highest = msg.highest_instance();
+
+			if(!highest) return;
+
+			if(highest.options.clear_editables)
+			{
+				var el = document.activeElement;
+
+				if((el.nodeName === "INPUT" && el.type === "text") || el.nodeName === "TEXTAREA")
+				{
+					if(!el.readOnly && !el.disabled)
+					{
+						if(el.value !== "")
+						{
+							el.select();
+
+							if(!document.execCommand("insertText", false, ""))
+							{
+								el.value = "";
+							}
+
+							return;
+						}
+					}
+				}
+			}
+
+			if(highest.options.close_on_escape)
+			{
+				highest.close();
+			}
+		}
+	});
 
 	return factory;
 }());
