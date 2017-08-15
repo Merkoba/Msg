@@ -1,4 +1,4 @@
-/* Msg v6.4.1 https://github.com/madprops/Msg */
+/* Msg v6.4.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -79,8 +79,8 @@ var Msg = (function()
 					if(instance.options.class === undefined) instance.options.class = "green";
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
 					if(instance.options.position === undefined) instance.options.position = "bottomright";
-					if(instance.options.fade_in === undefined) instance.options.fade_in = true;
-					if(instance.options.fade_out === undefined) instance.options.fade_out = true;
+					if(instance.options.show_effect === undefined) instance.options.show_effect = "fade";
+					if(instance.options.close_effect === undefined) instance.options.close_effect = "fade";
 					if(instance.options.persistent === undefined) instance.options.persistent = false;
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.lock === undefined) instance.options.lock = false;
@@ -91,10 +91,10 @@ var Msg = (function()
 					if(instance.options.class === undefined) instance.options.class = "green";
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
 					if(instance.options.position === undefined) instance.options.position = "bottomright";
+					if(instance.options.show_effect === undefined) instance.options.show_effect = "fade";
+					if(instance.options.close_effect === undefined) instance.options.close_effect = "fade";					
 					if(instance.options.autoclose === undefined) instance.options.autoclose = true;
 					if(instance.options.enable_progressbar === undefined) instance.options.enable_progressbar = true;
-					if(instance.options.fade_in === undefined) instance.options.fade_in = true;
-					if(instance.options.fade_out === undefined) instance.options.fade_out = true;
 					if(instance.options.persistent === undefined) instance.options.persistent = false;
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.lock === undefined) instance.options.lock = false;
