@@ -1,4 +1,4 @@
-/* Msg v6.3.0 https://github.com/madprops/Msg */
+/* Msg v6.4.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -66,6 +66,7 @@ var Msg = (function()
 		instance.close_enabled = true;
 		instance.click_enabled = true;
 		instance.keys_enabled = true;
+		instance.closing_for_show = false;
 
 		instance.options = options;
 
@@ -108,10 +109,12 @@ var Msg = (function()
 					if(instance.options.window_min_width === undefined) instance.options.window_min_width = "25em";
 					if(instance.options.enable_inner_x === undefined) instance.options.enable_inner_x = false;
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
-					if(instance.options.fade_out === undefined) instance.options.fade_out = false;
-					if(instance.options.subsequent_fade_ins === undefined) instance.options.subsequent_fade_ins = true;
+					if(instance.options.subsequent_show_effects === undefined) instance.options.subsequent_show_effects = true;
 					if(instance.options.autoclose === undefined) instance.options.autoclose = true;
 					if(instance.options.autoclose_delay === undefined) instance.options.autoclose_delay = 10000;
+					if(instance.options.close_on_show === undefined) instance.options.close_on_show = true;
+					if(instance.options.show_effect === undefined) instance.options.show_effect = "slide";
+					if(instance.options.close_effect === undefined) instance.options.close_effect = "slide";
 					if(instance.options.vStack === undefined) instance.options.vStack = false;
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.lock === undefined) instance.options.lock = false;
@@ -353,34 +356,34 @@ var Msg = (function()
 				instance.options.persistent = true;
 			}
 
-			if(instance.options.fade_in === undefined)
+			if(instance.options.show_effect === undefined)
 			{
-				instance.options.fade_in = true;
+				instance.options.show_effect = "fade";
 			}
 
-			if(instance.options.fade_in_duration === undefined)
+			if(instance.options.show_effect_duration === undefined)
 			{
-				instance.options.fade_in_duration = 350;
-			}
-
-			else
-			{
-				instance.options.fade_in_duration = parseInt(instance.options.fade_in_duration);
-			}
-
-			if(instance.options.fade_out === undefined)
-			{
-				instance.options.fade_out = true;
-			}
-
-			if(instance.options.fade_out_duration === undefined)
-			{
-				instance.options.fade_out_duration = 350;
+				instance.options.show_effect_duration = 350;
 			}
 
 			else
 			{
-				instance.options.fade_out_duration = parseInt(instance.options.fade_out_duration);
+				instance.options.show_effect_duration = parseInt(instance.options.show_effect_duration);
+			}
+
+			if(instance.options.close_effect === undefined)
+			{
+				instance.options.close_effect = "fade";
+			}
+
+			if(instance.options.close_effect_duration === undefined)
+			{
+				instance.options.close_effect_duration = 350;
+			}
+
+			else
+			{
+				instance.options.close_effect_duration = parseInt(instance.options.close_effect_duration);
 			}
 
 			if(instance.options.position === undefined)
@@ -503,9 +506,9 @@ var Msg = (function()
 				instance.options.window_unselectable = false;
 			}
 
-			if(instance.options.subsequent_fade_ins === undefined)
+			if(instance.options.subsequent_show_effects === undefined)
 			{
-				instance.options.subsequent_fade_ins = false;
+				instance.options.subsequent_show_effects = false;
 			}
 
 			if(instance.options.replace_linebreaks === undefined)
@@ -565,12 +568,17 @@ var Msg = (function()
 				return;
 			}
 
-			instance.clear_fade_intervals();
+			instance.clear_effect_intervals();
 			instance.clear_while_open_interval();
 
-			if(instance.options.fade_out)
+			if(instance.options.close_effect === "fade")
 			{
 				instance.fade_out(callback);
+			}
+
+			else if(instance.options.close_effect === "slide")
+			{
+				instance.slide_out(callback);
 			}
 
 			else
@@ -592,7 +600,7 @@ var Msg = (function()
 
 			instance.window.style.zIndex = -1000;
 
-			instance.container.style.opacity = 0;
+			instance.clear_autoclose_progressbar_interval();
 
 			instance.check_remove_overflow_hidden();
 
@@ -717,6 +725,22 @@ var Msg = (function()
 
 		instance.do_show = function(content, callback=false)
 		{
+			if(instance.options.close_on_show && !instance.closing_for_show)
+			{
+				if(instance.is_open())
+				{
+					instance.closing_for_show = true;
+					
+					instance.close(function()
+					{
+						instance.closing_for_show = false;
+						instance.show(content, callback);
+					});
+
+					return;
+				}
+			}
+
 			var title;
 			var html;
 
@@ -743,7 +767,7 @@ var Msg = (function()
 				return;
 			}
 
-			instance.clear_fade_intervals();
+			instance.clear_effect_intervals();
 
 			if(html !== undefined)
 			{
@@ -766,23 +790,29 @@ var Msg = (function()
 					instance.start_while_open_interval();
 				}
 
-				if(instance.options.fade_in)
+				if(instance.options.show_effect === "fade")
 				{
 					instance.fade_in(callback);					
 				}
 
-				else
+				if(instance.options.show_effect.indexOf("slide") !== -1)
 				{
-					instance.container.style.opacity = 1;
+					instance.slide_in(callback);					
 				}
 			}
 
 			else
 			{
-				if(instance.options.fade_in && instance.options.subsequent_fade_ins)
+				if(instance.options.show_effect === "fade" && instance.options.subsequent_show_effects)
 				{
-					instance.container.style.opacity = 0;
 					instance.fade_in(callback);
+				}
+
+				if(instance.options.show_effect.indexOf("slide" !== -1) && instance.options.subsequent_show_effects)
+				{
+					var direction = instance.options.show_effect.split("_")[1];
+
+					instance.slide_in(direction, callback);
 				}
 			}
 
@@ -865,7 +895,6 @@ var Msg = (function()
 
 			styles.container = `
 			display:none;
-			opacity:0;
 			`;
 
 			styles.overlay = `
@@ -1274,7 +1303,7 @@ var Msg = (function()
 
 				instance.check_remove_overflow_hidden();
 
-				document.body.removeChild(instance.container);
+				instance.container.parentNode.removeChild(instance.container);
 
 				instance.container = undefined;
 				instance.overlay = undefined;
@@ -1578,9 +1607,14 @@ var Msg = (function()
 			};
 		})();
 
-		instance.animate_autoclose_progressbar = function()
+		instance.clear_autoclose_progressbar_interval = function()
 		{
 			clearInterval(instance.progressbar_animation);
+		}
+
+		instance.animate_autoclose_progressbar = function()
+		{
+			instance.clear_autoclose_progressbar_interval();
 
 			if(instance.options.reverse_autoclose_progressbar)
 			{
@@ -1668,23 +1702,35 @@ var Msg = (function()
 			return Math.round((instance.progressbar.offsetWidth / instance.window.offsetWidth) * 100);
 		}
 
-		instance.clear_fade_intervals = function()
+		instance.clear_effect_intervals = function()
 		{
 			clearInterval(instance.fade_in_interval);
 			clearInterval(instance.fade_out_interval);
+			clearInterval(instance.slide_in_interval);
+			clearInterval(instance.slide_out_interval);
 		}
 
 		instance.fade_in = function(callback) 
 		{
-			var speed = instance.options.fade_in_duration / 50;
+			instance.closing_for_show = false;
+
+			instance.container.style.opacity = 0;
+
+			var speed = instance.options.show_effect_duration / 50;
 
 			instance.fade_in_interval = setInterval(function() 
 			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+				
 				instance.container.style.opacity = Number(instance.container.style.opacity) + 0.02;
 				
 				if(instance.container.style.opacity >= 1) 
 				{
-					clearInterval(instance.fade_in_interval);
+					instance.clear_effect_intervals();
 
 					if(callback)
 					{
@@ -1696,19 +1742,152 @@ var Msg = (function()
 
 		instance.fade_out = function(callback) 
 		{
-			var speed = instance.options.fade_out_duration / 50;
+			var speed = instance.options.show_effect_duration / 50;
 
 			instance.fade_out_interval = setInterval(function() 
 			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+				
 				instance.container.style.opacity = Number(instance.container.style.opacity) - 0.02;
 				
 				if(instance.container.style.opacity <= 0) 
 				{
-					clearInterval(instance.fade_out_interval);
+					instance.clear_effect_intervals();
 					instance.close_window(callback);
 				}
 			}, speed);	
-		}		
+		}
+
+		instance.slide_in = function(callback) 
+		{
+			instance.closing_for_show = false;
+
+			var pos = false;
+
+			if(instance.options.position === "bottom")
+			{
+				instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
+				var diff = ((instance.window.offsetHeight + instance.options.edge_padding) / instance.options.show_effect_duration) * 10;
+				var pos = "bottom";
+			}
+
+			else if(instance.options.position === "top")
+			{
+				instance.window.style.top = 0 - instance.window.offsetHeight + "px";
+				var diff = ((instance.window.offsetHeight + instance.options.edge_padding) / instance.options.show_effect_duration) * 10;
+				var pos = "top";
+			}
+
+			else if((instance.options.position.indexOf("right") !== -1))
+			{
+				instance.window.style.right = 0 - instance.window.offsetWidth + "px";
+				var diff = ((instance.window.offsetWidth + instance.options.edge_padding) / instance.options.show_effect_duration) * 10;
+				var pos = "right";
+			}
+
+			else if((instance.options.position.indexOf("left") !== -1))
+			{
+				instance.window.style.left = 0 - instance.window.offsetWidth + "px";
+				var diff = ((instance.window.offsetWidth + instance.options.edge_padding) / instance.options.show_effect_duration) * 10;
+				var pos = "left";
+			}
+
+			if(!pos)
+			{
+				return;
+			}
+
+			var diff = Math.max(1, diff);
+
+			instance.slide_in_interval = setInterval(function() 
+			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+
+				instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
+
+				if(parseInt(instance.window.style[pos]) >= instance.options.edge_padding) 
+				{
+					instance.window.style[pos] = instance.options.edge_padding + "px";
+
+					instance.clear_effect_intervals();
+
+					if(callback)
+					{
+						instance.close_window(callback);
+						return callback(instance);
+					}
+				}
+
+			}, 10);	
+		}
+
+		instance.slide_out = function(callback) 
+		{
+			var pos = false;
+
+			if(instance.options.position === "bottom")
+			{
+				var distance = (2 * instance.window.offsetHeight) + instance.options.edge_padding;
+				var diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.show_effect_duration) * 10;
+				var npos = 0 - instance.window.offsetHeight;
+				var pos = "bottom";
+			}
+
+			else if(instance.options.position === "top")
+			{
+				var diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.show_effect_duration) * 10;
+				var npos = 0 - instance.window.offsetHeight;
+				var pos = "top";
+			}
+
+			else if((instance.options.position.indexOf("right") !== -1))
+			{
+				var diff = ((parseInt(instance.window.style.right) + instance.window.offsetWidth) / instance.options.show_effect_duration) * 10;
+				var npos = 0 - instance.window.offsetWidth;
+				var pos = "right";
+			}
+
+			else if((instance.options.position.indexOf("left") !== -1))
+			{
+				var diff = ((parseInt(instance.window.style.left) + instance.window.offsetWidth) / instance.options.show_effect_duration) * 10;
+				var npos = 0 - instance.window.offsetWidth;
+				var pos = "left";
+			}
+
+			if(!pos)
+			{
+				return;
+			}
+
+			var diff = Math.max(1, diff);
+
+			instance.slide_out_interval = setInterval(function() 
+			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+
+				instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
+
+				if(parseInt(instance.window.style[pos]) <= npos) 
+				{
+					instance.window.style[pos] = (npos - 20) + "px";
+					instance.clear_effect_intervals();
+					instance.close_window(callback);
+				}
+
+			}, 10);	
+		}			
 
 		instance.start_while_open_interval = function()
 		{

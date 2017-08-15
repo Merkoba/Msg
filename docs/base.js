@@ -446,6 +446,9 @@ function pop(position)
     var collapse = document.getElementById('input_collapse').checked;
     var enable_titlebar = document.getElementById('input_enable_titlebar').checked;
 
+    var show_effect = document.getElementById('select_show_effect').value;
+    var close_effect = document.getElementById('select_close_effect').value;
+
     if(autoclose)
     {
         var enable_progressbar = true;
@@ -473,6 +476,8 @@ function pop(position)
         zStack_level: 1,
         window_cursor:"pointer",
         window_unselectable:true,
+        show_effect:show_effect,
+        close_effect:close_effect,
         lock: false,
         on_click: function(instance)
         {
@@ -539,20 +544,7 @@ var msg_wo = Msg(
 });
 
 var msg_snack = Msg({
-    class: "black",
-    content_class: "snackbar",
-    position: "bottom",
-    edge_padding: 0,
-    window_min_width: "25em",
-    enable_inner_x: false,
-    enable_overlay: false,
-    fade_out: false,
-    subsequent_fade_ins: true,
-    autoclose: true,
-    autoclose_delay: 10000,
-    vStack: false,
-    zStack_level: 1,
-    lock: false
+    preset:"snackbar"
 });
 
 var scks = [];

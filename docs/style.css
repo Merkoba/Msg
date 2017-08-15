@@ -131,6 +131,11 @@ input[type=text]
     font-size: 0.8em;
 }
 
+select
+{
+    font-size: 0.8em;
+}
+
 #Msg-content-container-toy
 {
     overflow:hidden !important;

@@ -8,15 +8,15 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>  
               
-        <link rel='stylesheet' href="style.css?v=11">  
+        <link rel='stylesheet' href="style.css?v=12">  
 
         <script src='symmetric_harmony.js?v=3'></script>
         
         <script src='screenfull.js?v=1'></script>
 
-        <script src='msg.js?v=69'></script>
+        <script src='msg.js?v=70'></script>
 
-        <script src='base.js?v=42'></script>
+        <script src='base.js?v=43'></script>
 
     </head>
 
@@ -94,13 +94,33 @@
 
         <br><br>
 
-        <span class='clicky' onclick='pop("top")'>position:top</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='pop("topleft")'>position:topleft</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='pop("topright")'>position:topright</span>
+        show_effect: &nbsp; 
+
+        <select id='select_show_effect'>
+            <option>fade</option>
+            <option>slide</option>
+            <option>none</option>
+        </select>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        close_effect: &nbsp; 
+
+        <select id='select_close_effect'>
+            <option>fade</option>
+            <option>slide</option>
+            <option>none</option>
+        </select>        
 
         <br><br>
 
+        <span class='clicky' onclick='pop("top")'>position:top</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("bottom")'>position:bottom</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='pop("left")'>position:left</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='pop("right")'>position:right</span>&nbsp;&nbsp;&nbsp;
+        <br><br>
+        <span class='clicky' onclick='pop("topleft")'>position:topleft</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='pop("topright")'>position:topright</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("bottomleft")'>position:bottomleft</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("bottomright")'>position:bottomright</span>
 
@@ -479,6 +499,8 @@ msg2.show(["Window Example", some_text]);
         <i>show_delay (Default: 0)</i>: The amount of time in milliseconds show() is delayed from executing when called. Useful if you want to open the window after the body has fully loaded or other cases.<br><br>
 
         <i>close_delay (Default: 0)</i>: The amount of time in milliseconds close() is delayed from executing when called.<br><br>
+
+        <i>close_and_show (Default: false)</i>: When show() is called it will first close the window and then show it. Useful for snackbars.<br><br>        
         
         <i>enable_overlay (Default: true)</i>: Whether the overlay is created or not.<br><br>
 
@@ -490,15 +512,11 @@ msg2.show(["Window Example", some_text]);
         
         <i>outer_x_position (Default: "right")</i>: The position of the outer x, either "left" or "right".<br><br>
 
-        <i>fade_in (Default: true)</i>: Whether it has a fade-in effect when shown.<br><br>
+        <i>show_effect (Default: "fade")</i>: Either "fade", "slide" or "none". Position "center" doesn't support slide.<br><br>
 
-        <i>fade_in_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the fade-in.<br><br>
+        <i>show_effect_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the show_effect.<br><br>
 
-        <i>subsequent_fade_ins (Default: false)</i>: If true, it will show the fade-in effect on show() even if the window is already open.<br><br>
-
-        <i>fade_out (Default: true)</i>: Whether it has a fade-out effect when closed.<br><br>
-
-        <i>fade_out_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the fade-out.<br><br>
+        <i>subsequent_show_effects (Default: false)</i>: If true, it will show the show_effect on show() even if the window is already open.<br><br>
 
         <i>replace_linebreaks (Default: true)</i>: If true, strings passed to show() or set() will have every "\n" replaced with an html linebreak.<br><br>        
         
@@ -724,10 +742,12 @@ msg_test.show("Domo Arigato");
         instance.options.window_min_width = "25em";<br>
         instance.options.enable_inner_x = false;<br>
         instance.options.enable_overlay = false;<br>
-        instance.options.fade_out = false;<br>
         instance.options.subsequent_fade_ins = true;<br>
         instance.options.autoclose = true;<br>
         instance.options.autoclose_delay = 10000;<br>
+        instance.options.close_on_show = true;<br>
+        instance.options.show_effect = "slide";<br>
+        instance.options.close_effect = "slide"; <br>       
         instance.options.vStack = false;<br>
         instance.options.zStack_level = 1;<br>
         instance.options.lock = false;<br>        
