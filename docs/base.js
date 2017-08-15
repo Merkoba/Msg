@@ -441,9 +441,9 @@ function pop(position)
         var title = "Tip";        
     }
 
-    var vStack = document.getElementById('input_vStack').checked;
+    var sideStack = document.getElementById('select_sideStack').value;
     var autoclose = document.getElementById('input_autoclose').checked;
-    var collapse = document.getElementById('input_collapse').checked;
+    var sideStack_collapse = document.getElementById('input_sideStack_collapse').checked;
     var enable_titlebar = document.getElementById('input_enable_titlebar').checked;
 
     var show_effect = document.getElementById('select_show_effect').value;
@@ -468,11 +468,11 @@ function pop(position)
         autoclose_delay: 5000,
         enable_progressbar: enable_progressbar,
         persistent: false,
-        vStack: vStack,
-        collapse:collapse,
+        sideStack: sideStack,
+        sideStack_collapse:sideStack_collapse,
         enable_titlebar:enable_titlebar,
         edge_padding:document.getElementById('input_edge_padding').value,
-        vStack_padding:document.getElementById('input_vStack_padding').value,
+        sideStack_padding:document.getElementById('input_sideStack_padding').value,
         zStack_level: 1,
         window_cursor:"pointer",
         window_unselectable:true,
@@ -518,7 +518,7 @@ function pop2()
     {
         preset:"popup_autoclose",
         class:"red",
-        collapse:false
+        sideStack_collapse:false
     });
 
     msg.show(`Task completed succesfully.`);

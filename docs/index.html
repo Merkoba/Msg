@@ -74,11 +74,17 @@
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        vStack: &nbsp; <input id='input_vStack' type='checkbox' checked>
+        sideStack: &nbsp; 
+
+        <select id='select_sideStack'>
+            <option>vertical</option>
+            <option>horizontal</option>
+            <option>none</option>
+        </select>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        vStack_padding: &nbsp; <input id='input_vStack_padding' type='text' value='20'>
+        sideStack_padding: &nbsp; <input id='input_sideStack_padding' type='text' value='20'>
 
         <br><br>
 
@@ -86,7 +92,7 @@
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        collapse: &nbsp; <input id='input_collapse' type='checkbox' checked>
+        sideStack_collapse: &nbsp; <input id='input_sideStack_collapse' type='checkbox' checked>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -135,8 +141,6 @@
     position: "bottomright",
     autoclose: true,
     enable_progressbar: true,
-    show_effect: "fade",
-    close_effect: "fade",
     persistent: false,
     zStack_level: 1,
     lock: false
@@ -169,7 +173,7 @@
     close_on_show: true,
     show_effect: "slide",
     close_effect: "slide",        
-    vStack: false,
+    sideStack: "none",
     zStack_level: 1,
     lock: false 
 });
@@ -459,7 +463,7 @@ msg2.show(["Window Example", some_text]);
         
         <i>temp_disable_keys_delay (Default: 1000)</i>: The amount of time in milliseconds keys will be disabled since the window is shown.<br><br>
         
-        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "left", "right", "top" (vStackable), "bottom" (vStackable), "topleft" (vStackable), "topright" (vStackable), "bottomleft" (vStackable), or "bottomright" (vStackable).<br><br>
+        <i>position (Default: "center")</i>: The position of the window in the screen. Either "center", "left" (hStackable), "right" (hStackable), "top" (vStackable), "bottom" (vStackable), "topleft" (vStackable) (hStackable), "topright" (vStackable) (hStackable), "bottomleft" (vStackable) (hStackable), or "bottomright" (vStackable) (hStackable).<br><br>
 
         <i>window_width (Default: "auto")</i>: The width of the Msg-window.<br><br>
 
@@ -479,11 +483,11 @@ msg2.show(["Window Example", some_text]);
 
         <i>edge_padding (Default: 20)</i>: The padding in pixels from the edge of the screen the window will have if it's not of position "center".<br><br>
 
-        <i>vStack (Default: true)</i>: Whether to vertically stack new windows in their position. This only affects vStackable positions. Useful for popup messages.<br><br>
+        <i>sideStack (Default: "vertical")</i>: Either "vertical", "horizontal" or "none". This is what allows popup windows to stack on top of each other vertically or appear side by side horizontally.<br><br>
         
-        <i>vStack_padding (Default: 20)</i>: The separation in pixels between vertically stacked windows.<br><br>
+        <i>sideStack_padding (Default: 20)</i>: The separation in pixels between vertically or horizontally stacked windows.<br><br>
 
-        <i>collapse (Default: true)</i>: Whether windows in a vertical stack collapse when a window is closed. Useful for popup messages.<br><br>
+        <i>sideStack_collapse (Default: true)</i>: Whether windows in a vertical or horizontal stack collapse when a window is closed.<br><br>
         
         <i>zStack_level (Default: 2)</i>: Level 1 zStacks start at a z-index of 5000000 (5 with 6 zeros), Level 2 zStacks start at a z-index of 50000000 (5 with 7 zeros). This is useful if you want to have popup messages that don't go above the modal windows.<br><br>
 
@@ -705,6 +709,8 @@ msg_test.show("Domo Arigato");
         <i>instance.get_progress()</i>: Returns the current percentage of the progressbar.<br><br>
         
         <i>instance.instances()</i>: Returns a list with the created instances.<br><br>
+
+        <i>instance.get_instance_by_id(id)</i>: Returns an instance that has the specified instance id.<br><br>
         
         <i>instance.show_all()</i>: Opens all the windows.<br><br>
         
@@ -722,8 +728,6 @@ msg_test.show("Domo Arigato");
         instance.options.class = "green";<br>
         instance.options.enable_overlay = false;<br>
         instance.options.position = "bottomright";<br>
-        instance.options.show_effect = "fade";<br>
-        instance.options.close_effect = "fade";<br>
         instance.options.persistent = false;<br>
         instance.options.zStack_level = 1;<br>
         instance.options.lock = false;<br>
@@ -734,8 +738,6 @@ msg_test.show("Domo Arigato");
         instance.options.position = "bottomright";<br>
         instance.options.autoclose = true;<br>
         instance.options.enable_progressbar = true;<br>
-        instance.options.show_effect = "fade";<br>
-        instance.options.close_effect = "fade";<br>
         instance.options.persistent = false;<br>
         instance.options.zStack_level = 1;<br>
         instance.options.lock = false;<br>
@@ -753,7 +755,7 @@ msg_test.show("Domo Arigato");
         instance.options.close_on_show = true;<br>
         instance.options.show_effect = "slide";<br>
         instance.options.close_effect = "slide"; <br>       
-        instance.options.vStack = false;<br>
+        instance.options.sideStack = "none";<br>
         instance.options.zStack_level = 1;<br>
         instance.options.lock = false;<br>        
         

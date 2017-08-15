@@ -1,4 +1,4 @@
-/* Msg v6.5.0 https://github.com/madprops/Msg */
+/* Msg v6.6.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -79,8 +79,6 @@ var Msg = (function()
 					if(instance.options.class === undefined) instance.options.class = "green";
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
 					if(instance.options.position === undefined) instance.options.position = "bottomright";
-					if(instance.options.show_effect === undefined) instance.options.show_effect = "fade";
-					if(instance.options.close_effect === undefined) instance.options.close_effect = "fade";
 					if(instance.options.persistent === undefined) instance.options.persistent = false;
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.lock === undefined) instance.options.lock = false;
@@ -90,9 +88,7 @@ var Msg = (function()
 				{
 					if(instance.options.class === undefined) instance.options.class = "green";
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
-					if(instance.options.position === undefined) instance.options.position = "bottomright";
-					if(instance.options.show_effect === undefined) instance.options.show_effect = "fade";
-					if(instance.options.close_effect === undefined) instance.options.close_effect = "fade";					
+					if(instance.options.position === undefined) instance.options.position = "bottomright";					
 					if(instance.options.autoclose === undefined) instance.options.autoclose = true;
 					if(instance.options.enable_progressbar === undefined) instance.options.enable_progressbar = true;
 					if(instance.options.persistent === undefined) instance.options.persistent = false;
@@ -114,7 +110,7 @@ var Msg = (function()
 					if(instance.options.close_on_show === undefined) instance.options.close_on_show = true;
 					if(instance.options.show_effect === undefined) instance.options.show_effect = "slide";
 					if(instance.options.close_effect === undefined) instance.options.close_effect = "slide";
-					if(instance.options.vStack === undefined) instance.options.vStack = false;
+					if(instance.options.sideStack === undefined) instance.options.sideStack = "none";
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.lock === undefined) instance.options.lock = false;
 				}
@@ -415,24 +411,24 @@ var Msg = (function()
 				instance.options.edge_padding = parseInt(instance.options.edge_padding);
 			}
 
-			if(instance.options.vStack_padding === undefined)
+			if(instance.options.sideStack_padding === undefined)
 			{
-				instance.options.vStack_padding = 20;
+				instance.options.sideStack_padding = 20;
 			}
 
 			else
 			{
-				instance.options.vStack_padding = parseInt(instance.options.vStack_padding);
+				instance.options.sideStack_padding = parseInt(instance.options.sideStack_padding);
 			}
 
-			if(instance.options.vStack === undefined)
+			if(instance.options.sideStack === undefined)
 			{
-				instance.options.vStack = true;
+				instance.options.sideStack = "vertical";
 			}
 
-			if(instance.options.collapse === undefined)
+			if(instance.options.sideStack_collapse === undefined)
 			{
-				instance.options.collapse = true;
+				instance.options.sideStack_collapse = true;
 			}
 
 			if(instance.options.zStack_level === undefined)
@@ -595,6 +591,7 @@ var Msg = (function()
 			}
 
 			instance.collapse_vStack();
+			instance.collapse_hStack();
 
 			instance.window.style.zIndex = -1000;
 
@@ -779,7 +776,16 @@ var Msg = (function()
 			{	
 				instance.container.style.display = "block";
 				instance.check_add_overflow_hidden();
-				instance.check_vStack();
+
+				if(instance.options.sideStack === "vertical")
+				{
+					instance.check_vStack();
+				}
+
+				else if(instance.options.sideStack === "horizontal")
+				{
+					instance.check_hStack();
+				}
 
 				if(instance.options.while_open !== undefined)
 				{
@@ -923,7 +929,8 @@ var Msg = (function()
 				var win_y = `top:${instance.options.edge_padding}px;`;
 				var win_trans = "transform:translateX(-50%);";
 
-				instance.stackable = true;
+				instance.vStackable = true;
+				instance.hStackable = false;
 			}
 
 
@@ -933,7 +940,8 @@ var Msg = (function()
 				var win_y = `bottom:${instance.options.edge_padding}px;`;
 				var win_trans = "transform:translateX(-50%);";
 
-				instance.stackable = true;
+				instance.vStackable = true;
+				instance.hStackable = false;
 			}
 
 			else if(instance.options.position === "left")
@@ -942,7 +950,8 @@ var Msg = (function()
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
 
-				instance.stackable = false;
+				instance.vStackable = false;
+				instance.hStackable = true;
 			}
 
 			else if(instance.options.position === "right")
@@ -951,7 +960,8 @@ var Msg = (function()
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
 
-				instance.stackable = false;
+				instance.vStackable = false;
+				instance.hStackable = true;
 			}
 
 			else if(instance.options.position === "topleft")
@@ -960,7 +970,8 @@ var Msg = (function()
 				var win_y = `top:${instance.options.edge_padding}px;`;
 				var win_trans = "";
 
-				instance.stackable = true;
+				instance.vStackable = true;
+				instance.hStackable = true;
 			}
 
 			else if(instance.options.position === "topright")
@@ -969,7 +980,8 @@ var Msg = (function()
 				var win_y = `top:${instance.options.edge_padding}px;`;
 				var win_trans = "";
 
-				instance.stackable = true;
+				instance.vStackable = true;
+				instance.hStackable = true;
 			}
 
 			else if(instance.options.position === "bottomleft")
@@ -978,7 +990,8 @@ var Msg = (function()
 				var win_y = `bottom:${instance.options.edge_padding}px;`;
 				var win_trans = "";
 
-				instance.stackable = true;
+				instance.vStackable = true;
+				instance.hStackable = true;
 			}
 
 			else if(instance.options.position === "bottomright")
@@ -987,7 +1000,8 @@ var Msg = (function()
 				var win_y = `bottom:${instance.options.edge_padding}px;`;
 				var win_trans = "";
 
-				instance.stackable = true;
+				instance.vStackable = true;
+				instance.hStackable = true;
 			}
 
 			else
@@ -996,7 +1010,8 @@ var Msg = (function()
 				var win_y = "top:50%;";
 				var win_trans = "transform:translate(-50%, -50%);";
 
-				instance.stackable = false;
+				instance.vStackable = false;
+				instance.hStackable = false;
 			}
 
 			if(instance.options.window_unselectable)
@@ -1572,6 +1587,17 @@ var Msg = (function()
 			return instances;
 		}
 
+		instance.get_instance_by_id = function(id)
+		{
+			for(var i of instances)
+			{
+				if(i.options.id == id)
+				{
+					return i;
+				}
+			}
+		}
+
 		instance.temp_disable_close_timer = (function()
 		{
 			var timer;
@@ -1641,6 +1667,11 @@ var Msg = (function()
 
 				instance.progressbar_animation = setInterval(function()
 				{
+					if(!instance.created())
+					{
+						clearInterval(instance.progressbar_animation);
+					}
+
 					percentage += 1;
 
 					instance.set_progress(percentage);
@@ -1661,6 +1692,11 @@ var Msg = (function()
 
 				instance.progressbar_animation = setInterval(function()
 				{
+					if(!instance.created())
+					{
+						clearInterval(instance.progressbar_animation);
+					}
+
 					percentage -= 1;
 
 					instance.set_progress(percentage);
@@ -1939,12 +1975,10 @@ var Msg = (function()
 			return instance.common_zIndex(b.window.style.zIndex) - instance.common_zIndex(a.window.style.zIndex);
 		}
 
-
 		instance.top_sort = function(a, b)
 		{
 			return parseInt(a.window.style.top) - parseInt(b.window.style.top);
 		}
-
 
 		instance.top_sort2 = function(a, b)
 		{
@@ -1956,13 +1990,32 @@ var Msg = (function()
 			return parseInt(a.window.style.bottom) - parseInt(b.window.style.bottom);
 		}
 
-
 		instance.bottom_sort2 = function(a, b)
 		{
 			return parseInt(b.window.style.bottom) - parseInt(a.window.style.bottom);
 		}
 
-		instance.highest_in_position = function()
+		instance.left_sort = function(a, b)
+		{
+			return parseInt(a.window.style.left) - parseInt(b.window.style.left);
+		}
+
+		instance.left_sort2 = function(a, b)
+		{
+			return parseInt(b.window.style.left) - parseInt(a.window.style.left);
+		}
+
+		instance.right_sort = function(a, b)
+		{
+			return parseInt(a.window.style.right) - parseInt(b.window.style.right);
+		}
+
+		instance.right_sort2 = function(a, b)
+		{
+			return parseInt(b.window.style.right) - parseInt(a.window.style.right);
+		}
+
+		instance.highest_in_position = function(mode)
 		{
 			var highest = -2000;
 			var highest_ins;
@@ -1975,14 +2028,31 @@ var Msg = (function()
 				{
 					if(i.options.position === p)
 					{
-						if(p.indexOf("top") !== -1)
+						if(mode === "vertical")
 						{
-							var pos = parseInt(i.window.style.top);
+							if(p.indexOf("top") !== -1)
+							{
+								var pos = parseInt(i.window.style.top);
+							}
+
+							else if(p.indexOf("bottom") !== -1)
+							{
+								var pos = parseInt(i.window.style.bottom);
+							}
 						}
 
-						else if(p.indexOf("bottom") !== -1)
+						else if(mode === "horizontal")
 						{
-							var pos = parseInt(i.window.style.bottom);
+							if(p.indexOf("left") !== -1)
+							{
+								var pos = parseInt(i.window.style.left);
+							}
+
+							else if(p.indexOf("right") !== -1)
+							{
+								var pos = parseInt(i.window.style.right);
+							}
+
 						}
 
 						if(pos > highest)
@@ -1997,7 +2067,7 @@ var Msg = (function()
 			return highest_ins;
 		}					
 
-		instance.above_in_position = function()
+		instance.above_in_position = function(mode)
 		{
 			var ins_above = [];
 
@@ -2005,43 +2075,81 @@ var Msg = (function()
 
 			for(var i of instances)
 			{
-				if(i.is_open() && i.options.vStack)
+				if(i.is_open())
 				{
 					if(i.options.position === p)
 					{
-						if(p.indexOf("top") !== -1)
+						if(mode === "vertical")
 						{
-							if(parseInt(i.window.style.top) > parseInt(instance.window.style.top))
+							if(p.indexOf("top") !== -1)
 							{
-								ins_above.push(i);
+								if(parseInt(i.window.style.top) > parseInt(instance.window.style.top))
+								{
+									ins_above.push(i);
+								}
+							}
+
+							else if(p.indexOf("bottom") !== -1)
+							{
+								if(parseInt(i.window.style.bottom) > parseInt(instance.window.style.bottom))
+								{
+									ins_above.push(i);
+								}
 							}
 						}
 
-						else if(p.indexOf("bottom") !== -1)
+						else if(mode === "horizontal")
 						{
-							if(parseInt(i.window.style.bottom) > parseInt(instance.window.style.bottom))
+							if(p.indexOf("left") !== -1)
 							{
-								ins_above.push(i);
+								if(parseInt(i.window.style.left) > parseInt(instance.window.style.left))
+								{
+									ins_above.push(i);
+								}
 							}
+
+							else if(p.indexOf("right") !== -1)
+							{
+								if(parseInt(i.window.style.right) > parseInt(instance.window.style.right))
+								{
+									ins_above.push(i);
+								}
+							}							
 						}
 					}
 				}
 			}
 
-			if(p.indexOf("top") !== -1)
+			if(mode === "vertical")
 			{
-				ins_above.sort(instance.top_sort);
+				if(p.indexOf("top") !== -1)
+				{
+					ins_above.sort(instance.top_sort);
+				}
+
+				else if(p.indexOf("bottom") !== -1)
+				{
+					ins_above.sort(instance.bottom_sort);
+				}			
 			}
 
-			else if(p.indexOf("bottom") !== -1)
+			else if(mode === "horizontal")
 			{
-				ins_above.sort(instance.bottom_sort);
-			}			
+				if(p.indexOf("left") !== -1)
+				{
+					ins_above.sort(instance.left_sort);
+				}
+
+				else if(p.indexOf("right") !== -1)
+				{
+					ins_above.sort(instance.right_sort);
+				}	
+			}
 
 			return ins_above;
 		}
 
-		instance.nextbelow_in_position = function(ins)
+		instance.nextbelow_in_position = function(ins, mode)
 		{
 			var ins_below = [];
 
@@ -2053,53 +2161,92 @@ var Msg = (function()
 				{
 					if(i.options.position === p)
 					{
-						if(p.indexOf("top") !== -1)
+						if(mode === "vertical")
 						{
-							if(parseInt(i.window.style.top) < parseInt(ins.window.style.top))
+							if(p.indexOf("top") !== -1)
 							{
-								ins_below.push(i);
+								if(parseInt(i.window.style.top) < parseInt(ins.window.style.top))
+								{
+									ins_below.push(i);
+								}
+							}
+
+							else if(p.indexOf("bottom") !== -1)
+							{
+								if(parseInt(i.window.style.bottom) < parseInt(ins.window.style.bottom))
+								{
+									ins_below.push(i);
+								}
 							}
 						}
 
-						else if(p.indexOf("bottom") !== -1)
+						else if(mode === "horizontal")
 						{
-							if(parseInt(i.window.style.bottom) < parseInt(ins.window.style.bottom))
+							if(p.indexOf("left") !== -1)
 							{
-								ins_below.push(i);
+								if(parseInt(i.window.style.left) < parseInt(ins.window.style.left))
+								{
+									ins_below.push(i);
+								}
 							}
+
+							else if(p.indexOf("right") !== -1)
+							{
+								if(parseInt(i.window.style.right) < parseInt(ins.window.style.right))
+								{
+									ins_below.push(i);
+								}
+							}							
 						}
 					}
 				}
 			}
 
-			if(p.indexOf("top") !== -1)
+			if(mode === "vertical")
 			{
-				ins_below.sort(instance.top_sort2);
+				if(p.indexOf("top") !== -1)
+				{
+					ins_below.sort(instance.top_sort2);
+				}
+
+				else if(p.indexOf("bottom") !== -1)
+				{
+					
+					ins_below.sort(instance.bottom_sort2);
+				}				
 			}
 
-			else if(p.indexOf("bottom") !== -1)
+			else if(mode === "horizontal")
 			{
-				
-				ins_below.sort(instance.bottom_sort2);
-			}				
+				if(p.indexOf("left") !== -1)
+				{
+					ins_below.sort(instance.left_sort2);
+				}
+
+				else if(p.indexOf("right") !== -1)
+				{
+					
+					ins_below.sort(instance.right_sort2);
+				}	
+			}
 
 			return ins_below[0];
 		}
 
 		instance.check_vStack = function()
 		{
-			if(instance.stackable && instance.options.vStack)
+			if(instance.vStackable)
 			{
 				var p = instance.options.position;
 
-				var highest = instance.highest_in_position();
+				var highest = instance.highest_in_position("vertical");
 
 				if(highest !== undefined && highest !== instance)
 				{
 					if(p.indexOf("top") !== -1)
 					{
 						var top = parseInt(highest.window.style.top);
-						var new_top = top + highest.window.offsetHeight + instance.options.vStack_padding + "px";
+						var new_top = top + highest.window.offsetHeight + instance.options.sideStack_padding + "px";
 						
 						instance.window.style.top = new_top;
 					}
@@ -2107,7 +2254,7 @@ var Msg = (function()
 					else if(p.indexOf("bottom") !== -1)
 					{
 						var bottom = parseInt(highest.window.style.bottom);
-						var new_bottom = bottom + highest.window.offsetHeight + instance.options.vStack_padding + "px";
+						var new_bottom = bottom + highest.window.offsetHeight + instance.options.sideStack_padding + "px";
 
 						instance.window.style.bottom = new_bottom;
 					}
@@ -2130,30 +2277,25 @@ var Msg = (function()
 
 		instance.collapse_vStack = function()
 		{
-			if(!instance.stackable)
-			{
-				return;
-			}
-
 			var p = instance.options.position;
 
-			var ins_above = instance.above_in_position();
+			var ins_above = instance.above_in_position("vertical");
 
 			for(var i of ins_above)
 			{
-				if(!i.options.collapse)
+				if(!i.options.sideStack_collapse)
 				{
 					return;
 				}
 
-				var below = instance.nextbelow_in_position(i);
+				var below = instance.nextbelow_in_position(i, "vertical");
 
 				if(below !== undefined)
 				{
 					if(p.indexOf("top") !== -1)
 					{
 						var top = parseInt(below.window.style.top);
-						var new_top = top + below.window.offsetHeight + i.options.vStack_padding + "px";
+						var new_top = top + below.window.offsetHeight + i.options.sideStack_padding + "px";
 						
 						i.window.style.top = new_top;
 					}
@@ -2161,7 +2303,7 @@ var Msg = (function()
 					else if(p.indexOf("bottom") !== -1)
 					{
 						var bottom = parseInt(below.window.style.bottom);
-						var new_bottom = bottom + below.window.offsetHeight + i.options.vStack_padding + "px";
+						var new_bottom = bottom + below.window.offsetHeight + i.options.sideStack_padding + "px";
 
 						i.window.style.bottom = new_bottom;
 					}		
@@ -2177,6 +2319,97 @@ var Msg = (function()
 					else if(p.indexOf("bottom") !== -1)
 					{
 						i.window.style.bottom = i.options.edge_padding + "px";
+					}
+				}				
+			}
+		}
+
+		instance.check_hStack = function()
+		{
+			if(instance.hStackable)
+			{
+				var p = instance.options.position;
+
+				var highest = instance.highest_in_position("horizontal");
+
+				if(highest !== undefined && highest !== instance)
+				{
+					if(p.indexOf("left") !== -1)
+					{
+						var left = parseInt(highest.window.style.left);
+						var new_left = left + highest.window.offsetWidth + instance.options.sideStack_padding + "px";
+						
+						instance.window.style.left = new_left;
+					}
+
+					else if(p.indexOf("right") !== -1)
+					{
+						var right = parseInt(highest.window.style.right);
+						var new_right = right + highest.window.offsetWidth + instance.options.sideStack_padding + "px";
+
+						instance.window.style.right = new_right;
+					}
+				}
+
+				else
+				{
+					if(p.indexOf("left") !== -1)
+					{
+						instance.window.style.left = instance.options.edge_padding + "px";
+					}
+
+					else if(p.indexOf("right") !== -1)
+					{
+						instance.window.style.right = instance.options.edge_padding + "px";
+					}
+				}
+			}
+		}
+
+		instance.collapse_hStack = function()
+		{
+			var p = instance.options.position;
+
+			var ins_above = instance.above_in_position("horizontal");
+
+			for(var i of ins_above)
+			{
+				if(!i.options.sideStack_collapse)
+				{
+					return;
+				}
+
+				var below = instance.nextbelow_in_position(i, "horizontal");
+
+				if(below !== undefined)
+				{
+					if(p.indexOf("left") !== -1)
+					{
+						var left = parseInt(below.window.style.left);
+						var new_left = left + below.window.offsetWidth + i.options.sideStack_padding + "px";
+						
+						i.window.style.left = new_left;
+					}
+
+					else if(p.indexOf("right") !== -1)
+					{
+						var right = parseInt(below.window.style.right);
+						var new_right = right + below.window.offsetWidth + i.options.sideStack_padding + "px";
+
+						i.window.style.right = new_right;
+					}		
+				}
+
+				else
+				{
+					if(p.indexOf("left") !== -1)
+					{
+						i.window.style.left = i.options.edge_padding + "px";
+					}
+
+					else if(p.indexOf("right") !== -1)
+					{
+						i.window.style.right = i.options.edge_padding + "px";
 					}
 				}				
 			}
