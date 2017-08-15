@@ -245,8 +245,8 @@ var msg_toy = Msg(
     persistent:false,
     window_min_width:"100vw",
     window_min_height:"100vh",
-    fade_in:false,
-    fade_out:false,
+    show_effect:"none",
+    close_effect:"none",
     window_cursor:"none",
     enable_overlay:false,
     before_show: function(instance)
@@ -293,28 +293,28 @@ var msg_np = Msg(
 
 var msg_nf = Msg(
 {
-    fade_in:false,
-    fade_out:false
+    show_effect:"none",
+    close_effect:"none"
 });
 
 var msg_nfi = Msg(
 {
-    fade_in:false,
-    fade_out:true,
-    fade_out_duration:3000
+    show_effect:"none",
+    close_effect:"fade",
+    close_effect_duration:3000
 });
 
 var msg_nfo = Msg(
 {
-    fade_in:true,
-    fade_out:false,
-    fade_in_duration:3000
+    show_effect:"fade",
+    close_effect:"none",
+    show_effect_duration:3000
 });
 
 var msg_lf = Msg(
 {
-    fade_in_duration:1000,
-    fade_out_duration:1000
+    show_effect_duration:1000,
+    close_effect_duration:1000
 });
 
 var msg_ptop = Msg(
@@ -521,9 +521,7 @@ function pop2()
         collapse:false
     });
 
-    msg.show(`Task #${num_pops} completed succesfully.`);
-
-    num_pops += 1;
+    msg.show(`Task completed succesfully.`);
 }
 
 function get_random_int(min, max)
