@@ -1,4 +1,4 @@
-/* Msg v6.6.2 https://github.com/madprops/Msg */
+/* Msg v6.6.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -1830,7 +1830,7 @@ var Msg = (function()
 
 			if(instance.options.position === "bottom")
 			{
-				var og = parseInt(instance.window.style.bottom);
+				var og = Math.max(instance.options.edge_padding, parseInt(instance.window.style.bottom));
 				instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
 				var diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 				var pos = "bottom";
@@ -1838,7 +1838,7 @@ var Msg = (function()
 
 			else if(instance.options.position === "top")
 			{
-				var og = parseInt(instance.window.style.top);
+				var og = Math.max(instance.options.edge_padding, parseInt(instance.window.style.top));
 				instance.window.style.top = 0 - instance.window.offsetHeight + "px";
 				var diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 				var pos = "top";
@@ -1846,7 +1846,7 @@ var Msg = (function()
 
 			else if((instance.options.position.indexOf("right") !== -1))
 			{
-				var og = parseInt(instance.window.style.right);
+				var og = Math.max(instance.options.edge_padding, parseInt(instance.window.style.right));
 				instance.window.style.right = 0 - instance.window.offsetWidth + "px";
 				var diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
 				var pos = "right";
@@ -1854,7 +1854,7 @@ var Msg = (function()
 
 			else if((instance.options.position.indexOf("left") !== -1))
 			{
-				var og = parseInt(instance.window.style.left);
+				var og = Math.max(instance.options.edge_padding, parseInt(instance.window.style.left));
 				instance.window.style.left = 0 - instance.window.offsetWidth + "px";
 				var diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
 				var pos = "left";
