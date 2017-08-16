@@ -1,4 +1,4 @@
-/* Msg v6.6.3 https://github.com/madprops/Msg */
+/* Msg v6.7.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -770,7 +770,9 @@ var Msg = (function()
 			if(title !== undefined)
 			{
 				instance.set_title(title);
-			}			
+			}
+
+			instance.set_default_positions();			
 
 			if(!instance.is_open())
 			{	
@@ -924,30 +926,32 @@ var Msg = (function()
 			padding-bottom:0.2em;
 			`;
 
-			if(instance.options.position === "top")
+			var p = instance.options.position;
+			var edge = instance.options.edge_padding;
+
+			if(p === "top")
 			{
 				var win_x = "left:50%;";
-				var win_y = `top:${instance.options.edge_padding}px;`;
+				var win_y = `top:${edge}px;`;
 				var win_trans = "transform:translateX(-50%);";
 
 				instance.vStackable = true;
 				instance.hStackable = false;
 			}
 
-
-			else if(instance.options.position === "bottom")
+			else if(p === "bottom")
 			{
 				var win_x = "left:50%;";
-				var win_y = `bottom:${instance.options.edge_padding}px;`;
+				var win_y = `bottom:${edge}px;`;
 				var win_trans = "transform:translateX(-50%);";
 
 				instance.vStackable = true;
 				instance.hStackable = false;
 			}
 
-			else if(instance.options.position === "left")
+			else if(p === "left")
 			{
-				var win_x = `left:${instance.options.edge_padding}px;`;
+				var win_x = `left:${edge}px;`;
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
 
@@ -955,9 +959,9 @@ var Msg = (function()
 				instance.hStackable = true;
 			}
 
-			else if(instance.options.position === "right")
+			else if(p === "right")
 			{
-				var win_x = `right:${instance.options.edge_padding}px;`;
+				var win_x = `right:${edge}px;`;
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
 
@@ -965,40 +969,40 @@ var Msg = (function()
 				instance.hStackable = true;
 			}
 
-			else if(instance.options.position === "topleft")
+			else if(p === "topleft")
 			{
-				var win_x = `left:${instance.options.edge_padding}px;`;
-				var win_y = `top:${instance.options.edge_padding}px;`;
+				var win_x = `left:${edge}px;`;
+				var win_y = `top:${edge}px;`;
 				var win_trans = "";
 
 				instance.vStackable = true;
 				instance.hStackable = true;
 			}
 
-			else if(instance.options.position === "topright")
+			else if(p === "topright")
 			{
-				var win_x = `right:${instance.options.edge_padding}px;`;
-				var win_y = `top:${instance.options.edge_padding}px;`;
+				var win_x = `right:${edge}px;`;
+				var win_y = `top:${edge}px;`;
 				var win_trans = "";
 
 				instance.vStackable = true;
 				instance.hStackable = true;
 			}
 
-			else if(instance.options.position === "bottomleft")
+			else if(p === "bottomleft")
 			{
-				var win_x = `left:${instance.options.edge_padding}px;`;
-				var win_y = `bottom:${instance.options.edge_padding}px;`;
+				var win_x = `left:${edge}px;`;
+				var win_y = `bottom:${edge}px;`;
 				var win_trans = "";
 
 				instance.vStackable = true;
 				instance.hStackable = true;
 			}
 
-			else if(instance.options.position === "bottomright")
+			else if(p === "bottomright")
 			{
-				var win_x = `right:${instance.options.edge_padding}px;`;
-				var win_y = `bottom:${instance.options.edge_padding}px;`;
+				var win_x = `right:${edge}px;`;
+				var win_y = `bottom:${edge}px;`;
 				var win_trans = "";
 
 				instance.vStackable = true;
@@ -1970,54 +1974,44 @@ var Msg = (function()
 			clearInterval(instance.while_open_interval);
 		}
 
-		instance.common_zIndex_sort = function(a, b)
+		instance.stack_pos_top_sort = function(a, b)
 		{
-			return instance.common_zIndex(a.window.style.zIndex) - instance.common_zIndex(b.window.style.zIndex);
+			return a.stack_pos_top - b.stack_pos_top;
 		}
 
-		instance.common_zIndex_sort2 = function(a, b)
+		instance.stack_pos_top_sort2 = function(a, b)
 		{
-			return instance.common_zIndex(b.window.style.zIndex) - instance.common_zIndex(a.window.style.zIndex);
+			return b.stack_pos_top - a.stack_pos_top;
 		}
 
-		instance.top_sort = function(a, b)
+		instance.stack_pos_bottom_sort = function(a, b)
 		{
-			return parseInt(a.window.style.top) - parseInt(b.window.style.top);
+			return a.stack_pos_bottom - b.stack_pos_bottom;
 		}
 
-		instance.top_sort2 = function(a, b)
+		instance.stack_pos_bottom_sort2 = function(a, b)
 		{
-			return parseInt(b.window.style.top) - parseInt(a.window.style.top);
+			return b.stack_pos_bottom - a.stack_pos_bottom;
 		}
 
-		instance.bottom_sort = function(a, b)
+		instance.stack_pos_left_sort = function(a, b)
 		{
-			return parseInt(a.window.style.bottom) - parseInt(b.window.style.bottom);
+			return a.stack_pos_left - b.stack_pos_left;
 		}
 
-		instance.bottom_sort2 = function(a, b)
+		instance.stack_pos_left_sort2 = function(a, b)
 		{
-			return parseInt(b.window.style.bottom) - parseInt(a.window.style.bottom);
+			return b.stack_pos_left - a.stack_pos_left;
 		}
 
-		instance.left_sort = function(a, b)
+		instance.stack_pos_right_sort = function(a, b)
 		{
-			return parseInt(a.window.style.left) - parseInt(b.window.style.left);
+			return a.stack_pos_right - b.stack_pos_right;
 		}
 
-		instance.left_sort2 = function(a, b)
+		instance.stack_pos_right_sort2 = function(a, b)
 		{
-			return parseInt(b.window.style.left) - parseInt(a.window.style.left);
-		}
-
-		instance.right_sort = function(a, b)
-		{
-			return parseInt(a.window.style.right) - parseInt(b.window.style.right);
-		}
-
-		instance.right_sort2 = function(a, b)
-		{
-			return parseInt(b.window.style.right) - parseInt(a.window.style.right);
+			return b.stack_pos_right - a.stack_pos_right;
 		}
 
 		instance.highest_in_position = function(mode)
@@ -2039,12 +2033,12 @@ var Msg = (function()
 						{
 							if(p.indexOf("top") !== -1)
 							{
-								pos = parseInt(i.window.style.top);
+								pos = i.stack_pos_top;
 							}
 
 							else if(p.indexOf("bottom") !== -1)
 							{
-								pos = parseInt(i.window.style.bottom);
+								pos = i.stack_pos_bottom;
 							}
 						}
 
@@ -2052,14 +2046,13 @@ var Msg = (function()
 						{
 							if(p.indexOf("left") !== -1)
 							{
-								pos = parseInt(i.window.style.left);
+								pos = i.stack_pos_left;
 							}
 
 							else if(p.indexOf("right") !== -1)
 							{
-								pos = parseInt(i.window.style.right);
+								pos = i.stack_pos_right;
 							}
-
 						}
 
 						if(pos !== undefined)
@@ -2093,7 +2086,7 @@ var Msg = (function()
 						{
 							if(p.indexOf("top") !== -1)
 							{
-								if(parseInt(i.window.style.top) > parseInt(instance.window.style.top))
+								if(i.stack_pos_top > instance.stack_pos_top)
 								{
 									ins_above.push(i);
 								}
@@ -2101,7 +2094,7 @@ var Msg = (function()
 
 							else if(p.indexOf("bottom") !== -1)
 							{
-								if(parseInt(i.window.style.bottom) > parseInt(instance.window.style.bottom))
+								if(i.stack_pos_bottom > instance.stack_pos_bottom)
 								{
 									ins_above.push(i);
 								}
@@ -2112,7 +2105,7 @@ var Msg = (function()
 						{
 							if(p.indexOf("left") !== -1)
 							{
-								if(parseInt(i.window.style.left) > parseInt(instance.window.style.left))
+								if(i.stack_pos_left > instance.stack_pos_left)
 								{
 									ins_above.push(i);
 								}
@@ -2120,7 +2113,7 @@ var Msg = (function()
 
 							else if(p.indexOf("right") !== -1)
 							{
-								if(parseInt(i.window.style.right) > parseInt(instance.window.style.right))
+								if(i.stack_pos_right > instance.stack_pos_right)
 								{
 									ins_above.push(i);
 								}
@@ -2134,12 +2127,12 @@ var Msg = (function()
 			{
 				if(p.indexOf("top") !== -1)
 				{
-					ins_above.sort(instance.top_sort);
+					ins_above.sort(instance.stack_pos_top_sort);
 				}
 
 				else if(p.indexOf("bottom") !== -1)
 				{
-					ins_above.sort(instance.bottom_sort);
+					ins_above.sort(instance.stack_pos_bottom_sort);
 				}			
 			}
 
@@ -2147,12 +2140,12 @@ var Msg = (function()
 			{
 				if(p.indexOf("left") !== -1)
 				{
-					ins_above.sort(instance.left_sort);
+					ins_above.sort(instance.stack_pos_left_sort);
 				}
 
 				else if(p.indexOf("right") !== -1)
 				{
-					ins_above.sort(instance.right_sort);
+					ins_above.sort(instance.stack_pos_right_sort);
 				}	
 			}
 
@@ -2179,19 +2172,17 @@ var Msg = (function()
 
 							if(ip.indexOf("left") !== -1)
 							{
-								sp = "left";
+								sp = i.stack_pos_left;
 							}
 
 							else if(ip.indexOf("right") !== -1)
 							{
-								sp = "right";
+								sp = i.stack_pos_right;
 							}
 
 							if(sp !== undefined)
 							{
-								let ps = parseInt(i.window.style[sp]);
-
-								if((ps > i.options.edge_padding + 2) || (ps < i.options.edge_padding - 2))
+								if((sp > i.options.edge_padding + 2) || (sp < i.options.edge_padding - 2))
 								{
 									continue;
 								}
@@ -2199,7 +2190,7 @@ var Msg = (function()
 
 							if(p.indexOf("top") !== -1)
 							{
-								if(parseInt(i.window.style.top) < parseInt(ins.window.style.top))
+								if(i.stack_pos_top < ins.stack_pos_top)
 								{
 									ins_below.push(i);
 								}
@@ -2207,7 +2198,7 @@ var Msg = (function()
 
 							else if(p.indexOf("bottom") !== -1)
 							{
-								if(parseInt(i.window.style.bottom) < parseInt(ins.window.style.bottom))
+								if(i.stack_pos_bottom < ins.stack_pos_bottom)
 								{
 									ins_below.push(i);
 								}
@@ -2218,7 +2209,7 @@ var Msg = (function()
 						{
 							if(p.indexOf("left") !== -1)
 							{
-								if(parseInt(i.window.style.left) < parseInt(ins.window.style.left))
+								if(i.stack_pos_left < ins.stack_pos_left)
 								{
 									ins_below.push(i);
 								}
@@ -2226,7 +2217,7 @@ var Msg = (function()
 
 							else if(p.indexOf("right") !== -1)
 							{
-								if(parseInt(i.window.style.right) < parseInt(ins.window.style.right))
+								if(i.stack_pos_right < ins.stack_pos_right)
 								{
 									ins_below.push(i);
 								}
@@ -2240,13 +2231,13 @@ var Msg = (function()
 			{
 				if(p.indexOf("top") !== -1)
 				{
-					ins_below.sort(instance.top_sort2);
+					ins_below.sort(instance.stack_pos_top_sort2);
 				}
 
 				else if(p.indexOf("bottom") !== -1)
 				{
 					
-					ins_below.sort(instance.bottom_sort2);
+					ins_below.sort(instance.stack_pos_bottom_sort2);
 				}				
 			}
 
@@ -2254,13 +2245,13 @@ var Msg = (function()
 			{
 				if(p.indexOf("left") !== -1)
 				{
-					ins_below.sort(instance.left_sort2);
+					ins_below.sort(instance.stack_pos_left_sort2);
 				}
 
 				else if(p.indexOf("right") !== -1)
 				{
 					
-					ins_below.sort(instance.right_sort2);
+					ins_below.sort(instance.stack_pos_right_sort2);
 				}	
 			}
 
@@ -2279,17 +2270,13 @@ var Msg = (function()
 				{
 					if(p.indexOf("top") !== -1)
 					{
-						var top = parseInt(highest.window.style.top);
-						var new_top = top + highest.window.offsetHeight + instance.options.sideStack_padding + "px";
-						
+						var new_top = highest.stack_pos_top + highest.window.offsetHeight + instance.options.sideStack_padding + "px";
 						instance.window.style.top = new_top;
 					}
 
 					else if(p.indexOf("bottom") !== -1)
 					{
-						var bottom = parseInt(highest.window.style.bottom);
-						var new_bottom = bottom + highest.window.offsetHeight + instance.options.sideStack_padding + "px";
-
+						var new_bottom = highest.stack_pos_bottom + highest.window.offsetHeight + instance.options.sideStack_padding + "px";
 						instance.window.style.bottom = new_bottom;
 					}
 				}
@@ -2306,6 +2293,16 @@ var Msg = (function()
 						instance.window.style.bottom = instance.options.edge_padding + "px";
 					}
 				}
+
+				if(p.indexOf("top") !== -1)
+				{
+					instance.stack_pos_top = parseInt(instance.window.style.top);
+				}
+
+				else if(p.indexOf("bottom") !== -1)
+				{
+					instance.stack_pos_bottom = parseInt(instance.window.style.bottom);
+				}	
 			}
 		}
 
@@ -2317,7 +2314,7 @@ var Msg = (function()
 
 			for(var i of ins_above)
 			{
-				if(!i.options.sideStack_collapse)
+				if(!i.options.sideStack_collapse || i.options.sideStack !== "vertical")
 				{
 					return;
 				}
@@ -2328,17 +2325,13 @@ var Msg = (function()
 				{
 					if(p.indexOf("top") !== -1)
 					{
-						var top = parseInt(below.window.style.top);
-						var new_top = top + below.window.offsetHeight + i.options.sideStack_padding + "px";
-						
+						var new_top = below.stack_pos_top + below.window.offsetHeight + i.options.sideStack_padding + "px";
 						i.window.style.top = new_top;
 					}
 
 					else if(p.indexOf("bottom") !== -1)
 					{
-						var bottom = parseInt(below.window.style.bottom);
-						var new_bottom = bottom + below.window.offsetHeight + i.options.sideStack_padding + "px";
-
+						var new_bottom = below.stack_pos_bottom + below.window.offsetHeight + i.options.sideStack_padding + "px";
 						i.window.style.bottom = new_bottom;
 					}		
 				}
@@ -2354,7 +2347,17 @@ var Msg = (function()
 					{
 						i.window.style.bottom = i.options.edge_padding + "px";
 					}
-				}				
+				}
+
+				if(p.indexOf("top") !== -1)
+				{
+					i.stack_pos_top = parseInt(i.window.style.top);
+				}
+
+				else if(p.indexOf("bottom") !== -1)
+				{
+					i.stack_pos_bottom = parseInt(i.window.style.bottom);
+				}
 			}
 		}
 
@@ -2370,17 +2373,13 @@ var Msg = (function()
 				{
 					if(p.indexOf("left") !== -1)
 					{
-						var left = parseInt(highest.window.style.left);
-						var new_left = left + highest.window.offsetWidth + instance.options.sideStack_padding + "px";
-						
+						var new_left = highest.stack_pos_left + highest.window.offsetWidth + instance.options.sideStack_padding + "px";
 						instance.window.style.left = new_left;
 					}
 
 					else if(p.indexOf("right") !== -1)
 					{
-						var right = parseInt(highest.window.style.right);
-						var new_right = right + highest.window.offsetWidth + instance.options.sideStack_padding + "px";
-
+						var new_right = highest.stack_pos_right + highest.window.offsetWidth + instance.options.sideStack_padding + "px";
 						instance.window.style.right = new_right;
 					}
 				}
@@ -2397,6 +2396,16 @@ var Msg = (function()
 						instance.window.style.right = instance.options.edge_padding + "px";
 					}
 				}
+
+				if(p.indexOf("left") !== -1)
+				{
+					instance.stack_pos_left = parseInt(instance.window.style.left);
+				}
+
+				else if(p.indexOf("right") !== -1)
+				{
+					instance.stack_pos_right = parseInt(instance.window.style.right);
+				}				
 			}
 		}
 
@@ -2408,7 +2417,7 @@ var Msg = (function()
 
 			for(var i of ins_above)
 			{
-				if(!i.options.sideStack_collapse)
+				if(!i.options.sideStack_collapse || i.options.sideStack !== "horizontal")
 				{
 					return;
 				}
@@ -2419,17 +2428,13 @@ var Msg = (function()
 				{
 					if(p.indexOf("left") !== -1)
 					{
-						var left = parseInt(below.window.style.left);
-						var new_left = left + below.window.offsetWidth + i.options.sideStack_padding + "px";
-						
+						var new_left = below.stack_pos_left + below.window.offsetWidth + i.options.sideStack_padding + "px";
 						i.window.style.left = new_left;
 					}
 
 					else if(p.indexOf("right") !== -1)
 					{
-						var right = parseInt(below.window.style.right);
-						var new_right = right + below.window.offsetWidth + i.options.sideStack_padding + "px";
-
+						var new_right = below.stack_pos_right + below.window.offsetWidth + i.options.sideStack_padding + "px";
 						i.window.style.right = new_right;
 					}		
 				}
@@ -2445,7 +2450,95 @@ var Msg = (function()
 					{
 						i.window.style.right = i.options.edge_padding + "px";
 					}
-				}				
+				}
+
+				if(p.indexOf("left") !== -1)
+				{
+					i.stack_pos_left = parseInt(i.window.style.left);
+				}
+
+				else if(p.indexOf("right") !== -1)
+				{
+					i.stack_pos_right = parseInt(i.window.style.right);
+				}								
+			}
+		}
+
+		instance.set_default_positions = function()
+		{
+			var p = instance.options.position;
+			var edge = instance.options.edge_padding;
+
+			if(p === "top")
+			{
+				instance.stack_pos_top = edge;
+				instance.stack_pos_bottom = undefined;
+				instance.stack_pos_left = undefined;
+				instance.stack_pos_right = undefined;
+			}
+
+			else if(p === "bottom")
+			{
+				instance.stack_pos_top = undefined;
+				instance.stack_pos_bottom = edge;
+				instance.stack_pos_left = undefined;
+				instance.stack_pos_right = undefined;
+			}
+
+			else if(p === "left")
+			{
+				instance.stack_pos_top = undefined;
+				instance.stack_pos_bottom = undefined;
+				instance.stack_pos_left = edge;
+				instance.stack_pos_right = undefined;
+			}
+
+			else if(p === "right")
+			{
+				instance.stack_pos_top = undefined;
+				instance.stack_pos_bottom = undefined;
+				instance.stack_pos_left = undefined;
+				instance.stack_pos_right = edge;
+			}
+
+			else if(p === "topleft")
+			{
+				instance.stack_pos_top = edge;
+				instance.stack_pos_bottom = undefined;
+				instance.stack_pos_left = edge;
+				instance.stack_pos_right = undefined;
+			}
+
+			else if(p === "topright")
+			{
+				instance.stack_pos_top = edge;
+				instance.stack_pos_bottom = undefined;
+				instance.stack_pos_left = undefined;
+				instance.stack_pos_right = edge;
+			}
+
+			else if(p === "bottomleft")
+			{
+				instance.stack_pos_top = undefined;
+				instance.stack_pos_bottom = edge;
+				instance.stack_pos_left = edge;
+				instance.stack_pos_right = undefined;
+			}
+
+			else if(p === "bottomright")
+			{
+				instance.stack_pos_top = undefined;
+				instance.stack_pos_bottom = edge;
+				instance.stack_pos_left = undefined;
+				instance.stack_pos_right = edge;
+			}
+
+			else
+			{
+				instance.stack_pos_top = undefined;
+				instance.stack_pos_bottom = undefined;
+				instance.stack_pos_left = undefined;
+				instance.stack_pos_right = undefined;
 			}
 		}
 

@@ -411,11 +411,20 @@ var msg_pop = Msg(
 
 var pops = [];
 
+var colors = ["green", "blue", "red", "black"];
+
+var current_color = 0;
+
 function pop(position)
 {
-    var colors = ["green", "blue", "red", "black"];
+    var color = colors[current_color];
 
-    var color = colors[get_random_int(0, colors.length - 1)];
+    current_color += 1;
+
+    if(current_color === colors.length)
+    {
+        current_color = 0;
+    }
 
     if(color === "green")
     {
