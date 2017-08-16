@@ -1,4 +1,4 @@
-/* Msg v6.8.0 https://github.com/madprops/Msg */
+/* Msg v6.9.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -658,6 +658,8 @@ var Msg = (function()
 
 				instance.content.innerHTML = html;
 			}
+
+			instance.fix_stacks();
 			
 			instance.options.after_set(instance);			
 		}
@@ -700,6 +702,8 @@ var Msg = (function()
 
 				instance.titlebar.innerHTML = html;
 			}
+
+			instance.fix_stacks();
 
 			instance.options.after_set_title(instance);
 		}		
@@ -2505,13 +2509,69 @@ var Msg = (function()
 			}
 
 			return highest_ins;
+		}	
+
+		instance.lowest_in_position = function(mode)
+		{
+			var lowest = 200000000;
+			var lowest_ins;
+
+			var p = instance.options.position;
+
+			for(var i of instances)
+			{
+				if(i.is_open())
+				{
+					if(i.options.position === p)
+					{
+						let pos;
+
+						if(mode === "vertical")
+						{
+							if(p.indexOf("top") !== -1)
+							{
+								pos = i.stack_pos_top;
+							}
+
+							else if(p.indexOf("bottom") !== -1)
+							{
+								pos = i.stack_pos_bottom;
+							}
+						}
+
+						else if(mode === "horizontal")
+						{
+							if(p.indexOf("left") !== -1)
+							{
+								pos = i.stack_pos_left;
+							}
+
+							else if(p.indexOf("right") !== -1)
+							{
+								pos = i.stack_pos_right;
+							}
+						}
+
+						if(pos !== undefined)
+						{
+							if(pos < lowest)
+							{
+								lowest = pos;
+								lowest_ins = i;
+							}
+						}
+					}
+				}
+			}
+
+			return lowest_ins;
 		}					
 
-		instance.above_in_position = function(mode)
+		instance.above_in_position = function(ins, mode)
 		{
 			var ins_above = [];
 
-			var p = instance.options.position;
+			var p = ins.options.position;
 
 			for(var i of instances)
 			{
@@ -2523,7 +2583,7 @@ var Msg = (function()
 						{
 							if(p.indexOf("top") !== -1)
 							{
-								if(i.stack_pos_top > instance.stack_pos_top)
+								if(i.stack_pos_top > ins.stack_pos_top)
 								{
 									ins_above.push(i);
 								}
@@ -2531,7 +2591,7 @@ var Msg = (function()
 
 							else if(p.indexOf("bottom") !== -1)
 							{
-								if(i.stack_pos_bottom > instance.stack_pos_bottom)
+								if(i.stack_pos_bottom > ins.stack_pos_bottom)
 								{
 									ins_above.push(i);
 								}
@@ -2542,7 +2602,7 @@ var Msg = (function()
 						{
 							if(p.indexOf("left") !== -1)
 							{
-								if(i.stack_pos_left > instance.stack_pos_left)
+								if(i.stack_pos_left > ins.stack_pos_left)
 								{
 									ins_above.push(i);
 								}
@@ -2550,7 +2610,7 @@ var Msg = (function()
 
 							else if(p.indexOf("right") !== -1)
 							{
-								if(i.stack_pos_right > instance.stack_pos_right)
+								if(i.stack_pos_right > ins.stack_pos_right)
 								{
 									ins_above.push(i);
 								}
@@ -2747,7 +2807,7 @@ var Msg = (function()
 		{
 			var p = instance.options.position;
 
-			var ins_above = instance.above_in_position("vertical");
+			var ins_above = instance.above_in_position(instance, "vertical");
 
 			for(var i of ins_above)
 			{
@@ -2794,6 +2854,45 @@ var Msg = (function()
 				else if(p.indexOf("bottom") !== -1)
 				{
 					i.stack_pos_bottom = parseInt(i.window.style.bottom);
+				}
+			}
+		}
+
+		instance.fix_vStack = function()
+		{
+			var p = instance.options.position;
+
+			var below = instance.lowest_in_position("vertical");
+
+			if(below !== undefined)
+			{
+				var above = instance.above_in_position(below, "vertical");
+
+				for(var i of above)
+				{
+					if(p.indexOf("top") !== -1)
+					{
+						var new_top = below.stack_pos_top + below.window.offsetHeight + i.options.sideStack_padding + "px";
+						i.window.style.top = new_top;
+					}
+
+					else if(p.indexOf("bottom") !== -1)
+					{
+						var new_bottom = below.stack_pos_bottom + below.window.offsetHeight + i.options.sideStack_padding + "px";
+						i.window.style.bottom = new_bottom;
+					}
+
+					if(p.indexOf("top") !== -1)
+					{
+						i.stack_pos_top = parseInt(i.window.style.top);
+					}
+
+					else if(p.indexOf("bottom") !== -1)
+					{
+						i.stack_pos_bottom = parseInt(i.window.style.bottom);
+					}
+
+					below = i;				
 				}
 			}
 		}
@@ -2850,7 +2949,7 @@ var Msg = (function()
 		{
 			var p = instance.options.position;
 
-			var ins_above = instance.above_in_position("horizontal");
+			var ins_above = instance.above_in_position(instance, "horizontal");
 
 			for(var i of ins_above)
 			{
@@ -2898,6 +2997,54 @@ var Msg = (function()
 				{
 					i.stack_pos_right = parseInt(i.window.style.right);
 				}								
+			}
+		}
+
+		instance.fix_hStack = function()
+		{
+			var p = instance.options.position;
+
+			var below = instance.lowest_in_position("horizontal");
+
+			if(below !== undefined)
+			{
+				var above = instance.above_in_position(below, "horizontal");
+
+				for(var i of above)
+				{
+					if(p.indexOf("left") !== -1)
+					{
+						var new_left = below.stack_pos_left + below.window.offsetWidth + i.options.sideStack_padding + "px";
+						i.window.style.left = new_left;
+					}
+
+					else if(p.indexOf("right") !== -1)
+					{
+						var new_right = below.stack_pos_right + below.window.offsetWidth + i.options.sideStack_padding + "px";
+						i.window.style.right = new_right;
+					}
+
+					if(p.indexOf("left") !== -1)
+					{
+						i.stack_pos_left = parseInt(i.window.style.left);
+					}
+
+					else if(p.indexOf("right") !== -1)
+					{
+						i.stack_pos_right = parseInt(i.window.style.right);
+					}
+
+					below = i;				
+				}
+			}
+		}
+
+		instance.fix_stacks = function()
+		{
+			if(instance.is_open())
+			{
+				instance.fix_vStack();
+				instance.fix_hStack();
 			}
 		}
 
