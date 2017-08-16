@@ -14,7 +14,7 @@
         
         <script src='screenfull.js?v=1'></script>
 
-        <script src='msg.js?v=78'></script>
+        <script src='msg.js?v=79'></script>
 
         <script src='base.js?v=46'></script>
 
@@ -104,7 +104,10 @@
 
         <select id='select_show_effect'>
             <option>fade</option>
-            <option>slide</option>
+            <option>slide_up</option>
+            <option>slide_down</option>
+            <option>slide_left</option>
+            <option>slide_right</option>
             <option>none</option>
         </select>
 
@@ -114,7 +117,10 @@
 
         <select id='select_close_effect'>
             <option>fade</option>
-            <option>slide</option>
+            <option>slide_up</option>
+            <option>slide_down</option>
+            <option>slide_left</option>
+            <option>slide_right</option>
             <option>none</option>
         </select>        
 
@@ -171,8 +177,8 @@
     autoclose: true,
     autoclose_delay: 10000,
     close_on_show: true,
-    show_effect: "slide",
-    close_effect: "slide",        
+    show_effect: "slide_up",
+    close_effect: "slide_down",        
     sideStack: "none",
     zStack_level: 1,
     lock: false 
@@ -753,8 +759,8 @@ msg_test.show("Domo Arigato");
         instance.options.autoclose = true;<br>
         instance.options.autoclose_delay = 10000;<br>
         instance.options.close_on_show = true;<br>
-        instance.options.show_effect = "slide";<br>
-        instance.options.close_effect = "slide"; <br>       
+        instance.options.show_effect = "slide_up";<br>
+        instance.options.close_effect = "slide_down"; <br>       
         instance.options.sideStack = "none";<br>
         instance.options.zStack_level = 1;<br>
         instance.options.lock = false;<br>        

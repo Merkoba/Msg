@@ -1,4 +1,4 @@
-/* Msg v6.7.0 https://github.com/madprops/Msg */
+/* Msg v6.8.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -66,7 +66,11 @@ var Msg = (function()
 		instance.close_enabled = true;
 		instance.click_enabled = true;
 		instance.keys_enabled = true;
-		instance.closing_for_show = false;
+		instance.closing = false;
+		instance.stack_pos_top = undefined;
+		instance.stack_pos_bottom = undefined;
+		instance.stack_pos_left = undefined;
+		instance.stack_pos_right = undefined;		
 
 		instance.options = options;
 
@@ -108,8 +112,8 @@ var Msg = (function()
 					if(instance.options.autoclose === undefined) instance.options.autoclose = true;
 					if(instance.options.autoclose_delay === undefined) instance.options.autoclose_delay = 10000;
 					if(instance.options.close_on_show === undefined) instance.options.close_on_show = true;
-					if(instance.options.show_effect === undefined) instance.options.show_effect = "slide";
-					if(instance.options.close_effect === undefined) instance.options.close_effect = "slide";
+					if(instance.options.show_effect === undefined) instance.options.show_effect = "slide_up";
+					if(instance.options.close_effect === undefined) instance.options.close_effect = "slide_down";
 					if(instance.options.sideStack === undefined) instance.options.sideStack = "none";
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.lock === undefined) instance.options.lock = false;
@@ -526,6 +530,8 @@ var Msg = (function()
 
 		instance.close = function(callback=false)
 		{
+			instance.closing = true;
+
 			clearTimeout(instance.close_delay_timeout);
 
 			if(instance.options.close_delay > 0)
@@ -570,7 +576,7 @@ var Msg = (function()
 				instance.fade_out(callback);
 			}
 
-			else if(instance.options.close_effect === "slide")
+			else if(instance.options.close_effect.indexOf("slide") !== -1)
 			{
 				instance.slide_out(callback);
 			}
@@ -578,7 +584,7 @@ var Msg = (function()
 			else
 			{
 				instance.close_window(callback);
-			}			
+			}		
 		}
 
 		instance.close_window = function(callback)
@@ -605,6 +611,8 @@ var Msg = (function()
 			}
 
 			instance.options.after_close(instance);
+
+			instance.closing = false;
 
 			if(instance.num_open() === 0)
 			{
@@ -720,15 +728,12 @@ var Msg = (function()
 
 		instance.do_show = function(content, callback=false)
 		{
-			if(instance.options.close_on_show && !instance.closing_for_show)
+			if(instance.options.close_on_show && !instance.closing)
 			{
 				if(instance.is_open())
-				{
-					instance.closing_for_show = true;
-					
+				{					
 					instance.close(function()
 					{
-						instance.closing_for_show = false;
 						instance.show(content, callback);
 					});
 
@@ -801,7 +806,7 @@ var Msg = (function()
 
 				if(instance.options.show_effect.indexOf("slide") !== -1)
 				{
-					instance.slide_in(callback);					
+					instance.slide_in(callback);
 				}
 			}
 
@@ -1772,8 +1777,6 @@ var Msg = (function()
 		{
 			instance.clear_effect_intervals();
 
-			instance.closing_for_show = false;
-
 			instance.container.style.opacity = 0;
 
 			var speed = instance.options.show_effect_duration / 50;
@@ -1828,48 +1831,193 @@ var Msg = (function()
 		{
 			instance.clear_effect_intervals();
 
-			instance.closing_for_show = false;
+			var direction = instance.options.show_effect.split("_")[1];
+
+			var p = instance.options.position;
+			var edge = instance.options.edge_padding;
 
 			var pos = false;
+			var og = false;
+			var diff = false;
 
-			if(instance.options.position === "bottom")
+			if(p === "bottom")
 			{
-				var og = Math.max(instance.options.edge_padding, parseInt(instance.window.style.bottom));
-				instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
-				var diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
-				var pos = "bottom";
+				if(direction === "up")
+				{
+					og = Math.max(edge, parseInt(instance.window.style.bottom));
+					instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
+					diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
+					pos = "bottom";
+				}
+
+				else if(direction === "down")
+				{
+					og = Math.max(edge, parseInt(instance.window.style.bottom));
+					instance.window.style.bottom = window.innerHeight + "px";
+					diff = ((parseInt(instance.window.style.bottom) - og) / instance.options.show_effect_duration) * 10;
+					pos = "bottom";					
+				}
 			}
 
-			else if(instance.options.position === "top")
+			else if(p === "top")
 			{
-				var og = Math.max(instance.options.edge_padding, parseInt(instance.window.style.top));
-				instance.window.style.top = 0 - instance.window.offsetHeight + "px";
-				var diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
-				var pos = "top";
+				if(direction === "up")
+				{
+					og = Math.max(edge, parseInt(instance.window.style.top));
+					instance.window.style.top = window.innerHeight + "px";
+					diff = ((parseInt(instance.window.style.top) - og) / instance.options.show_effect_duration) * 10;
+					pos = "top";
+				}
+
+				else if(direction === "down")
+				{
+					og = Math.max(edge, parseInt(instance.window.style.top));
+					instance.window.style.top = 0 - instance.window.offsetHeight + "px";
+					diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
+					pos = "top";
+				}
 			}
 
-			else if((instance.options.position.indexOf("right") !== -1))
+			else if((p.indexOf("right") !== -1))
 			{
-				var og = Math.max(instance.options.edge_padding, parseInt(instance.window.style.right));
-				instance.window.style.right = 0 - instance.window.offsetWidth + "px";
-				var diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
-				var pos = "right";
+				if(direction === "up" || direction === "down")
+				{
+					if(p === "topright")
+					{
+						if(direction === "up")
+						{
+							og = Math.max(edge, parseInt(instance.window.style.top));
+							instance.window.style.top = window.innerHeight + "px";
+							diff = ((parseInt(instance.window.style.top) - og) / instance.options.show_effect_duration) * 10;
+							pos = "top";
+						}
+
+						else if(direction === "down")
+						{
+							og = Math.max(edge, parseInt(instance.window.style.top));
+							instance.window.style.top = 0 - instance.window.offsetHeight + "px";
+							diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
+							pos = "top";
+						}
+					}
+
+					else if(p === "bottomright")
+					{
+						if(direction === "up")
+						{
+							og = Math.max(edge, parseInt(instance.window.style.bottom));
+							instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
+							diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
+							pos = "bottom";
+						}
+
+						else if(direction === "down")
+						{
+							og = Math.max(edge, parseInt(instance.window.style.bottom));
+							instance.window.style.bottom = window.innerHeight + "px";
+							diff = ((parseInt(instance.window.style.bottom) - og) / instance.options.show_effect_duration) * 10;
+							pos = "bottom";	
+						}
+					}
+				}
+
+				if(direction === "left")
+				{
+					og = Math.max(edge, parseInt(instance.window.style.right));
+					instance.window.style.right = 0 - instance.window.offsetWidth + "px";
+					diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
+					pos = "right";
+				}
+
+				else if(direction === "right")
+				{
+					og = Math.max(edge, parseInt(instance.window.style.right));
+					instance.window.style.right = window.innerWidth + "px";
+					diff = ((parseInt(instance.window.style.right) - og) / instance.options.show_effect_duration) * 10;
+					pos = "right";						
+				}
 			}
 
-			else if((instance.options.position.indexOf("left") !== -1))
+			else if((p.indexOf("left") !== -1))
 			{
-				var og = Math.max(instance.options.edge_padding, parseInt(instance.window.style.left));
-				instance.window.style.left = 0 - instance.window.offsetWidth + "px";
-				var diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
-				var pos = "left";
+				if(direction === "up" || direction === "down")
+				{
+					if(p === "topleft")
+					{
+						if(direction === "up")
+						{
+							og = Math.max(edge, parseInt(instance.window.style.top));
+							instance.window.style.top = window.innerHeight + "px";
+							diff = ((parseInt(instance.window.style.top) - og) / instance.options.show_effect_duration) * 10;
+							pos = "top";
+						}
+
+						else if(direction === "down")
+						{
+							og = Math.max(edge, parseInt(instance.window.style.top));
+							instance.window.style.top = 0 - instance.window.offsetHeight + "px";
+							diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
+							pos = "top";
+						}
+					}
+
+					else if(p === "bottomleft")
+					{
+						if(direction === "up")
+						{
+							og = Math.max(edge, parseInt(instance.window.style.bottom));
+							instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
+							diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
+							pos = "bottom";
+						}
+
+						else if(direction === "down")
+						{
+							og = Math.max(edge, parseInt(instance.window.style.bottom));
+							instance.window.style.bottom = window.innerHeight + "px";
+							diff = ((parseInt(instance.window.style.bottom) - og) / instance.options.show_effect_duration) * 10;
+							pos = "bottom";	
+						}
+					}
+				}
+
+				else if(direction === "left")
+				{
+					og = Math.max(edge, parseInt(instance.window.style.left));
+					instance.window.style.left = window.innerWidth + "px";
+					diff = ((parseInt(instance.window.style.left) - og) / instance.options.show_effect_duration) * 10;
+					pos = "left";
+				}
+
+				else if(direction === "right")
+				{
+					og = Math.max(edge, parseInt(instance.window.style.left));
+					instance.window.style.left = 0 - instance.window.offsetWidth + "px";
+					diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
+					pos = "left";						
+				}
 			}
 
 			if(!pos)
 			{
+				finish();
 				return;
 			}
 
-			var diff = Math.max(1, diff);
+			diff = Math.max(1, diff);
+
+			function finish()
+			{
+				instance.window.style[pos] = og + "px";
+
+				instance.clear_effect_intervals();
+
+				if(callback)
+				{
+					instance.close_window(callback);
+					return callback(instance);
+				}				
+			}
 
 			instance.slide_in_interval = setInterval(function() 
 			{
@@ -1879,18 +2027,95 @@ var Msg = (function()
 					return;
 				}
 
-				instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
-
-				if(parseInt(instance.window.style[pos]) >= og) 
+				if(pos === "top")
 				{
-					instance.window.style[pos] = og + "px";
-
-					instance.clear_effect_intervals();
-
-					if(callback)
+					if(direction === "up")
 					{
-						instance.close_window(callback);
-						return callback(instance);
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) <= og) 
+						{
+							finish();
+						}
+					}
+
+					if(direction === "down")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) >= og) 
+						{
+							finish();
+						}
+					}	
+				}
+
+				if(pos === "bottom")
+				{
+					if(direction === "up")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) >= og) 
+						{
+							finish();
+						}
+					}
+
+					if(direction === "down")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) <= og) 
+						{
+							finish();
+						}
+					}
+				}
+
+				if(pos === "left")
+				{
+					if(direction === "left")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) <= og) 
+						{
+							finish();
+						}
+					}
+
+					if(direction === "right")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) >= og) 
+						{
+							finish();
+						}
+					}
+				}
+
+				if(pos === "right")
+				{
+					if(direction === "left")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) >= og) 
+						{
+							finish();
+						}
+					}
+
+					if(direction === "right")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) <= og) 
+						{
+							finish();
+						}
 					}
 				}
 
@@ -1900,44 +2125,173 @@ var Msg = (function()
 		instance.slide_out = function(callback) 
 		{
 			instance.clear_effect_intervals();
+			
+			var direction = instance.options.close_effect.split("_")[1];
+
+			var p = instance.options.position;
+			var edge = instance.options.edge_padding;
 
 			var pos = false;
+			var og = false;
+			var diff = false;
+			var npos = false;
 
-			if(instance.options.position === "bottom")
+			if(p === "bottom")
 			{
-				var distance = (2 * instance.window.offsetHeight) + instance.options.edge_padding;
-				var diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
-				var npos = 0 - instance.window.offsetHeight;
-				var pos = "bottom";
+				if(direction === "up")
+				{
+					diff = ((window.innerHeight - parseInt(instance.window.style.bottom)) / instance.options.close_effect_duration) * 10;
+					npos = window.innerHeight + instance.window.offsetHeight;
+					pos = "bottom";				
+				}
+
+				else if(direction === "down")
+				{
+					diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+					npos = 0 - instance.window.offsetHeight;
+					pos = "bottom";	
+				}
 			}
 
-			else if(instance.options.position === "top")
+			else if(p === "top")
 			{
-				var diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
-				var npos = 0 - instance.window.offsetHeight;
-				var pos = "top";
+				if(direction === "up")
+				{
+					diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+					npos = 0 - instance.window.offsetHeight;
+					pos = "top";	
+				}
+
+				else if(direction === "down")
+				{
+					diff = ((window.innerHeight - parseInt(instance.window.style.top)) / instance.options.close_effect_duration) * 10;
+					npos = window.innerHeight + instance.window.offsetHeight;
+					pos = "top";				
+				}
 			}
 
-			else if((instance.options.position.indexOf("right") !== -1))
+			else if((p.indexOf("right") !== -1))
 			{
-				var diff = ((parseInt(instance.window.style.right) + instance.window.offsetWidth) / instance.options.close_effect_duration) * 10;
-				var npos = 0 - instance.window.offsetWidth;
-				var pos = "right";
+				if(direction === "up" || direction === "down")
+				{
+					if(p === "topright")
+					{
+						if(direction === "up")
+						{
+							diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+							npos = 0 - instance.window.offsetHeight;
+							pos = "top";
+						}
+
+						else if(direction === "down")
+						{
+							diff = ((window.innerHeight - parseInt(instance.window.style.top)) / instance.options.close_effect_duration) * 10;
+							npos = window.innerHeight + instance.window.offsetHeight;
+							pos = "top";
+						}
+					}
+
+					else if(p === "bottomright")
+					{
+						if(direction === "up")
+						{
+							diff = ((window.innerHeight - parseInt(instance.window.style.bottom)) / instance.options.close_effect_duration) * 10;
+							npos = window.innerHeight + instance.window.offsetHeight;
+							pos = "bottom";	
+						}
+
+						else if(direction === "down")
+						{
+							diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+							npos = 0 - instance.window.offsetHeight;
+							pos = "bottom";
+						}
+					}
+				}
+
+				if(direction === "left")
+				{
+					diff = ((window.innerWidth - parseInt(instance.window.style.right)) / instance.options.close_effect_duration) * 10;
+					npos = window.innerWidth + instance.window.offsetWidth;
+					pos = "right";	
+				}
+
+				else if(direction === "right")
+				{
+					diff = ((parseInt(instance.window.style.right) + instance.window.offsetWidth) / instance.options.close_effect_duration) * 10;
+					npos = 0 - instance.window.offsetWidth;
+					pos = "right";						
+				}
 			}
 
-			else if((instance.options.position.indexOf("left") !== -1))
+			else if((p.indexOf("left") !== -1))
 			{
-				var diff = ((parseInt(instance.window.style.left) + instance.window.offsetWidth) / instance.options.close_effect_duration) * 10;
-				var npos = 0 - instance.window.offsetWidth;
-				var pos = "left";
+				if(direction === "up" || direction === "down")
+				{
+					if(p === "topleft")
+					{
+						if(direction === "up")
+						{
+							diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+							npos = 0 - instance.window.offsetHeight;
+							pos = "top";
+						}
+
+						else if(direction === "down")
+						{
+							diff = ((window.innerHeight - parseInt(instance.window.style.top)) / instance.options.close_effect_duration) * 10;
+							npos = window.innerHeight + instance.window.offsetHeight;
+							pos = "top";
+						}
+					}
+
+					else if(p === "bottomleft")
+					{
+						if(direction === "up")
+						{
+							diff = ((window.innerHeight - parseInt(instance.window.style.bottom)) / instance.options.close_effect_duration) * 10;
+							npos = window.innerHeight + instance.window.offsetHeight;
+							pos = "bottom";	
+						}
+
+						else if(direction === "down")
+						{
+							diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+							npos = 0 - instance.window.offsetHeight;
+							pos = "bottom";
+						}
+					}
+				}
+
+				else if(direction === "left")
+				{
+					diff = ((parseInt(instance.window.style.left) + instance.window.offsetWidth) / instance.options.close_effect_duration) * 10;
+					npos = 0 - instance.window.offsetWidth;
+					pos = "left";						
+				}
+
+				else if(direction === "right")
+				{
+					diff = ((window.innerWidth - parseInt(instance.window.style.left)) / instance.options.close_effect_duration) * 10;
+					npos = window.innerWidth + instance.window.offsetWidth;
+					pos = "left";	
+				}
 			}
 
 			if(!pos)
 			{
+				finish();
 				return;
 			}
 
-			var diff = Math.max(1, diff);
+			diff = Math.max(1, diff);
+
+			function finish()
+			{
+				instance.window.style[pos] = (npos - 20) + "px";
+				instance.clear_effect_intervals();
+				instance.close_window(callback);
+			}
 
 			instance.slide_out_interval = setInterval(function() 
 			{
@@ -1947,13 +2301,96 @@ var Msg = (function()
 					return;
 				}
 
-				instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
-
-				if(parseInt(instance.window.style[pos]) <= npos) 
+				if(pos === "top")
 				{
-					instance.window.style[pos] = (npos - 20) + "px";
-					instance.clear_effect_intervals();
-					instance.close_window(callback);
+					if(direction === "up")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) <= npos) 
+						{
+							finish();
+						}
+					}
+
+					if(direction === "down")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) >= npos) 
+						{
+							finish();
+						}
+					}	
+				}
+
+				if(pos === "bottom")
+				{
+					if(direction === "up")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) >= npos) 
+						{
+							finish();
+						}
+					}
+
+					if(direction === "down")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) <= npos) 
+						{
+							finish();
+						}
+					}
+				}
+
+				if(pos === "left")
+				{
+					if(direction === "left")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) <= npos) 
+						{
+							finish();
+						}
+					}
+
+					if(direction === "right")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) >= npos) 
+						{
+							finish();
+						}
+					}
+				}
+
+				if(pos === "right")
+				{
+					if(direction === "left")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) >= npos) 
+						{
+							finish();
+						}
+					}
+
+					if(direction === "right")
+					{
+						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
+
+						if(parseInt(instance.window.style[pos]) <= npos) 
+						{
+							finish();
+						}
+					}
 				}
 
 			}, 10);	
@@ -2314,9 +2751,9 @@ var Msg = (function()
 
 			for(var i of ins_above)
 			{
-				if(!i.options.sideStack_collapse || i.options.sideStack !== "vertical")
+				if(!i.options.sideStack_collapse || i.options.sideStack !== "vertical" || i.closing)
 				{
-					return;
+					continue;
 				}
 
 				var below = instance.nextbelow_in_position(i, "vertical");
@@ -2417,9 +2854,9 @@ var Msg = (function()
 
 			for(var i of ins_above)
 			{
-				if(!i.options.sideStack_collapse || i.options.sideStack !== "horizontal")
+				if(!i.options.sideStack_collapse || i.options.sideStack !== "horizontal" || i.closing)
 				{
-					return;
+					continue;
 				}
 
 				var below = instance.nextbelow_in_position(i, "horizontal");
