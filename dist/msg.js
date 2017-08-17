@@ -1,4 +1,4 @@
-/* Msg v6.9.0 https://github.com/madprops/Msg */
+/* Msg v6.9.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -67,10 +67,13 @@ var Msg = (function()
 		instance.click_enabled = true;
 		instance.keys_enabled = true;
 		instance.closing = false;
+		instance.effect_ongoing = false;
 		instance.stack_pos_top = undefined;
 		instance.stack_pos_bottom = undefined;
 		instance.stack_pos_left = undefined;
-		instance.stack_pos_right = undefined;		
+		instance.stack_pos_right = undefined;
+		instance.stack_width = undefined;		
+		instance.stack_height = undefined;		
 
 		instance.options = options;
 
@@ -781,12 +784,14 @@ var Msg = (function()
 				instance.set_title(title);
 			}
 
-			instance.set_default_positions();			
 
 			if(!instance.is_open())
 			{	
 				instance.container.style.display = "block";
+				
 				instance.check_add_overflow_hidden();
+
+				instance.set_default_positions();
 
 				if(instance.options.sideStack === "vertical")
 				{
@@ -1775,11 +1780,15 @@ var Msg = (function()
 			clearInterval(instance.fade_out_interval);
 			clearInterval(instance.slide_in_interval);
 			clearInterval(instance.slide_out_interval);
+
+			instance.effect_ongoing = false;
 		}
 
 		instance.fade_in = function(callback) 
 		{
 			instance.clear_effect_intervals();
+
+			instance.effect_ongoing = true;
 
 			instance.container.style.opacity = 0;
 
@@ -1811,6 +1820,8 @@ var Msg = (function()
 		{
 			instance.clear_effect_intervals();
 
+			instance.effect_ongoing = true;
+
 			var speed = instance.options.close_effect_duration / 50;
 
 			instance.fade_out_interval = setInterval(function() 
@@ -1834,6 +1845,8 @@ var Msg = (function()
 		instance.slide_in = function(callback) 
 		{
 			instance.clear_effect_intervals();
+
+			instance.effect_ongoing = true;
 
 			var direction = instance.options.show_effect.split("_")[1];
 
@@ -2129,6 +2142,8 @@ var Msg = (function()
 		instance.slide_out = function(callback) 
 		{
 			instance.clear_effect_intervals();
+
+			instance.effect_ongoing = true;
 			
 			var direction = instance.options.close_effect.split("_")[1];
 
@@ -2767,13 +2782,13 @@ var Msg = (function()
 				{
 					if(p.indexOf("top") !== -1)
 					{
-						var new_top = highest.stack_pos_top + highest.window.offsetHeight + instance.options.sideStack_padding + "px";
+						var new_top = highest.stack_pos_top + highest.stack_height + instance.options.sideStack_padding + "px";
 						instance.window.style.top = new_top;
 					}
 
 					else if(p.indexOf("bottom") !== -1)
 					{
-						var new_bottom = highest.stack_pos_bottom + highest.window.offsetHeight + instance.options.sideStack_padding + "px";
+						var new_bottom = highest.stack_pos_bottom + highest.stack_height + instance.options.sideStack_padding + "px";
 						instance.window.style.bottom = new_bottom;
 					}
 				}
@@ -2909,13 +2924,13 @@ var Msg = (function()
 				{
 					if(p.indexOf("left") !== -1)
 					{
-						var new_left = highest.stack_pos_left + highest.window.offsetWidth + instance.options.sideStack_padding + "px";
+						var new_left = highest.stack_pos_left + highest.stack_width + instance.options.sideStack_padding + "px";
 						instance.window.style.left = new_left;
 					}
 
 					else if(p.indexOf("right") !== -1)
 					{
-						var new_right = highest.stack_pos_right + highest.window.offsetWidth + instance.options.sideStack_padding + "px";
+						var new_right = highest.stack_pos_right + highest.stack_width + instance.options.sideStack_padding + "px";
 						instance.window.style.right = new_right;
 					}
 				}
@@ -2941,7 +2956,7 @@ var Msg = (function()
 				else if(p.indexOf("right") !== -1)
 				{
 					instance.stack_pos_right = parseInt(instance.window.style.right);
-				}				
+				}
 			}
 		}
 
@@ -3041,7 +3056,7 @@ var Msg = (function()
 
 		instance.fix_stacks = function()
 		{
-			if(instance.is_open())
+			if(instance.is_open() && !instance.effect_ongoing)
 			{
 				instance.fix_vStack();
 				instance.fix_hStack();
@@ -3124,6 +3139,9 @@ var Msg = (function()
 				instance.stack_pos_left = undefined;
 				instance.stack_pos_right = undefined;
 			}
+
+			instance.stack_width = instance.window.offsetWidth;
+			instance.stack_height = instance.window.offsetHeight;
 		}
 
 		if(instance.options.id !== "__internal_instance__")
