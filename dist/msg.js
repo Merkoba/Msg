@@ -1,4 +1,4 @@
-/* Msg v7.1.0 https://github.com/madprops/Msg */
+/* Msg v7.1.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -2786,6 +2786,16 @@ var Msg = (function()
 			{
 				var p = instance.options.position;
 
+				if(p.indexOf("top") !== -1)
+				{
+					instance.stack_pos_top = -1000000;
+				}
+
+				else if(p.indexOf("bottom") !== -1)
+				{
+					instance.stack_pos_bottom = -1000000;
+				}
+
 				var highest = instance.highest_in_position("vertical");
 
 				if(highest !== undefined && highest !== instance)
@@ -2965,6 +2975,16 @@ var Msg = (function()
 			if(instance.vStackable)
 			{
 				var p = instance.options.position;
+
+				if(p.indexOf("left") !== -1)
+				{
+					instance.stack_pos_left = -1000000;
+				}
+
+				else if(p.indexOf("right") !== -1)
+				{
+					instance.stack_pos_right = -1000000;
+				}				
 
 				var highest = instance.highest_in_position("horizontal");
 
