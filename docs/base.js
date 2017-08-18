@@ -107,7 +107,9 @@ var msg_cust = Msg(
 {
     class:"blue",
     overlay_class:"green",
-    inner_x_class:"red"
+    inner_x_class:"red",
+    enable_titlebar:true,
+    window_width:"500px"
 });
 
 var msg_default = Msg(
@@ -384,7 +386,7 @@ var s8 = "When you focus the textarea and press Escape it will clear it. Press E
 
 var s9 = "Keep Pressing Enter";
 
-var s10 = "This is a customized window.";
+var s10 = "This is a customized window.\nInformation about how to style a window can be found below.";
 
 var stoy = `<div class='heading'>Symmetric Harmony</div>By Tiffany Rayside<br><br><div><canvas id="canv"></canvas></div><img id='spinner' src='spinner.gif'>`;
 
