@@ -494,19 +494,12 @@ function pop(position)
         on_click: function(instance)
         {
             show_options(instance);
-        },
-        after_close: function(instance)
-        {
-            console.log("popup closed");
         }
     });
 
     pops.push(msg);
 
-    pupmsg.show([title, message], function()
-    {
-        console.log("popup show callback");
-    });
+    pupmsg.show([title, message]);
 }
 
 function show_options(popup)
@@ -625,3 +618,35 @@ var msg_psnack = Msg(
 {
     preset:"snackbar"
 });
+
+function pop_test(position, sleep=0)
+{
+    function pap()
+    {
+        pop(position)
+    }
+    
+    if(sleep > 0)
+    {
+        var n = 0;
+
+        pap();
+
+        var papinterval = setInterval(function()
+        {
+            pap();
+
+            n += 1;
+
+            if(n > 2)
+            {
+                clearInterval(papinterval)
+            }
+        }, sleep)
+    }
+
+    else
+    {
+        pap();pap();pap();pap();
+    }
+}
