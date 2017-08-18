@@ -1,4 +1,4 @@
-/* Msg v6.9.3 https://github.com/madprops/Msg */
+/* Msg v6.9.4 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -784,10 +784,10 @@ var Msg = (function()
 				instance.set_title(title);
 			}
 
+			instance.reset_timers();
+
 			if(!instance.is_open())
 			{	
-				instance.clear_autoclose_timeout();
-
 				instance.container.style.display = "block";
 				
 				instance.check_add_overflow_hidden();
@@ -1618,61 +1618,48 @@ var Msg = (function()
 			}
 		}
 
-		instance.temp_disable_close_timer = (function()
+		instance.temp_disable_close_timer = function()
 		{
-			var timer;
-			return function()
+			instance.temp_disable_close_timeout = setTimeout(function()
 			{
-				clearTimeout(timer);
-				timer = setTimeout(function()
-				{
-					instance.close_enabled = true;
-				}, instance.options.temp_disable_close_delay);
-			};
-		})();
+				instance.close_enabled = true;
+			}, instance.options.temp_disable_close_delay);
+		}		
 
-		instance.temp_disable_click_timer = (function()
+		instance.temp_disable_click_timer = function()
 		{
-			var timer;
-			return function()
+			instance.temp_disable_click_timeout = setTimeout(function()
 			{
-				clearTimeout(timer);
-				timer = setTimeout(function()
-				{
-					instance.click_enabled = true;
-				}, instance.options.temp_disable_click_delay);
-			};
-		})();
+				instance.click_enabled = true;
+			}, instance.options.temp_disable_click_delay);
+		}		
 
-		instance.temp_disable_keys_timer = (function()
+		instance.temp_disable_keys_timer = function()
 		{
-			var timer;
-			return function()
+			instance.temp_disable_keys_timeout = setTimeout(function()
 			{
-				clearTimeout(timer);
-				timer = setTimeout(function()
-				{
-					instance.keys_enabled = true;
-				}, instance.options.temp_disable_keys_delay);
-			};
-		})();
+				instance.keys_enabled = true;
+			}, instance.options.temp_disable_keys_delay);
+		}	
 
-		instance.autoclose_timer = (function()
+		instance.autoclose_timer = function()
 		{
-			var timer;
-			return function() 
+			instance.autoclose_timeout = setTimeout(function()
 			{
-				clearTimeout(timer);
-				instance.autoclose_timeout = setTimeout(function()
-				{
-					instance.close();
-				}, instance.options.autoclose_delay);
-			};
-		})();
+				instance.close();
+			}, instance.options.autoclose_delay);
+		}
 
-		instance.clear_autoclose_timeout = function()
+		instance.reset_timers = function()
 		{
+			clearTimeout(instance.temp_disable_close_timeout);
+			clearTimeout(instance.temp_disable_click_timeout);
+			clearTimeout(instance.temp_disable_keys_timeout);
 			clearTimeout(instance.autoclose_timeout);
+
+			instance.close_enabled = true;
+			instance.click_enabled = true;
+			instance.keys_enabled = true;			
 		}
 
 		instance.clear_autoclose_progressbar_interval = function()
