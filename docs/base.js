@@ -551,7 +551,8 @@ var msg_wo = Msg(
 });
 
 var msg_snack = Msg({
-    preset:"snackbar"
+    preset:"snackbar",
+    id:"snackbar"
 });
 
 var scks = [];

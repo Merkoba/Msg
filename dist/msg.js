@@ -1,4 +1,4 @@
-/* Msg v6.9.2 https://github.com/madprops/Msg */
+/* Msg v6.9.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -533,8 +533,6 @@ var Msg = (function()
 
 		instance.close = function(callback=false)
 		{
-			instance.closing = true;
-
 			clearTimeout(instance.close_delay_timeout);
 
 			if(instance.options.close_delay > 0)
@@ -571,6 +569,8 @@ var Msg = (function()
 			{
 				return;
 			}
+
+			instance.closing = true;
 
 			instance.clear_while_open_interval();
 
@@ -786,6 +786,8 @@ var Msg = (function()
 
 			if(!instance.is_open())
 			{	
+				instance.clear_autoclose_timeout();
+
 				instance.container.style.display = "block";
 				
 				instance.check_add_overflow_hidden();
@@ -1661,12 +1663,17 @@ var Msg = (function()
 			return function() 
 			{
 				clearTimeout(timer);
-				timer = setTimeout(function()
+				instance.autoclose_timeout = setTimeout(function()
 				{
 					instance.close();
 				}, instance.options.autoclose_delay);
 			};
 		})();
+
+		instance.clear_autoclose_timeout = function()
+		{
+			clearTimeout(instance.autoclose_timeout);
+		}
 
 		instance.clear_autoclose_progressbar_interval = function()
 		{
