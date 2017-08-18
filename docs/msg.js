@@ -1,4 +1,4 @@
-/* Msg v6.9.1 https://github.com/madprops/Msg */
+/* Msg v6.9.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -67,13 +67,13 @@ var Msg = (function()
 		instance.click_enabled = true;
 		instance.keys_enabled = true;
 		instance.closing = false;
-		instance.effect_ongoing = false;
 		instance.stack_pos_top = undefined;
 		instance.stack_pos_bottom = undefined;
 		instance.stack_pos_left = undefined;
 		instance.stack_pos_right = undefined;
 		instance.stack_width = undefined;		
-		instance.stack_height = undefined;		
+		instance.stack_height = undefined;
+		instance.slide_in_ongoing = false;	
 
 		instance.options = options;
 
@@ -783,7 +783,6 @@ var Msg = (function()
 			{
 				instance.set_title(title);
 			}
-
 
 			if(!instance.is_open())
 			{	
@@ -1781,14 +1780,12 @@ var Msg = (function()
 			clearInterval(instance.slide_in_interval);
 			clearInterval(instance.slide_out_interval);
 
-			instance.effect_ongoing = false;
+			instance.slide_in_ongoing = false;
 		}
 
 		instance.fade_in = function(callback) 
 		{
 			instance.clear_effect_intervals();
-
-			instance.effect_ongoing = true;
 
 			instance.container.style.opacity = 0;
 
@@ -1820,8 +1817,6 @@ var Msg = (function()
 		{
 			instance.clear_effect_intervals();
 
-			instance.effect_ongoing = true;
-
 			var speed = instance.options.close_effect_duration / 50;
 
 			instance.fade_out_interval = setInterval(function() 
@@ -1846,7 +1841,7 @@ var Msg = (function()
 		{
 			instance.clear_effect_intervals();
 
-			instance.effect_ongoing = true;
+			instance.slide_in_ongoing = true;
 
 			var direction = instance.options.show_effect.split("_")[1];
 
@@ -1854,25 +1849,25 @@ var Msg = (function()
 			var edge = instance.options.edge_padding;
 
 			var pos = false;
-			var og = false;
+			var spos = false;
 			var diff = false;
 
 			if(p === "bottom")
 			{
 				if(direction === "up")
 				{
-					og = Math.max(edge, parseInt(instance.window.style.bottom));
-					instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
-					diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 					pos = "bottom";
+					spos = `stack_pos_${pos}`;
+					instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
+					diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
 				}
 
 				else if(direction === "down")
 				{
-					og = Math.max(edge, parseInt(instance.window.style.bottom));
+					pos = "bottom";
+					spos = `stack_pos_${pos}`;
 					instance.window.style.bottom = window.innerHeight + "px";
-					diff = ((parseInt(instance.window.style.bottom) - og) / instance.options.show_effect_duration) * 10;
-					pos = "bottom";					
+					diff = ((parseInt(instance.window.style.bottom) - instance[spos]) / instance.options.show_effect_duration) * 10;
 				}
 			}
 
@@ -1880,18 +1875,18 @@ var Msg = (function()
 			{
 				if(direction === "up")
 				{
-					og = Math.max(edge, parseInt(instance.window.style.top));
-					instance.window.style.top = window.innerHeight + "px";
-					diff = ((parseInt(instance.window.style.top) - og) / instance.options.show_effect_duration) * 10;
 					pos = "top";
+					spos = `stack_pos_${pos}`;
+					instance.window.style.top = window.innerHeight + "px";
+					diff = ((parseInt(instance.window.style.top) - instance[spos]) / instance.options.show_effect_duration) * 10;
 				}
 
 				else if(direction === "down")
 				{
-					og = Math.max(edge, parseInt(instance.window.style.top));
-					instance.window.style.top = 0 - instance.window.offsetHeight + "px";
-					diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 					pos = "top";
+					spos = `stack_pos_${pos}`;
+					instance.window.style.top = 0 - instance.window.offsetHeight + "px";
+					diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
 				}
 			}
 
@@ -1903,18 +1898,18 @@ var Msg = (function()
 					{
 						if(direction === "up")
 						{
-							og = Math.max(edge, parseInt(instance.window.style.top));
-							instance.window.style.top = window.innerHeight + "px";
-							diff = ((parseInt(instance.window.style.top) - og) / instance.options.show_effect_duration) * 10;
 							pos = "top";
+							spos = `stack_pos_${pos}`;
+							instance.window.style.top = window.innerHeight + "px";
+							diff = ((parseInt(instance.window.style.top) - instance[spos]) / instance.options.show_effect_duration) * 10;
 						}
 
 						else if(direction === "down")
 						{
-							og = Math.max(edge, parseInt(instance.window.style.top));
-							instance.window.style.top = 0 - instance.window.offsetHeight + "px";
-							diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 							pos = "top";
+							spos = `stack_pos_${pos}`;
+							instance.window.style.top = 0 - instance.window.offsetHeight + "px";
+							diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
 						}
 					}
 
@@ -1922,36 +1917,36 @@ var Msg = (function()
 					{
 						if(direction === "up")
 						{
-							og = Math.max(edge, parseInt(instance.window.style.bottom));
-							instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
-							diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 							pos = "bottom";
+							spos = `stack_pos_${pos}`;
+							instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
+							diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
 						}
 
 						else if(direction === "down")
 						{
-							og = Math.max(edge, parseInt(instance.window.style.bottom));
-							instance.window.style.bottom = window.innerHeight + "px";
-							diff = ((parseInt(instance.window.style.bottom) - og) / instance.options.show_effect_duration) * 10;
 							pos = "bottom";	
+							spos = `stack_pos_${pos}`;
+							instance.window.style.bottom = window.innerHeight + "px";
+							diff = ((parseInt(instance.window.style.bottom) - instance[spos]) / instance.options.show_effect_duration) * 10;
 						}
 					}
 				}
 
 				if(direction === "left")
 				{
-					og = Math.max(edge, parseInt(instance.window.style.right));
-					instance.window.style.right = 0 - instance.window.offsetWidth + "px";
-					diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
 					pos = "right";
+					spos = `stack_pos_${pos}`;
+					instance.window.style.right = 0 - instance.window.offsetWidth + "px";
+					diff = ((instance.window.offsetWidth + instance[spos]) / instance.options.show_effect_duration) * 10;
 				}
 
 				else if(direction === "right")
 				{
-					og = Math.max(edge, parseInt(instance.window.style.right));
-					instance.window.style.right = window.innerWidth + "px";
-					diff = ((parseInt(instance.window.style.right) - og) / instance.options.show_effect_duration) * 10;
 					pos = "right";						
+					spos = `stack_pos_${pos}`;
+					instance.window.style.right = window.innerWidth + "px";
+					diff = ((parseInt(instance.window.style.right) - instance[spos]) / instance.options.show_effect_duration) * 10;
 				}
 			}
 
@@ -1963,18 +1958,18 @@ var Msg = (function()
 					{
 						if(direction === "up")
 						{
-							og = Math.max(edge, parseInt(instance.window.style.top));
-							instance.window.style.top = window.innerHeight + "px";
-							diff = ((parseInt(instance.window.style.top) - og) / instance.options.show_effect_duration) * 10;
 							pos = "top";
+							spos = `stack_pos_${pos}`;
+							instance.window.style.top = window.innerHeight + "px";
+							diff = ((parseInt(instance.window.style.top) - instance[spos]) / instance.options.show_effect_duration) * 10;
 						}
 
 						else if(direction === "down")
 						{
-							og = Math.max(edge, parseInt(instance.window.style.top));
-							instance.window.style.top = 0 - instance.window.offsetHeight + "px";
-							diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 							pos = "top";
+							spos = `stack_pos_${pos}`;
+							instance.window.style.top = 0 - instance.window.offsetHeight + "px";
+							diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
 						}
 					}
 
@@ -1982,36 +1977,36 @@ var Msg = (function()
 					{
 						if(direction === "up")
 						{
-							og = Math.max(edge, parseInt(instance.window.style.bottom));
-							instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
-							diff = ((instance.window.offsetHeight + og) / instance.options.show_effect_duration) * 10;
 							pos = "bottom";
+							spos = `stack_pos_${pos}`;
+							instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
+							diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
 						}
 
 						else if(direction === "down")
 						{
-							og = Math.max(edge, parseInt(instance.window.style.bottom));
-							instance.window.style.bottom = window.innerHeight + "px";
-							diff = ((parseInt(instance.window.style.bottom) - og) / instance.options.show_effect_duration) * 10;
 							pos = "bottom";	
+							spos = `stack_pos_${pos}`;
+							instance.window.style.bottom = window.innerHeight + "px";
+							diff = ((parseInt(instance.window.style.bottom) - instance[spos]) / instance.options.show_effect_duration) * 10;
 						}
 					}
 				}
 
 				else if(direction === "left")
 				{
-					og = Math.max(edge, parseInt(instance.window.style.left));
-					instance.window.style.left = window.innerWidth + "px";
-					diff = ((parseInt(instance.window.style.left) - og) / instance.options.show_effect_duration) * 10;
 					pos = "left";
+					spos = `stack_pos_${pos}`;
+					instance.window.style.left = window.innerWidth + "px";
+					diff = ((parseInt(instance.window.style.left) - instance[spos]) / instance.options.show_effect_duration) * 10;
 				}
 
 				else if(direction === "right")
 				{
-					og = Math.max(edge, parseInt(instance.window.style.left));
-					instance.window.style.left = 0 - instance.window.offsetWidth + "px";
-					diff = ((instance.window.offsetWidth + og) / instance.options.show_effect_duration) * 10;
 					pos = "left";						
+					spos = `stack_pos_${pos}`;
+					instance.window.style.left = 0 - instance.window.offsetWidth + "px";
+					diff = ((instance.window.offsetWidth + instance[spos]) / instance.options.show_effect_duration) * 10;
 				}
 			}
 
@@ -2025,7 +2020,7 @@ var Msg = (function()
 
 			function finish()
 			{
-				instance.window.style[pos] = og + "px";
+				instance.window.style[pos] = instance[spos] + "px";
 
 				instance.clear_effect_intervals();
 
@@ -2050,7 +2045,7 @@ var Msg = (function()
 					{
 						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
 
-						if(parseInt(instance.window.style[pos]) <= og) 
+						if(parseInt(instance.window.style[pos]) <= instance[spos]) 
 						{
 							finish();
 						}
@@ -2060,7 +2055,7 @@ var Msg = (function()
 					{
 						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
 
-						if(parseInt(instance.window.style[pos]) >= og) 
+						if(parseInt(instance.window.style[pos]) >= instance[spos]) 
 						{
 							finish();
 						}
@@ -2073,7 +2068,7 @@ var Msg = (function()
 					{
 						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
 
-						if(parseInt(instance.window.style[pos]) >= og) 
+						if(parseInt(instance.window.style[pos]) >= instance[spos]) 
 						{
 							finish();
 						}
@@ -2083,7 +2078,7 @@ var Msg = (function()
 					{
 						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
 
-						if(parseInt(instance.window.style[pos]) <= og) 
+						if(parseInt(instance.window.style[pos]) <= instance[spos]) 
 						{
 							finish();
 						}
@@ -2096,7 +2091,7 @@ var Msg = (function()
 					{
 						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
 
-						if(parseInt(instance.window.style[pos]) <= og) 
+						if(parseInt(instance.window.style[pos]) <= instance[spos]) 
 						{
 							finish();
 						}
@@ -2106,7 +2101,7 @@ var Msg = (function()
 					{
 						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
 
-						if(parseInt(instance.window.style[pos]) >= og) 
+						if(parseInt(instance.window.style[pos]) >= instance[spos]) 
 						{
 							finish();
 						}
@@ -2119,7 +2114,7 @@ var Msg = (function()
 					{
 						instance.window.style[pos] = (parseInt(instance.window.style[pos]) + diff) + "px";
 
-						if(parseInt(instance.window.style[pos]) >= og) 
+						if(parseInt(instance.window.style[pos]) >= instance[spos]) 
 						{
 							finish();
 						}
@@ -2129,7 +2124,7 @@ var Msg = (function()
 					{
 						instance.window.style[pos] = (parseInt(instance.window.style[pos]) - diff) + "px";
 
-						if(parseInt(instance.window.style[pos]) <= og) 
+						if(parseInt(instance.window.style[pos]) <= instance[spos]) 
 						{
 							finish();
 						}
@@ -2142,8 +2137,6 @@ var Msg = (function()
 		instance.slide_out = function(callback) 
 		{
 			instance.clear_effect_intervals();
-
-			instance.effect_ongoing = true;
 			
 			var direction = instance.options.close_effect.split("_")[1];
 
@@ -2837,14 +2830,22 @@ var Msg = (function()
 				{
 					if(p.indexOf("top") !== -1)
 					{
-						var new_top = below.stack_pos_top + below.window.offsetHeight + i.options.sideStack_padding + "px";
-						i.window.style.top = new_top;
+						var new_top = below.stack_pos_top + below.window.offsetHeight + i.options.sideStack_padding;
+
+						if(!i.slide_in_ongoing)
+						{
+							i.window.style.top = new_top + "px";
+						}
 					}
 
 					else if(p.indexOf("bottom") !== -1)
 					{
-						var new_bottom = below.stack_pos_bottom + below.window.offsetHeight + i.options.sideStack_padding + "px";
-						i.window.style.bottom = new_bottom;
+						var new_bottom = below.stack_pos_bottom + below.window.offsetHeight + i.options.sideStack_padding;
+
+						if(!i.slide_in_ongoing)
+						{
+							i.window.style.bottom = new_bottom + "px";
+						}
 					}		
 				}
 
@@ -2852,23 +2853,25 @@ var Msg = (function()
 				{
 					if(p.indexOf("top") !== -1)
 					{
-						i.window.style.top = i.options.edge_padding + "px";
+						var new_top = i.options.edge_padding;
+						i.window.style.top = new_top + "px";
 					}
 
 					else if(p.indexOf("bottom") !== -1)
 					{
-						i.window.style.bottom = i.options.edge_padding + "px";
+						var new_bottom = i.options.edge_padding;
+						i.window.style.bottom = new_bottom + "px";
 					}
 				}
 
 				if(p.indexOf("top") !== -1)
 				{
-					i.stack_pos_top = parseInt(i.window.style.top);
+					i.stack_pos_top = new_top;
 				}
 
 				else if(p.indexOf("bottom") !== -1)
 				{
-					i.stack_pos_bottom = parseInt(i.window.style.bottom);
+					i.stack_pos_bottom = new_bottom;
 				}
 			}
 		}
@@ -2979,14 +2982,22 @@ var Msg = (function()
 				{
 					if(p.indexOf("left") !== -1)
 					{
-						var new_left = below.stack_pos_left + below.window.offsetWidth + i.options.sideStack_padding + "px";
-						i.window.style.left = new_left;
+						var new_left = below.stack_pos_left + below.window.offsetWidth + i.options.sideStack_padding;
+
+						if(!i.slide_in_ongoing)
+						{
+							i.window.style.left = new_left + "px";
+						}
 					}
 
 					else if(p.indexOf("right") !== -1)
 					{
-						var new_right = below.stack_pos_right + below.window.offsetWidth + i.options.sideStack_padding + "px";
-						i.window.style.right = new_right;
+						var new_right = below.stack_pos_right + below.window.offsetWidth + i.options.sideStack_padding;
+
+						if(!i.slide_in_ongoing)
+						{
+							i.window.style.right = new_right + "px";
+						}
 					}		
 				}
 
@@ -2994,23 +3005,25 @@ var Msg = (function()
 				{
 					if(p.indexOf("left") !== -1)
 					{
-						i.window.style.left = i.options.edge_padding + "px";
+						var new_left = i.options.edge_padding;
+						i.window.style.left = new_left + "px";
 					}
 
 					else if(p.indexOf("right") !== -1)
 					{
-						i.window.style.right = i.options.edge_padding + "px";
+						var new_right = i.options.edge_padding;
+						i.window.style.right = new_right + "px";
 					}
 				}
 
 				if(p.indexOf("left") !== -1)
 				{
-					i.stack_pos_left = parseInt(i.window.style.left);
+					i.stack_pos_left = new_left;
 				}
 
 				else if(p.indexOf("right") !== -1)
 				{
-					i.stack_pos_right = parseInt(i.window.style.right);
+					i.stack_pos_right = new_right;
 				}								
 			}
 		}
@@ -3056,7 +3069,7 @@ var Msg = (function()
 
 		instance.fix_stacks = function()
 		{
-			if(instance.is_open() && !instance.effect_ongoing)
+			if(instance.is_open() && !instance.slide_in_ongoing)
 			{
 				instance.fix_vStack();
 				instance.fix_hStack();
