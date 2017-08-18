@@ -471,7 +471,7 @@ function pop(position)
         var enable_progressbar = false;
     }
 
-    var msg = Msg(
+    pupmsg = Msg(
     {
         class: color,
         enable_overlay: false,
@@ -494,17 +494,19 @@ function pop(position)
         on_click: function(instance)
         {
             show_options(instance);
+        },
+        after_close: function(instance)
+        {
+            console.log("popup closed");
         }
     });
 
     pops.push(msg);
 
-    msg.show(message);
-
-    if(enable_titlebar)
+    pupmsg.show([title, message], function()
     {
-        msg.set_title(title);
-    }
+        console.log("popup show callback");
+    });
 }
 
 function show_options(popup)
