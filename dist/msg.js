@@ -1,4 +1,4 @@
-/* Msg v7.0.1 https://github.com/madprops/Msg */
+/* Msg v7.1.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -108,7 +108,7 @@ var Msg = (function()
 					if(instance.options.class === undefined) instance.options.class = "black";
 					if(instance.options.content_class === undefined) instance.options.content_class = "snackbar";
 					if(instance.options.position === undefined) instance.options.position = "bottom";
-					if(instance.options.edge_padding === undefined) instance.options.edge_padding = 0;
+					if(instance.options.edge_padding_y === undefined) instance.options.edge_padding_y = 0;
 					if(instance.options.window_min_width === undefined) instance.options.window_min_width = "25em";
 					if(instance.options.enable_inner_x === undefined) instance.options.enable_inner_x = false;
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
@@ -408,14 +408,29 @@ var Msg = (function()
 				instance.options.reverse_autoclose_progressbar = false;
 			}
 
-			if(instance.options.edge_padding === undefined)
+			if(instance.options.edge_padding_x === undefined)
 			{
-				instance.options.edge_padding = 20;
+				instance.options.edge_padding_x = 20;
 			}
 
 			else
 			{
-				instance.options.edge_padding = parseInt(instance.options.edge_padding);
+				instance.options.edge_padding_x = parseInt(instance.options.edge_padding_x);
+			}
+
+			if(instance.options.edge_padding_y === undefined)
+			{
+				instance.options.edge_padding_y = 20;
+			}
+
+			else
+			{
+				instance.options.edge_padding_y = parseInt(instance.options.edge_padding_y);
+			}
+
+			if(instance.options.sideStack_padding === undefined)
+			{
+				instance.options.sideStack_padding = 20;
 			}
 
 			if(instance.options.sideStack_padding === undefined)
@@ -951,12 +966,13 @@ var Msg = (function()
 			`;
 
 			var p = instance.options.position;
-			var edge = instance.options.edge_padding;
+			var edge_x = instance.options.edge_padding_x;
+			var edge_y = instance.options.edge_padding_y;
 
 			if(p === "top")
 			{
 				var win_x = "left:50%;";
-				var win_y = `top:${edge}px;`;
+				var win_y = `top:${edge_y}px;`;
 				var win_trans = "transform:translateX(-50%);";
 
 				instance.vStackable = true;
@@ -966,7 +982,7 @@ var Msg = (function()
 			else if(p === "bottom")
 			{
 				var win_x = "left:50%;";
-				var win_y = `bottom:${edge}px;`;
+				var win_y = `bottom:${edge_y}px;`;
 				var win_trans = "transform:translateX(-50%);";
 
 				instance.vStackable = true;
@@ -975,7 +991,7 @@ var Msg = (function()
 
 			else if(p === "left")
 			{
-				var win_x = `left:${edge}px;`;
+				var win_x = `left:${edge_x}px;`;
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
 
@@ -985,7 +1001,7 @@ var Msg = (function()
 
 			else if(p === "right")
 			{
-				var win_x = `right:${edge}px;`;
+				var win_x = `right:${edge_x}px;`;
 				var win_y = "top:50%;";
 				var win_trans = "transform:translateY(-50%);";
 
@@ -995,8 +1011,8 @@ var Msg = (function()
 
 			else if(p === "topleft")
 			{
-				var win_x = `left:${edge}px;`;
-				var win_y = `top:${edge}px;`;
+				var win_x = `left:${edge_x}px;`;
+				var win_y = `top:${edge_y}px;`;
 				var win_trans = "";
 
 				instance.vStackable = true;
@@ -1005,8 +1021,8 @@ var Msg = (function()
 
 			else if(p === "topright")
 			{
-				var win_x = `right:${edge}px;`;
-				var win_y = `top:${edge}px;`;
+				var win_x = `right:${edge_x}px;`;
+				var win_y = `top:${edge_y}px;`;
 				var win_trans = "";
 
 				instance.vStackable = true;
@@ -1015,8 +1031,8 @@ var Msg = (function()
 
 			else if(p === "bottomleft")
 			{
-				var win_x = `left:${edge}px;`;
-				var win_y = `bottom:${edge}px;`;
+				var win_x = `left:${edge_x}px;`;
+				var win_y = `bottom:${edge_y}px;`;
 				var win_trans = "";
 
 				instance.vStackable = true;
@@ -1025,8 +1041,8 @@ var Msg = (function()
 
 			else if(p === "bottomright")
 			{
-				var win_x = `right:${edge}px;`;
-				var win_y = `bottom:${edge}px;`;
+				var win_x = `right:${edge_x}px;`;
+				var win_y = `bottom:${edge_y}px;`;
 				var win_trans = "";
 
 				instance.vStackable = true;
@@ -1851,7 +1867,6 @@ var Msg = (function()
 			instance.slide_direction = direction;
 
 			var p = instance.options.position;
-			var edge = instance.options.edge_padding;
 
 			var pos = false;
 			var spos = false;
@@ -2144,7 +2159,6 @@ var Msg = (function()
 			var direction = instance.options.close_effect.split("_")[1];
 
 			var p = instance.options.position;
-			var edge = instance.options.edge_padding;
 
 			var pos = false;
 			var og = false;
@@ -2690,7 +2704,7 @@ var Msg = (function()
 
 							if(sp !== undefined)
 							{
-								if((sp > i.options.edge_padding + 2) || (sp < i.options.edge_padding - 2))
+								if((sp > i.options.edge_padding_x + 2) || (sp < i.options.edge_padding_x - 2))
 								{
 									continue;
 								}
@@ -2801,7 +2815,7 @@ var Msg = (function()
 				{
 					if(p.indexOf("top") !== -1)
 					{
-						var new_top = instance.options.edge_padding;
+						var new_top = instance.options.edge_padding_y;
 
 						if(!instance.slide_in_ongoing || (instance.slide_direction !== "up" && instance.slide_direction !== "down"))
 						{
@@ -2811,7 +2825,7 @@ var Msg = (function()
 
 					else if(p.indexOf("bottom") !== -1)
 					{
-						var new_bottom = instance.options.edge_padding;
+						var new_bottom = instance.options.edge_padding_y;
 
 						if(!instance.slide_in_ongoing || (instance.slide_direction !== "up" && instance.slide_direction !== "down"))
 						{
@@ -2874,7 +2888,7 @@ var Msg = (function()
 				{
 					if(p.indexOf("top") !== -1)
 					{
-						var new_top = i.options.edge_padding;
+						var new_top = i.options.edge_padding_y;
 
 						if(!i.slide_in_ongoing || (i.slide_direction !== "up" && i.slide_direction !== "down"))
 						{
@@ -2884,7 +2898,7 @@ var Msg = (function()
 
 					else if(p.indexOf("bottom") !== -1)
 					{
-						var new_bottom = i.options.edge_padding;
+						var new_bottom = i.options.edge_padding_y;
 
 						if(!i.slide_in_ongoing || (i.slide_direction !== "up" && i.slide_direction !== "down"))
 						{
@@ -2981,7 +2995,7 @@ var Msg = (function()
 				{
 					if(p.indexOf("left") !== -1)
 					{
-						var new_left = instance.options.edge_padding;
+						var new_left = instance.options.edge_padding_x;
 
 						if(!instance.slide_in_ongoing || (instance.slide_direction !== "left" && instance.slide_direction !== "right"))
 						{
@@ -2991,7 +3005,7 @@ var Msg = (function()
 
 					else if(p.indexOf("right") !== -1)
 					{
-						var new_right = instance.options.edge_padding;
+						var new_right = instance.options.edge_padding_x;
 
 						if(!instance.slide_in_ongoing || (instance.slide_direction !== "left" && instance.slide_direction !== "right"))
 						{
@@ -3054,7 +3068,7 @@ var Msg = (function()
 				{
 					if(p.indexOf("left") !== -1)
 					{
-						var new_left = i.options.edge_padding;
+						var new_left = i.options.edge_padding_x;
 
 						if(!i.slide_in_ongoing || (i.slide_direction !== "left" && i.slide_direction !== "right"))
 						{
@@ -3064,7 +3078,7 @@ var Msg = (function()
 
 					else if(p.indexOf("right") !== -1)
 					{
-						var new_right = i.options.edge_padding;
+						var new_right = i.options.edge_padding_x;
 
 						if(!i.slide_in_ongoing || (i.slide_direction !== "left" && i.slide_direction !== "right"))
 						{
@@ -3138,11 +3152,12 @@ var Msg = (function()
 		instance.set_default_positions = function()
 		{
 			var p = instance.options.position;
-			var edge = instance.options.edge_padding;
+			var edge_x = instance.options.edge_padding_x;
+			var edge_y = instance.options.edge_padding_y;
 
 			if(p === "top")
 			{
-				instance.stack_pos_top = edge;
+				instance.stack_pos_top = edge_y;
 				instance.stack_pos_bottom = undefined;
 				instance.stack_pos_left = undefined;
 				instance.stack_pos_right = undefined;
@@ -3151,7 +3166,7 @@ var Msg = (function()
 			else if(p === "bottom")
 			{
 				instance.stack_pos_top = undefined;
-				instance.stack_pos_bottom = edge;
+				instance.stack_pos_bottom = edge_y;
 				instance.stack_pos_left = undefined;
 				instance.stack_pos_right = undefined;
 			}
@@ -3160,7 +3175,7 @@ var Msg = (function()
 			{
 				instance.stack_pos_top = undefined;
 				instance.stack_pos_bottom = undefined;
-				instance.stack_pos_left = edge;
+				instance.stack_pos_left = edge_x;
 				instance.stack_pos_right = undefined;
 			}
 
@@ -3169,39 +3184,39 @@ var Msg = (function()
 				instance.stack_pos_top = undefined;
 				instance.stack_pos_bottom = undefined;
 				instance.stack_pos_left = undefined;
-				instance.stack_pos_right = edge;
+				instance.stack_pos_right = edge_x;
 			}
 
 			else if(p === "topleft")
 			{
-				instance.stack_pos_top = edge;
+				instance.stack_pos_top = edge_y;
 				instance.stack_pos_bottom = undefined;
-				instance.stack_pos_left = edge;
+				instance.stack_pos_left = edge_x;
 				instance.stack_pos_right = undefined;
 			}
 
 			else if(p === "topright")
 			{
-				instance.stack_pos_top = edge;
+				instance.stack_pos_top = edge_y;
 				instance.stack_pos_bottom = undefined;
 				instance.stack_pos_left = undefined;
-				instance.stack_pos_right = edge;
+				instance.stack_pos_right = edge_x;
 			}
 
 			else if(p === "bottomleft")
 			{
 				instance.stack_pos_top = undefined;
-				instance.stack_pos_bottom = edge;
-				instance.stack_pos_left = edge;
+				instance.stack_pos_bottom = edge_y;
+				instance.stack_pos_left = edge_x;
 				instance.stack_pos_right = undefined;
 			}
 
 			else if(p === "bottomright")
 			{
 				instance.stack_pos_top = undefined;
-				instance.stack_pos_bottom = edge;
+				instance.stack_pos_bottom = edge_y;
 				instance.stack_pos_left = undefined;
-				instance.stack_pos_right = edge;
+				instance.stack_pos_right = edge_x;
 			}
 
 			else

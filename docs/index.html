@@ -14,9 +14,9 @@
         
         <script src='screenfull.js?v=1'></script>
 
-        <script src='msg.js?v=86'></script>
+        <script src='msg.js?v=87'></script>
 
-        <script src='base.js?v=51'></script>
+        <script src='base.js?v=52'></script>
 
     </head>
 
@@ -59,10 +59,14 @@
         <br><br><br>
 
         <span class='unselectable'>
-
-        edge_padding: &nbsp; <input id='input_edge_padding' type='text' value='20'>
+        
+        edge_padding_x: &nbsp; <input id='input_edge_padding_x' type='text' value='20'>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        edge_padding_y: &nbsp; <input id='input_edge_padding_y' type='text' value='20'>
+
+        <br><br>
 
         sideStack: &nbsp; 
 
@@ -78,17 +82,6 @@
 
         <br><br>
 
-        autoclose: &nbsp; <input id='input_autoclose' type='checkbox' checked>
-
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-        sideStack_collapse: &nbsp; <input id='input_sideStack_collapse' type='checkbox' checked>
-
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-        enable_titlebar: &nbsp; <input id='input_enable_titlebar' type='checkbox' checked>
-
-        <br><br>
 
         show_effect: &nbsp; 
 
@@ -116,6 +109,18 @@
 
         <br><br>
 
+        autoclose: &nbsp; <input id='input_autoclose' type='checkbox' checked>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        sideStack_collapse: &nbsp; <input id='input_sideStack_collapse' type='checkbox' checked>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        enable_titlebar: &nbsp; <input id='input_enable_titlebar' type='checkbox' checked>
+
+        <br><br>
+
         <span class='clicky' onclick='pop("center")'>position:center</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("top")'>position:top</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("bottom")'>position:bottom</span>&nbsp;&nbsp;&nbsp;
@@ -123,8 +128,8 @@
         <span class='clicky' onclick='pop("right")'>position:right</span>&nbsp;&nbsp;&nbsp;
         <br><br>
         <span class='clicky' onclick='pop("topleft")'>position:topleft</span>&nbsp;&nbsp;&nbsp;
-        <span class='clicky' onclick='pop("topright")'>position:topright</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("bottomleft")'>position:bottomleft</span>&nbsp;&nbsp;&nbsp;
+        <span class='clicky' onclick='pop("topright")'>position:topright</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("bottomright")'>position:bottomright</span>
 
         <br><br>
@@ -161,7 +166,7 @@
     class: "black",
     content_class: "snackbar",
     position: "bottom",
-    edge_padding: 0,
+    edge_padding_y: 0,
     window_min_width: "25em",
     enable_inner_x: false,
     enable_overlay: false,
@@ -478,7 +483,9 @@ msg2.show(["Window Example", some_text]);
 
         <i>window_unselectable (Default: false)</i>: If true, it will make the window's content unselectable. For example by dragging with the mouse.<br><br>
 
-        <i>edge_padding (Default: 20)</i>: The padding in pixels from the edge of the screen the window will have if it's not of position "center".<br><br>
+        <i>edge_padding_x (Default: 20)</i>: The horizontal padding in pixels from the edge of the screen. Some positions don't support this.<br><br>
+
+        <i>edge_padding_y (Default: 20)</i>: The vertical padding in pixels from the edge of the screen. Some positions don't support this.<br><br>
 
         <i>sideStack (Default: "vertical")</i>: Either "vertical", "horizontal" or "none". This is what allows popup windows to stack on top of each other vertically or appear side by side horizontally.<br><br>
         
@@ -743,7 +750,7 @@ msg_test.show("Domo Arigato");
         instance.options.class = "black";<br>
         instance.options.content_class = "snackbar";<br>
         instance.options.position = "bottom";<br>
-        instance.options.edge_padding = 0;<br>
+        instance.options.edge_padding_y = 0;<br>
         instance.options.window_min_width = "25em";<br>
         instance.options.enable_inner_x = false;<br>
         instance.options.enable_overlay = false;<br>
