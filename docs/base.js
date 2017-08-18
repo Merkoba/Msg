@@ -44,6 +44,7 @@ var msg7 = Msg(
 
 var msg_autoclose = Msg(
 {
+    class:"red",
     autoclose:true,
     enable_inner_x:false,
     close_on_overlay_click:false,
