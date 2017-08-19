@@ -509,8 +509,15 @@ function show_options(popup)
 
     for(key of keys)
     {
+        var prop = popup.options[key];
+
+        if(typeof prop === "string")
+        {
+            prop = `"${prop}"`;
+        }
+        
         s += key + ": ";
-        s += popup.options[key] + "<br><br>";
+        s += prop + "<br><br>";
     }
 
     msg.show(s);
