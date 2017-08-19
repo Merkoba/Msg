@@ -431,25 +431,25 @@ function pop(position)
 
     if(color === "green")
     {
-        var message = "Click me to know about my options.";
+        var message = "Your popup is ready.";
         var title = "Success";
     }
 
     else if(color === "blue")
     {
-        var message = "Click me to know about my options.";
+        var message = "You can click the popups.";
         var title = "Reminder";        
     }
 
     else if(color === "red")
     {
-        var message = "Click me to know about my options.";
+        var message = "Your ice cream is melting.";
         var title = "Warning";        
     }
 
     else if(color === "black")
     {
-        var message = "Click me to know about my options.";
+        var message = "Try giving me a star on GitHub!";
         var title = "Tip";        
     }
 
@@ -474,24 +474,20 @@ function pop(position)
     pupmsg = Msg(
     {
         class: color,
-        enable_overlay: false,
+        preset:"popup",
         position: position,
         autoclose: autoclose,
-        autoclose_delay: 5000,
+        autoclose_delay: 5000,        
         enable_progressbar: enable_progressbar,
-        persistent: false,
         sideStack: sideStack,
         sideStack_collapse:sideStack_collapse,
         enable_titlebar:enable_titlebar,
         edge_padding_x:document.getElementById('input_edge_padding_x').value,
         edge_padding_y:document.getElementById('input_edge_padding_y').value,
         sideStack_padding:document.getElementById('input_sideStack_padding').value,
-        zStack_level: 1,
-        window_cursor:"pointer",
-        window_unselectable:true,
         show_effect:show_effect,
         close_effect:close_effect,
-        lock: false,
+        window_cursor:"pointer",
         on_click: function(instance)
         {
             show_options(instance);

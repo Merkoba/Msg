@@ -1,4 +1,4 @@
-/* Msg v7.1.1 https://github.com/madprops/Msg */
+/* Msg v7.1.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -88,6 +88,7 @@ var Msg = (function()
 					if(instance.options.position === undefined) instance.options.position = "bottomright";
 					if(instance.options.persistent === undefined) instance.options.persistent = false;
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
+					if(instance.options.window_width === undefined) instance.options.window_width = "460px";
 					if(instance.options.lock === undefined) instance.options.lock = false;
 				}
 
@@ -95,11 +96,12 @@ var Msg = (function()
 				{
 					if(instance.options.class === undefined) instance.options.class = "green";
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
-					if(instance.options.position === undefined) instance.options.position = "bottomright";					
+					if(instance.options.position === undefined) instance.options.position = "bottomright";
 					if(instance.options.autoclose === undefined) instance.options.autoclose = true;
 					if(instance.options.enable_progressbar === undefined) instance.options.enable_progressbar = true;
 					if(instance.options.persistent === undefined) instance.options.persistent = false;
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
+					if(instance.options.window_width === undefined) instance.options.window_width = "460px";
 					if(instance.options.lock === undefined) instance.options.lock = false;
 				}
 
@@ -109,7 +111,7 @@ var Msg = (function()
 					if(instance.options.content_class === undefined) instance.options.content_class = "snackbar";
 					if(instance.options.position === undefined) instance.options.position = "bottom";
 					if(instance.options.edge_padding_y === undefined) instance.options.edge_padding_y = 0;
-					if(instance.options.window_min_width === undefined) instance.options.window_min_width = "25em";
+					if(instance.options.window_min_width === undefined) instance.options.window_min_width = "600px";
 					if(instance.options.enable_inner_x === undefined) instance.options.enable_inner_x = false;
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
 					if(instance.options.autoclose === undefined) instance.options.autoclose = true;

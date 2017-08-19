@@ -14,9 +14,9 @@
         
         <script src='screenfull.js?v=1'></script>
 
-        <script src='msg.js?v=88'></script>
+        <script src='msg.js?v=89'></script>
 
-        <script src='base.js?v=52'></script>
+        <script src='base.js?v=53'></script>
 
     </head>
 
@@ -139,6 +139,7 @@
         <blockquote><pre><code>var msg_pop = Msg(
 {
     class: "green",
+    window_width: "460px";
     enable_overlay: false,
     position: "bottomright",
     autoclose: true,
@@ -167,7 +168,7 @@
     content_class: "snackbar",
     position: "bottom",
     edge_padding_y: 0,
-    window_min_width: "25em",
+    window_min_width: "600px",
     enable_inner_x: false,
     enable_overlay: false,
     autoclose: true,
@@ -734,6 +735,7 @@ msg_test.show("Domo Arigato");
         instance.options.position = "bottomright";<br>
         instance.options.persistent = false;<br>
         instance.options.zStack_level = 1;<br>
+        instance.options.window_width = "460px";<br>
         instance.options.lock = false;<br>
 
                 <br><i><b>preset: "popup_autoclose"</b></i><br>
@@ -744,6 +746,7 @@ msg_test.show("Domo Arigato");
         instance.options.enable_progressbar = true;<br>
         instance.options.persistent = false;<br>
         instance.options.zStack_level = 1;<br>
+        instance.options.window_width = "460px";<br>
         instance.options.lock = false;<br>
 
                 <br><i><b>preset: "snackbar"</b></i><br>
@@ -751,7 +754,7 @@ msg_test.show("Domo Arigato");
         instance.options.content_class = "snackbar";<br>
         instance.options.position = "bottom";<br>
         instance.options.edge_padding_y = 0;<br>
-        instance.options.window_min_width = "25em";<br>
+        instance.options.window_min_width = "600px";<br>
         instance.options.enable_inner_x = false;<br>
         instance.options.enable_overlay = false;<br>
         instance.options.autoclose = true;<br>

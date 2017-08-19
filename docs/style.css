@@ -149,6 +149,7 @@ select
 .snack_msg
 {
     padding-right: 200px;
+    float:left;
 }
 
 .snack_btn
@@ -157,6 +158,7 @@ select
     text-transform: uppercase;
     letter-spacing:3px;
     cursor:pointer;
+    float:right;
 }
 
 .snack_btn2
@@ -165,6 +167,7 @@ select
     text-transform: uppercase;
     letter-spacing:3px;
     cursor:pointer;
+    float:right;
 }
 
 #spinner
