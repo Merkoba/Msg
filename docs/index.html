@@ -28,7 +28,24 @@
         
         A javascript library to create and manage highly customizable modal windows and popup messages.<br><br>
 
-        <h2>Modal</h2>
+        <a href="#modal">Modal</a>&nbsp;&nbsp;&nbsp;
+        <a href="#popups">Popups</a>&nbsp;&nbsp;&nbsp;
+        <a href="#snackbars">Snackbars</a>&nbsp;&nbsp;&nbsp;
+        <a href="#installation">Installation</a>&nbsp;&nbsp;&nbsp;
+        <a href="#basicusage">Basic Usage</a>
+
+        <br><br>
+
+        <a href="#structure">Structure</a>&nbsp;&nbsp;&nbsp;
+        <a href="#styling">Styling</a>&nbsp;&nbsp;&nbsp;
+        <a href="#options">Options</a>&nbsp;&nbsp;&nbsp;
+        <a href="#properties">Properties</a>&nbsp;&nbsp;&nbsp;
+        <a href="#methods">Methods</a>&nbsp;&nbsp;&nbsp;
+        <a href="#presets">Presets</a>
+
+        <br><br>
+
+        <a name="modal"></a><h2>Modal</h2>
 
         Modal windows with different options and appearance can be created.
 
@@ -50,7 +67,7 @@
 
         </span>
 
-        <br><br><h2>Popups</h2>
+        <br><br><a name="popups"></a><h2>Popups</h2>
 
         You can create stackable popup messages using certain options.<br><br>
 
@@ -159,7 +176,7 @@
 });
         </code></pre></blockquote>   
 
-        <h2>Snackbars</h2>
+        <a name="snackbars"></a><h2>Snackbars</h2>
 
         <span class='clicky' onclick='snack()'>Open Snackbar</span>&nbsp;&nbsp;&nbsp;
 
@@ -189,7 +206,7 @@
 });
         </code></pre></blockquote></i>                    
 
-        <h2>Installation</h2>
+        <a name="installation"></a><h2>Installation</h2>
 
         <a target='_blank' href='https://github.com/madprops/Msg'>Get the code here</a>
 
@@ -212,7 +229,7 @@
         <i><blockquote><pre><code>&lt;script src="node_modules/msg-modal/dist/msg.min.js"&gt;&lt;/script&gt;
         </code></pre></blockquote></i>
 
-        <h2>Basic Usage</h2>
+        <a name="basicusage"></a><h2>Basic Usage</h2>
 
         To use, first make an instance:<br>
         <i><blockquote><pre><code>var msg = Msg();</code></pre></blockquote></i>
@@ -261,7 +278,7 @@ remind("Water the trees.");
 
         <br><br>
 
-        <h2>Structure</h2>
+        <a name="structure"></a><h2>Structure</h2>
 
         Four elements are created with the following ids:<br><br>
         "Msg-container-id" (with classes: "Msg-container" and "Msg-container-class")<br>
@@ -312,7 +329,7 @@ remind("Water the trees.");
 
         <br><span class='clicky' onclick='msg3.show(s3)'>Stack Demo</span><br>        
 
-        <br><h2>Styling</h2>
+        <br><a name="styling"></a><h2>Styling</h2>
 
         You can set custom ids and classes via options.<br><br>
 
@@ -415,7 +432,7 @@ msg2.show(["Window Example", some_text]);
 
         </span>       
 
-        <br><br><h2>Options</h2>
+        <br><br><a name="options"></a><h2>Options</h2>
         The following options can be passed inside an object when creating an instance:<br><br>
         
         <i>id (Default: Number of instances)</i>: The id of the instance. For example, id:"foo".<br><br>
@@ -622,7 +639,7 @@ msg_test.show("Domo Arigato");
 
         <br><br>
 
-        <h2>Properties</h2>
+        <a name="properties"></a><h2>Properties</h2>
         
         <i>instance.container</i>: The Msg-container html element.<br><br>
         
@@ -648,7 +665,7 @@ msg_test.show("Domo Arigato");
         
         <i>instance.options</i>: The options object of the instance.<br>
 
-        <br><h2>Methods</h2>
+        <br><a name="methods"></a><h2>Methods</h2>
         
         <i>instance.show(html)</i>: Opens a window with the received string or html element as its content and puts it at the top of the zStack.<br><br>  
 
@@ -727,7 +744,7 @@ msg_test.show("Domo Arigato");
         
         <i>instance.destroy_all()</i>: Removes the html elements of all the instances.<br><br>
 
-        <h2>Presets</h2>
+        <a name="presets"></a><h2>Presets</h2>
 
         <i><b>preset: "popup"</b></i><br>
         instance.options.class = "green";<br>
