@@ -462,9 +462,12 @@ function pop(position)
     var autoclose = document.getElementById('input_autoclose').checked;
     var sideStack_collapse = document.getElementById('input_sideStack_collapse').checked;
     var enable_titlebar = document.getElementById('input_enable_titlebar').checked;
-
     var show_effect = document.getElementById('select_show_effect').value;
     var close_effect = document.getElementById('select_close_effect').value;
+    var window_x = document.getElementById('select_window_x').value;
+    var overlay_x = document.getElementById('select_overlay_x').value;
+    var enable_overlay = document.getElementById('input_enable_overlay').checked;
+    var lock = document.getElementById('input_lock').checked;
 
     if(autoclose)
     {
@@ -482,8 +485,12 @@ function pop(position)
         preset:"popup",
         position: position,
         autoclose: autoclose,
-        autoclose_delay: 5000,        
+        autoclose_delay: 5000,
+        window_x:window_x,
+        overlay_x:overlay_x,
+        enable_overlay:enable_overlay,  
         enable_progressbar: enable_progressbar,
+        lock:lock,
         sideStack: sideStack,
         sideStack_collapse:sideStack_collapse,
         enable_titlebar:enable_titlebar,

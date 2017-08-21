@@ -1,4 +1,4 @@
-/* Msg v7.2.0 https://github.com/madprops/Msg */
+/* Msg v7.3.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -13,45 +13,47 @@ var Msg = (function()
 	.Msg-titlebar{background-color:#c8c8c8;color:black}
 	.Msg-progressbar{background-color:#c8c8c8}
 	.Msg-inner-x{background-color:white;color:#363636}
-	.Msg-inner-x:hover{background-color:#cacaca}
-	.Msg-outer-x{color:white}
-	.Msg-outer-x:hover{background-color:#686868}		
+	.Msg-window-floating-x{background-color:#3a3a3a;color:white}
+	.Msg-window-floating-x:hover{background-color:#2a2a2a}
+	.Msg-window-inner-x:hover{background-color:#cacaca}
+	.Msg-overlay-x{color:white}
+	.Msg-overlay-x:hover{background-color:#686868}		
 
 	.Msg-overlay-blue{background-color:rgba(101, 107, 124, 0.7)}
 	.Msg-window-blue{background-color:#4f84b8;color:white}
 	.Msg-titlebar-blue{background-color:#43729f;color:white}
 	.Msg-progressbar-blue{background-color:#43729f}
-	.Msg-inner-x-blue{background-color:#4f84b8;color:white}
-	.Msg-inner-x-blue:hover{background-color:#476b8f}
-	.Msg-outer-x-blue{color:white}
-	.Msg-outer-x-blue:hover{background-color:#747484}	
+	.Msg-window-inner-x-blue{background-color:#4f84b8;color:white}
+	.Msg-window-inner-x-blue:hover{background-color:#476b8f}
+	.Msg-overlay-x-blue{color:white}
+	.Msg-overlay-x-blue:hover{background-color:#747484}	
 	
 	.Msg-overlay-red{background-color:rgba(104, 64, 64, 0.7)}
 	.Msg-window-red{background-color:#ca4e4e;color:white}
 	.Msg-titlebar-red{background-color:#af3f3f;color:white}
 	.Msg-progressbar-red{background-color:#af3f3f}
-	.Msg-inner-x-red{background-color:#ca4e4e;color:white}
-	.Msg-inner-x-red:hover{background-color:#9d4d4d}
-	.Msg-outer-x-red{color:white}
-	.Msg-outer-x-red:hover{background-color:#805e5e}	
+	.Msg-window-inner-x-red{background-color:#ca4e4e;color:white}
+	.Msg-window-inner-x-red:hover{background-color:#9d4d4d}
+	.Msg-overlay-x-red{color:white}
+	.Msg-overlay-x-red:hover{background-color:#805e5e}	
 	
 	.Msg-overlay-green{background-color:rgba(121, 159, 133, 0.7)}
 	.Msg-window-green{background-color:#58a564;color:white}
 	.Msg-titlebar-green{background-color:#52935c;color:white}
 	.Msg-progressbar-green{background-color:#52935c}
-	.Msg-inner-x-green{background-color:#58a564;color:white}
-	.Msg-inner-x-green:hover{background-color:#4e8456}
-	.Msg-outer-x-green{color:white}
-	.Msg-outer-x-green:hover{background-color:#7c957c}	
+	.Msg-window-inner-x-green{background-color:#58a564;color:white}
+	.Msg-window-inner-x-green:hover{background-color:#4e8456}
+	.Msg-overlay-x-green{color:white}
+	.Msg-overlay-x-green:hover{background-color:#7c957c}	
 	
 	.Msg-overlay-black{background-color:rgba(0, 0, 0, 0.7)}
 	.Msg-window-black{background-color:#2a2a2a;color:white}
 	.Msg-titlebar-black{background-color:#3c3c3c;color:white}
 	.Msg-progressbar-black{background-color:#3c3c3c}
-	.Msg-inner-x-black{background-color:#2a2a2a;color:white}
-	.Msg-inner-x-black:hover{background-color:#424242}
-	.Msg-outer-x-black{color:white}
-	.Msg-outer-x-black:hover{background-color:#686868}
+	.Msg-window-inner-x-black{background-color:#2a2a2a;color:white}
+	.Msg-window-inner-x-black:hover{background-color:#424242}
+	.Msg-overlay-x-black{color:white}
+	.Msg-overlay-x-black:hover{background-color:#686868}
 
 	.Msg-content-snackbar{padding:1.2em !important}
 
@@ -112,7 +114,7 @@ var Msg = (function()
 					if(instance.options.position === undefined) instance.options.position = "bottom";
 					if(instance.options.edge_padding_y === undefined) instance.options.edge_padding_y = 0;
 					if(instance.options.window_min_width === undefined) instance.options.window_min_width = "600px";
-					if(instance.options.enable_inner_x === undefined) instance.options.enable_inner_x = false;
+					if(instance.options.window_x === undefined) instance.options.window_x = "none";
 					if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false;
 					if(instance.options.autoclose === undefined) instance.options.autoclose = true;
 					if(instance.options.autoclose_delay === undefined) instance.options.autoclose_delay = 10000;
@@ -160,24 +162,14 @@ var Msg = (function()
 				instance.options.enable_titlebar = false;
 			}
 
-			if(instance.options.enable_inner_x === undefined)
+			if(instance.options.window_x === undefined)
 			{
-				instance.options.enable_inner_x = true;
+				instance.options.window_x = "inner_right";
 			}
 
-			if(instance.options.inner_x_position === undefined)
+			if(instance.options.overlay_x === undefined)
 			{
-				instance.options.inner_x_position = "right";
-			}
-
-			if(instance.options.enable_outer_x === undefined)
-			{
-				instance.options.enable_outer_x = false;
-			}
-
-			if(instance.options.outer_x_position === undefined)
-			{
-				instance.options.outer_x_position = "right";
+				instance.options.overlay_x = "none";
 			}
 
 			if(instance.options.close_on_escape === undefined)
@@ -950,9 +942,9 @@ var Msg = (function()
 			z-index:-1000;
 			`;
 
-			styles.outer_x = `
+			styles.overlay_x = `
 			cursor:pointer;
-			float:${instance.options.outer_x_position};
+			float:${instance.options.overlay_x};
 			font-size:28px;
 			font-family:sans-serif;
 			-webkit-touch-callout:none;
@@ -1085,7 +1077,6 @@ var Msg = (function()
 			max-width:${instance.options.window_max_width};
 			max-height:${instance.options.window_max_height};
 			${win_trans}
-			overflow:hidden;
 			outline:0;
 			${wun}
 			cursor:${instance.options.window_cursor};
@@ -1111,7 +1102,7 @@ var Msg = (function()
 			font-family:sans-serif;    		
       		`;
 
-      		if(instance.options.inner_x_position === "left")
+      		if(instance.options.window_x.indexOf("left") !== -1)
       		{
       			var ix_order = "1";
       			var ix_margin = "";
@@ -1123,7 +1114,7 @@ var Msg = (function()
       			var ix_margin = "auto";
       		}
 
-			styles.inner_x = `
+			styles.window_inner_x = `
 			cursor:pointer;
 			margin-left:${ix_margin};
 			font-size:24px;
@@ -1142,6 +1133,42 @@ var Msg = (function()
 			padding-bottom:0.2em;
 			`;
 
+			if(instance.options.window_x.indexOf("left") !== -1)
+			{
+				var fs = "left:0px;"
+				var fms = "margin-left:-10px;";
+			}
+
+			else
+			{
+				var fs = "right:0px;";
+				var fms = "margin-right:-10px;";
+			}
+
+			styles.window_floating_x = `
+			cursor:pointer;
+			position:absolute;		
+			top:0px;
+			${fs}
+			margin-top: -10px;
+			${fms}
+			font-size:20px;	
+			font-family:sans-serif;
+			border: 2px solid #9f9f9f;
+			border-radius:30px;
+			height:30px;
+			width:30px;
+			line-height:27px;
+			text-align:center;
+			-webkit-touch-callout:none;
+			-webkit-user-select:none;
+			-khtml-user-select:none;
+			-moz-user-select:none;
+			-ms-user-select:none;
+			user-select:none;
+			overflow:hidden;
+			`;
+
 			styles.content_container = `
 			overflow-y:auto;
 			overflow-x:hidden;
@@ -1150,7 +1177,7 @@ var Msg = (function()
 			margin:0;
 			`;
 
-			if(instance.options.enable_titlebar || instance.options.enable_inner_x)
+			if(instance.options.enable_titlebar || (instance.options.window_x.indexOf("inner") !== -1))
 			{
 				if(instance.options.enable_titlebar)
 				{
@@ -1202,11 +1229,12 @@ var Msg = (function()
 
 			var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class;
 			var overlay_class = (instance.options.overlay_class !== undefined) ? instance.options.overlay_class : instance.options.class;
-			var outer_x_class = (instance.options.outer_x_class !== undefined) ? instance.options.outer_x_class : instance.options.class;
+			var overlay_x_class = (instance.options.overlay_x_class !== undefined) ? instance.options.overlay_x_class : instance.options.class;
 			var window_class = (instance.options.window_class !== undefined) ? instance.options.window_class : instance.options.class;
 			var topbar_class = (instance.options.topbar_class !== undefined) ? instance.options.topbar_class : instance.options.class;
 			var titlebar_class = (instance.options.titlebar_class !== undefined) ? instance.options.titlebar_class : instance.options.class;
-			var inner_x_class = (instance.options.inner_x_class !== undefined) ? instance.options.inner_x_class : instance.options.class;
+			var window_inner_x_class = (instance.options.window_inner_x_class !== undefined) ? instance.options.window_inner_x_class : instance.options.class;
+			var window_floating_x_class = (instance.options.window_floating_x_class !== undefined) ? instance.options.window_floating_x_class : instance.options.class;
 			var content_container_class = (instance.options.content_container_class !== undefined) ? instance.options.content_container_class : instance.options.class;
 			var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class;
 			var progressbar_container_class = (instance.options.progressbar_container_class !== undefined) ? instance.options.progressbar_container_class : instance.options.class;
@@ -1214,11 +1242,12 @@ var Msg = (function()
 			
 			container_class = container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-container-${w}`).join(" ");
 			overlay_class = overlay_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-overlay-${w}`).join(" ");
-			outer_x_class = outer_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-outer-x-${w}`).join(" ");
+			overlay_x_class = overlay_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-overlay-x-${w}`).join(" ");
 			window_class = window_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-window-${w}`).join(" ");
 			topbar_class = topbar_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-topbar-${w}`).join(" ");
 			titlebar_class = titlebar_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-titlebar-${w}`).join(" ");
-			inner_x_class = inner_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-inner-x-${w}`).join(" ");
+			window_inner_x_class = window_inner_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-window-inner-x-${w}`).join(" ");
+			window_floating_x_class = window_floating_x_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-window-floating-x-${w}`).join(" ");
 			content_container_class = content_container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-container-${w}`).join(" ");
 			content_class = content_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-content-${w}`).join(" ");
 			progressbar_container_class = progressbar_container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-progressbar-container-${w}`).join(" ");
@@ -1226,11 +1255,12 @@ var Msg = (function()
 
 			var container_html =  `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`;
 			var overlay_html = `<div class="Msg-overlay ${overlay_class}" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`;
-			var outer_x_html = `<div class="Msg-outer-x ${outer_x_class}" style="${styles.outer_x}" id="Msg-outer-x-${instance.options.id }">x</div>`;
+			var overlay_x_html = `<div class="Msg-overlay-x ${overlay_x_class}" style="${styles.overlay_x}" id="Msg-overlay-x-${instance.options.id }">x</div>`;
 			var window_html = `<div class="Msg-window ${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`;
 			var topbar_html = `<div class="Msg-topbar ${topbar_class}" style="${styles.topbar}" id="Msg-topbar-${instance.options.id}"></div>`;
 			var titlebar_html = `<div class="Msg-titlebar ${titlebar_class}" style="${styles.titlebar}" id="Msg-titlebar-${instance.options.id}"></div>`;
-			var inner_x_html = `<div class="Msg-inner-x ${inner_x_class}" style="${styles.inner_x}" id="Msg-inner-x-${instance.options.id }">x</div>`;
+			var window_inner_x_html = `<div class="Msg-window-inner-x ${window_inner_x_class}" style="${styles.window_inner_x}" id="Msg-window-inner-x-${instance.options.id }">x</div>`;
+			var window_floating_x_html = `<div class="Msg-window-floating-x ${window_floating_x_class}" style="${styles.window_floating_x}" id="Msg-window-floating-x-${instance.options.id }">x</div>`;
 			var content_container_html = `<div class="Msg-content-container ${content_container_class}" style="${styles.content_container}" id="Msg-content-container-${instance.options.id }"></div>`;
 			var content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`;
 			var progressbar_container_html = `<div class="Msg-progressbar-container ${progressbar_container_class}" style="${styles.progressbar_container}" id="Msg-progressbar-container-${instance.options.id }"></div>`;
@@ -1245,17 +1275,17 @@ var Msg = (function()
 				instance.container.insertAdjacentHTML("beforeend", overlay_html);
 				instance.overlay = document.getElementById(`Msg-overlay-${instance.options.id}`);
 				
-				if(instance.options.enable_outer_x)
+				if(instance.options.overlay_x !== "none")
 				{
-					instance.overlay.insertAdjacentHTML("beforeend", outer_x_html);
-					instance.outer_x = document.getElementById(`Msg-outer-x-${instance.options.id}`);
+					instance.overlay.insertAdjacentHTML("beforeend", overlay_x_html);
+					instance.overlay_x = document.getElementById(`Msg-overlay-x-${instance.options.id}`);
 				}
 			}
 
 			instance.container.insertAdjacentHTML("beforeend", window_html);
 			instance.window = document.getElementById(`Msg-window-${instance.options.id}`);
 
-			if(instance.options.enable_titlebar || instance.options.enable_inner_x)
+			if(instance.options.enable_titlebar || (instance.options.window_x.indexOf("inner") !== -1))
 			{
 				instance.window.insertAdjacentHTML("beforeend", topbar_html);
 				instance.topbar = document.getElementById(`Msg-topbar-${instance.options.id}`);
@@ -1266,11 +1296,17 @@ var Msg = (function()
 					instance.titlebar = document.getElementById(`Msg-titlebar-${instance.options.id}`);
 				}
 				
-				if(instance.options.enable_inner_x)
+				if(instance.options.window_x.indexOf("inner") !== -1)
 				{
-					instance.topbar.insertAdjacentHTML("beforeend", inner_x_html);
-					instance.inner_x = document.getElementById(`Msg-inner-x-${instance.options.id}`);
+					instance.topbar.insertAdjacentHTML("beforeend", window_inner_x_html);
+					instance.window_inner_x = document.getElementById(`Msg-window-inner-x-${instance.options.id}`);
 				}
+			}
+
+			if(instance.options.window_x.indexOf("floating") !== -1)
+			{
+				instance.window.insertAdjacentHTML("afterbegin", window_floating_x_html);
+				instance.window_floating_x = document.getElementById(`Msg-window-floating-x-${instance.options.id}`);
 			}
 
 			instance.window.insertAdjacentHTML("beforeend", content_container_html);
@@ -1321,18 +1357,27 @@ var Msg = (function()
 				}
 			});	
 
-			if(instance.inner_x !== undefined)
+			if(instance.window_inner_x !== undefined)
 			{
-				instance.inner_x.addEventListener("click", function(e)
+				instance.window_inner_x.addEventListener("click", function(e)
 				{
 					instance.close();
 					e.stopPropagation();
 				});	
 			}
 
-			if(instance.outer_x !== undefined)
+			if(instance.window_floating_x !== undefined)
 			{
-				instance.outer_x.addEventListener("click", function(e)
+				instance.window_floating_x.addEventListener("click", function(e)
+				{
+					instance.close();
+					e.stopPropagation();
+				});	
+			}
+
+			if(instance.overlay_x !== undefined)
+			{
+				instance.overlay_x.addEventListener("click", function(e)
 				{
 					instance.close();
 					e.stopPropagation();
@@ -1363,11 +1408,12 @@ var Msg = (function()
 
 				instance.container = undefined;
 				instance.overlay = undefined;
-				instance.outer_x = undefined;
+				instance.overlay_x = undefined;
 				instance.window = undefined;
 				instance.topbar = undefined;
 				instance.titlebar = undefined;
-				instance.inner_x = undefined;
+				instance.window_inner_x = undefined;
+				instance.window_floating_x = undefined;
 				instance.content_container = undefined;
 				instance.content = undefined;
 				instance.progressbar_container = undefined;

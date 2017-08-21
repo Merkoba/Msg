@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=4'></script>
 
-        <script src='msg.js?v=90'></script>
+        <script src='msg.js?v=91'></script>
 
-        <script src='base.js?v=55'></script>
+        <script src='base.js?v=56'></script>
 
     </head>
 
@@ -134,7 +134,37 @@
 
         enable_titlebar: &nbsp; <input id='input_enable_titlebar' type='checkbox' checked>
 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        lock: &nbsp; <input id='input_lock' type='checkbox'>
+
         <br><br>
+
+        window_x: &nbsp; 
+
+        <select id='select_window_x'>
+            <option>inner_right</option>
+            <option>inner_left</option>
+            <option>floating_right</option>
+            <option>floating_left</option>
+            <option>none</option>
+        </select> 
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+        enable_overlay: &nbsp; <input id='input_enable_overlay' type='checkbox'>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+        overlay_x: &nbsp; 
+
+        <select id='select_overlay_x'>
+            <option>none</option>
+            <option>right</option>
+            <option>left</option>
+        </select>         
+
+        <br><br>        
 
         <span class='clicky' onclick='pop("center")'>position:center</span>&nbsp;&nbsp;&nbsp;
         <span class='clicky' onclick='pop("top")'>position:top</span>&nbsp;&nbsp;&nbsp;
