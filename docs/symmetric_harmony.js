@@ -178,6 +178,8 @@ function run_symmetric_harmony()
             return;
           }
           openFile(e.dataTransfer.files[0], setImage);
+
+          clearInterval(sym_interval);
       });
 
       window.addEventListener("paste", function(e){

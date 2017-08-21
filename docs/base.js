@@ -250,15 +250,7 @@ var msg_toy = Msg(
     window_min_height:"100vh",
     show_effect:"none",
     close_effect:"none",
-    window_cursor:"none",
     enable_overlay:false,
-    before_show: function(instance)
-    {
-        if(screenfull.enabled)
-        {
-            screenfull.request(instance.window);
-        }   
-    },
     after_show: function(instance)
     {
         run_symmetric_harmony();
@@ -267,12 +259,25 @@ var msg_toy = Msg(
 
         setTimeout(function()
         {
+            
             var spinner = document.getElementById('spinner');
             spinner.style.display = "none";
 
             var canv = document.getElementById('canv');
             canv.style.display = "block";
+
+            setTimeout(function()
+            {
+                Msg({preset:"popup",zStack_level:2, class:"black"}).show("Try moving the mouse");
+            }, 5000);
+
+            setTimeout(function()
+            {
+                Msg({preset:"popup",zStack_level:2, class:"black"}).show("Try drag and dropping images");
+            }, 20000);
+
         },2000);
+
     },
     after_close: function(instance)
     {

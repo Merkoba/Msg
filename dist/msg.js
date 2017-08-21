@@ -1,4 +1,4 @@
-/* Msg v7.1.2 https://github.com/madprops/Msg */
+/* Msg v7.2.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -840,6 +840,7 @@ var Msg = (function()
 
 				else
 				{
+					instance.reset_opacity();
 					return_callback = true;
 				}
 			}
@@ -938,7 +939,6 @@ var Msg = (function()
 
 			styles.container = `
 			display:none;
-			opacity:1;
 			`;
 
 			styles.overlay = `
@@ -1805,11 +1805,30 @@ var Msg = (function()
 			instance.slide_in_direction = undefined;
 		}
 
+		instance.reset_opacity = function()
+		{
+			if(instance.overlay !== undefined)
+			{
+				instance.overlay.style.opacity = 1;
+			}
+
+			instance.window.style.opacity = 1;
+		}
+
 		instance.fade_in = function(callback) 
 		{
 			instance.clear_effect_intervals();
 
-			instance.container.style.opacity = 0;
+			var ov;
+
+			(instance.overlay === undefined) ? ov = false : ov = true;
+
+			if(ov)
+			{
+				instance.overlay.style.opacity = 0;
+			}
+
+			instance.window.style.opacity = 0;
 
 			var speed = instance.options.show_effect_duration / 50;
 
@@ -1820,10 +1839,15 @@ var Msg = (function()
 					instance.clear_effect_intervals();
 					return;
 				}
+
+				if(ov)
+				{
+					instance.overlay.style.opacity = Number(instance.overlay.style.opacity) + 0.02;
+				}
 				
-				instance.container.style.opacity = Number(instance.container.style.opacity) + 0.02;
+				instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02;
 				
-				if(instance.container.style.opacity >= 1) 
+				if(instance.window.style.opacity >= 1) 
 				{
 					instance.clear_effect_intervals();
 
@@ -1839,6 +1863,10 @@ var Msg = (function()
 		{
 			instance.clear_effect_intervals();
 
+			var ov;
+
+			(instance.overlay === undefined) ? ov = false : ov = true;			
+
 			var speed = instance.options.close_effect_duration / 50;
 
 			instance.fade_out_interval = setInterval(function() 
@@ -1849,9 +1877,14 @@ var Msg = (function()
 					return;
 				}
 				
-				instance.container.style.opacity = Number(instance.container.style.opacity) - 0.02;
+				if(ov)
+				{
+					instance.overlay.style.opacity = Number(instance.overlay.style.opacity) - 0.02;
+				}
 				
-				if(instance.container.style.opacity <= 0) 
+				instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02;
+				
+				if(instance.window.style.opacity <= 0) 
 				{
 					instance.clear_effect_intervals();
 					instance.close_window(callback);
