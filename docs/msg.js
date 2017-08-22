@@ -1,4 +1,4 @@
-/* Msg v7.4.1 https://github.com/madprops/Msg */
+/* Msg v7.4.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -842,6 +842,11 @@ var Msg = (function()
 				if(instance.options.show_effect === "fade" && instance.options.subsequent_show_effects)
 				{
 					instance.fade_in(callback);
+				}
+
+				else if(instance.options.show_effect === "fade2" && instance.options.subsequent_show_effects)
+				{
+					instance.fade_in2(callback);
 				}
 
 				else if(instance.options.show_effect.indexOf("slide" !== -1) && instance.options.subsequent_show_effects)
