@@ -12,7 +12,7 @@
 
         <script src='symmetric_harmony.js?v=4'></script>
 
-        <script src='msg.js?v=95'></script>
+        <script src='msg.js?v=96'></script>
 
         <script src='base.js?v=60'></script>
 
@@ -200,7 +200,11 @@
     enable_progressbar: true,
     persistent: false,
     zStack_level: 1,
-    lock: false
+    lock: false,
+    show_effect: "fade",<br>                   
+    show_effect_duration: 350,<br>
+    close_effect: "fade",<br>
+    close_effect_duration: 350<br>     
 });
         </code></pre></blockquote>
 
@@ -578,13 +582,13 @@ msg2.show(["Window Example", some_text]);
 
         <i>show_effect (Default: "fade")</i>: Either "fade", "fade2", slide_up", "slide_down", "slide_left", "slide_right" or "none". Position "center" doesn't support slide effects. Some positions don't support certain kinds of slide effects. "fade2" will only work if the overlay is enabled, else it fallsback to "fade".<br><br>
 
-        <i>show_effect_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the show_effect. If using "fade2", you can specify an array, like [500, 0], where the first number is the duration of the overlay fade, and the second number is the duration of the window fade.<br><br>
+        <i>show_effect_duration (Default: [350, 0])</i>: The amount of time in milliseconds it takes to complete the show_effect. If using "fade2", you can specify an array with 2 numbers, where the first number is the duration of the overlay fade, and the second number is the duration of the window fade. The other options don't support an array, a number must be specified.<br><br>
 
         <i>subsequent_show_effects (Default: false)</i>: If true, it will show the show_effect on show() even if the window is already open.<br><br>
 
         <i>close_effect (Default: "fade")</i>: Either "fade", "fade2", "slide_up", "slide_down", "slide_left", "slide_right" or "none". Position "center" doesn't support slide effects. Some positions don't support certain kinds of slide effects. "fade2" will only work if the overlay is enabled, else it fallsback to "fade".<br><br>
 
-        <i>close_effect_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the close_effect. If using "fade2", you can specify an array, like [0, 500], where the first number is the duration of the window fade, and the second number is the duration of the overlay fade.<br><br>
+        <i>close_effect_duration (Default: [0, 350])</i>: The amount of time in milliseconds it takes to complete the close_effect. If using "fade2", you can specify an array with 2 numbers, where the first number is the duration of the window fade, and the second number is the duration of the overlay fade. The other options don't support an array, a number must be specified.<br><br>
 
         <i>replace_linebreaks (Default: true)</i>: If true, strings passed to show() or set() will have every "\n" replaced with an html linebreak.<br><br>        
         
@@ -801,6 +805,10 @@ msg_test.show("Domo Arigato");
         instance.options.zStack_level = 1;<br>
         instance.options.window_width = "460px";<br>
         instance.options.lock = false;<br>
+        instance.options.show_effect = "fade";<br>                   
+        instance.options.show_effect_duration = 350;<br>
+        instance.options.close_effect = "fade";<br>
+        instance.options.close_effect_duration = 350;<br>          
 
                 <br><i><b>preset: "popup_autoclose"</b></i><br>
         instance.options.class = "green";<br>
@@ -812,6 +820,10 @@ msg_test.show("Domo Arigato");
         instance.options.zStack_level = 1;<br>
         instance.options.window_width = "460px";<br>
         instance.options.lock = false;<br>
+        instance.options.show_effect = "fade";<br>                 
+        instance.options.show_effect_duration = 350;<br>
+        instance.options.close_effect = "fade";<br>
+        instance.options.close_effect_duration = 350;<br>          
 
                 <br><i><b>preset: "snackbar"</b></i><br>
         instance.options.class = "black";<br>

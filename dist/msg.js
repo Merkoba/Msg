@@ -1,4 +1,4 @@
-/* Msg v7.4.3 https://github.com/madprops/Msg */
+/* Msg v7.4.4 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -92,6 +92,10 @@ var Msg = (function()
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.window_width === undefined) instance.options.window_width = "460px";
 					if(instance.options.lock === undefined) instance.options.lock = false;
+					if(instance.options.show_effect === undefined) instance.options.show_effect = "fade";					
+					if(instance.options.show_effect_duration === undefined) instance.options.show_effect_duration = 350;
+					if(instance.options.close_effect === undefined) instance.options.close_effect = "fade";
+					if(instance.options.close_effect_duration === undefined) instance.options.close_effect_duration = 350;					
 				}
 
 				if(instance.options.preset === "popup_autoclose")
@@ -105,6 +109,10 @@ var Msg = (function()
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.window_width === undefined) instance.options.window_width = "460px";
 					if(instance.options.lock === undefined) instance.options.lock = false;
+					if(instance.options.show_effect === undefined) instance.options.show_effect = "fade";
+					if(instance.options.show_effect_duration === undefined) instance.options.show_effect_duration = 350;
+					if(instance.options.close_effect === undefined) instance.options.close_effect = "fade";
+					if(instance.options.close_effect_duration === undefined) instance.options.close_effect_duration = 350;					
 				}
 
 				if(instance.options.preset === "snackbar")
@@ -120,7 +128,9 @@ var Msg = (function()
 					if(instance.options.autoclose_delay === undefined) instance.options.autoclose_delay = 10000;
 					if(instance.options.close_on_show === undefined) instance.options.close_on_show = true;
 					if(instance.options.show_effect === undefined) instance.options.show_effect = "slide_up";
+					if(instance.options.show_effect_duration === undefined) instance.options.show_effect_duration = 350;
 					if(instance.options.close_effect === undefined) instance.options.close_effect = "slide_down";
+					if(instance.options.close_effect_duration === undefined) instance.options.close_effect_duration = 350;
 					if(instance.options.sideStack === undefined) instance.options.sideStack = "none";
 					if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1;
 					if(instance.options.lock === undefined) instance.options.lock = false;
@@ -354,22 +364,22 @@ var Msg = (function()
 
 			if(instance.options.show_effect === undefined)
 			{
-				instance.options.show_effect = "fade";
+				instance.options.show_effect = "fade2";
 			}
 
 			if(instance.options.show_effect_duration === undefined)
 			{
-				instance.options.show_effect_duration = 350;
+				instance.options.show_effect_duration = [350, 0];
 			}
 
 			if(instance.options.close_effect === undefined)
 			{
-				instance.options.close_effect = "fade";
+				instance.options.close_effect = "fade2";
 			}
 
 			if(instance.options.close_effect_duration === undefined)
 			{
-				instance.options.close_effect_duration = 350;
+				instance.options.close_effect_duration = [0, 350];
 			}
 
 			if(instance.options.position === undefined)
