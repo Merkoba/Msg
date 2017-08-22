@@ -635,7 +635,11 @@ msg2.show(["Window Example", some_text]);
 {
     id: "test",
     class: "black",
-    window_x: "inner_left",   
+    window_x: "inner_left",
+    show_effect: "fade2",
+    show_effect_duration: [800, 0],
+    close_effect: "fade2",
+    close_effect_duration: [0, 800],    
     after_show: function(instance)
     {
         instance.set(instance.html() + ", Mr. Roboto");
@@ -659,6 +663,10 @@ msg_test.show("Domo Arigato");
                 id: "test",
                 class: "black",
                 window_x: "inner_left",
+                show_effect: "fade2",
+                show_effect_duration: [800, 0],
+                close_effect: "fade2",
+                close_effect_duration: [0, 800],
                 after_show: function(instance)
                 {
                     instance.set(instance.html() + ", Mr. Roboto");
