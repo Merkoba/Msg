@@ -1,4 +1,4 @@
-/* Msg v7.3.0 https://github.com/madprops/Msg */
+/* Msg v7.3.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -935,6 +935,7 @@ var Msg = (function()
 
 			styles.overlay = `
 			position:fixed;
+			opacity:1;
 			top:0;
 			left:0;
 			height:100%;
@@ -1067,6 +1068,7 @@ var Msg = (function()
 			styles.window = `
 			display:flex;
 			flex-direction:column;
+			opacity:1;
 			${win_x}
 			${win_y}
 			position:fixed;
@@ -3053,7 +3055,7 @@ var Msg = (function()
 
 		instance.check_hStack = function()
 		{
-			if(instance.vStackable)
+			if(instance.hStackable)
 			{
 				var p = instance.options.position;
 
