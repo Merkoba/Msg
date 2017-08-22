@@ -409,12 +409,7 @@ document.addEventListener("keyup", function(e)
 
 var msg_pop = Msg(
 {
-    class:"green",
-    autoclose:true,
-    enable_progressbar:true,
-    enable_overlay:false,
-    position:"bottomright",
-    lock:false
+    preset:"popup"
 });
 
 var pops = [];
