@@ -14,7 +14,7 @@
 
         <script src='msg.js?v=91'></script>
 
-        <script src='base.js?v=56'></script>
+        <script src='base.js?v=57'></script>
 
     </head>
 
@@ -214,7 +214,7 @@
     position: "bottom",
     edge_padding_y: 0,
     window_min_width: "600px",
-    enable_inner_x: false,
+    window_x: "none",
     enable_overlay: false,
     autoclose: true,
     autoclose_delay: 10000,
@@ -316,10 +316,11 @@ remind("Water the trees.");
 
         These elements are optional:<br><br>
         "Msg-overlay-id" (with classes: "Msg-overlay" and "Msg-overlay-class") (Created by default)<br>
-        "Msg-topbar-id" (with classes: "Msg-topbar" and "Msg-topbar-class") (Created if Msg-inner-x or Msg-titlebar are created)<br>
+        "Msg-topbar-id" (with classes: "Msg-topbar" and "Msg-topbar-class") (Created if Msg-window-inner-x or Msg-titlebar are created)<br>
         "Msg-titlebar-id" (with classes: "Msg-titlebar" and "Msg-titlebar-class") (Not created by default)<br>
-        "Msg-inner-x-id" (with classes: "Msg-inner-x" and "Msg-inner-x-class") (Created by default)<br>
-        "Msg-outer-x-id" (with classes: "Msg-outer-x" and "Msg-outer-x-class") (Not created by default)<br>
+        "Msg-window-inner-x-id" (with classes: "Msg-window-inner-x" and "Msg-window-inner-x-class") (Created by default)<br>
+        "Msg-window-floating-x-id" (with classes: "Msg-window-floating-x" and "Msg-window-floating-x-class") (Not created by default)<br>
+        "Msg-overlay-x-id" (with classes: "Msg-overlay-x" and "Msg-overlay-x-class") (Not created by default)<br>
         "Msg-progressbar-container-id" (with classes: "Msg-progressbar-container" and "Msg-progressbar-container-class") (Created if Msg-progressbar is created)<br>
         "Msg-progressbar-id" (with classes: "Msg-progressbar" and "Msg-progressbar-class") (Not created by default)<br>
 
@@ -328,14 +329,16 @@ remind("Water the trees.");
         <blockquote><pre><code>[container] (instance.container)
 
     [overlay] (Optional) (instance.overlay)
-        [outer-x][/outer-x] (Optional) (instance.outer_x)
+        [overlay-x][/overlay-x] (Optional) (instance.overlay_x)
     [/overlay]
 
     [window] (instance.window)
 
+        [window-floating-x][/window-floating-x] (Optional) (instance.window_floating_x)
+
         [topbar] (instance.topbar)
             [titlebar][/titlebar] (Optional) (instance.titlebar)
-            [inner-x][/inner-x] (Optional) (instance.inner_x)
+            [window-inner-x][/window-inner-x] (Optional) (instance.window_inner_x)
         [/topbar]
 
         [content-container] (instance.content_container)
@@ -381,7 +384,7 @@ var msg2 = Msg(
 {
     id: "foo",
     class: "bar",
-    inner_x_class: "red !big",
+    window_inner_x_class: "red !big",
     enable_titlebar: true
 });
 
@@ -412,13 +415,13 @@ var msg2 = Msg(
     font-size:1.25em !important;
 }
 
-.Msg-inner-x-red
+.Msg-window-inner-x-red
 {
     background-color: #ca4e4e !important;
     color: #ffffff !important;
 }
 
-.Msg-inner-x-red:hover
+.Msg-window-inner-x-red:hover
 {
     background-color: #a72b2b !important;
 } 
@@ -479,9 +482,11 @@ msg2.show(["Window Example", some_text]);
 
         <i>content_class (Default: undefined)</i>: If this is defined, the Msg-content will use this instead of the class option.<br><br>
         
-        <i>inner_x_class (Default: undefined)</i>: If this is defined, the Msg-inner-x will use this instead of the class option.<br><br>
+        <i>window_inner_x_class (Default: undefined)</i>: If this is defined, the Msg-window-inner-x will use this instead of the class option.<br><br>
+
+        <i>window_floating_x_class (Default: undefined)</i>: If this is defined, the Msg-window-floating-x will use this instead of the class option.<br><br>
         
-        <i>outer_x_class (Default: undefined)</i>: If this is defined, the Msg-outer-x will use this instead of the class option.<br><br>  
+        <i>window_overlay_x_class (Default: undefined)</i>: If this is defined, the Msg-overlay-x will use this instead of the class option.<br><br>  
 
         <i>progressbar_container_class (Default: undefined)</i>: If this is defined, the Msg-progressbar-container will use this instead of the class option.<br><br> 
 
@@ -559,13 +564,9 @@ msg2.show(["Window Example", some_text]);
         
         <i>enable_overlay (Default: true)</i>: Whether the overlay is created or not.<br><br>
 
-        <i>enable_inner_x (Default: true)</i>: Makes an x, within the window, to close the window.<br><br>
+        <i>window_x (Default: "inner_right")</i>: Makes an x to close the window inside the window. Either "inner_right", "inner_left", "floating_right", "floating_left" or "none".<br><br>>
         
-        <i>inner_x_position (Default: "right")</i>: The position of the inner x, either "left" or "right".<br><br>
-        
-        <i>enable_outer_x (Default: false)</i>: Makes an x, within the overlay, to close the window.<br><br>
-        
-        <i>outer_x_position (Default: "right")</i>: The position of the outer x, either "left" or "right".<br><br>
+        <i>overlay_x (Default: "none")</i>: Makes an x to close the window inside the overlay. Either "right", "left" or "none".<br><br>
 
         <i>show_effect (Default: "fade")</i>: Either "fade", "slide_up", "slide_down", "slide_left", "slide_right" or "none". Position "center" doesn't support slide effects. Some positions don't support certain kinds of slide effects.<br><br>
 
@@ -625,7 +626,7 @@ msg2.show(["Window Example", some_text]);
 {
     id: "test",
     class: "black",
-    inner_x_position: "left",    
+    window_x: "inner_left",   
     after_show: function(instance)
     {
         instance.set(instance.html() + ", Mr. Roboto");
@@ -648,7 +649,7 @@ msg_test.show("Domo Arigato");
             {
                 id: "test",
                 class: "black",
-                inner_x_position: "left",
+                window_x: "inner_left",
                 after_show: function(instance)
                 {
                     instance.set(instance.html() + ", Mr. Roboto");
@@ -673,13 +674,15 @@ msg_test.show("Domo Arigato");
         
         <i>instance.overlay</i>: The Msg-overlay html element.<br><br>
 
-        <i>instance.outer_x</i>: The Msg-outer-x html element.<br><br>
+        <i>instance.overlay_x</i>: The Msg-overlay-x html element.<br><br>
 
         <i>instance.topbar</i>: The Msg-topbar html element.<br><br>
         
         <i>instance.titlebar</i>: The Msg-titlebar html element.<br><br>
         
-        <i>instance.inner_x</i>: The Msg-inner-x html element.<br><br>
+        <i>instance.window_inner_x</i>: The Msg-window-inner-x html element.<br><br>
+
+        <i>instance.window_floating_x</i>: The Msg-window-floating-x html element.<br><br>
 
         <i>instance.window</i>: The Msg-window html element.<br><br>
         
@@ -800,7 +803,7 @@ msg_test.show("Domo Arigato");
         instance.options.position = "bottom";<br>
         instance.options.edge_padding_y = 0;<br>
         instance.options.window_min_width = "600px";<br>
-        instance.options.enable_inner_x = false;<br>
+        instance.options.window_x = "none";<br>
         instance.options.enable_overlay = false;<br>
         instance.options.autoclose = true;<br>
         instance.options.autoclose_delay = 10000;<br>
