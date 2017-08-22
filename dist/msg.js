@@ -1,4 +1,4 @@
-/* Msg v7.4.0 https://github.com/madprops/Msg */
+/* Msg v7.4.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -362,11 +362,6 @@ var Msg = (function()
 				instance.options.show_effect_duration = 350;
 			}
 
-			else
-			{
-				instance.options.show_effect_duration = parseInt(instance.options.show_effect_duration);
-			}
-
 			if(instance.options.close_effect === undefined)
 			{
 				instance.options.close_effect = "fade";
@@ -375,11 +370,6 @@ var Msg = (function()
 			if(instance.options.close_effect_duration === undefined)
 			{
 				instance.options.close_effect_duration = 350;
-			}
-
-			else
-			{
-				instance.options.close_effect_duration = parseInt(instance.options.close_effect_duration);
 			}
 
 			if(instance.options.position === undefined)
@@ -1957,6 +1947,19 @@ var Msg = (function()
 			}, speed);	
 		}
 
+		instance.resolve_effect_duration = function(n, duration)
+		{
+			if(typeof duration === "object")
+			{
+				return duration[n];
+			}
+
+			else 
+			{
+				return duration;
+			}
+		}
+
 		instance.fade_in2 = function(callback) 
 		{
 			instance.clear_effect_intervals();
@@ -1967,52 +1970,74 @@ var Msg = (function()
 			}
 
 			instance.overlay.style.opacity = 0;
-
 			instance.window.style.opacity = 0;
 
-			var speed = instance.options.show_effect_duration / 50;
+			var speed = instance.resolve_effect_duration(0, instance.options.show_effect_duration) / 50;
+			var speed2 = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 50;
 
-			instance.fade_in2a_interval = setInterval(function() 
+			function finish()
 			{
-				if(!instance.created())
+				instance.clear_effect_intervals();
+
+				if(callback)
 				{
-					instance.clear_effect_intervals();
-					return;
+					return callback(instance);
+				}				
+			}
+
+			function nextint()
+			{
+				if(speed2 === 0)
+				{
+					instance.window.style.opacity = 1;
+					finish();
 				}
 
-				instance.overlay.style.opacity = Number(instance.overlay.style.opacity) + 0.02;
-								
-				if(instance.overlay.style.opacity >= 1) 
+				else
 				{
-					instance.clear_effect_intervals();
-
-						instance.fade_in2b_interval = setInterval(function() 
-						{
-							if(!instance.created())
-							{
-								instance.clear_effect_intervals();
-								return;
-							}
-
-							instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02;
-											
-							if(instance.window.style.opacity >= 1) 
-							{
-								instance.clear_effect_intervals();
-
-								if(callback)
-								{
-									return callback(instance);
-								}
-							}
-						}, speed);					
-
-					if(callback)
+					instance.fade_in2b_interval = setInterval(function() 
 					{
-						return callback(instance);
-					}
+						if(!instance.created())
+						{
+							instance.clear_effect_intervals();
+							return;
+						}
+
+						instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02;
+										
+						if(instance.window.style.opacity >= 1) 
+						{
+							finish();
+						}
+					}, speed2);
 				}
-			}, speed);
+			}
+
+			if(speed === 0)
+			{
+				instance.overlay.style.opacity = 1;
+				nextint();
+			}
+
+			else
+			{
+				instance.fade_in2a_interval = setInterval(function() 
+				{
+					if(!instance.created())
+					{
+						instance.clear_effect_intervals();
+						return;
+					}
+
+					instance.overlay.style.opacity = Number(instance.overlay.style.opacity) + 0.02;
+									
+					if(instance.overlay.style.opacity >= 1) 
+					{
+						instance.clear_effect_intervals();
+						nextint();			
+					}
+				}, speed);
+			}
 		}
 
 		instance.fade_out2 = function(callback) 
@@ -2022,24 +2047,27 @@ var Msg = (function()
 			if(instance.overlay === undefined)
 			{
 				return instance.fade_out(callback);
-			}	
+			}
 
-			var speed = instance.options.close_effect_duration / 50;
+			var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 50;
+			var speed2 = instance.resolve_effect_duration(1, instance.options.close_effect_duration) / 50;
 
-			instance.fade_out2a_interval = setInterval(function() 
+			function finish()
 			{
-				if(!instance.created())
-				{
-					instance.clear_effect_intervals();
-					return;
-				}
-				
-				instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02;
-								
-				if(instance.window.style.opacity <= 0) 
-				{
-					instance.clear_effect_intervals();
+				instance.clear_effect_intervals();
+				instance.close_window(callback);			
+			}
 
+			function nextint()
+			{
+				if(speed2 === 0)
+				{
+					instance.overlay.style.opacity = 0;
+					finish();
+				}
+
+				else
+				{
 					instance.fade_out2b_interval = setInterval(function() 
 					{
 						if(!instance.created())
@@ -2047,17 +2075,42 @@ var Msg = (function()
 							instance.clear_effect_intervals();
 							return;
 						}
-						
+
 						instance.overlay.style.opacity = Number(instance.overlay.style.opacity) - 0.02;
 										
 						if(instance.overlay.style.opacity <= 0) 
 						{
-							instance.clear_effect_intervals();
-							instance.close_window(callback);
+							finish();
 						}
-					}, speed);
+					}, speed2);
 				}
-			}, speed);	
+			}
+
+			if(speed === 0)
+			{
+				instance.window.style.opacity = 0;
+				nextint();
+			}
+
+			else
+			{
+				instance.fade_out2a_interval = setInterval(function() 
+				{
+					if(!instance.created())
+					{
+						instance.clear_effect_intervals();
+						return;
+					}
+
+					instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02;
+									
+					if(instance.window.style.opacity <= 0) 
+					{
+						instance.clear_effect_intervals();
+						nextint();			
+					}
+				}, speed);
+			}
 		}
 
 		instance.slide_in = function(callback) 

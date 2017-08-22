@@ -468,8 +468,8 @@ function pop(position)
     var overlay_x = document.getElementById('select_overlay_x').value;
     var enable_overlay = document.getElementById('input_enable_overlay').checked;
     var lock = document.getElementById('input_lock').checked;
-    var show_effect_duration = document.getElementById('input_show_effect_duration').value;
-    var close_effect_duration = document.getElementById('input_close_effect_duration').value;
+    var show_effect_duration = JSON.parse(document.getElementById('input_show_effect_duration').value);   
+    var close_effect_duration = JSON.parse(document.getElementById('input_close_effect_duration').value);   
 
     if(autoclose)
     {
