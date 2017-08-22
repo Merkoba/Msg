@@ -1,4 +1,4 @@
-/* Msg v7.4.2 https://github.com/madprops/Msg */
+/* Msg v7.4.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -760,7 +760,7 @@ var Msg = (function()
 				callback = content;
 			}
 
-			if(typeof content === "object")
+			if(typeof content === "object" && !(content instanceof Element))
 			{
 				title = content[0];
 				html = content[1];

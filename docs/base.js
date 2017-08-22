@@ -14,8 +14,8 @@ var msg2 = Msg(
 var msg3 = Msg(
 {
     id: "boom",
-    enable_inner_x:false,
-    enable_outer_x:true
+    window_x:"none",
+    overlay_x:"right"
 });
 
 var msg4 = Msg(
@@ -39,14 +39,14 @@ var msg6 = Msg(
 var msg7 = Msg(
 {
     class: 'no-padding',
-    inner_x_class:'dark'
+    window_inner_x_class:'dark'
 });
 
 var msg_autoclose = Msg(
 {
     class:"red",
     autoclose:true,
-    enable_inner_x:false,
+    window_x:"none",
     close_on_overlay_click:false,
     enable_titlebar:true,
     enable_progressbar:true
@@ -54,8 +54,8 @@ var msg_autoclose = Msg(
 
 var msg_ox = Msg(
 {
-    enable_inner_x:false,
-    enable_outer_x:true,
+    window_x:"none",
+    overlay_x:"right",
     close_on_overlay_click:false
 });
 
@@ -107,7 +107,7 @@ var msg_cust = Msg(
 {
     class:"blue",
     overlay_class:"green",
-    inner_x_class:"red",
+    window_inner_x_class:"red",
     enable_titlebar:true,
     window_width:"500px"
 });
@@ -115,13 +115,13 @@ var msg_cust = Msg(
 var msg_default = Msg(
 {
     class:"default",
-    enable_outer_x:true
+    overlay_x:"right"
 });
 
 var msg_red = Msg(
 {
     class:"red",
-    enable_outer_x:true,
+    overlay_x:"right",
     autoclose:true,
     autoclose_delay:5000,
     enable_progressbar:true
@@ -130,7 +130,7 @@ var msg_red = Msg(
 var msg_blue = Msg(
 {
     class:"blue",
-    enable_outer_x:true,
+    overlay_x:"right",
     autoclose:true,
     autoclose_delay:5000,
     enable_progressbar:true
@@ -139,7 +139,7 @@ var msg_blue = Msg(
 var msg_green = Msg(
 {
     class:"green",
-    enable_outer_x:true,
+    overlay_x:"right",
     autoclose:true,
     autoclose_delay:5000,
     enable_progressbar:true
@@ -148,7 +148,7 @@ var msg_green = Msg(
 var msg_black = Msg(
 {
     class:"black",
-    enable_outer_x:true,
+    overlay_x:"right",
     autoclose:true,
     autoclose_delay:5000,
     enable_progressbar:true
@@ -157,28 +157,28 @@ var msg_black = Msg(
 var msg_red_tb = Msg(
 {
     class:"red",
-    enable_outer_x:true,
+    overlay_x:"right",
     enable_titlebar:true
 });
 
 var msg_blue_tb = Msg(
 {
     class:"blue",
-    enable_outer_x:true,
+    overlay_x:"right",
     enable_titlebar:true
 });
 
 var msg_green_tb = Msg(
 {
     class:"green",
-    enable_outer_x:true,
+    overlay_x:"right",
     enable_titlebar:true
 });
 
 var msg_black_tb = Msg(
 {
     class:"black",
-    enable_outer_x:true,
+    overlay_x:"right",
     enable_titlebar:true
 });
 
@@ -617,7 +617,7 @@ var msg_update = Msg(
     autoclose:true,
     enable_progressbar:true,
     reverse_autoclose_progressbar:true,
-    enable_inner_x: false,
+    window_x: "none",
     close_on_overlay_click:false,
     close_on_escape:false,
     after_set_progress:function(instance)
