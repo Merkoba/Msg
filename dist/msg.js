@@ -1,4 +1,4 @@
-/* Msg v7.4.4 https://github.com/madprops/Msg */
+/* Msg v7.5.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -526,6 +526,11 @@ var Msg = (function()
 			{
 				instance.options.replace_linebreaks = true;
 			}
+
+			if(instance.options.close_others_on_show === undefined)
+			{
+				instance.options.close_others_on_show = false;
+			}
 		}
 
 		instance.check_options();
@@ -804,6 +809,11 @@ var Msg = (function()
 
 			if(!instance.is_open())
 			{	
+				if(instance.options.close_others_on_show)
+				{
+					instance.close_all();
+				}
+
 				instance.container.style.display = "block";
 				
 				instance.check_add_overflow_hidden();
@@ -1169,13 +1179,13 @@ var Msg = (function()
 			${fs}
 			margin-top: -10px;
 			${fms}
-			font-size:20px;	
+			font-size:19px;	
 			font-family:sans-serif;
 			border: 2px solid #9f9f9f;
-			border-radius:30px;
-			height:30px;
-			width:30px;
-			line-height:27px;
+			border-radius:28px;
+			height:28px;
+			width:28px;
+			line-height:26px;
 			text-align:center;
 			-webkit-touch-callout:none;
 			-webkit-user-select:none;
