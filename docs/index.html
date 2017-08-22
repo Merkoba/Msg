@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=4'></script>
 
-        <script src='msg.js?v=92'></script>
+        <script src='msg.js?v=93'></script>
 
-        <script src='base.js?v=57'></script>
+        <script src='base.js?v=58'></script>
 
     </head>
 
@@ -97,11 +97,11 @@
 
         <br><br>
 
-
         show_effect: &nbsp; 
 
         <select id='select_show_effect'>
             <option>fade</option>
+            <option>fade2</option>
             <option>slide_up</option>
             <option>slide_down</option>
             <option>slide_left</option>
@@ -115,12 +115,21 @@
 
         <select id='select_close_effect'>
             <option>fade</option>
+            <option>fade2</option>
             <option>slide_up</option>
             <option>slide_down</option>
             <option>slide_left</option>
             <option>slide_right</option>
             <option>none</option>
-        </select>        
+        </select>   
+
+        <br><br>
+
+        show_effect_duration: &nbsp; <input id='input_show_effect_duration' type='text' value='350'>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        close_effect_duration: &nbsp; <input id='input_close_effect_duration' type='text' value='350'>             
 
         <br><br>
 
@@ -568,13 +577,13 @@ msg2.show(["Window Example", some_text]);
         
         <i>overlay_x (Default: "none")</i>: Makes an x to close the window inside the overlay. Either "right", "left" or "none".<br><br>
 
-        <i>show_effect (Default: "fade")</i>: Either "fade", "slide_up", "slide_down", "slide_left", "slide_right" or "none". Position "center" doesn't support slide effects. Some positions don't support certain kinds of slide effects.<br><br>
+        <i>show_effect (Default: "fade")</i>: Either "fade", "fade2", slide_up", "slide_down", "slide_left", "slide_right" or "none". Position "center" doesn't support slide effects. Some positions don't support certain kinds of slide effects. "fade2" will only work if the overlay is enabled, else it fallsback to "fade".<br><br>
 
         <i>show_effect_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the show_effect.<br><br>
 
         <i>subsequent_show_effects (Default: false)</i>: If true, it will show the show_effect on show() even if the window is already open.<br><br>
 
-        <i>close_effect (Default: "fade")</i>: Either "fade", "slide_up", "slide_down", "slide_left", "slide_right" or "none". Position "center" doesn't support slide effects. Some positions don't support certain kinds of slide effects.<br><br>
+        <i>close_effect (Default: "fade")</i>: Either "fade", "fade2", "slide_up", "slide_down", "slide_left", "slide_right" or "none". Position "center" doesn't support slide effects. Some positions don't support certain kinds of slide effects. "fade2" will only work if the overlay is enabled, else it fallsback to "fade".<br><br>
 
         <i>close_effect_duration (Default: 350)</i>: The amount of time in milliseconds it takes to complete the close_effect.<br><br>
 

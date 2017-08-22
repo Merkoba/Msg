@@ -1,4 +1,4 @@
-/* Msg v7.3.2 https://github.com/madprops/Msg */
+/* Msg v7.4.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -588,6 +588,11 @@ var Msg = (function()
 				instance.fade_out(callback);
 			}
 
+			else if(instance.options.close_effect === "fade2")
+			{
+				instance.fade_out2(callback);
+			}
+
 			else if(instance.options.close_effect.indexOf("slide") !== -1)
 			{
 				instance.slide_out(callback);
@@ -823,6 +828,11 @@ var Msg = (function()
 				if(instance.options.show_effect === "fade")
 				{
 					instance.fade_in(callback);					
+				}
+
+				else if(instance.options.show_effect === "fade2")
+				{
+					instance.fade_in2(callback);					
 				}
 
 				else if(instance.options.show_effect.indexOf("slide") !== -1)
@@ -1849,6 +1859,10 @@ var Msg = (function()
 		{
 			clearInterval(instance.fade_in_interval);
 			clearInterval(instance.fade_out_interval);
+			clearInterval(instance.fade_in2a_interval);
+			clearInterval(instance.fade_in2b_interval);
+			clearInterval(instance.fade_out2a_interval);
+			clearInterval(instance.fade_out2b_interval);
 			clearInterval(instance.slide_in_interval);
 			clearInterval(instance.slide_out_interval);
 
@@ -1939,6 +1953,109 @@ var Msg = (function()
 				{
 					instance.clear_effect_intervals();
 					instance.close_window(callback);
+				}
+			}, speed);	
+		}
+
+		instance.fade_in2 = function(callback) 
+		{
+			instance.clear_effect_intervals();
+
+			if(instance.overlay === undefined)
+			{
+				return instance.fade_in(callback);
+			}
+
+			instance.overlay.style.opacity = 0;
+
+			instance.window.style.opacity = 0;
+
+			var speed = instance.options.show_effect_duration / 50;
+
+			instance.fade_in2a_interval = setInterval(function() 
+			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+
+				instance.overlay.style.opacity = Number(instance.overlay.style.opacity) + 0.02;
+								
+				if(instance.overlay.style.opacity >= 1) 
+				{
+					instance.clear_effect_intervals();
+
+						instance.fade_in2b_interval = setInterval(function() 
+						{
+							if(!instance.created())
+							{
+								instance.clear_effect_intervals();
+								return;
+							}
+
+							instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02;
+											
+							if(instance.window.style.opacity >= 1) 
+							{
+								instance.clear_effect_intervals();
+
+								if(callback)
+								{
+									return callback(instance);
+								}
+							}
+						}, speed);					
+
+					if(callback)
+					{
+						return callback(instance);
+					}
+				}
+			}, speed);
+		}
+
+		instance.fade_out2 = function(callback) 
+		{
+			instance.clear_effect_intervals();
+
+			if(instance.overlay === undefined)
+			{
+				return instance.fade_out(callback);
+			}	
+
+			var speed = instance.options.close_effect_duration / 50;
+
+			instance.fade_out2a_interval = setInterval(function() 
+			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+				
+				instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02;
+								
+				if(instance.window.style.opacity <= 0) 
+				{
+					instance.clear_effect_intervals();
+
+					instance.fade_out2b_interval = setInterval(function() 
+					{
+						if(!instance.created())
+						{
+							instance.clear_effect_intervals();
+							return;
+						}
+						
+						instance.overlay.style.opacity = Number(instance.overlay.style.opacity) - 0.02;
+										
+						if(instance.overlay.style.opacity <= 0) 
+						{
+							instance.clear_effect_intervals();
+							instance.close_window(callback);
+						}
+					}, speed);
 				}
 			}, speed);	
 		}

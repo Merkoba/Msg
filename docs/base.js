@@ -468,6 +468,8 @@ function pop(position)
     var overlay_x = document.getElementById('select_overlay_x').value;
     var enable_overlay = document.getElementById('input_enable_overlay').checked;
     var lock = document.getElementById('input_lock').checked;
+    var show_effect_duration = document.getElementById('input_show_effect_duration').value;
+    var close_effect_duration = document.getElementById('input_close_effect_duration').value;
 
     if(autoclose)
     {
@@ -499,6 +501,8 @@ function pop(position)
         sideStack_padding:document.getElementById('input_sideStack_padding').value,
         show_effect:show_effect,
         close_effect:close_effect,
+        show_effect_duration:show_effect_duration,
+        close_effect_duration:close_effect_duration,
         window_cursor:"pointer",
         on_click: function(instance)
         {
@@ -506,7 +510,7 @@ function pop(position)
         }
     });
 
-    pops.push(msg);
+    pops.push(pupmsg);
 
     pupmsg.show([title, message]);
 }
