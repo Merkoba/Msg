@@ -1,4 +1,4 @@
-/* Msg v7.3.1 https://github.com/madprops/Msg */
+/* Msg v7.3.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -1341,7 +1341,10 @@ var Msg = (function()
 			{
 				if(e.target === instance.content || e.target === instance.topbar || e.target === instance.titlebar || e.target === instance.progressbar)
 				{
-					instance.options.on_click(instance);
+					if(document.getSelection().toString() === "")
+					{
+						instance.options.on_click(instance);
+					}
 				}
 			});
 
