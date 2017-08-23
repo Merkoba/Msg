@@ -1,4 +1,4 @@
-/* Msg v7.6.0 https://github.com/madprops/Msg */
+/* Msg v7.6.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -593,6 +593,8 @@ var Msg = (function()
 
 			instance.clear_while_open_interval();
 
+			instance.clear_effect_intervals();			
+
 			if(instance.options.close_effect === "fade")
 			{
 				if(typeof instance.options.close_effect_duration === "object")
@@ -608,14 +610,11 @@ var Msg = (function()
 
 				else
 				{
-					instance.overlay_fade_out();
+					instance.fade_out();
 
-					instance.fade_out(function()
+					instance.overlay_fade_out(function()
 					{
-						instance.overlay_fade_out(function()
-						{
-							instance.close_window(callback);
-						});
+						instance.close_window(callback);
 					});
 				}
 			}
@@ -635,14 +634,11 @@ var Msg = (function()
 
 				else
 				{
-					instance.overlay_fade_out();
+					instance.scale_out();
 
-					instance.scale_out(function()
+					instance.overlay_fade_out(function()
 					{
-						instance.overlay_fade_out(function()
-						{
-							instance.close_window(callback);
-						});
+						instance.close_window(callback);
 					});
 				}
 			}
@@ -662,14 +658,11 @@ var Msg = (function()
 
 				else
 				{
-					instance.overlay_fade_out();
+					instance.slide_out();
 
-					instance.slide_out(function()
+					instance.overlay_fade_out(function()
 					{
-						instance.overlay_fade_out(function()
-						{
-							instance.close_window(callback);
-						});
+						instance.close_window(callback);
 					});
 				}
 			}
@@ -2095,7 +2088,7 @@ var Msg = (function()
 		{
 			var speed = instance.resolve_effect_duration(1, instance.options.close_effect_duration) / 50;
 
-			if(instance.overlay === undefined || speed === 0)
+			if(instance.overlay === undefined || speed === 0 || instance.overlay.style.opacity == 0)
 			{
 				if(instance.overlay !== undefined)
 				{
@@ -2176,7 +2169,7 @@ var Msg = (function()
 		{
 			var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 50;
 
-			if(speed === 0)
+			if(speed === 0 || instance.window.style.opacity == 0)
 			{
 				instance.window.style.opacity = 0;
 
@@ -2256,7 +2249,7 @@ var Msg = (function()
 		{		
 			var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 50;
 
-			if(speed === 0)
+			if(speed === 0 || instance.window.style.opacity == 0)
 			{
 				instance.window.style.opacity = 0;
 
@@ -2607,7 +2600,7 @@ var Msg = (function()
 		{
 			var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration);
 
-			if(speed === 0)
+			if(speed === 0 || instance.window.style.opacity == 0)
 			{
 				instance.window.style.opacity = 0;
 
