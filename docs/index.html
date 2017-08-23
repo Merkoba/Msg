@@ -12,7 +12,7 @@
 
         <script src='symmetric_harmony.js?v=4'></script>
 
-        <script src='msg.js?v=97'></script>
+        <script src='msg.js?v=98'></script>
 
         <script src='base.js?v=61'></script>
 
@@ -101,7 +101,7 @@
 
         <select id='select_show_effect'>
             <option>fade</option>
-            <option>fade2</option>
+            <option>scale</option>
             <option>slide_up</option>
             <option>slide_down</option>
             <option>slide_left</option>
@@ -115,7 +115,7 @@
 
         <select id='select_close_effect'>
             <option>fade</option>
-            <option>fade2</option>
+            <option>scale</option>
             <option>slide_up</option>
             <option>slide_down</option>
             <option>slide_left</option>
@@ -584,15 +584,15 @@ msg2.show(["Window Example", some_text]);
         
         <i>overlay_x (Default: "none")</i>: Makes an x to close the window inside the overlay. Either "right", "left" or "none".<br><br>
 
-        <i>show_effect (Default: "fade2")</i>: Either "fade", "fade2", slide_up", "slide_down", "slide_left", "slide_right" or "none". Position "center" doesn't support slide effects. Some positions don't support certain kinds of slide effects. "fade2" will only work if the overlay is enabled, else it fallsback to "fade".<br><br>
+        <i>show_effect (Default: "fade")</i>: Either "fade", "scale", slide_up", "slide_down", "slide_left", "slide_right" or "none". Some positions don't support certain kinds of slide effects.<br><br>
 
-        <i>show_effect_duration (Default: [350, 0])</i>: The amount of time in milliseconds it takes to complete the show_effect. If using "fade2", you can specify an array with 2 numbers, where the first number is the duration of the overlay fade, and the second number is the duration of the window fade. The other options don't support an array, a number must be specified.<br><br>
+        <i>show_effect_duration (Default: [350, 0])</i>: The amount of time in milliseconds it takes to complete the show_effect. If an array with 2 numbers is given, the first number refers to the overlay effect duration, while the second one refers to the window effect duration, which starts after the overlay effect is finished. If just a number is given, it will be the effect duration for both the overlay and the window, which start at the same time.<br><br>
 
         <i>subsequent_show_effects (Default: false)</i>: If true, it will show the show_effect on show() even if the window is already open.<br><br>
 
-        <i>close_effect (Default: "fade2")</i>: Either "fade", "fade2", "slide_up", "slide_down", "slide_left", "slide_right" or "none". Position "center" doesn't support slide effects. Some positions don't support certain kinds of slide effects. "fade2" will only work if the overlay is enabled, else it fallsback to "fade".<br><br>
+        <i>close_effect (Default: "fade")</i>: Either "fade", "scale", "slide_up", "slide_down", "slide_left", "slide_right" or "none". Some positions don't support certain kinds of slide effects.<br><br>
 
-        <i>close_effect_duration (Default: [0, 350])</i>: The amount of time in milliseconds it takes to complete the close_effect. If using "fade2", you can specify an array with 2 numbers, where the first number is the duration of the window fade, and the second number is the duration of the overlay fade. The other options don't support an array, a number must be specified.<br><br>
+        <i>close_effect_duration (Default: [0, 350])</i>: The amount of time in milliseconds it takes to complete the close_effect. If an array with 2 numbers is given, the first number refers to the window effect duration, while the second one refers to the overlay effect duration, which starts after the window effect is finished. If just a number is given, it will be the effect duration for both the window and the overlay, which start at the same time.<br><br>
 
         <i>replace_linebreaks (Default: true)</i>: If true, strings passed to show() or set() will have every "\n" replaced with an html linebreak.<br><br>        
         
@@ -643,9 +643,9 @@ msg2.show(["Window Example", some_text]);
     id: "test",
     class: "black",
     window_x: "inner_left",
-    show_effect: "fade2",
+    show_effect: "fade",
     show_effect_duration: [800, 0],
-    close_effect: "fade2",
+    close_effect: "fade",
     close_effect_duration: [0, 800],    
     after_show: function(instance)
     {
@@ -670,9 +670,9 @@ msg_test.show("Domo Arigato");
                 id: "test",
                 class: "black",
                 window_x: "inner_left",
-                show_effect: "fade2",
+                show_effect: "fade",
                 show_effect_duration: [800, 0],
-                close_effect: "fade2",
+                close_effect: "fade",
                 close_effect_duration: [0, 800],
                 after_show: function(instance)
                 {

@@ -1,4 +1,4 @@
-/* Msg v7.5.0 https://github.com/madprops/Msg */
+/* Msg v7.6.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -364,7 +364,7 @@ var Msg = (function()
 
 			if(instance.options.show_effect === undefined)
 			{
-				instance.options.show_effect = "fade2";
+				instance.options.show_effect = "fade";
 			}
 
 			if(instance.options.show_effect_duration === undefined)
@@ -374,7 +374,7 @@ var Msg = (function()
 
 			if(instance.options.close_effect === undefined)
 			{
-				instance.options.close_effect = "fade2";
+				instance.options.close_effect = "fade";
 			}
 
 			if(instance.options.close_effect_duration === undefined)
@@ -564,6 +564,11 @@ var Msg = (function()
 
 		instance.do_close = function(callback=false)
 		{
+			if(instance.closing)
+			{
+				return;
+			}
+
 			if(!instance.is_open())
 			{
 				return;
@@ -590,17 +595,83 @@ var Msg = (function()
 
 			if(instance.options.close_effect === "fade")
 			{
-				instance.fade_out(callback);
+				if(typeof instance.options.close_effect_duration === "object")
+				{
+					instance.fade_out(function()
+					{
+						instance.overlay_fade_out(function()
+						{
+							instance.close_window(callback);
+						});
+					});
+				}
+
+				else
+				{
+					instance.overlay_fade_out();
+
+					instance.fade_out(function()
+					{
+						instance.overlay_fade_out(function()
+						{
+							instance.close_window(callback);
+						});
+					});
+				}
 			}
 
-			else if(instance.options.close_effect === "fade2")
+			else if(instance.options.close_effect === "scale")
 			{
-				instance.fade_out2(callback);
+				if(typeof instance.options.close_effect_duration === "object")
+				{
+					instance.scale_out(function()
+					{
+						instance.overlay_fade_out(function()
+						{
+							instance.close_window(callback);
+						});
+					});
+				}
+
+				else
+				{
+					instance.overlay_fade_out();
+
+					instance.scale_out(function()
+					{
+						instance.overlay_fade_out(function()
+						{
+							instance.close_window(callback);
+						});
+					});
+				}
 			}
 
 			else if(instance.options.close_effect.indexOf("slide") !== -1)
 			{
-				instance.slide_out(callback);
+				if(typeof instance.options.close_effect_duration === "object")
+				{
+					instance.slide_out(function()
+					{
+						instance.overlay_fade_out(function()
+						{
+							instance.close_window(callback);
+						});
+					});
+				}
+
+				else
+				{
+					instance.overlay_fade_out();
+
+					instance.slide_out(function()
+					{
+						instance.overlay_fade_out(function()
+						{
+							instance.close_window(callback);
+						});
+					});
+				}
 			}
 
 			else
@@ -624,6 +695,8 @@ var Msg = (function()
 			instance.window.style.zIndex = -1000;
 
 			instance.clear_autoclose_progressbar_interval();
+
+			instance.clear_effect_intervals();
 
 			instance.check_remove_overflow_hidden();
 
@@ -805,10 +878,17 @@ var Msg = (function()
 
 			instance.reset_timers();
 
-			var return_callback = false;
+			instance.clear_effect_intervals();
+
+			instance.closing = false;
+
+			var return_callback = true;
+			var first_show = false;
 
 			if(!instance.is_open())
 			{	
+				first_show = true;
+
 				if(instance.options.close_others_on_show)
 				{
 					instance.close_all();
@@ -819,6 +899,8 @@ var Msg = (function()
 				instance.check_add_overflow_hidden();
 
 				instance.set_default_positions();
+
+				instance.reset_props();
 
 				if(instance.options.sideStack === "vertical")
 				{
@@ -835,49 +917,105 @@ var Msg = (function()
 					instance.start_while_open_interval();
 				}
 
+			}
+
+			if(first_show || instance.options.subsequent_show_effects)
+			{
 				if(instance.options.show_effect === "fade")
 				{
-					instance.fade_in(callback);					
+					return_callback = false;
+
+					if(typeof instance.options.show_effect_duration === "object")
+					{
+						instance.overlay_fade_in(function()
+						{
+							instance.fade_in(function()
+							{
+								if(callback)
+								{
+									return callback(instance);
+								}
+							});
+						});
+					}
+
+					else
+					{
+						instance.overlay_fade_in();
+
+						instance.fade_in(function()
+						{
+							if(callback)
+							{
+								return callback(instance);
+							}
+						});
+					}
 				}
 
-				else if(instance.options.show_effect === "fade2")
+				else if(instance.options.show_effect === "scale")
 				{
-					instance.fade_in2(callback);					
+					return_callback = false;
+
+					if(typeof instance.options.show_effect_duration === "object")
+					{
+						instance.overlay_fade_in(function()
+						{
+							instance.scale_in(function()
+							{
+								if(callback)
+								{
+									return callback(instance);
+								}
+							});
+						});
+					}
+
+					else
+					{
+						instance.overlay_fade_in();
+
+						instance.scale_in(function()
+						{
+							if(callback)
+							{
+								return callback(instance);
+							}
+						});
+					}
 				}
 
 				else if(instance.options.show_effect.indexOf("slide") !== -1)
 				{
-					instance.slide_in(callback);
-				}
+					return_callback = false;
 
-				else
-				{
-					instance.reset_opacity();
-					return_callback = true;
-				}
-			}
+					if(typeof instance.options.show_effect_duration === "object")
+					{
+						instance.overlay_fade_in(function()
+						{
+							instance.slide_in(function()
+							{
+								if(callback)
+								{
+									return callback(instance);
+								}
+							});
+						});
+					}
 
-			else
-			{
-				if(instance.options.show_effect === "fade" && instance.options.subsequent_show_effects)
-				{
-					instance.fade_in(callback);
-				}
+					else
+					{
+						instance.overlay_fade_in();
 
-				else if(instance.options.show_effect === "fade2" && instance.options.subsequent_show_effects)
-				{
-					instance.fade_in2(callback);
-				}
-
-				else if(instance.options.show_effect.indexOf("slide" !== -1) && instance.options.subsequent_show_effects)
-				{
-					instance.slide_in(callback);
-				}
-
-				else
-				{
-					return_callback = true;
-				}
+						instance.slide_in(function()
+						{
+							if(callback)
+							{
+								return callback(instance);
+							}
+						});
+					}
+				}			
 			}
 
 			instance.to_top();
@@ -1872,12 +2010,12 @@ var Msg = (function()
 
 		instance.clear_effect_intervals = function()
 		{
+			clearInterval(instance.overlay_fade_in_interval);
+			clearInterval(instance.overlay_fade_out_interval);
 			clearInterval(instance.fade_in_interval);
 			clearInterval(instance.fade_out_interval);
-			clearInterval(instance.fade_in2a_interval);
-			clearInterval(instance.fade_in2b_interval);
-			clearInterval(instance.fade_out2a_interval);
-			clearInterval(instance.fade_out2b_interval);
+			clearInterval(instance.scale_in_interval);
+			clearInterval(instance.scale_out_interval);
 			clearInterval(instance.slide_in_interval);
 			clearInterval(instance.slide_out_interval);
 
@@ -1885,7 +2023,7 @@ var Msg = (function()
 			instance.slide_in_direction = undefined;
 		}
 
-		instance.reset_opacity = function()
+		instance.reset_props = function()
 		{
 			if(instance.overlay !== undefined)
 			{
@@ -1893,83 +2031,7 @@ var Msg = (function()
 			}
 
 			instance.window.style.opacity = 1;
-		}
-
-		instance.fade_in = function(callback) 
-		{
-			instance.clear_effect_intervals();
-
-			var ov;
-
-			(instance.overlay === undefined) ? ov = false : ov = true;
-
-			if(ov)
-			{
-				instance.overlay.style.opacity = 0;
-			}
-
-			instance.window.style.opacity = 0;
-
-			var speed = instance.options.show_effect_duration / 50;
-
-			instance.fade_in_interval = setInterval(function() 
-			{
-				if(!instance.created())
-				{
-					instance.clear_effect_intervals();
-					return;
-				}
-
-				if(ov)
-				{
-					instance.overlay.style.opacity = Number(instance.overlay.style.opacity) + 0.02;
-				}
-				
-				instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02;
-				
-				if(instance.window.style.opacity >= 1) 
-				{
-					instance.clear_effect_intervals();
-
-					if(callback)
-					{
-						return callback(instance);
-					}
-				}
-			}, speed);
-		}
-
-		instance.fade_out = function(callback) 
-		{
-			instance.clear_effect_intervals();
-
-			var ov;
-
-			(instance.overlay === undefined) ? ov = false : ov = true;			
-
-			var speed = instance.options.close_effect_duration / 50;
-
-			instance.fade_out_interval = setInterval(function() 
-			{
-				if(!instance.created())
-				{
-					instance.clear_effect_intervals();
-					return;
-				}
-				
-				if(ov)
-				{
-					instance.overlay.style.opacity = Number(instance.overlay.style.opacity) - 0.02;
-				}
-				
-				instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02;
-				
-				if(instance.window.style.opacity <= 0) 
-				{
-					instance.clear_effect_intervals();
-					instance.close_window(callback);
-				}
-			}, speed);	
+			instance.window.style.zoom = 1;
 		}
 
 		instance.resolve_effect_duration = function(n, duration)
@@ -1983,164 +2045,267 @@ var Msg = (function()
 			{
 				return duration;
 			}
-		}
+		}		
 
-		instance.fade_in2 = function(callback) 
+		instance.overlay_fade_in = function(callback) 
 		{
-			instance.clear_effect_intervals();
+			var speed = instance.resolve_effect_duration(0, instance.options.show_effect_duration) / 50;
 
-			if(instance.overlay === undefined)
+			if(instance.overlay === undefined || speed === 0)
 			{
-				return instance.fade_in(callback);
+				if(instance.overlay !== undefined)
+				{
+					instance.overlay.style.opacity = 1;
+				}
+
+				if(callback)
+				{
+					return callback();
+				}
+
+				return;
 			}
 
 			instance.overlay.style.opacity = 0;
 			instance.window.style.opacity = 0;
 
-			var speed = instance.resolve_effect_duration(0, instance.options.show_effect_duration) / 50;
-			var speed2 = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 50;
-
-			function finish()
+			instance.overlay_fade_in_interval = setInterval(function() 
 			{
-				instance.clear_effect_intervals();
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+
+				instance.overlay.style.opacity = Number(instance.overlay.style.opacity) + 0.02;
+				
+				if(instance.overlay.style.opacity >= 1) 
+				{
+					clearInterval(instance.overlay_fade_in_interval);
+
+					if(callback)
+					{
+						return callback();
+					}
+				}
+			}, speed);
+		}
+
+		instance.overlay_fade_out = function(callback) 
+		{
+			var speed = instance.resolve_effect_duration(1, instance.options.close_effect_duration) / 50;
+
+			if(instance.overlay === undefined || speed === 0)
+			{
+				if(instance.overlay !== undefined)
+				{
+					instance.overlay.style.opacity = 0;
+				}
 
 				if(callback)
 				{
-					return callback(instance);
-				}				
+					return callback();
+				}
+
+				return;
 			}
 
-			function nextint()
+			instance.overlay_fade_out_interval = setInterval(function() 
 			{
-				if(speed2 === 0)
+				if(!instance.created())
 				{
-					instance.window.style.opacity = 1;
-					finish();
+					instance.clear_effect_intervals();
+					return;
 				}
-
-				else
+				
+				instance.overlay.style.opacity = Number(instance.overlay.style.opacity) - 0.02;
+				
+				if(instance.overlay.style.opacity <= 0) 
 				{
-					instance.fade_in2b_interval = setInterval(function() 
+					clearInterval(instance.overlay_fade_out_interval);
+
+					if(callback)
 					{
-						if(!instance.created())
-						{
-							instance.clear_effect_intervals();
-							return;
-						}
-
-						instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02;
-										
-						if(instance.window.style.opacity >= 1) 
-						{
-							finish();
-						}
-					}, speed2);
+						return callback();
+					}					
 				}
-			}
+			}, speed);	
+		}		
+
+		instance.fade_in = function(callback) 
+		{
+			var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 50;
 
 			if(speed === 0)
 			{
-				instance.overlay.style.opacity = 1;
-				nextint();
-			}
+				instance.window.style.opacity = 1;
 
-			else
-			{
-				instance.fade_in2a_interval = setInterval(function() 
+				if(callback)
 				{
-					if(!instance.created())
-					{
-						instance.clear_effect_intervals();
-						return;
-					}
+					return callback();
+				}
 
-					instance.overlay.style.opacity = Number(instance.overlay.style.opacity) + 0.02;
-									
-					if(instance.overlay.style.opacity >= 1) 
-					{
-						instance.clear_effect_intervals();
-						nextint();			
-					}
-				}, speed);
+				return;
 			}
+
+			instance.window.style.opacity = 0;
+
+			instance.fade_in_interval = setInterval(function() 
+			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+				
+				instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02;
+				
+				if(instance.window.style.opacity >= 1) 
+				{
+					clearInterval(instance.fade_in_interval);
+
+					if(callback)
+					{
+						return callback();
+					}
+				}
+			}, speed);
 		}
 
-		instance.fade_out2 = function(callback) 
+		instance.fade_out = function(callback) 
 		{
-			instance.clear_effect_intervals();
-
-			if(instance.overlay === undefined)
-			{
-				return instance.fade_out(callback);
-			}
-
 			var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 50;
-			var speed2 = instance.resolve_effect_duration(1, instance.options.close_effect_duration) / 50;
-
-			function finish()
-			{
-				instance.clear_effect_intervals();
-				instance.close_window(callback);			
-			}
-
-			function nextint()
-			{
-				if(speed2 === 0)
-				{
-					instance.overlay.style.opacity = 0;
-					finish();
-				}
-
-				else
-				{
-					instance.fade_out2b_interval = setInterval(function() 
-					{
-						if(!instance.created())
-						{
-							instance.clear_effect_intervals();
-							return;
-						}
-
-						instance.overlay.style.opacity = Number(instance.overlay.style.opacity) - 0.02;
-										
-						if(instance.overlay.style.opacity <= 0) 
-						{
-							finish();
-						}
-					}, speed2);
-				}
-			}
 
 			if(speed === 0)
 			{
 				instance.window.style.opacity = 0;
-				nextint();
-			}
 
-			else
-			{
-				instance.fade_out2a_interval = setInterval(function() 
+				if(callback)
 				{
-					if(!instance.created())
-					{
-						instance.clear_effect_intervals();
-						return;
-					}
+					return callback();
+				}
 
-					instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02;
-									
-					if(instance.window.style.opacity <= 0) 
+				return;
+			}			
+
+			instance.fade_out_interval = setInterval(function() 
+			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+				
+				instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02;
+				
+				if(instance.window.style.opacity <= 0) 
+				{
+					clearInterval(instance.fade_out_interval);
+					
+					if(callback)
 					{
-						instance.clear_effect_intervals();
-						nextint();			
+						return callback();
 					}
-				}, speed);
+				}
+			}, speed);	
+		}
+
+		instance.scale_in = function(callback) 
+		{
+			var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 50;
+
+			if(speed === 0)
+			{
+				instance.window.style.opacity = 1;
+
+				if(callback)
+				{
+					return callback();
+				}
+
+				return;
 			}
+
+			instance.window.style.opacity = 0;
+			instance.window.style.zoom = 0.5;
+
+			instance.scale_in_interval = setInterval(function() 
+			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+
+				instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02;
+				instance.window.style.zoom = Number(instance.window.style.zoom) + 0.01;
+				
+				if(instance.window.style.zoom >= 1) 
+				{
+					clearInterval(instance.scale_in_interval);
+
+					if(callback)
+					{
+						return callback();
+					}
+				}
+			}, speed);
+		}
+
+		instance.scale_out = function(callback) 
+		{		
+			var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 50;
+
+			if(speed === 0)
+			{
+				instance.window.style.opacity = 0;
+
+				if(callback)
+				{
+					return callback();
+				}
+
+				return;
+			}
+
+			instance.scale_out_interval = setInterval(function() 
+			{
+				if(!instance.created())
+				{
+					instance.clear_effect_intervals();
+					return;
+				}
+				
+				instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02;
+				instance.window.style.zoom = Number(instance.window.style.zoom) - 0.01;
+				
+				if(instance.window.style.zoom <= 0.5) 
+				{
+					clearInterval(instance.scale_out_interval);
+
+					if(callback)
+					{
+						return callback();
+					}
+				}
+			}, speed);	
 		}
 
 		instance.slide_in = function(callback) 
 		{
-			instance.clear_effect_intervals();
+			var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration);
+
+			instance.window.style.opacity = 1;
+
+			if(speed === 0)
+			{
+				if(callback)
+				{
+					return callback();
+				}
+
+				return;
+			}
 
 			var direction = instance.options.show_effect.split("_")[1];
 
@@ -2153,6 +2318,7 @@ var Msg = (function()
 			var spos = false;
 			var diff = false;
 
+
 			if(p === "bottom")
 			{
 				if(direction === "up")
@@ -2160,7 +2326,7 @@ var Msg = (function()
 					pos = "bottom";
 					spos = `stack_pos_${pos}`;
 					instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
-					diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
+					diff = ((instance.window.offsetHeight + instance[spos]) / speed) * 10;
 				}
 
 				else if(direction === "down")
@@ -2168,7 +2334,7 @@ var Msg = (function()
 					pos = "bottom";
 					spos = `stack_pos_${pos}`;
 					instance.window.style.bottom = window.innerHeight + "px";
-					diff = ((parseInt(instance.window.style.bottom) - instance[spos]) / instance.options.show_effect_duration) * 10;
+					diff = ((parseInt(instance.window.style.bottom) - instance[spos]) / speed) * 10;
 				}
 			}
 
@@ -2179,7 +2345,7 @@ var Msg = (function()
 					pos = "top";
 					spos = `stack_pos_${pos}`;
 					instance.window.style.top = window.innerHeight + "px";
-					diff = ((parseInt(instance.window.style.top) - instance[spos]) / instance.options.show_effect_duration) * 10;
+					diff = ((parseInt(instance.window.style.top) - instance[spos]) / speed) * 10;
 				}
 
 				else if(direction === "down")
@@ -2187,7 +2353,7 @@ var Msg = (function()
 					pos = "top";
 					spos = `stack_pos_${pos}`;
 					instance.window.style.top = 0 - instance.window.offsetHeight + "px";
-					diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
+					diff = ((instance.window.offsetHeight + instance[spos]) / speed) * 10;
 				}
 			}
 
@@ -2202,7 +2368,7 @@ var Msg = (function()
 							pos = "top";
 							spos = `stack_pos_${pos}`;
 							instance.window.style.top = window.innerHeight + "px";
-							diff = ((parseInt(instance.window.style.top) - instance[spos]) / instance.options.show_effect_duration) * 10;
+							diff = ((parseInt(instance.window.style.top) - instance[spos]) / speed) * 10;
 						}
 
 						else if(direction === "down")
@@ -2210,7 +2376,7 @@ var Msg = (function()
 							pos = "top";
 							spos = `stack_pos_${pos}`;
 							instance.window.style.top = 0 - instance.window.offsetHeight + "px";
-							diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
+							diff = ((instance.window.offsetHeight + instance[spos]) / speed) * 10;
 						}
 					}
 
@@ -2221,7 +2387,7 @@ var Msg = (function()
 							pos = "bottom";
 							spos = `stack_pos_${pos}`;
 							instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
-							diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
+							diff = ((instance.window.offsetHeight + instance[spos]) / speed) * 10;
 						}
 
 						else if(direction === "down")
@@ -2229,7 +2395,7 @@ var Msg = (function()
 							pos = "bottom";	
 							spos = `stack_pos_${pos}`;
 							instance.window.style.bottom = window.innerHeight + "px";
-							diff = ((parseInt(instance.window.style.bottom) - instance[spos]) / instance.options.show_effect_duration) * 10;
+							diff = ((parseInt(instance.window.style.bottom) - instance[spos]) / speed) * 10;
 						}
 					}
 				}
@@ -2239,7 +2405,7 @@ var Msg = (function()
 					pos = "right";
 					spos = `stack_pos_${pos}`;
 					instance.window.style.right = 0 - instance.window.offsetWidth + "px";
-					diff = ((instance.window.offsetWidth + instance[spos]) / instance.options.show_effect_duration) * 10;
+					diff = ((instance.window.offsetWidth + instance[spos]) / speed) * 10;
 				}
 
 				else if(direction === "right")
@@ -2247,7 +2413,7 @@ var Msg = (function()
 					pos = "right";						
 					spos = `stack_pos_${pos}`;
 					instance.window.style.right = window.innerWidth + "px";
-					diff = ((parseInt(instance.window.style.right) - instance[spos]) / instance.options.show_effect_duration) * 10;
+					diff = ((parseInt(instance.window.style.right) - instance[spos]) / speed) * 10;
 				}
 			}
 
@@ -2262,7 +2428,7 @@ var Msg = (function()
 							pos = "top";
 							spos = `stack_pos_${pos}`;
 							instance.window.style.top = window.innerHeight + "px";
-							diff = ((parseInt(instance.window.style.top) - instance[spos]) / instance.options.show_effect_duration) * 10;
+							diff = ((parseInt(instance.window.style.top) - instance[spos]) / speed) * 10;
 						}
 
 						else if(direction === "down")
@@ -2270,7 +2436,7 @@ var Msg = (function()
 							pos = "top";
 							spos = `stack_pos_${pos}`;
 							instance.window.style.top = 0 - instance.window.offsetHeight + "px";
-							diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
+							diff = ((instance.window.offsetHeight + instance[spos]) / speed) * 10;
 						}
 					}
 
@@ -2281,7 +2447,7 @@ var Msg = (function()
 							pos = "bottom";
 							spos = `stack_pos_${pos}`;
 							instance.window.style.bottom = 0 - instance.window.offsetHeight + "px";
-							diff = ((instance.window.offsetHeight + instance[spos]) / instance.options.show_effect_duration) * 10;
+							diff = ((instance.window.offsetHeight + instance[spos]) / speed) * 10;
 						}
 
 						else if(direction === "down")
@@ -2289,7 +2455,7 @@ var Msg = (function()
 							pos = "bottom";	
 							spos = `stack_pos_${pos}`;
 							instance.window.style.bottom = window.innerHeight + "px";
-							diff = ((parseInt(instance.window.style.bottom) - instance[spos]) / instance.options.show_effect_duration) * 10;
+							diff = ((parseInt(instance.window.style.bottom) - instance[spos]) / speed) * 10;
 						}
 					}
 				}
@@ -2299,7 +2465,7 @@ var Msg = (function()
 					pos = "left";
 					spos = `stack_pos_${pos}`;
 					instance.window.style.left = window.innerWidth + "px";
-					diff = ((parseInt(instance.window.style.left) - instance[spos]) / instance.options.show_effect_duration) * 10;
+					diff = ((parseInt(instance.window.style.left) - instance[spos]) / speed) * 10;
 				}
 
 				else if(direction === "right")
@@ -2307,7 +2473,7 @@ var Msg = (function()
 					pos = "left";						
 					spos = `stack_pos_${pos}`;
 					instance.window.style.left = 0 - instance.window.offsetWidth + "px";
-					diff = ((instance.window.offsetWidth + instance[spos]) / instance.options.show_effect_duration) * 10;
+					diff = ((instance.window.offsetWidth + instance[spos]) / speed) * 10;
 				}
 			}
 
@@ -2321,12 +2487,16 @@ var Msg = (function()
 
 			function finish()
 			{
+				clearInterval(instance.slide_in_interval);
+
+				instance.slide_in_ongoing = false;
+				instance.slide_in_direction = undefined;				
+				
 				instance.window.style[pos] = instance[spos] + "px";
-				instance.clear_effect_intervals();
 
 				if(callback)
 				{
-					return callback(instance);
+					return callback();
 				}				
 			}
 
@@ -2435,8 +2605,20 @@ var Msg = (function()
 
 		instance.slide_out = function(callback) 
 		{
-			instance.clear_effect_intervals();
-			
+			var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration);
+
+			if(speed === 0)
+			{
+				instance.window.style.opacity = 0;
+
+				if(callback)
+				{
+					return callback();
+				}
+
+				return;
+			}
+
 			var direction = instance.options.close_effect.split("_")[1];
 
 			var p = instance.options.position;
@@ -2446,18 +2628,19 @@ var Msg = (function()
 			var diff = false;
 			var npos = false;
 
+
 			if(p === "bottom")
 			{
 				if(direction === "up")
 				{
-					diff = ((window.innerHeight - parseInt(instance.window.style.bottom)) / instance.options.close_effect_duration) * 10;
+					diff = ((window.innerHeight - parseInt(instance.window.style.bottom)) / speed) * 10;
 					npos = window.innerHeight + instance.window.offsetHeight;
 					pos = "bottom";				
 				}
 
 				else if(direction === "down")
 				{
-					diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+					diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / speed) * 10;
 					npos = 0 - instance.window.offsetHeight;
 					pos = "bottom";	
 				}
@@ -2467,14 +2650,14 @@ var Msg = (function()
 			{
 				if(direction === "up")
 				{
-					diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+					diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / speed) * 10;
 					npos = 0 - instance.window.offsetHeight;
 					pos = "top";	
 				}
 
 				else if(direction === "down")
 				{
-					diff = ((window.innerHeight - parseInt(instance.window.style.top)) / instance.options.close_effect_duration) * 10;
+					diff = ((window.innerHeight - parseInt(instance.window.style.top)) / speed) * 10;
 					npos = window.innerHeight + instance.window.offsetHeight;
 					pos = "top";				
 				}
@@ -2488,14 +2671,14 @@ var Msg = (function()
 					{
 						if(direction === "up")
 						{
-							diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+							diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / speed) * 10;
 							npos = 0 - instance.window.offsetHeight;
 							pos = "top";
 						}
 
 						else if(direction === "down")
 						{
-							diff = ((window.innerHeight - parseInt(instance.window.style.top)) / instance.options.close_effect_duration) * 10;
+							diff = ((window.innerHeight - parseInt(instance.window.style.top)) / speed) * 10;
 							npos = window.innerHeight + instance.window.offsetHeight;
 							pos = "top";
 						}
@@ -2505,14 +2688,14 @@ var Msg = (function()
 					{
 						if(direction === "up")
 						{
-							diff = ((window.innerHeight - parseInt(instance.window.style.bottom)) / instance.options.close_effect_duration) * 10;
+							diff = ((window.innerHeight - parseInt(instance.window.style.bottom)) / speed) * 10;
 							npos = window.innerHeight + instance.window.offsetHeight;
 							pos = "bottom";	
 						}
 
 						else if(direction === "down")
 						{
-							diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+							diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / speed) * 10;
 							npos = 0 - instance.window.offsetHeight;
 							pos = "bottom";
 						}
@@ -2521,14 +2704,14 @@ var Msg = (function()
 
 				if(direction === "left")
 				{
-					diff = ((window.innerWidth - parseInt(instance.window.style.right)) / instance.options.close_effect_duration) * 10;
+					diff = ((window.innerWidth - parseInt(instance.window.style.right)) / speed) * 10;
 					npos = window.innerWidth + instance.window.offsetWidth;
 					pos = "right";	
 				}
 
 				else if(direction === "right")
 				{
-					diff = ((parseInt(instance.window.style.right) + instance.window.offsetWidth) / instance.options.close_effect_duration) * 10;
+					diff = ((parseInt(instance.window.style.right) + instance.window.offsetWidth) / speed) * 10;
 					npos = 0 - instance.window.offsetWidth;
 					pos = "right";						
 				}
@@ -2542,14 +2725,14 @@ var Msg = (function()
 					{
 						if(direction === "up")
 						{
-							diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+							diff = ((parseInt(instance.window.style.top) + instance.window.offsetHeight) / speed) * 10;
 							npos = 0 - instance.window.offsetHeight;
 							pos = "top";
 						}
 
 						else if(direction === "down")
 						{
-							diff = ((window.innerHeight - parseInt(instance.window.style.top)) / instance.options.close_effect_duration) * 10;
+							diff = ((window.innerHeight - parseInt(instance.window.style.top)) / speed) * 10;
 							npos = window.innerHeight + instance.window.offsetHeight;
 							pos = "top";
 						}
@@ -2559,14 +2742,14 @@ var Msg = (function()
 					{
 						if(direction === "up")
 						{
-							diff = ((window.innerHeight - parseInt(instance.window.style.bottom)) / instance.options.close_effect_duration) * 10;
+							diff = ((window.innerHeight - parseInt(instance.window.style.bottom)) / speed) * 10;
 							npos = window.innerHeight + instance.window.offsetHeight;
 							pos = "bottom";	
 						}
 
 						else if(direction === "down")
 						{
-							diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / instance.options.close_effect_duration) * 10;
+							diff = ((parseInt(instance.window.style.bottom) + instance.window.offsetHeight) / speed) * 10;
 							npos = 0 - instance.window.offsetHeight;
 							pos = "bottom";
 						}
@@ -2575,14 +2758,14 @@ var Msg = (function()
 
 				else if(direction === "left")
 				{
-					diff = ((parseInt(instance.window.style.left) + instance.window.offsetWidth) / instance.options.close_effect_duration) * 10;
+					diff = ((parseInt(instance.window.style.left) + instance.window.offsetWidth) / speed) * 10;
 					npos = 0 - instance.window.offsetWidth;
 					pos = "left";						
 				}
 
 				else if(direction === "right")
 				{
-					diff = ((window.innerWidth - parseInt(instance.window.style.left)) / instance.options.close_effect_duration) * 10;
+					diff = ((window.innerWidth - parseInt(instance.window.style.left)) / speed) * 10;
 					npos = window.innerWidth + instance.window.offsetWidth;
 					pos = "left";	
 				}
@@ -2598,9 +2781,14 @@ var Msg = (function()
 
 			function finish()
 			{
+				clearInterval(instance.slide_out_interval);
+
 				instance.window.style[pos] = (npos - 20) + "px";
-				instance.clear_effect_intervals();
-				instance.close_window(callback);
+
+				if(callback)
+				{
+					return callback();
+				}
 			}
 
 			instance.slide_out_interval = setInterval(function() 
