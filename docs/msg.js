@@ -1,4 +1,4 @@
-/* Msg v7.6.1 https://github.com/madprops/Msg */
+/* Msg v7.6.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -610,12 +610,25 @@ var Msg = (function()
 
 				else
 				{
-					instance.fade_out();
-
-					instance.overlay_fade_out(function()
+					if(instance.overlay !== undefined)
 					{
-						instance.close_window(callback);
-					});
+						instance.fade_out();
+
+						instance.overlay_fade_out(function()
+						{
+							instance.close_window(callback);
+						});						
+					}
+
+					else
+					{
+						instance.overlay_fade_out();
+
+						instance.fade_out(function()
+						{
+							instance.close_window(callback);
+						});
+					}
 				}
 			}
 
@@ -634,12 +647,25 @@ var Msg = (function()
 
 				else
 				{
-					instance.scale_out();
-
-					instance.overlay_fade_out(function()
+					if(instance.overlay !== undefined)
 					{
-						instance.close_window(callback);
-					});
+						instance.scale_out();
+
+						instance.overlay_fade_out(function()
+						{
+							instance.close_window(callback);
+						});						
+					}
+
+					else
+					{
+						instance.overlay_fade_out();
+
+						instance.scale_out(function()
+						{
+							instance.close_window(callback);
+						});
+					}
 				}
 			}
 
@@ -658,12 +684,25 @@ var Msg = (function()
 
 				else
 				{
-					instance.slide_out();
-
-					instance.overlay_fade_out(function()
+					if(instance.overlay !== undefined)
 					{
-						instance.close_window(callback);
-					});
+						instance.slide_out();
+
+						instance.overlay_fade_out(function()
+						{
+							instance.close_window(callback);
+						});						
+					}
+
+					else
+					{
+						instance.overlay_fade_out();
+
+						instance.slide_out(function()
+						{
+							instance.close_window(callback);
+						});
+					}
 				}
 			}
 
