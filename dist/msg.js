@@ -867,7 +867,6 @@ var Msg = (function()
 					{
 						instance.show(content, callback);
 					});
-
 				}
 
 				return;
