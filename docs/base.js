@@ -587,14 +587,15 @@ var current_sck = 0;
 
 function snack()
 {
-    msg_snack.show(scks[current_sck]);
-
-    current_sck += 1;
-
-    if(current_sck === scks.length)
+    msg_snack.show(scks[current_sck], function()
     {
-        current_sck = 0;
-    }
+        current_sck += 1;
+
+        if(current_sck === scks.length)
+        {
+            current_sck = 0;
+        }
+    });
 }
 
 function open_snack_message()
