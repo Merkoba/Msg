@@ -667,12 +667,16 @@ function pop_test(position, sleep=0)
     }
 }
 
+var msg_props = Msg(
+{
+    class:'red',
+    show_effect:"scale",
+    show_effect_duration:[800, 450],
+    close_effect:"scale",
+    close_effect_duration:[450, 800]
+});
+
 function props()
 {
-    Msg(
-    {
-        preset:'popup', 
-        class:'red',
-        show_effect:"scale"
-    }).show("<img src='props.jpg'>");
+   msg_props.show("<img src='props.jpg'>");
 }
