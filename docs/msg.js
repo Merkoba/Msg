@@ -1,4 +1,4 @@
-/* Msg v7.6.2 https://github.com/madprops/Msg */
+/* Msg v7.6.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -859,17 +859,18 @@ var Msg = (function()
 
 		instance.do_show = function(content, callback=false)
 		{
-			if(instance.options.close_on_show && !instance.closing)
+			if(instance.options.close_on_show && instance.is_open())
 			{
-				if(instance.is_open())
+				if(!instance.closing)
 				{					
 					instance.close(function()
 					{
 						instance.show(content, callback);
 					});
 
-					return;
 				}
+
+				return;
 			}
 
 			var title;
