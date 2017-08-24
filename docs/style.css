@@ -177,3 +177,17 @@ select
     left:50%;
     transform:translate(-50%,-50%);
 }
+
+#props
+{
+    font-size:8px;
+    padding-bottom:1em;
+    color: #be5959;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;  
+}

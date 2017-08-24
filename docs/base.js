@@ -666,3 +666,13 @@ function pop_test(position, sleep=0)
         pap();pap();pap();pap();
     }
 }
+
+function props()
+{
+    Msg(
+    {
+        preset:'popup', 
+        class:'red',
+        show_effect:"scale"
+    }).show("<img src='props.jpg'>");
+}
