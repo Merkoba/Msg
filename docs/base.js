@@ -283,6 +283,7 @@ var msg_toy = Msg(
     {
         clearInterval(sym_interval);
         stop_audio('toymusic');
+        instance.close_all();
     }
 });
 
