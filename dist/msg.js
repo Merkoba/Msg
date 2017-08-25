@@ -1,4 +1,4 @@
-/* Msg v7.6.4 https://github.com/madprops/Msg */
+/* Msg v7.6.5 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -1341,13 +1341,13 @@ var Msg = (function()
 			if(instance.options.window_x.indexOf("left") !== -1)
 			{
 				var fs = "left:0px;"
-				var fms = "margin-left:-10px;";
+				var fms = "margin-left:-14px;";
 			}
 
 			else
 			{
 				var fs = "right:0px;";
-				var fms = "margin-right:-10px;";
+				var fms = "margin-right:-14px;";
 			}
 
 			styles.window_floating_x = `
@@ -1355,7 +1355,7 @@ var Msg = (function()
 			position:absolute;		
 			top:0px;
 			${fs}
-			margin-top: -10px;
+			margin-top: -14px;
 			${fms}
 			font-size:19px;	
 			font-family:sans-serif;
