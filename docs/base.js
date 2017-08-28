@@ -266,12 +266,12 @@ var msg_toy = Msg(
             var canv = document.getElementById('canv');
             canv.style.display = "block";
 
-            setTimeout(function()
+            toytime1 = setTimeout(function()
             {
                 Msg({preset:"popup",zStack_level:2, class:"black"}).show("Try moving the mouse");
             }, 5000);
 
-            setTimeout(function()
+            toytime2 = setTimeout(function()
             {
                 Msg({preset:"popup",zStack_level:2, class:"black"}).show("Try drag and dropping images");
             }, 20000);
@@ -282,6 +282,8 @@ var msg_toy = Msg(
     after_close: function(instance)
     {
         clearInterval(sym_interval);
+        clearInterval(toytime1);
+        clearInterval(toytime2);
         stop_audio('toymusic');
         instance.close_all();
     }
