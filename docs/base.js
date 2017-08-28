@@ -242,6 +242,10 @@ function audio_fadeout(audio)
 
 }
 
+var toytime0;
+var toytime1;
+var toytime2;
+
 var msg_toy = Msg(
 {
     id:"toy",
