@@ -257,7 +257,7 @@ var msg_toy = Msg(
         
         play_audio('toymusic');
 
-        setTimeout(function()
+        toytime0 = setTimeout(function()
         {
             
             var spinner = document.getElementById('spinner');
@@ -282,8 +282,9 @@ var msg_toy = Msg(
     after_close: function(instance)
     {
         clearInterval(sym_interval);
-        clearInterval(toytime1);
-        clearInterval(toytime2);
+        clearTimeout(toytime0);
+        clearTimeout(toytime1);
+        clearTimeout(toytime2);
         stop_audio('toymusic');
         instance.close_all();
     }
