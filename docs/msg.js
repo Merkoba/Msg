@@ -1,4 +1,4 @@
-/* Msg v7.6.5 https://github.com/madprops/Msg */
+/* Msg v7.7.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -837,9 +837,22 @@ var Msg = (function()
 			instance.options.after_set_title(instance);
 		}		
 
-		instance.set_or_show = function(html)
+		instance.set_or_show = function(html, callback=false)
 		{
-			instance.is_highest() ? instance.set(html) : instance.show(html);
+			if(instance.is_highest())
+			{
+				instance.set(html);
+
+				if(callback)
+				{
+					return callback();
+				}
+			}
+
+			else
+			{
+				instance.show(html, callback);
+			}
 		}
 
 		instance.show = function(content, callback=false)
