@@ -1,4 +1,4 @@
-/* Msg v7.7.0 https://github.com/madprops/Msg */
+/* Msg v7.7.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -1393,6 +1393,7 @@ var Msg = (function()
 			border:none;
 			outline:0;
 			margin:0;
+			flex-grow:1;
 			`;
 
 			if(instance.options.enable_titlebar || (instance.options.window_x.indexOf("inner") !== -1))
