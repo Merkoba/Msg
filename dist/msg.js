@@ -1,4 +1,4 @@
-/* Msg v7.9.0 https://github.com/madprops/Msg */
+/* Msg v7.9.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -526,7 +526,7 @@ var Msg = (function()
 
 			if(instance.options.replace_linebreaks === undefined)
 			{
-				instance.options.replace_linebreaks = true
+				instance.options.replace_linebreaks = false
 			}
 
 			if(instance.options.close_others_on_show === undefined)
