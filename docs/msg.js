@@ -1,4 +1,4 @@
-/* Msg v7.9.1 https://github.com/madprops/Msg */
+/* Msg v8.0.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -979,7 +979,6 @@ var Msg = (function()
 				{
 					instance.start_while_open_interval()
 				}
-
 			}
 
 			if(first_show || instance.options.subsequent_show_effects)
@@ -1440,7 +1439,6 @@ var Msg = (function()
 
 			styles.content = `
 			font-size:24px;
-			font-family:sans-serif;
 			text-align:center;
 			overflow:hidden;
 			overflow-wrap: break-word;
@@ -3786,6 +3784,83 @@ var Msg = (function()
 
 			instance.stack_width = instance.window.offsetWidth
 			instance.stack_height = instance.window.offsetHeight
+		}
+
+		instance.change_class = function(new_class)
+		{
+			if(instance.container !== undefined && instance.container.classList.contains(`Msg-container-${instance.options.class}`))
+			{
+				instance.container.classList.remove(`Msg-container-${instance.options.class}`)
+				instance.container.classList.add(`Msg-container-${new_class}`)
+			}
+
+			if(instance.overlay !== undefined && instance.overlay.classList.contains(`Msg-overlay-${instance.options.class}`))
+			{
+				instance.overlay.classList.remove(`Msg-overlay-${instance.options.class}`)
+				instance.overlay.classList.add(`Msg-overlay-${new_class}`)
+			}
+
+			if(instance.overlay_x !== undefined && instance.overlay_x.classList.contains(`Msg-overlay-x-${instance.options.class}`))
+			{
+				instance.overlay_x.classList.remove(`Msg-overlay-x-${instance.options.class}`)
+				instance.overlay_x.classList.add(`Msg-overlay-x-${new_class}`)
+			}
+
+			if(instance.window !== undefined && instance.window.classList.contains(`Msg-window-${instance.options.class}`))
+			{
+				instance.window.classList.remove(`Msg-window-${instance.options.class}`)
+				instance.window.classList.add(`Msg-window-${new_class}`)
+			}
+
+			if(instance.topbar !== undefined && instance.topbar.classList.contains(`Msg-topbar-${instance.options.class}`))
+			{
+				instance.topbar.classList.remove(`Msg-topbar-${instance.options.class}`)
+				instance.topbar.classList.add(`Msg-topbar-${new_class}`)
+			}
+
+			if(instance.titlebar !== undefined && instance.titlebar.classList.contains(`Msg-titlebar-${instance.options.class}`))
+			{
+				instance.titlebar.classList.remove(`Msg-titlebar-${instance.options.class}`)
+				instance.titlebar.classList.add(`Msg-titlebar-${new_class}`)
+			}
+
+			if(instance.window_inner_x !== undefined && instance.window_inner_x.classList.contains(`Msg-window-inner-x-${instance.options.class}`))
+			{
+				instance.window_inner_x.classList.remove(`Msg-window-inner-x-${instance.options.class}`)
+				instance.window_inner_x.classList.add(`Msg-window-inner-x-${new_class}`)
+			}
+
+			if(instance.window_floating_x !== undefined && instance.window_floating_x.classList.contains(`Msg-window-floating-x-${instance.options.class}`))
+			{
+				instance.window_floating_x.classList.remove(`Msg-window-floating-x-${instance.options.class}`)
+				instance.window_floating_x.classList.add(`Msg-window-floating-x-${new_class}`)
+			}
+
+			if(instance.content_container !== undefined && instance.content_container.classList.contains(`Msg-content-container-${instance.options.class}`))
+			{
+				instance.content_container.classList.remove(`Msg-content-container-${instance.options.class}`)
+				instance.content_container.classList.add(`Msg-content-container-${new_class}`)
+			}
+
+			if(instance.content !== undefined && instance.content.classList.contains(`Msg-content-${instance.options.class}`))
+			{
+				instance.content.classList.remove(`Msg-content-${instance.options.class}`)
+				instance.content.classList.add(`Msg-content-${new_class}`)
+			}
+
+			if(instance.progressbar_container !== undefined && instance.progressbar_container.classList.contains(`Msg-progressbar-container-${instance.options.class}`))
+			{
+				instance.progressbar_container.classList.remove(`Msg-progressbar-container-${instance.options.class}`)
+				instance.progressbar_container.classList.add(`Msg-progressbar-container-${new_class}`)
+			}
+
+			if(instance.progressbar !== undefined && instance.progressbar.classList.contains(`Msg-progressbar-${instance.options.class}`))
+			{
+				instance.progressbar.classList.remove(`Msg-progressbar-${instance.options.class}`)
+				instance.progressbar.classList.add(`Msg-progressbar-${new_class}`)
+			}
+
+			instance.options.class = new_class	
 		}
 
 		if(instance.options.id !== "__internal_instance__")
