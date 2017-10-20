@@ -1,4 +1,4 @@
-/* Msg v8.0.0 https://github.com/madprops/Msg */
+/* Msg v8.1.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -782,7 +782,8 @@ var Msg = (function()
 			{
 				if(html instanceof Element)
 				{
-					instance.content.innerHTML = html.outerHTML	
+					instance.content.innerHTML = ""
+					instance.content.appendChild(html)
 				}
 			}
 
