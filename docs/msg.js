@@ -1,4 +1,4 @@
-/* Msg v8.1.0 https://github.com/madprops/Msg */
+/* Msg v8.2.0 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -912,7 +912,7 @@ var Msg = (function()
 				callback = content
 			}
 
-			if(typeof content === "object" && !(content instanceof Element))
+			else if(typeof content === "object" && !(content instanceof Element))
 			{
 				title = content[0]
 				html = content[1]
@@ -1087,8 +1087,6 @@ var Msg = (function()
 			{
 				instance.content_container.scrollTop = 0
 			}
-
-			instance.content.focus()
 
 			if(instance.options.temp_disable_close)
 			{
