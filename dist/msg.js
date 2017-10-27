@@ -46,11 +46,11 @@ var Msg = (function()
 	.Msg-overlay-x-green{color:white}
 	.Msg-overlay-x-green:hover{background-color:#7c957c}	
 	
-	.Msg-overlay-black{background-color:rgba(0, 0, 0, 0.7)}
-	.Msg-window-black{background-color:#2a2a2a;color:white}
+	.Msg-overlay-black{background-color:rgba(121, 121, 121, 0.7)}
+	.Msg-window-black{background-color:#1D1F21;color:white}
 	.Msg-titlebar-black{background-color:#3c3c3c;color:white}
 	.Msg-progressbar-black{background-color:#3c3c3c}
-	.Msg-window-inner-x-black{background-color:#2a2a2a;color:white}
+	.Msg-window-inner-x-black{background-color:#1D1F21;color:white}
 	.Msg-window-inner-x-black:hover{background-color:#424242}
 	.Msg-overlay-x-black{color:white}
 	.Msg-overlay-x-black:hover{background-color:#686868}
@@ -1439,7 +1439,6 @@ var Msg = (function()
 			styles.content = `
 			font-size:24px;
 			text-align:center;
-			overflow:hidden;
 			overflow-wrap: break-word;
 			padding-top:${cpt};
 			padding-bottom:${cpb};
