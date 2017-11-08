@@ -1,4 +1,4 @@
-/* Msg v8.2.2 https://github.com/madprops/Msg */
+/* Msg v8.2.3 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -12,7 +12,7 @@ var Msg = (function()
 	.Msg-window{background-color:white;color:#222222}
 	.Msg-titlebar{background-color:#c8c8c8;color:#222222}
 	.Msg-progressbar{background-color:#c8c8c8}
-	.Msg-inner-x{background-color:white;color:#363636}
+	.Msg-inner-x{background-color:white;color:#222222}
 	.Msg-window-floating-x{background-color:#3a3a3a;color:white}
 	.Msg-window-floating-x:hover{background-color:#2a2a2a}
 	.Msg-window-inner-x:hover{background-color:#cacaca}
