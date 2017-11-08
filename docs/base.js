@@ -1,6 +1,6 @@
 var msg = Msg(
 {
-
+	
 })
 
 var msg2 = Msg(

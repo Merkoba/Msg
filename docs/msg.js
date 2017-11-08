@@ -1,4 +1,4 @@
-/* Msg v8.2.0 https://github.com/madprops/Msg */
+/* Msg v8.2.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -9,8 +9,8 @@ var Msg = (function()
 	.Msg-overflow-hidden{overflow:hidden}
 	
 	.Msg-overlay{background-color:rgba(0, 0, 0, 0.7)}
-	.Msg-window{background-color:white;color:black}
-	.Msg-titlebar{background-color:#c8c8c8;color:black}
+	.Msg-window{background-color:white;color:#222222}
+	.Msg-titlebar{background-color:#c8c8c8;color:#222222}
 	.Msg-progressbar{background-color:#c8c8c8}
 	.Msg-inner-x{background-color:white;color:#363636}
 	.Msg-window-floating-x{background-color:#3a3a3a;color:white}
@@ -1437,7 +1437,7 @@ var Msg = (function()
 			}
 
 			styles.content = `
-			font-size:24px;
+			font-size:22px;
 			text-align:center;
 			overflow-wrap: break-word;
 			padding-top:${cpt};
