@@ -1,4 +1,4 @@
-/* Msg v8.2.4 https://github.com/madprops/Msg */
+/* Msg v8.2.5 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -12,7 +12,6 @@ var Msg = (function()
 	.Msg-window{background-color:white;color:#222222}
 	.Msg-titlebar{background-color:#c8c8c8;color:#222222}
 	.Msg-progressbar{background-color:#c8c8c8}
-	.Msg-window-inner-x{background-color:white;color:#222222}
 	.Msg-window-inner-x:hover{background-color:#cacaca}
 	.Msg-window-floating-x{background-color:#3a3a3a;color:white}
 	.Msg-window-floating-x:hover{background-color:#2a2a2a}
@@ -23,7 +22,6 @@ var Msg = (function()
 	.Msg-window-blue{background-color:#4f84b8;color:white}
 	.Msg-titlebar-blue{background-color:#43729f;color:white}
 	.Msg-progressbar-blue{background-color:#43729f}
-	.Msg-window-inner-x-blue{background-color:#4f84b8;color:white}
 	.Msg-window-inner-x-blue:hover{background-color:#476b8f}
 	.Msg-overlay-x-blue{color:white}
 	.Msg-overlay-x-blue:hover{background-color:#747484}	
@@ -32,7 +30,6 @@ var Msg = (function()
 	.Msg-window-red{background-color:#ca4e4e;color:white}
 	.Msg-titlebar-red{background-color:#af3f3f;color:white}
 	.Msg-progressbar-red{background-color:#af3f3f}
-	.Msg-window-inner-x-red{background-color:#ca4e4e;color:white}
 	.Msg-window-inner-x-red:hover{background-color:#9d4d4d}
 	.Msg-overlay-x-red{color:white}
 	.Msg-overlay-x-red:hover{background-color:#805e5e}	
@@ -41,7 +38,6 @@ var Msg = (function()
 	.Msg-window-green{background-color:#58a564;color:white}
 	.Msg-titlebar-green{background-color:#52935c;color:white}
 	.Msg-progressbar-green{background-color:#52935c}
-	.Msg-window-inner-x-green{background-color:#58a564;color:white}
 	.Msg-window-inner-x-green:hover{background-color:#4e8456}
 	.Msg-overlay-x-green{color:white}
 	.Msg-overlay-x-green:hover{background-color:#7c957c}	
@@ -50,7 +46,6 @@ var Msg = (function()
 	.Msg-window-black{background-color:#1D1F21;color:white}
 	.Msg-titlebar-black{background-color:#3c3c3c;color:white}
 	.Msg-progressbar-black{background-color:#3c3c3c}
-	.Msg-window-inner-x-black{background-color:#1D1F21;color:white}
 	.Msg-window-inner-x-black:hover{background-color:#424242}
 	.Msg-overlay-x-black{color:white}
 	.Msg-overlay-x-black:hover{background-color:#686868}
