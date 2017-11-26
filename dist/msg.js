@@ -1,4 +1,4 @@
-/* Msg v8.2.5 https://github.com/madprops/Msg */
+/* Msg v8.2.6 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -1372,7 +1372,7 @@ var Msg = (function()
 
 			styles.window_floating_x = `
 			cursor:pointer;
-			position:absolute;		
+			position:absolute;	
 			top:0px;
 			${fs}
 			margin-top: -14px;
@@ -1392,6 +1392,7 @@ var Msg = (function()
 			-ms-user-select:none;
 			user-select:none;
 			overflow:hidden;
+			z-index:9999999999999999;
 			`
 
 			styles.content_container = `
