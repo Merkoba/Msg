@@ -1,4 +1,4 @@
-/* Msg v8.2.6 https://github.com/madprops/Msg */
+/* Msg v8.2.7 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -1383,7 +1383,7 @@ var Msg = (function()
 			border-radius:28px;
 			height:28px;
 			width:28px;
-			line-height:26px;
+			line-height:25px;
 			text-align:center;
 			-webkit-touch-callout:none;
 			-webkit-user-select:none;
