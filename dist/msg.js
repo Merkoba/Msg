@@ -1,4 +1,4 @@
-/* Msg v8.3.0 https://github.com/madprops/Msg */
+/* Msg v8.3.1 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
@@ -2270,27 +2270,6 @@ var Msg = (function()
 			}, speed)	
 		}
 
-		instance.change_window_scale = function(scale)
-		{
-			var transform = instance.window.style.transform
-
-			var split = transform.split(" ")
-
-			var new_transform = ""
-
-			for(var s of split)
-			{
-				if(s.indexOf("scale") === -1)
-				{
-					new_transform += s
-				}
-			}
-
-			new_transform += ` scale(${scale})`
-
-			instance.window.style.transform = new_transform			
-		}
-
 		instance.scale_in = function(callback) 
 		{
 			var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 50
@@ -2309,6 +2288,26 @@ var Msg = (function()
 
 			var scale = 0.5
 
+			var transform = instance.window.style.transform
+
+			var split = transform.split(")")
+
+			var new_transform = ""
+
+			for(var s of split)
+			{
+				var s = s.trim()
+
+				if(s !== "" && s.indexOf("scale") === -1)
+				{
+					new_transform += `${s}) `
+				}
+			}
+
+			new_transform = new_transform.trim()
+
+			instance.window.style.transform = new_transform + ` scale(${scale})`
+
 			instance.window.style.opacity = 0
 
 			instance.scale_in_interval = setInterval(function() 
@@ -2319,7 +2318,9 @@ var Msg = (function()
 					return
 				}
 
-				instance.change_window_scale(scale)
+				scale += 0.01
+
+				instance.window.style.transform = new_transform + ` scale(${scale})`
 
 				instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02
 				
@@ -2332,8 +2333,6 @@ var Msg = (function()
 						return callback()
 					}
 				}
-
-				scale += 0.01
 			}, speed)
 		}
 
@@ -2353,7 +2352,27 @@ var Msg = (function()
 				return
 			}
 
-			scale = 1
+			var scale = 1
+
+			var transform = instance.window.style.transform
+
+			var split = transform.split(")")
+
+			var new_transform = ""
+
+			for(var s of split)
+			{
+				var s = s.trim()
+
+				if(s !== "" && s.indexOf("scale") === -1)
+				{
+					new_transform += `${s}) `
+				}
+			}
+
+			new_transform = new_transform.trim()
+
+			instance.window.style.transform = new_transform + ` scale(${scale})`
 
 			instance.scale_out_interval = setInterval(function() 
 			{
@@ -2363,7 +2382,9 @@ var Msg = (function()
 					return
 				}
 
-				instance.change_window_scale(scale)
+				scale -= 0.01
+
+				instance.window.style.transform = new_transform + ` scale(${scale})`				
 
 				instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02
 				
@@ -2377,7 +2398,6 @@ var Msg = (function()
 					}
 				}
 
-				scale -= 0.01
 			}, speed)	
 		}
 
