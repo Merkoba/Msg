@@ -1,11 +1,12 @@
-/* Msg v8.3.1 https://github.com/madprops/Msg */
+/* Msg v8.3.2 https://github.com/madprops/Msg */
 
 var Msg = (function()
 {
 	var instances = []
 
-	var css = `<style>
+	var style = document.createElement("style")
 
+	var css = `
 	.Msg-overflow-hidden{overflow:hidden}
 	
 	.Msg-overlay{background-color:rgba(0, 0, 0, 0.7)}
@@ -51,10 +52,11 @@ var Msg = (function()
 	.Msg-overlay-x-black:hover{background-color:#686868}
 
 	.Msg-content-snackbar{padding:1.2em !important}
+	`
 
-	</style>`
+	style.innerHTML = css
 
-	document.querySelector("head").innerHTML += css
+	document.head.appendChild(style)
 
 	var factory = function(options={})
 	{
