@@ -1,9 +1,9 @@
-var msg = Msg(
+var msg = Msg.factory(
 {
 	
 })
 
-var msg2 = Msg(
+var msg2 = Msg.factory(
 {
 	id: "foo",
 	class: "bar",
@@ -11,38 +11,38 @@ var msg2 = Msg(
 	enable_titlebar: true
 })
 
-var msg3 = Msg(
+var msg3 = Msg.factory(
 {
 	id: "boom",
 	window_x:"none",
 	overlay_x:"right"
 })
 
-var msg4 = Msg(
+var msg4 = Msg.factory(
 {
 	id: "boop"
 })
 
-var msg5 = Msg(
+var msg5 = Msg.factory(
 {
 	id: "poop",
 	lock: false
 })
 
-var msg6 = Msg(
+var msg6 = Msg.factory(
 {
 	temp_disable_close: true,
 	autoclose: true,
 	enable_progressbar: true
 })
 
-var msg7 = Msg(
+var msg7 = Msg.factory(
 {
 	class: 'no-padding',
 	window_inner_x_class:'dark'
 })
 
-var msg_autoclose = Msg(
+var msg_autoclose = Msg.factory(
 {
 	class:"red",
 	autoclose:true,
@@ -52,14 +52,14 @@ var msg_autoclose = Msg(
 	enable_progressbar:true
 })
 
-var msg_ox = Msg(
+var msg_ox = Msg.factory(
 {
 	window_x:"none",
 	overlay_x:"right",
 	close_on_overlay_click:false
 })
 
-var msg_delay = Msg(
+var msg_delay = Msg.factory(
 {
 	temp_disable_close:true,
 	temp_disable_close_delay:5000,
@@ -72,7 +72,7 @@ var msg_delay = Msg(
 	}
 })
 
-var msg_tst = Msg(
+var msg_tst = Msg.factory(
 {
 	temp_disable_close: true,
 	temp_disable_click:true,
@@ -86,24 +86,24 @@ var msg_tst = Msg(
 	}
 })
 
-var msg_dclick = Msg(
+var msg_dclick = Msg.factory(
 {
 	temp_disable_click:true,
 	temp_disable_click_delay:3000
 })
 
-var msg_edit = Msg(
+var msg_edit = Msg.factory(
 {
 	clear_editables:true
 })
 
-var msg_dkeys = Msg(
+var msg_dkeys = Msg.factory(
 {
 	temp_disable_keys:true,
 	temp_disable_keys_delay:3000
 })
 
-var msg_cust = Msg(
+var msg_cust = Msg.factory(
 {
 	class:"blue",
 	overlay_class:"green",
@@ -112,13 +112,13 @@ var msg_cust = Msg(
 	window_width:"500px"
 })
 
-var msg_default = Msg(
+var msg_default = Msg.factory(
 {
 	class:"default",
 	overlay_x:"right"
 })
 
-var msg_red = Msg(
+var msg_red = Msg.factory(
 {
 	class:"red",
 	overlay_x:"right",
@@ -127,7 +127,7 @@ var msg_red = Msg(
 	enable_progressbar:true
 })
 
-var msg_blue = Msg(
+var msg_blue = Msg.factory(
 {
 	class:"blue",
 	overlay_x:"right",
@@ -136,7 +136,7 @@ var msg_blue = Msg(
 	enable_progressbar:true
 })
 
-var msg_green = Msg(
+var msg_green = Msg.factory(
 {
 	class:"green",
 	overlay_x:"right",
@@ -145,7 +145,7 @@ var msg_green = Msg(
 	enable_progressbar:true
 })
 
-var msg_black = Msg(
+var msg_black = Msg.factory(
 {
 	class:"black",
 	overlay_x:"right",
@@ -154,28 +154,28 @@ var msg_black = Msg(
 	enable_progressbar:true
 })
 
-var msg_red_tb = Msg(
+var msg_red_tb = Msg.factory(
 {
 	class:"red",
 	overlay_x:"right",
 	enable_titlebar:true
 })
 
-var msg_blue_tb = Msg(
+var msg_blue_tb = Msg.factory(
 {
 	class:"blue",
 	overlay_x:"right",
 	enable_titlebar:true
 })
 
-var msg_green_tb = Msg(
+var msg_green_tb = Msg.factory(
 {
 	class:"green",
 	overlay_x:"right",
 	enable_titlebar:true
 })
 
-var msg_black_tb = Msg(
+var msg_black_tb = Msg.factory(
 {
 	class:"black",
 	overlay_x:"right",
@@ -246,7 +246,7 @@ var toytime0
 var toytime1
 var toytime2
 
-var msg_toy = Msg(
+var msg_toy = Msg.factory(
 {
 	id:"toy",
 	persistent:false,
@@ -272,12 +272,12 @@ var msg_toy = Msg(
 
 			toytime1 = setTimeout(function()
 			{
-				Msg({preset:"popup",zStack_level:2, class:"black"}).show("Try moving the mouse")
+				Msg.factory({preset:"popup",zStack_level:2, class:"black"}).show("Try moving the mouse")
 			}, 5000)
 
 			toytime2 = setTimeout(function()
 			{
-				Msg({preset:"popup",zStack_level:2, class:"black"}).show("Try drag and dropping images")
+				Msg.factory({preset:"popup",zStack_level:2, class:"black"}).show("Try drag and dropping images")
 			}, 20000)
 
 		},2000)
@@ -294,7 +294,7 @@ var msg_toy = Msg(
 	}
 })
 
-var msg_np = Msg(
+var msg_np = Msg.factory(
 {
 	persistent:false,
 	before_close:function(instance)
@@ -307,68 +307,68 @@ var msg_np = Msg(
 	}
 })
 
-var msg_nf = Msg(
+var msg_nf = Msg.factory(
 {
 	show_effect:"none",
 	close_effect:"none"
 })
 
-var msg_nfi = Msg(
+var msg_nfi = Msg.factory(
 {
 	show_effect:"none",
 	close_effect:"fade",
 	close_effect_duration:3000
 })
 
-var msg_nfo = Msg(
+var msg_nfo = Msg.factory(
 {
 	show_effect:"fade",
 	close_effect:"none",
 	show_effect_duration:3000
 })
 
-var msg_lf = Msg(
+var msg_lf = Msg.factory(
 {
 	show_effect_duration:1000,
 	close_effect_duration:1000
 })
 
-var msg_ptop = Msg(
+var msg_ptop = Msg.factory(
 {
 	position:"top"
 })
 
-var msg_pbottom = Msg(
+var msg_pbottom = Msg.factory(
 {
 	position:"bottom"
 })
 
-var msg_pleft = Msg(
+var msg_pleft = Msg.factory(
 {
 	position:"left"
 })
 
-var msg_pright = Msg(
+var msg_pright = Msg.factory(
 {
 	position:"right"
 })
 
-var msg_ptright = Msg(
+var msg_ptright = Msg.factory(
 {
 	position:"topright"
 })
 
-var msg_ptleft = Msg(
+var msg_ptleft = Msg.factory(
 {
 	position:"topleft"
 })
 
-var msg_pbright = Msg(
+var msg_pbright = Msg.factory(
 {
 	position:"bottomright"
 })
 
-var msg_pbleft = Msg(
+var msg_pbleft = Msg.factory(
 {
 	position:"bottomleft"
 })
@@ -415,7 +415,7 @@ document.addEventListener("keyup", function(e)
 	}
 })
 
-var msg_pop = Msg(
+var msg_pop = Msg.factory(
 {
 	preset:"popup"
 })
@@ -484,7 +484,7 @@ function pop(position)
 		var enable_progressbar = false
 	}
 
-	pupmsg = Msg(
+	pupmsg = Msg.factory(
 	{
 		class: color,
 		preset:"popup",
@@ -520,7 +520,7 @@ function pop(position)
 
 function show_options(popup)
 {
-	var msg = Msg({class:popup.options.class})
+	var msg = Msg.factory({class:popup.options.class})
 
 	var s = ''
 
@@ -544,7 +544,7 @@ function show_options(popup)
 
 function pop2()
 {
-	var msg = Msg(
+	var msg = Msg.factory(
 	{
 		preset:"popup_autoclose",
 		class:"red",
@@ -559,7 +559,7 @@ function get_random_int(min, max)
 	return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-var msg_wo = Msg(
+var msg_wo = Msg.factory(
 {
 	while_open:function(instance)
 	{
@@ -571,7 +571,7 @@ var msg_wo = Msg(
 	}
 })
 
-var msg_snack = Msg({
+var msg_snack = Msg.factory({
 	preset:"snackbar",
 	id:"snackbar"
 })
@@ -615,7 +615,7 @@ function open_snack_message()
 	msg_green_tb.show(['Message', s])
 }
 
-var msg_update = Msg(
+var msg_update = Msg.factory(
 {
 	class:"blue",
 	autoclose:true,
@@ -638,7 +638,7 @@ function update()
 	update_progress = document.getElementById('update_progress')
 }
 
-var msg_psnack = Msg(
+var msg_psnack = Msg.factory(
 {
 	preset:"snackbar"
 })
@@ -675,7 +675,7 @@ function pop_test(position, sleep=0)
 	}
 }
 
-var msg_props = Msg(
+var msg_props = Msg.factory(
 {
 	class:'red',
 	show_effect:"scale",

@@ -12,9 +12,9 @@
 
         <script src='symmetric_harmony.js?v=4'></script>
 
-        <script src='msg.js?v=110'></script>
+        <script src='msg.js?v=111'></script>
 
-        <script src='base.js?v=69'></script>
+        <script src='base.js?v=70'></script>
 
     </head>
 
@@ -190,7 +190,7 @@
 
         </span>
 
-        <blockquote><pre><code>var msg_pop = Msg(
+        <blockquote><pre><code>var msg_pop = Msg.factory(
 {
     class: "green",
     window_width: "460px";
@@ -210,7 +210,7 @@
 
         Or, you can just use a preset and work from there. 
 
-        <blockquote><pre><code>var msg_pop = Msg(
+        <blockquote><pre><code>var msg_pop = Msg.factory(
 {
     preset:"popup" // or "popup_autoclose",
     enable_titlebar:true
@@ -221,7 +221,7 @@
 
         <span class='clicky' onclick='snack()'>Open Snackbar</span>&nbsp;&nbsp;&nbsp;
 
-        <i><blockquote><pre><code>var msg_snack = Msg({
+        <i><blockquote><pre><code>var msg_snack = Msg.factory({
     class: "black",
     content_class: "snackbar",
     position: "bottom",
@@ -244,7 +244,7 @@
 
         Or just:       
 
-        <i><blockquote><pre><code>var msg_snack = Msg({
+        <i><blockquote><pre><code>var msg_snack = Msg.factory({
     preset: "snackbar"
 });
         </code></pre></blockquote></i>                    
@@ -275,7 +275,7 @@
         <a name="basicusage"></a><h2>Basic Usage</h2>
 
         To use, first make an instance:<br>
-        <i><blockquote><pre><code>var msg = Msg();</code></pre></blockquote></i>
+        <i><blockquote><pre><code>var msg = Msg.factory();</code></pre></blockquote></i>
 
         <br>To show a window just pass a string or an html element to the show method:
 
@@ -290,7 +290,7 @@
 
         <i><blockquote><pre><code>function remind(html)
 {
-    var msg = Msg(
+    var msg = Msg.factory(
     {
         class: "green",
         enable_titlebar: true,
@@ -306,7 +306,7 @@ remind("Water the trees.");
         <script>
             function remind(html)
             {
-                var msg = Msg(
+                var msg = Msg.factory(
                 {
                     class: "green",
                     enable_titlebar: true,
@@ -393,7 +393,7 @@ remind("Water the trees.");
 
 //js
 
-var msg2 = Msg(
+var msg2 = Msg.factory(
 {
     id: "foo",
     class: "bar",
@@ -590,13 +590,13 @@ msg2.show(["Window Example", some_text]);
 
         <i>show_effect (Default: "fade")</i>: Either "fade", "scale", slide_up", "slide_down", "slide_left", "slide_right" or "none". Some positions don't support certain kinds of slide effects.<br><br>
 
-        <i>show_effect_duration (Default: [350, 0])</i>: The amount of time in milliseconds it takes to complete the show_effect. If an array with 2 numbers is given, the first number refers to the overlay effect duration, while the second one refers to the window effect duration, which starts after the overlay effect is finished. If just a number is given, it will be the effect duration for both the overlay and the window, which start at the same time.<br><br>
+        <i>show_effect_duration (Default: [200, 200])</i>: The amount of time in milliseconds it takes to complete the show_effect. If an array with 2 numbers is given, the first number refers to the overlay effect duration, while the second one refers to the window effect duration, which starts after the overlay effect is finished. If just a number is given, it will be the effect duration for both the overlay and the window, which start at the same time.<br><br>
 
         <i>subsequent_show_effects (Default: false)</i>: If true, it will show the show_effect on show() even if the window is already open.<br><br>
 
         <i>close_effect (Default: "fade")</i>: Either "fade", "scale", "slide_up", "slide_down", "slide_left", "slide_right" or "none". Some positions don't support certain kinds of slide effects.<br><br>
 
-        <i>close_effect_duration (Default: [0, 350])</i>: The amount of time in milliseconds it takes to complete the close_effect. If an array with 2 numbers is given, the first number refers to the window effect duration, while the second one refers to the overlay effect duration, which starts after the window effect is finished. If just a number is given, it will be the effect duration for both the window and the overlay, which start at the same time.<br><br>
+        <i>close_effect_duration (Default: [200, 200])</i>: The amount of time in milliseconds it takes to complete the close_effect. If an array with 2 numbers is given, the first number refers to the window effect duration, while the second one refers to the overlay effect duration, which starts after the window effect is finished. If just a number is given, it will be the effect duration for both the window and the overlay, which start at the same time.<br><br>
 
         <i>replace_linebreaks (Default: false)</i>: If true, strings passed to show() or set() will have every "\n" replaced with an html linebreak.<br><br>        
         
@@ -642,7 +642,7 @@ msg2.show(["Window Example", some_text]);
 
         <br>Example:
 
-        <i><blockquote><pre><code>var msg_test = Msg(
+        <i><blockquote><pre><code>var msg_test = Msg.factory(
 {
     id: "test",
     class: "black",
@@ -669,7 +669,7 @@ msg_test.show("Domo Arigato");
         </code></pre></blockquote></i>
 
         <script>
-            var msg_test = Msg(
+            var msg_test = Msg.factory(
             {
                 id: "test",
                 class: "black",
