@@ -1,4 +1,4 @@
-/* Msg v9.0.0 https://github.com/madprops/Msg */
+/* Msg v9.0.1 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -3854,13 +3854,10 @@ Msg.factory = function(options={})
 		instance.options.class = new_class	
 	}
 
-	if(instance.options.id !== "__internal_instance__")
+	if(Msg.msg === undefined && instance.options.id !== "__internal_instance__")
 	{
-		Msg.instances.push(instance)
-	}
-
-	else
-	{
+		Msg.msg = Msg.factory({id:"__internal_instance__"})
+		
 		var style = document.createElement("style")
 
 		var css = `
@@ -3970,14 +3967,17 @@ Msg.factory = function(options={})
 				}
 			}
 		})				
+	}	
+
+	if(instance.options.id !== "__internal_instance__")
+	{
+		Msg.instances.push(instance)
 	}
 
 	return instance	
 }
 
 Msg.instances = []
-
-Msg.msg = Msg.factory({id:"__internal_instance__"})
 
 try 
 {
