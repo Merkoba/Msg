@@ -1,4 +1,4 @@
-/* Msg v9.0.1 https://github.com/madprops/Msg */
+/* Msg v9.0.2 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -2076,6 +2076,8 @@ Msg.factory = function(options={})
 		instance.overlay.style.opacity = 0
 		instance.window.style.opacity = 0
 
+		var opacity = 0
+
 		instance.overlay_fade_in_interval = setInterval(function() 
 		{
 			if(!instance.created())
@@ -2084,9 +2086,11 @@ Msg.factory = function(options={})
 				return
 			}
 
-			instance.overlay.style.opacity = Number(instance.overlay.style.opacity) + 0.02
+			opacity += 0.02
+
+			instance.overlay.style.opacity = opacity
 			
-			if(instance.overlay.style.opacity >= 1) 
+			if(opacity >= 1) 
 			{
 				clearInterval(instance.overlay_fade_in_interval)
 
@@ -2117,6 +2121,8 @@ Msg.factory = function(options={})
 			return
 		}
 
+		var opacity = Number(instance.overlay.style.opacity)
+
 		instance.overlay_fade_out_interval = setInterval(function() 
 		{
 			if(!instance.created())
@@ -2124,10 +2130,12 @@ Msg.factory = function(options={})
 				instance.clear_effect_intervals()
 				return
 			}
+
+			opacity -= 0.02
 			
-			instance.overlay.style.opacity = Number(instance.overlay.style.opacity) - 0.02
+			instance.overlay.style.opacity = opacity
 			
-			if(instance.overlay.style.opacity <= 0) 
+			if(opacity <= 0) 
 			{
 				clearInterval(instance.overlay_fade_out_interval)
 
@@ -2157,6 +2165,8 @@ Msg.factory = function(options={})
 
 		instance.window.style.opacity = 0
 
+		var opacity = 0
+
 		instance.fade_in_interval = setInterval(function() 
 		{
 			if(!instance.created())
@@ -2164,10 +2174,12 @@ Msg.factory = function(options={})
 				instance.clear_effect_intervals()
 				return
 			}
+
+			opacity += 0.02
 			
-			instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02
+			instance.window.style.opacity = opacity
 			
-			if(instance.window.style.opacity >= 1) 
+			if(opacity >= 1) 
 			{
 				clearInterval(instance.fade_in_interval)
 
@@ -2193,7 +2205,9 @@ Msg.factory = function(options={})
 			}
 
 			return
-		}			
+		}
+
+		var opacity = Number(instance.window.style.opacity)
 
 		instance.fade_out_interval = setInterval(function() 
 		{
@@ -2203,9 +2217,11 @@ Msg.factory = function(options={})
 				return
 			}
 			
-			instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02
+			opacity -= 0.02
+
+			instance.window.style.opacity = opacity
 			
-			if(instance.window.style.opacity <= 0) 
+			if(opacity <= 0) 
 			{
 				clearInterval(instance.fade_out_interval)
 				
