@@ -883,8 +883,6 @@ Msg.factory = function(options={})
 
 		instance.reset_timers()
 
-		instance.clear_effect_intervals()
-
 		instance.closing = false
 
 		var return_callback = true
@@ -893,6 +891,8 @@ Msg.factory = function(options={})
 		if(!instance.is_open())
 		{	
 			first_show = true
+
+			instance.clear_effect_intervals()
 
 			if(instance.options.close_others_on_show)
 			{
