@@ -1,6 +1,6 @@
 var msg = Msg.factory(
 {
-	
+
 })
 
 var msg2 = Msg.factory(

@@ -1,4 +1,4 @@
-/* Msg v9.0.4 https://github.com/madprops/Msg */
+/* Msg v9.0.5 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -892,8 +892,6 @@ Msg.factory = function(options={})
 		{	
 			first_show = true
 
-			instance.clear_effect_intervals()
-
 			if(instance.options.close_others_on_show)
 			{
 				instance.close_all()
@@ -925,6 +923,8 @@ Msg.factory = function(options={})
 
 		if(first_show || instance.options.subsequent_show_effects)
 		{
+			instance.clear_effect_intervals()
+
 			if(instance.options.show_effect === "fade")
 			{
 				return_callback = false
