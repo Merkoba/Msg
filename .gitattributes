@@ -1,2 +1,3 @@
 prepare.bat linguist-vendored
 push.bat linguist-vendored
+dist/* linguist-vendored=false
