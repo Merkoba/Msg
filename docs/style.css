@@ -191,3 +191,12 @@ select
     -ms-user-select: none;
     user-select: none;  
 }
+
+.snack_container
+{
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}

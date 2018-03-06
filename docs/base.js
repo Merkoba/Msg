@@ -573,20 +573,25 @@ var msg_wo = Msg.factory(
 
 var msg_snack = Msg.factory({
 	preset:"snackbar",
-	id:"snackbar"
+	id:"snackbar",
+	autoclose_delay: 100000000
 })
 
 var scks = []
 
 var sck = ""
 
+sck += "<div class='snack_container'>"
 sck += "<span class='snack_msg'>New message arrived</span>"
 sck += "<span class='snack_btn' onclick='open_snack_message()'>open</span>"
+sck += "</div>"
 
 var sck2 = ""
 
+sck2 += "<div class='snack_container'>"
 sck2 += "<span class='snack_msg'>An update is required</span>"
 sck2 += "<span class='snack_btn2' onclick='update()'>Update</span>"
+sck2 += "</div>"
 
 scks.push(sck)
 scks.push(sck2)

@@ -1,4 +1,4 @@
-/* Msg v9.0.5 https://github.com/madprops/Msg */
+/* Msg v9.0.6 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -1386,7 +1386,6 @@ Msg.factory = function(options={})
 		padding-bottom:${cpb};
 		padding-left:1.6em;
 		padding-right:1.6em;
-		overflow: auto;
 		`
 
 		styles.progressbar_container = `
