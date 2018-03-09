@@ -14,9 +14,9 @@
 
         <script src='symmetric_harmony.js?v=4'></script>
 
-        <script src='msg.js?v=113'></script>
+        <script src='msg.js?v=114'></script>
 
-        <script src='base.js?v=71'></script>
+        <script src='base.js?v=72'></script>
 
     </head>
 
@@ -31,6 +31,7 @@
         <a href="#modal">Modal</a>&nbsp;&nbsp;&nbsp;
         <a href="#popups">Popups</a>&nbsp;&nbsp;&nbsp;
         <a href="#snackbars">Snackbars</a>&nbsp;&nbsp;&nbsp;
+        <a href="#windows">Windows</a>&nbsp;&nbsp;&nbsp;
         <a href="#installation">Installation</a>&nbsp;&nbsp;&nbsp;
         <a href="#basicusage">Basic Usage</a>
 
@@ -249,7 +250,20 @@
         <i><blockquote><pre><code>var msg_snack = Msg.factory({
     preset: "snackbar"
 });
-        </code></pre></blockquote></i>                    
+        </code></pre></blockquote></i> 
+
+        <a name="windows"></a><h2>Windows</h2>
+
+        Using the "window" preset, full page, clean windows, can be created as a canvas to create anything on top. This is useful to add different layers to your application while still taking advantage of the Msg instance control system. The content takes 100vh height and 100vw width. If you want to have scrolling content you must create your own containers.
+
+        <br><br>
+
+        <span class='clicky' onclick='open_window()'>Open Window</span>&nbsp;&nbsp;&nbsp;
+
+        <i><blockquote><pre><code>var msg_window = Msg.factory({
+    preset:"window"
+});
+        </code></pre></blockquote></i>                                    
 
         <a name="installation"></a><h2>Installation</h2>
 
@@ -579,11 +593,9 @@ msg2.show(["Window Example", some_text]);
         <i>close_delay (Default: 0)</i>: The amount of time in milliseconds close() is delayed from executing when called.<br><br>
 
         <i>close_on_show (Default: false)</i>: When show() is called it will first close the window and then show it. Useful for snackbars.<br><br>        
-
         <i>close_others_on_show (Default: false)</i>: When the window is first shown it will close all other open windows.<br><br>
 
         <i>scroll_on_show (Default: true)</i>: Whether the scrolltop of Msg-content-container will become 0 on show. In other words, if it will automatically be scrolled to the top on show if there is overflow.<br><br>        
-        
         <i>enable_overlay (Default: true)</i>: Whether the overlay is created or not.<br><br>
 
         <i>window_x (Default: "inner_right")</i>: Makes an x to close the window inside the window. Either "inner_right", "inner_left", "floating_right", "floating_left" or "none".<br><br>
@@ -641,6 +653,11 @@ msg2.show(["Window Example", some_text]);
         <i>while_open_interval (Default: 1000)</i>: Function that triggers after the destroy method. Receives the instance as an argument.<br><br>
 
         <i>on_click (Default: Empty Function)</i>: Function that triggers when either Msg-content, Msg-topbar, Msg-titlebar or Msg-progressbar are clicked.<br><br>
+
+        <i>disable_transformations (Default: false)</i>: Disables transformations applied to windows to center them or put them in a certain place.<br><br>        
+        <i>disable_content_padding (Default: false)</i>: Doesn't apply padding to content.<br><br>
+        
+        <i>full_content (Default: false)</i>: Makes content height 100vh and width 100vw.<br><br>
 
         <br>Example:
 
@@ -852,7 +869,19 @@ msg_test.show("Domo Arigato");
         instance.options.show_effect_duration = 350;<br>
         instance.options.sideStack = "none";<br>
         instance.options.zStack_level = 1;<br>
-        instance.options.lock = false;<br>        
+        instance.options.lock = false;<br>  
+
+        <br><i><b>preset: "window"</b></i><br>
+        instance.options.window_height = "100vh";<br>       
+        instance.options.window_min_height = "100vh";<br>       
+        instance.options.window_max_height = "100vh";<br>
+        instance.options.window_width = "100vw";<br>       
+        instance.options.window_min_width = "100vw";<br>       
+        instance.options.window_max_width = "100vw";<br>        
+        instance.options.disable_transformations = true;<br>        
+        instance.options.disable_content_padding = true;<br>        
+        instance.options.full_content = true;<br>        
+        instance.options.window_x = "none";<br>        
         
         <br><br> Note: It's advised not to modify the "display" or "z-index" css properties of the Msg html elements since they are handled internally.<br><br>
 

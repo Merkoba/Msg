@@ -1,4 +1,4 @@
-/* Msg v9.0.6 https://github.com/madprops/Msg */
+/* Msg v10.0.0 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -41,7 +41,7 @@ Msg.factory = function(options={})
 				if(instance.options.close_effect_duration === undefined) instance.options.close_effect_duration = 350					
 			}
 
-			if(instance.options.preset === "popup_autoclose")
+			else if(instance.options.preset === "popup_autoclose")
 			{
 				if(instance.options.class === undefined) instance.options.class = "green"
 				if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false
@@ -58,7 +58,7 @@ Msg.factory = function(options={})
 				if(instance.options.close_effect_duration === undefined) instance.options.close_effect_duration = 350					
 			}
 
-			if(instance.options.preset === "snackbar")
+			else if(instance.options.preset === "snackbar")
 			{
 				if(instance.options.class === undefined) instance.options.class = "black"
 				if(instance.options.content_class === undefined) instance.options.content_class = "snackbar"
@@ -77,6 +77,21 @@ Msg.factory = function(options={})
 				if(instance.options.sideStack === undefined) instance.options.sideStack = "none"
 				if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1
 				if(instance.options.lock === undefined) instance.options.lock = false
+			}
+
+			else if(instance.options.preset === "window")
+			{
+
+				if(instance.options.window_height === undefined) instance.options.window_height = "100vh"
+				if(instance.options.window_min_height === undefined) instance.options.window_min_height = "100vh"
+				if(instance.options.window_max_height === undefined) instance.options.window_max_height = "100vh"
+				if(instance.options.window_width === undefined) instance.options.window_width = "100vw"
+				if(instance.options.window_min_width === undefined) instance.options.window_min_width = "100vw"
+				if(instance.options.window_max_width === undefined) instance.options.window_max_width = "100vw"
+				if(instance.options.disable_transformations === undefined) instance.options.disable_transformations = true
+				if(instance.options.disable_content_padding === undefined) instance.options.disable_content_padding = true
+				if(instance.options.full_content === undefined) instance.options.full_content = true
+				if(instance.options.window_x === undefined) instance.options.window_x = "none"
 			}
 		}	
 
@@ -483,6 +498,21 @@ Msg.factory = function(options={})
 		if(instance.options.locked_element === undefined)
 		{
 			instance.options.locked_element = "body"
+		}
+
+		if(instance.options.disable_transformations === undefined)
+		{
+			instance.options.disable_transformations = false
+		}
+
+		if(instance.options.disable_content_padding === undefined)
+		{
+			instance.options.disable_content_padding = false
+		}
+
+		if(instance.options.full_content === undefined)
+		{
+			instance.options.full_content = false
 		}
 	}
 
@@ -1133,7 +1163,17 @@ Msg.factory = function(options={})
 		var edge_x = instance.options.edge_padding_x
 		var edge_y = instance.options.edge_padding_y
 
-		if(p === "top")
+		if(instance.options.disable_transformations)
+		{
+			var win_x = "left:0;"
+			var win_y = "top:0;"
+			var win_trans = "transform:initial;"
+
+			instance.vStackable = false
+			instance.hStackable = false
+		}
+		
+		else if(p === "top")
 		{
 			var win_x = "left:50%;"
 			var win_y = `top:${edge_y}px;`
@@ -1378,6 +1418,28 @@ Msg.factory = function(options={})
 			var cpb = "1.6em"
 		}
 
+		if(instance.options.disable_content_padding)
+		{
+			var pad = "padding:0;"
+		}
+
+		else
+		{
+			var pad = ""
+		}
+
+		if(instance.options.full_content)
+		{
+			var cwid = "width:100vw;"
+			var chgt = "height:100vh;"
+		}
+
+		else
+		{
+			var cwid = ""
+			var chgt = ""
+		}
+
 		styles.content = `
 		font-size:22px;
 		text-align:center;
@@ -1386,6 +1448,9 @@ Msg.factory = function(options={})
 		padding-bottom:${cpb};
 		padding-left:1.6em;
 		padding-right:1.6em;
+		${pad}
+		${cwid}
+		${chgt}
 		`
 
 		styles.progressbar_container = `

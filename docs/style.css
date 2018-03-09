@@ -200,3 +200,26 @@ select
     align-items: center;
     overflow: hidden;
 }
+
+#Msg-window-window
+{
+    background-color: purple;
+    color: white !important;
+}
+
+#Msg-content-window
+{
+    font-size: 2em !important;
+    line-height: 1.2em !important;
+}
+
+.scroller_container
+{
+    max-height: 100vh;
+    overflow: auto;
+}
+
+.scroller
+{
+    padding: 2em;
+}
