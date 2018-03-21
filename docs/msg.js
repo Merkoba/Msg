@@ -1,4 +1,4 @@
-/* Msg v10.0.0 https://github.com/madprops/Msg */
+/* Msg v11.0.0 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -31,7 +31,7 @@ Msg.factory = function(options={})
 				if(instance.options.class === undefined) instance.options.class = "green"
 				if(instance.options.enable_overlay === undefined) instance.options.enable_overlay = false
 				if(instance.options.position === undefined) instance.options.position = "bottomright"
-				if(instance.options.persistent === undefined) instance.options.persistent = false
+				if(instance.options.remove_after_close === undefined) instance.options.remove_after_close = true
 				if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1
 				if(instance.options.window_width === undefined) instance.options.window_width = "460px"
 				if(instance.options.lock === undefined) instance.options.lock = false
@@ -48,7 +48,7 @@ Msg.factory = function(options={})
 				if(instance.options.position === undefined) instance.options.position = "bottomright"
 				if(instance.options.autoclose === undefined) instance.options.autoclose = true
 				if(instance.options.enable_progressbar === undefined) instance.options.enable_progressbar = true
-				if(instance.options.persistent === undefined) instance.options.persistent = false
+				if(instance.options.remove_after_close === undefined) instance.options.remove_after_close = true
 				if(instance.options.zStack_level === undefined) instance.options.zStack_level = 1
 				if(instance.options.window_width === undefined) instance.options.window_width = "460px"
 				if(instance.options.lock === undefined) instance.options.lock = false
@@ -128,6 +128,11 @@ Msg.factory = function(options={})
 		if(instance.options.enable_titlebar === undefined)
 		{
 			instance.options.enable_titlebar = false
+		}
+
+		if(instance.options.center_titlebar === undefined)
+		{
+			instance.options.center_titlebar = false
 		}
 
 		if(instance.options.window_x === undefined)
@@ -318,6 +323,11 @@ Msg.factory = function(options={})
 		if(instance.options.persistent === undefined)
 		{
 			instance.options.persistent = true
+		}
+
+		if(instance.options.remove_after_close === undefined)
+		{
+			instance.options.remove_after_close = false
 		}
 
 		if(instance.options.show_effect === undefined)
@@ -727,6 +737,11 @@ Msg.factory = function(options={})
 		if(instance.num_open() === 0)
 		{
 			instance.options.after_last_closed(instance)
+		}
+
+		if(instance.options.remove_after_close)
+		{
+			instance.remove()
 		}
 
 		if(callback)
@@ -1300,17 +1315,39 @@ Msg.factory = function(options={})
 		display:flex;
 		flex-direction:row;
 		`
+		var padl = "padding-left: 0.4em;"
+		var padr = "padding-right: 0.4em;"
+		var texta = ""
+
+		if(instance.options.center_titlebar)
+		{
+			texta = "text-align: center;"
+		}
+
+		if(instance.options.center_titlebar && instance.options.window_x === "inner_right")
+		{
+			padl = "padding-left: 50.78px;"
+			padr = "padding-right: 10.78px;"
+		}
+
+		if(instance.options.center_titlebar && instance.options.window_x === "inner_left")
+		{
+			padl = "padding-left: 10.78px;"
+			padr = "padding-right: 50.78px;"
+		}
 
 		styles.titlebar = `
 		overflow:hidden;
 		order:2;
 		flex-grow:1;
 		padding-top:0.38em;
-		padding-left:0.4em;
-		padding-right:0.4em;
+		${padl}
+		${padr}
+		${texta}
 		min-height:27px;
 		font-size: 18px;
-		font-family:sans-serif;    		
+		font-family:sans-serif;
+		font-weight: bold;
 		`
 
 		if(instance.options.window_x.indexOf("left") !== -1)
@@ -1441,7 +1478,7 @@ Msg.factory = function(options={})
 		}
 
 		styles.content = `
-		font-size:22px;
+		font-size:18px;
 		text-align:center;
 		overflow-wrap: break-word;
 		padding-top:${cpt};
@@ -1677,13 +1714,43 @@ Msg.factory = function(options={})
 
 	instance.any_open = function()
 	{
-		var containers = Array.from(document.querySelectorAll(".Msg-container"))
-
-		for(var i=0; i<containers.length; i++)
+		for(var inst of Msg.instances)
 		{
-			if(containers[i].style.display !== "none")
+			if(inst.is_open())
 			{
 				return true
+			}
+		}
+
+		return false
+	}
+
+	instance.any_higher_open = function()
+	{
+		for(var inst of Msg.instances)
+		{
+			if(inst.options.zStack_level === 2)
+			{
+				if(inst.is_open())
+				{
+					return true
+				}
+			}
+		}
+
+		return false
+	}
+
+	instance.any_lower_open = function()
+	{
+		for(var inst of Msg.instances)
+		{
+			if(inst.options.zStack_level === 1)
+			{
+				if(inst.is_open())
+				{
+					return true
+				}
 			}
 		}
 
@@ -1694,13 +1761,47 @@ Msg.factory = function(options={})
 	{
 		var num_open = 0
 
-		var containers = Array.from(document.querySelectorAll(".Msg-container"))
-
-		for(var i=0; i<containers.length; i++)
+		for(var inst of Msg.instances)
 		{
-			if(containers[i].style.display !== "none")
+			if(inst.is_open())
 			{
 				num_open += 1
+			}
+		}
+
+		return num_open
+	}
+
+	instance.num_open_higher = function()
+	{
+		var num_open = 0
+
+		for(var inst of Msg.instances)
+		{
+			if(inst.is_open())
+			{
+				if(inst.options.zStack_level === 2)
+				{
+					num_open += 1
+				}
+			}
+		}
+
+		return num_open
+	}
+
+	instance.num_open_lower = function()
+	{
+		var num_open = 0
+
+		for(var inst of Msg.instances)
+		{
+			if(inst.is_open())
+			{
+				if(inst.options.zStack_level === 1)
+				{
+					num_open += 1
+				}
 			}
 		}
 
@@ -1720,6 +1821,28 @@ Msg.factory = function(options={})
 		for(let i=0; i<Msg.instances.length; i++)
 		{
 			Msg.instances[i].close()
+		}
+	}
+
+	instance.close_all_higher = function()
+	{
+		for(let i=0; i<Msg.instances.length; i++)
+		{
+			if(Msg.instances[i].options.zStack_level === 2)
+			{
+				Msg.instances[i].close()
+			}
+		}
+	}
+
+	instance.close_all_lower = function()
+	{
+		for(let i=0; i<Msg.instances.length; i++)
+		{
+			if(Msg.instances[i].options.zStack_level === 1)
+			{
+				Msg.instances[i].close()
+			}
 		}
 	}
 
@@ -1917,6 +2040,36 @@ Msg.factory = function(options={})
 	instance.instances = function()
 	{
 		return Msg.instances
+	}
+
+	instance.higher_instances = function()
+	{
+		var instances = []
+
+		for(var inst of Msg.instances)
+		{
+			if(inst.options.zStack_level === 2)
+			{
+				instances.push(inst)
+			}
+		}
+
+		return instances
+	}
+
+	instance.lower_instances = function()
+	{
+		var instances = []
+
+		for(var inst of Msg.instances)
+		{
+			if(inst.options.zStack_level === 1)
+			{
+				instances.push(inst)
+			}
+		}
+
+		return instances
 	}
 
 	instance.get_instance_by_id = function(id)
@@ -3932,6 +4085,20 @@ Msg.factory = function(options={})
 		}
 
 		instance.options.class = new_class	
+	}
+
+	instance.remove = function()
+	{
+		instance.destroy()
+
+		for(var i=0; i<Msg.instances.length; i++)
+		{
+			if(Msg.instances[i].options.id === instance.options.id)
+			{
+				Msg.instances.splice(i, 1)
+				break
+			}
+		}
 	}
 
 	if(Msg.msg === undefined && instance.options.id !== "__internal_instance__")

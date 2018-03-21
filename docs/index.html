@@ -10,11 +10,11 @@
 
         <link rel='shortcut icon' href="favicon.ico?v=1" type='image/x-icon'>  
               
-        <link rel='stylesheet' href="style.css?v=14">  
+        <link rel='stylesheet' href="style.css?v=15">  
 
         <script src='symmetric_harmony.js?v=4'></script>
 
-        <script src='msg.js?v=114'></script>
+        <script src='msg.js?v=115'></script>
 
         <script src='base.js?v=72'></script>
 
@@ -195,57 +195,13 @@
 
         <blockquote><pre><code>var msg_pop = Msg.factory(
 {
-    class: "green",
-    window_width: "460px";
-    enable_overlay: false,
-    position: "bottomright",
-    autoclose: true,
-    enable_progressbar: true,
-    persistent: false,
-    zStack_level: 1,
-    lock: false,
-    show_effect: "fade",                
-    show_effect_duration: 350,
-    close_effect: "fade",
-    close_effect_duration: 350     
-});
-        </code></pre></blockquote>
-
-        Or, you can just use a preset and work from there. 
-
-        <blockquote><pre><code>var msg_pop = Msg.factory(
-{
-    preset:"popup" // or "popup_autoclose",
-    enable_titlebar:true
+    preset:"popup" // or "popup_autoclose"
 });
         </code></pre></blockquote>   
 
         <a name="snackbars"></a><h2>Snackbars</h2>
 
-        <span class='clicky' onclick='snack()'>Open Snackbar</span>&nbsp;&nbsp;&nbsp;
-
-        <i><blockquote><pre><code>var msg_snack = Msg.factory({
-    class: "black",
-    content_class: "snackbar",
-    position: "bottom",
-    edge_padding_y: 0,
-    window_min_width: "600px",
-    window_x: "none",
-    enable_overlay: false,
-    autoclose: true,
-    autoclose_delay: 10000,
-    close_on_show: true,
-    show_effect: "slide_up",
-    show_effect_duration: 350,
-    close_effect: "slide_down",
-    close_effect_duration: 350,        
-    sideStack: "none",
-    zStack_level: 1,
-    lock: false 
-});
-        </code></pre></blockquote></i>  
-
-        Or just:       
+        <span class='clicky' onclick='snack()'>Open Snackbar</span>&nbsp;&nbsp;&nbsp;     
 
         <i><blockquote><pre><code>var msg_snack = Msg.factory({
     preset: "snackbar"
@@ -582,6 +538,10 @@ msg2.show(["Window Example", some_text]);
         
         <i>autoclose_delay (Default: 5000)</i>: The amount of time in milliseconds that must pass before closing the window.<br><br>
         
+        <i>enable_titlebar (Default: false)</i>: Whether Msg-titlebar is created or not.<br><br>  
+        
+        <i>center_titlebar (Default: false)</i>: A mode where the text is placed in the center relative to the window. It adjusts to window_x settings.<br><br>  
+        
         <i>enable_progressbar (Default: false)</i>: Whether Msg-progressbar is created or not.<br><br>  
 
         <i>bind_progressbar_to_autoclose (Default: true)</i>: If this is true, the progressbar will reflect the autoclose delay when the window is shown.<br><br>
@@ -785,15 +745,25 @@ msg_test.show("Domo Arigato");
         
         <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
         
-        <i>instance.any_open()</i>: Returns true if any window with any id is open.<br><br>
+        <i>instance.any_open()</i>: Returns true if any window with any id is open.<br><br>    
+            
+        <i>instance.any_higher_open()</i>: Returns true if any window with zStack_level 2 is open. These are usually modals and windows.<br><br>  
+
+        <i>instance.any_lower_open()</i>: Returns true if any window with zStack_level 1 is open. These are usually popups and snackbars.<br><br>
         
         <i>instance.num_open()</i>: Returns the number of windows open.<br><br>
+        
+        <i>instance.num_open_higher()</i>: Returns the number of windows open with zStack_level 2. These are usually modals and windows.<br><br>
+        
+        <i>instance.num_open_lower()</i>: Returns the number of windows open with zStack_level 1. These are usually popups and snackbars.<br><br>
         
         <i>instance.create()</i>: Creates the html elements if they don't exist yet. This is done automatically on the first show() or set(), but there might be cases where you might want to create them first without showing anything.<br><br>
         
         <i>instance.recreate()</i>: Removes the html elements from the dom and creates them again. This should be called after ids or classes are changed.<br><br>
         
         <i>instance.destroy()</i>: Removes the html elements from the dom.<br><br>
+        
+        <i>instance.remove()</i>: Destroys the html elements and removes the instance from the instance registry. So it won't appear in instance.instances() for example.<br><br>
         
         <i>instance.highest_zIndex()</i>: Returns the highest z-index among all the created Msg-container elements. If it retuns -2000 it means no elements have been created.<br><br>        
         <i>instance.highest_instance()</i>: It returns the instance with the highest z-index. If none is open it returns false.<br><br>
@@ -808,13 +778,21 @@ msg_test.show("Domo Arigato");
 
         <i>instance.get_progress()</i>: Returns the current percentage of the progressbar.<br><br>
         
-        <i>instance.instances()</i>: Returns a list with the created instances.<br><br>
+        <i>instance.instances()</i>: Returns a list with the created instances.<br><br>  
+
+        <i>instance.higher_instances()</i>: Returns a list with the created instances with zStack_level 2. These are usually modals and windows.<br><br>  
+
+        <i>instance.lower_instances()</i>: Returns a list with the created instances with zStack_level 1. These are usually popups and snackbars.<br><br>
 
         <i>instance.get_instance_by_id(id)</i>: Returns an instance that has the specified instance id.<br><br>
         
         <i>instance.show_all()</i>: Opens all the windows.<br><br>
         
         <i>instance.close_all()</i>: Closes all the windows.<br><br>
+        
+        <i>instance.close_all_higher()</i>: Closes all the windows with zStack_level 2. These are usually modals and windows.<br><br>
+        
+        <i>instance.close_all_lower()</i>: Closes all the windows with zStack_level 1. These are usually popups and snackbars.<br><br>
         
         <i>instance.create_all()</i>: Creates the html elements of all the instances.<br><br>
         
@@ -828,7 +806,7 @@ msg_test.show("Domo Arigato");
         instance.options.class = "green";<br>
         instance.options.enable_overlay = false;<br>
         instance.options.position = "bottomright";<br>
-        instance.options.persistent = false;<br>
+        instance.options.remove_after_close = true;<br>
         instance.options.zStack_level = 1;<br>
         instance.options.window_width = "460px";<br>
         instance.options.lock = false;<br>
@@ -843,7 +821,7 @@ msg_test.show("Domo Arigato");
         instance.options.position = "bottomright";<br>
         instance.options.autoclose = true;<br>
         instance.options.enable_progressbar = true;<br>
-        instance.options.persistent = false;<br>
+        instance.options.remove_after_close = true;<br>
         instance.options.zStack_level = 1;<br>
         instance.options.window_width = "460px";<br>
         instance.options.lock = false;<br>
