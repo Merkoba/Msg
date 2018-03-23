@@ -1,4 +1,4 @@
-/* Msg v11.0.0 https://github.com/madprops/Msg */
+/* Msg v11.0.1 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -807,13 +807,14 @@ Msg.factory = function(options={})
 		if(instance.options.before_set_title(instance) === false)
 		{
 			return
-		}
+		}	
 
 		if(typeof html === "object")
 		{
 			if(html instanceof Element)
 			{
-				instance.titlebar.innerHTML = html.outerHTML	
+				instance.titlebar.innerHTML = ""	
+				instance.titlebar.appendChild(html)
 			}
 		}
 
