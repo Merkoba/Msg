@@ -1,4 +1,4 @@
-/* Msg v11.0.1 https://github.com/madprops/Msg */
+/* Msg v11.0.2 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -2274,7 +2274,7 @@ Msg.factory = function(options={})
 
 	instance.overlay_fade_in = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(0, instance.options.show_effect_duration) / 50
+		var speed = instance.resolve_effect_duration(0, instance.options.show_effect_duration) / 20
 
 		if(instance.overlay === undefined || speed === 0)
 		{
@@ -2304,7 +2304,7 @@ Msg.factory = function(options={})
 				return
 			}
 
-			opacity += 0.02
+			opacity += 0.05
 
 			instance.overlay.style.opacity = opacity
 			
@@ -2322,7 +2322,7 @@ Msg.factory = function(options={})
 
 	instance.overlay_fade_out = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(1, instance.options.close_effect_duration) / 50
+		var speed = instance.resolve_effect_duration(1, instance.options.close_effect_duration) / 20
 
 		if(instance.overlay === undefined || speed === 0 || instance.overlay.style.opacity == 0)
 		{
@@ -2349,7 +2349,7 @@ Msg.factory = function(options={})
 				return
 			}
 
-			opacity -= 0.02
+			opacity -= 0.05
 			
 			instance.overlay.style.opacity = opacity
 			
@@ -2367,7 +2367,7 @@ Msg.factory = function(options={})
 
 	instance.fade_in = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 50
+		var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 20
 
 		if(speed === 0)
 		{
@@ -2393,7 +2393,7 @@ Msg.factory = function(options={})
 				return
 			}
 
-			opacity += 0.02
+			opacity += 0.05
 			
 			instance.window.style.opacity = opacity
 			
@@ -2411,7 +2411,7 @@ Msg.factory = function(options={})
 
 	instance.fade_out = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 50
+		var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 20
 
 		if(speed === 0 || instance.window.style.opacity == 0)
 		{
@@ -2435,7 +2435,7 @@ Msg.factory = function(options={})
 				return
 			}
 			
-			opacity -= 0.02
+			opacity -= 0.05
 
 			instance.window.style.opacity = opacity
 			
@@ -2453,7 +2453,7 @@ Msg.factory = function(options={})
 
 	instance.scale_in = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 50
+		var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 20
 
 		if(speed === 0)
 		{
