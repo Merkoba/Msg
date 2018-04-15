@@ -1,4 +1,4 @@
-/* Msg v11.0.3 https://github.com/madprops/Msg */
+/* Msg v11.0.4 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -2491,6 +2491,8 @@ Msg.factory = function(options={})
 
 		instance.window.style.opacity = 0
 
+		var winopacity = 0
+
 		instance.scale_in_interval = setInterval(function() 
 		{
 			if(!instance.created())
@@ -2503,7 +2505,9 @@ Msg.factory = function(options={})
 
 			instance.window.style.transform = new_transform + ` scale(${scale})`
 
-			instance.window.style.opacity = Number(instance.window.style.opacity) + 0.02
+			winopacity += 0.04
+
+			instance.window.style.opacity = winopacity
 			
 			if(scale >= 1) 
 			{
@@ -2551,6 +2555,8 @@ Msg.factory = function(options={})
 			}
 		}
 
+		var winopacity = Number(instance.window.style.opacity)
+
 		new_transform = new_transform.trim()
 
 		instance.window.style.transform = new_transform + ` scale(${scale})`
@@ -2565,9 +2571,11 @@ Msg.factory = function(options={})
 
 			scale -= 0.02
 
-			instance.window.style.transform = new_transform + ` scale(${scale})`				
+			instance.window.style.transform = new_transform + ` scale(${scale})`
 
-			instance.window.style.opacity = Number(instance.window.style.opacity) - 0.02
+			winopacity -= 0.04				
+
+			instance.window.style.opacity = winopacity
 			
 			if(scale <= 0.5) 
 			{
