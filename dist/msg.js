@@ -1,4 +1,4 @@
-/* Msg v11.0.4 https://github.com/madprops/Msg */
+/* Msg v11.1.0 https://github.com/madprops/Msg */
 
 var Msg = {}
 

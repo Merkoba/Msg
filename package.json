@@ -1,12 +1,13 @@
 {
 	"name": "msg-modal",
-	"version": "11.0.4",
+	"version": "11.1.0",
 	"description": "A javascript library to create and manage highly customizable modal windows and popup messages.",
 	"repository": 
 	{
 		"type": "git",
 		"url": "git+https://github.com/madprops/Msg.git"
 	},
+	"main": "dist/msg.js",
 	"files":
 	[
 		"dist/msg.js",
