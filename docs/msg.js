@@ -1,4 +1,4 @@
-/* Msg v11.1.0 https://github.com/madprops/Msg */
+/* Msg v11.2.0 https://github.com/madprops/Msg */
 
 var Msg = {}
 
@@ -1817,32 +1817,113 @@ Msg.factory = function(options={})
 		}
 	}
 
-	instance.close_all = function()
+	instance.close_all = function(callback=false)
 	{
-		for(let i=0; i<Msg.instances.length; i++)
+		if(!instance.any_open())
 		{
-			Msg.instances[i].close()
-		}
-	}
+			if(callback)
+			{
+				return callback()
+			}
 
-	instance.close_all_higher = function()
-	{
+			else
+			{
+				return false
+			}
+		}
+
 		for(let i=0; i<Msg.instances.length; i++)
 		{
-			if(Msg.instances[i].options.zStack_level === 2)
+			if(callback)
+			{
+				Msg.instances[i].close(function()
+				{
+					if(!instance.any_open())
+					{
+						return callback()
+					}
+				})
+			}
+
+			else
 			{
 				Msg.instances[i].close()
 			}
 		}
 	}
 
-	instance.close_all_lower = function()
+	instance.close_all_higher = function(callback=false)
 	{
+		if(!instance.any_higher_open())
+		{
+			if(callback)
+			{
+				return callback()
+			}
+
+			else
+			{
+				return false
+			}
+		}
+
+		for(let i=0; i<Msg.instances.length; i++)
+		{
+			if(Msg.instances[i].options.zStack_level === 2)
+			{
+				if(callback)
+				{
+					Msg.instances[i].close(function()
+					{
+						if(!instance.any_higher_open())
+						{
+							return callback()
+						}
+					})
+				}
+
+				else
+				{
+					Msg.instances[i].close()
+				}
+			}
+		}
+	}
+
+	instance.close_all_lower = function(callback=false)
+	{
+		if(!instance.any_lower_open())
+		{
+			if(callback)
+			{
+				return callback()
+			}
+
+			else
+			{
+				return false
+			}
+		}
+
 		for(let i=0; i<Msg.instances.length; i++)
 		{
 			if(Msg.instances[i].options.zStack_level === 1)
 			{
-				Msg.instances[i].close()
+				if(callback)
+				{
+					Msg.instances[i].close(function()
+					{
+						if(!instance.any_lower_open())
+						{
+							return callback()
+						}
+					})
+				}
+
+				else
+				{
+					Msg.instances[i].close()
+				}
 			}
 		}
 	}
