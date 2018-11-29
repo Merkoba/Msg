@@ -1,10 +1,10 @@
-/* Msg v11.2.0 https://github.com/madprops/Msg */
+/* Msg v11.3.0 https://github.com/madprops/Msg */
 
-var Msg = {}
+const Msg = {}
 
 Msg.factory = function(options={})
 {
-	var instance = {}
+	const instance = {}
 
 	instance.close_enabled = true
 	instance.click_enabled = true
@@ -662,7 +662,7 @@ Msg.factory = function(options={})
 			}
 		}
 
-		else if(instance.options.close_effect.indexOf("slide") !== -1)
+		else if(instance.options.close_effect.includes("slide"))
 		{
 			if(typeof instance.options.close_effect_duration === "object")
 			{
@@ -891,8 +891,8 @@ Msg.factory = function(options={})
 		instance.content_for_close_on_show = undefined
 		instance.callback_for_close_on_show = undefined			
 
-		var title
-		var html
+		let title
+		let html
 
 		if(typeof content === "function")
 		{
@@ -931,8 +931,8 @@ Msg.factory = function(options={})
 
 		instance.closing = false
 
-		var return_callback = true
-		var first_show = false
+		let return_callback = true
+		let first_show = false
 
 		if(!instance.is_open())
 		{	
@@ -1035,7 +1035,7 @@ Msg.factory = function(options={})
 				}
 			}
 
-			else if(instance.options.show_effect.indexOf("slide") !== -1)
+			else if(instance.options.show_effect.includes("slide"))
 			{
 				return_callback = false
 
@@ -1142,7 +1142,7 @@ Msg.factory = function(options={})
 			return
 		}			
 
-		var styles = {}
+		let styles = {}
 
 		styles.container = `
 		display:none;
@@ -1175,15 +1175,16 @@ Msg.factory = function(options={})
 		padding-bottom:0.2em;
 		`
 
-		var p = instance.options.position
-		var edge_x = instance.options.edge_padding_x
-		var edge_y = instance.options.edge_padding_y
+		let p = instance.options.position
+		let edge_x = instance.options.edge_padding_x
+		let edge_y = instance.options.edge_padding_y
+		let win_x, win_y, win_trans
 
 		if(instance.options.disable_transformations)
 		{
-			var win_x = "left:0;"
-			var win_y = "top:0;"
-			var win_trans = "transform:initial;"
+			win_x = "left:0;"
+			win_y = "top:0;"
+			win_trans = "transform:initial;"
 
 			instance.vStackable = false
 			instance.hStackable = false
@@ -1191,9 +1192,9 @@ Msg.factory = function(options={})
 		
 		else if(p === "top")
 		{
-			var win_x = "left:50%;"
-			var win_y = `top:${edge_y}px;`
-			var win_trans = "transform:translateX(-50%);"
+			win_x = "left:50%;"
+			win_y = `top:${edge_y}px;`
+			win_trans = "transform:translateX(-50%);"
 
 			instance.vStackable = true
 			instance.hStackable = false
@@ -1201,9 +1202,9 @@ Msg.factory = function(options={})
 
 		else if(p === "bottom")
 		{
-			var win_x = "left:50%;"
-			var win_y = `bottom:${edge_y}px;`
-			var win_trans = "transform:translateX(-50%);"
+			win_x = "left:50%;"
+			win_y = `bottom:${edge_y}px;`
+			win_trans = "transform:translateX(-50%);"
 
 			instance.vStackable = true
 			instance.hStackable = false
@@ -1211,9 +1212,9 @@ Msg.factory = function(options={})
 
 		else if(p === "left")
 		{
-			var win_x = `left:${edge_x}px;`
-			var win_y = "top:50%;"
-			var win_trans = "transform:translateY(-50%);"
+			win_x = `left:${edge_x}px;`
+			win_y = "top:50%;"
+			win_trans = "transform:translateY(-50%);"
 
 			instance.vStackable = false
 			instance.hStackable = true
@@ -1221,9 +1222,9 @@ Msg.factory = function(options={})
 
 		else if(p === "right")
 		{
-			var win_x = `right:${edge_x}px;`
-			var win_y = "top:50%;"
-			var win_trans = "transform:translateY(-50%);"
+			win_x = `right:${edge_x}px;`
+			win_y = "top:50%;"
+			win_trans = "transform:translateY(-50%);"
 
 			instance.vStackable = false
 			instance.hStackable = true
@@ -1231,9 +1232,9 @@ Msg.factory = function(options={})
 
 		else if(p === "topleft")
 		{
-			var win_x = `left:${edge_x}px;`
-			var win_y = `top:${edge_y}px;`
-			var win_trans = ""
+			win_x = `left:${edge_x}px;`
+			win_y = `top:${edge_y}px;`
+			win_trans = ""
 
 			instance.vStackable = true
 			instance.hStackable = true
@@ -1241,9 +1242,9 @@ Msg.factory = function(options={})
 
 		else if(p === "topright")
 		{
-			var win_x = `right:${edge_x}px;`
-			var win_y = `top:${edge_y}px;`
-			var win_trans = ""
+			win_x = `right:${edge_x}px;`
+			win_y = `top:${edge_y}px;`
+			win_trans = ""
 
 			instance.vStackable = true
 			instance.hStackable = true
@@ -1251,9 +1252,9 @@ Msg.factory = function(options={})
 
 		else if(p === "bottomleft")
 		{
-			var win_x = `left:${edge_x}px;`
-			var win_y = `bottom:${edge_y}px;`
-			var win_trans = ""
+			win_x = `left:${edge_x}px;`
+			win_y = `bottom:${edge_y}px;`
+			win_trans = ""
 
 			instance.vStackable = true
 			instance.hStackable = true
@@ -1261,9 +1262,9 @@ Msg.factory = function(options={})
 
 		else if(p === "bottomright")
 		{
-			var win_x = `right:${edge_x}px;`
-			var win_y = `bottom:${edge_y}px;`
-			var win_trans = ""
+			win_x = `right:${edge_x}px;`
+			win_y = `bottom:${edge_y}px;`
+			win_trans = ""
 
 			instance.vStackable = true
 			instance.hStackable = true
@@ -1271,23 +1272,25 @@ Msg.factory = function(options={})
 
 		else
 		{
-			var win_x = "left:50%;"
-			var win_y = "top:50%;"
-			var win_trans = "transform:translate(-50%, -50%);"
+			win_x = "left:50%;"
+			win_y = "top:50%;"
+			win_trans = "transform:translate(-50%, -50%);"
 
 			instance.vStackable = false
 			instance.hStackable = false
 		}
 
+		let wun
+
 		if(instance.options.window_unselectable)
 		{
 		
-			var wun = "-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;"
+			wun = "-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;"
 		}
 
 		else
 		{
-			var wun = ""
+			wun = ""
 		}			
 
 		styles.window = `
@@ -1316,9 +1319,9 @@ Msg.factory = function(options={})
 		display:flex;
 		flex-direction:row;
 		`
-		var padl = "padding-left: 0.4em;"
-		var padr = "padding-right: 0.4em;"
-		var texta = ""
+		let padl = "padding-left: 0.4em;"
+		let padr = "padding-right: 0.4em;"
+		let texta = ""
 
 		if(instance.options.center_titlebar)
 		{
@@ -1351,16 +1354,18 @@ Msg.factory = function(options={})
 		font-weight: bold;
 		`
 
-		if(instance.options.window_x.indexOf("left") !== -1)
+		let ix_order, ix_margin
+
+		if(instance.options.window_x.includes("left"))
 		{
-			var ix_order = "1"
-			var ix_margin = ""
+			ix_order = "1"
+			ix_margin = ""
 		}
 
 		else
 		{
-			var ix_order = "3"
-			var ix_margin = "auto"
+			ix_order = "3"
+			ix_margin = "auto"
 		}
 
 		styles.window_inner_x = `
@@ -1382,16 +1387,18 @@ Msg.factory = function(options={})
 		padding-bottom:0.2em;
 		`
 
-		if(instance.options.window_x.indexOf("left") !== -1)
+		let fs, fms
+
+		if(instance.options.window_x.includes("left"))
 		{
-			var fs = "left:0px;"
-			var fms = "margin-left:-14px;"
+			fs = "left:0px;"
+			fms = "margin-left:-14px;"
 		}
 
 		else
 		{
-			var fs = "right:0px;"
-			var fms = "margin-right:-14px;"
+			fs = "right:0px;"
+			fms = "margin-right:-14px;"
 		}
 
 		styles.window_floating_x = `
@@ -1428,54 +1435,58 @@ Msg.factory = function(options={})
 		flex-grow:1;
 		`
 
-		if(instance.options.enable_titlebar || (instance.options.window_x.indexOf("inner") !== -1))
+		let cpt, cpb, pad
+
+		if(instance.options.enable_titlebar || (instance.options.window_x.includes("inner")))
 		{
 			if(instance.options.enable_titlebar)
 			{
-				var cpt = "1.2em"
+				cpt = "1.2em"
 			}
 
 			else
 			{
-				var cpt = "0.2em"
+				cpt = "0.2em"
 			}
 		}
 
 		else
 		{
-			var cpt = "1.6em"
+			cpt = "1.6em"
 		}
 
 		if(instance.options.enable_progressbar)
 		{
-			var cpb = "1.34em"
+			cpb = "1.34em"
 		}
 
 		else
 		{
-			var cpb = "1.6em"
+			cpb = "1.6em"
 		}
 
 		if(instance.options.disable_content_padding)
 		{
-			var pad = "padding:0;"
+			pad = "padding:0;"
 		}
 
 		else
 		{
-			var pad = ""
+			pad = ""
 		}
+
+		let cwid, chgt
 
 		if(instance.options.full_content)
 		{
-			var cwid = "width:100vw;"
-			var chgt = "height:100vh;"
+			cwid = "width:100vw;"
+			chgt = "height:100vh;"
 		}
 
 		else
 		{
-			var cwid = ""
-			var chgt = ""
+			cwid = ""
+			chgt = ""
 		}
 
 		styles.content = `
@@ -1501,18 +1512,18 @@ Msg.factory = function(options={})
 		width:0%;
 		`	
 
-		var container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class
-		var overlay_class = (instance.options.overlay_class !== undefined) ? instance.options.overlay_class : instance.options.class
-		var overlay_x_class = (instance.options.overlay_x_class !== undefined) ? instance.options.overlay_x_class : instance.options.class
-		var window_class = (instance.options.window_class !== undefined) ? instance.options.window_class : instance.options.class
-		var topbar_class = (instance.options.topbar_class !== undefined) ? instance.options.topbar_class : instance.options.class
-		var titlebar_class = (instance.options.titlebar_class !== undefined) ? instance.options.titlebar_class : instance.options.class
-		var window_inner_x_class = (instance.options.window_inner_x_class !== undefined) ? instance.options.window_inner_x_class : instance.options.class
-		var window_floating_x_class = (instance.options.window_floating_x_class !== undefined) ? instance.options.window_floating_x_class : instance.options.class
-		var content_container_class = (instance.options.content_container_class !== undefined) ? instance.options.content_container_class : instance.options.class
-		var content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class
-		var progressbar_container_class = (instance.options.progressbar_container_class !== undefined) ? instance.options.progressbar_container_class : instance.options.class
-		var progressbar_class = (instance.options.progressbar_class !== undefined) ? instance.options.progressbar_class : instance.options.class
+		let container_class = (instance.options.container_class !== undefined) ? instance.options.container_class : instance.options.class
+		let overlay_class = (instance.options.overlay_class !== undefined) ? instance.options.overlay_class : instance.options.class
+		let overlay_x_class = (instance.options.overlay_x_class !== undefined) ? instance.options.overlay_x_class : instance.options.class
+		let window_class = (instance.options.window_class !== undefined) ? instance.options.window_class : instance.options.class
+		let topbar_class = (instance.options.topbar_class !== undefined) ? instance.options.topbar_class : instance.options.class
+		let titlebar_class = (instance.options.titlebar_class !== undefined) ? instance.options.titlebar_class : instance.options.class
+		let window_inner_x_class = (instance.options.window_inner_x_class !== undefined) ? instance.options.window_inner_x_class : instance.options.class
+		let window_floating_x_class = (instance.options.window_floating_x_class !== undefined) ? instance.options.window_floating_x_class : instance.options.class
+		let content_container_class = (instance.options.content_container_class !== undefined) ? instance.options.content_container_class : instance.options.class
+		let content_class = (instance.options.content_class !== undefined) ? instance.options.content_class : instance.options.class
+		let progressbar_container_class = (instance.options.progressbar_container_class !== undefined) ? instance.options.progressbar_container_class : instance.options.class
+		let progressbar_class = (instance.options.progressbar_class !== undefined) ? instance.options.progressbar_class : instance.options.class
 		
 		container_class = container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-container-${w}`).join(" ")
 		overlay_class = overlay_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-overlay-${w}`).join(" ")
@@ -1527,18 +1538,18 @@ Msg.factory = function(options={})
 		progressbar_container_class = progressbar_container_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-progressbar-container-${w}`).join(" ")
 		progressbar_class = progressbar_class.split(/\s+/).map(w => (w.startsWith("!")) ? w.substring(1) : `Msg-progressbar-${w}`).join(" ")
 
-		var container_html =  `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`
-		var overlay_html = `<div class="Msg-overlay ${overlay_class}" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`
-		var overlay_x_html = `<div class="Msg-overlay-x ${overlay_x_class}" style="${styles.overlay_x}" id="Msg-overlay-x-${instance.options.id }">x</div>`
-		var window_html = `<div class="Msg-window ${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`
-		var topbar_html = `<div class="Msg-topbar ${topbar_class}" style="${styles.topbar}" id="Msg-topbar-${instance.options.id}"></div>`
-		var titlebar_html = `<div class="Msg-titlebar ${titlebar_class}" style="${styles.titlebar}" id="Msg-titlebar-${instance.options.id}"></div>`
-		var window_inner_x_html = `<div class="Msg-window-inner-x ${window_inner_x_class}" style="${styles.window_inner_x}" id="Msg-window-inner-x-${instance.options.id }">x</div>`
-		var window_floating_x_html = `<div class="Msg-window-floating-x ${window_floating_x_class}" style="${styles.window_floating_x}" id="Msg-window-floating-x-${instance.options.id }">x</div>`
-		var content_container_html = `<div class="Msg-content-container ${content_container_class}" style="${styles.content_container}" id="Msg-content-container-${instance.options.id }"></div>`
-		var content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`
-		var progressbar_container_html = `<div class="Msg-progressbar-container ${progressbar_container_class}" style="${styles.progressbar_container}" id="Msg-progressbar-container-${instance.options.id }"></div>`
-		var progressbar_html = `<div class="Msg-progressbar ${progressbar_class}" style="${styles.progressbar}" id="Msg-progressbar-${instance.options.id }"></div>`
+		let container_html =  `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`
+		let overlay_html = `<div class="Msg-overlay ${overlay_class}" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`
+		let overlay_x_html = `<div class="Msg-overlay-x ${overlay_x_class}" style="${styles.overlay_x}" id="Msg-overlay-x-${instance.options.id }">x</div>`
+		let window_html = `<div class="Msg-window ${window_class}" style="${styles.window}" id="Msg-window-${instance.options.id}"></div>`
+		let topbar_html = `<div class="Msg-topbar ${topbar_class}" style="${styles.topbar}" id="Msg-topbar-${instance.options.id}"></div>`
+		let titlebar_html = `<div class="Msg-titlebar ${titlebar_class}" style="${styles.titlebar}" id="Msg-titlebar-${instance.options.id}"></div>`
+		let window_inner_x_html = `<div class="Msg-window-inner-x ${window_inner_x_class}" style="${styles.window_inner_x}" id="Msg-window-inner-x-${instance.options.id }">x</div>`
+		let window_floating_x_html = `<div class="Msg-window-floating-x ${window_floating_x_class}" style="${styles.window_floating_x}" id="Msg-window-floating-x-${instance.options.id }">x</div>`
+		let content_container_html = `<div class="Msg-content-container ${content_container_class}" style="${styles.content_container}" id="Msg-content-container-${instance.options.id }"></div>`
+		let content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id }"></div>`
+		let progressbar_container_html = `<div class="Msg-progressbar-container ${progressbar_container_class}" style="${styles.progressbar_container}" id="Msg-progressbar-container-${instance.options.id }"></div>`
+		let progressbar_html = `<div class="Msg-progressbar ${progressbar_class}" style="${styles.progressbar}" id="Msg-progressbar-${instance.options.id }"></div>`
 
 		document.body.insertAdjacentHTML("beforeend", container_html)
 
@@ -1559,7 +1570,7 @@ Msg.factory = function(options={})
 		instance.container.insertAdjacentHTML("beforeend", window_html)
 		instance.window = document.getElementById(`Msg-window-${instance.options.id}`)
 
-		if(instance.options.enable_titlebar || (instance.options.window_x.indexOf("inner") !== -1))
+		if(instance.options.enable_titlebar || (instance.options.window_x.includes("inner")))
 		{
 			instance.window.insertAdjacentHTML("beforeend", topbar_html)
 			instance.topbar = document.getElementById(`Msg-topbar-${instance.options.id}`)
@@ -1570,14 +1581,14 @@ Msg.factory = function(options={})
 				instance.titlebar = document.getElementById(`Msg-titlebar-${instance.options.id}`)
 			}
 			
-			if(instance.options.window_x.indexOf("inner") !== -1)
+			if(instance.options.window_x.includes("inner"))
 			{
 				instance.topbar.insertAdjacentHTML("beforeend", window_inner_x_html)
 				instance.window_inner_x = document.getElementById(`Msg-window-inner-x-${instance.options.id}`)
 			}
 		}
 
-		if(instance.options.window_x.indexOf("floating") !== -1)
+		if(instance.options.window_x.includes("floating"))
 		{
 			instance.window.insertAdjacentHTML("afterbegin", window_floating_x_html)
 			instance.window_floating_x = document.getElementById(`Msg-window-floating-x-${instance.options.id}`)
@@ -1624,7 +1635,7 @@ Msg.factory = function(options={})
 		{
 			if(!instance.click_enabled)
 			{
-				var captureClick = function(e) 
+				let captureClick = function(e) 
 				{
 					e.stopPropagation()
 					this.removeEventListener("click", captureClick, true)
@@ -1715,7 +1726,7 @@ Msg.factory = function(options={})
 
 	instance.any_open = function()
 	{
-		for(var inst of Msg.instances)
+		for(let inst of Msg.instances)
 		{
 			if(inst.is_open())
 			{
@@ -1728,7 +1739,7 @@ Msg.factory = function(options={})
 
 	instance.any_higher_open = function()
 	{
-		for(var inst of Msg.instances)
+		for(let inst of Msg.instances)
 		{
 			if(inst.options.zStack_level === 2)
 			{
@@ -1744,7 +1755,7 @@ Msg.factory = function(options={})
 
 	instance.any_lower_open = function()
 	{
-		for(var inst of Msg.instances)
+		for(let inst of Msg.instances)
 		{
 			if(inst.options.zStack_level === 1)
 			{
@@ -1760,9 +1771,9 @@ Msg.factory = function(options={})
 
 	instance.num_open = function()
 	{
-		var num_open = 0
+		let num_open = 0
 
-		for(var inst of Msg.instances)
+		for(let inst of Msg.instances)
 		{
 			if(inst.is_open())
 			{
@@ -1775,9 +1786,9 @@ Msg.factory = function(options={})
 
 	instance.num_open_higher = function()
 	{
-		var num_open = 0
+		let num_open = 0
 
-		for(var inst of Msg.instances)
+		for(let inst of Msg.instances)
 		{
 			if(inst.is_open())
 			{
@@ -1793,9 +1804,9 @@ Msg.factory = function(options={})
 
 	instance.num_open_lower = function()
 	{
-		var num_open = 0
+		let num_open = 0
 
-		for(var inst of Msg.instances)
+		for(let inst of Msg.instances)
 		{
 			if(inst.is_open())
 			{
@@ -1956,14 +1967,16 @@ Msg.factory = function(options={})
 	{
 		zIndex = parseInt(zIndex)
 
+		let common
+
 		if(zIndex > 0)
 		{
-			var common = parseInt(zIndex.toString().substring(1))
+			common = parseInt(zIndex.toString().substring(1))
 		}
 
 		else
 		{
-			var common = -2000
+			common = -2000
 		}
 
 		return common
@@ -1971,13 +1984,13 @@ Msg.factory = function(options={})
 
 	instance.highest_zIndex = function()
 	{
-		var highest = -2000
+		let highest = -2000
 
-		var windows = Array.from(document.querySelectorAll(".Msg-window"))
+		let windows = Array.from(document.querySelectorAll(".Msg-window"))
 
-		for(var i=0; i<windows.length; i++)
+		for(let i=0; i<windows.length; i++)
 		{
-			var zIndex = parseInt(windows[i].style.zIndex)
+			let zIndex = parseInt(windows[i].style.zIndex)
 
 			if(zIndex > highest)
 			{
@@ -1990,14 +2003,14 @@ Msg.factory = function(options={})
 
 	instance.highest_instance = function()
 	{
-		var zIndex = instance.highest_zIndex()
+		let zIndex = instance.highest_zIndex()
 
 		if(zIndex < 0)
 		{
 			return false
 		}
 
-		for(var i of Msg.instances)
+		for(let i of Msg.instances)
 		{
 			if(i.window !== undefined)
 			{
@@ -2013,13 +2026,13 @@ Msg.factory = function(options={})
 
 	instance.highest_common_zIndex = function()
 	{
-		var highest = -2000
+		let highest = -2000
 
-		var windows = Array.from(document.querySelectorAll(".Msg-window"))
+		let windows = Array.from(document.querySelectorAll(".Msg-window"))
 
-		for(var i=0; i<windows.length; i++)
+		for(let i=0; i<windows.length; i++)
 		{
-			var zIndex = instance.common_zIndex(windows[i].style.zIndex)
+			let zIndex = instance.common_zIndex(windows[i].style.zIndex)
 
 			if(zIndex > highest)
 			{
@@ -2034,7 +2047,7 @@ Msg.factory = function(options={})
 	{
 		if(instance.is_open())
 		{
-			var zIndex = instance.highest_zIndex()
+			let zIndex = instance.highest_zIndex()
 
 			if(parseInt(instance.window.style.zIndex) === zIndex)
 			{
@@ -2075,7 +2088,7 @@ Msg.factory = function(options={})
 
 	instance.check_remove_overflow_hidden = function()
 	{
-		for(var i of Msg.instances)
+		for(let i of Msg.instances)
 		{
 			if(i.is_open())
 			{
@@ -2093,18 +2106,20 @@ Msg.factory = function(options={})
 	{
 		if(instance.is_open())
 		{
-			var zIndex = parseInt(instance.window.style.zIndex)
+			let zIndex = parseInt(instance.window.style.zIndex)
 
-			var highest_common = instance.highest_common_zIndex()
+			let highest_common = instance.highest_common_zIndex()
+
+			let highest
 
 			if(instance.options.zStack_level === 1)
 			{
-				var highest = Math.max(5000000, 5000000 + highest_common)
+				highest = Math.max(5000000, 5000000 + highest_common)
 			}
 
 			else
 			{
-				var highest = Math.max(50000000, 50000000 + highest_common)
+				highest = Math.max(50000000, 50000000 + highest_common)
 			}
 
 			if(highest > zIndex)
@@ -2126,9 +2141,9 @@ Msg.factory = function(options={})
 
 	instance.higher_instances = function()
 	{
-		var instances = []
+		let instances = []
 
-		for(var inst of Msg.instances)
+		for(let inst of Msg.instances)
 		{
 			if(inst.options.zStack_level === 2)
 			{
@@ -2141,9 +2156,9 @@ Msg.factory = function(options={})
 
 	instance.lower_instances = function()
 	{
-		var instances = []
+		let instances = []
 
-		for(var inst of Msg.instances)
+		for(let inst of Msg.instances)
 		{
 			if(inst.options.zStack_level === 1)
 			{
@@ -2156,7 +2171,7 @@ Msg.factory = function(options={})
 
 	instance.get_instance_by_id = function(id)
 	{
-		for(var i of Msg.instances)
+		for(let i of Msg.instances)
 		{
 			if(i.options.id == id)
 			{
@@ -2220,7 +2235,7 @@ Msg.factory = function(options={})
 
 		if(instance.options.reverse_autoclose_progressbar)
 		{
-			var percentage = 0
+			let percentage = 0
 
 			instance.progressbar.style.width = "0%"
 
@@ -2245,7 +2260,7 @@ Msg.factory = function(options={})
 
 		else
 		{
-			var percentage = 100
+			let percentage = 100
 
 			instance.progressbar.style.width = "100%"
 
@@ -2355,7 +2370,7 @@ Msg.factory = function(options={})
 
 	instance.overlay_fade_in = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(0, instance.options.show_effect_duration) / 20
+		let speed = instance.resolve_effect_duration(0, instance.options.show_effect_duration) / 20
 
 		if(instance.overlay === undefined || speed === 0)
 		{
@@ -2375,7 +2390,7 @@ Msg.factory = function(options={})
 		instance.overlay.style.opacity = 0
 		instance.window.style.opacity = 0
 
-		var opacity = 0
+		let opacity = 0
 
 		instance.overlay_fade_in_interval = setInterval(function() 
 		{
@@ -2403,7 +2418,7 @@ Msg.factory = function(options={})
 
 	instance.overlay_fade_out = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(1, instance.options.close_effect_duration) / 20
+		let speed = instance.resolve_effect_duration(1, instance.options.close_effect_duration) / 20
 
 		if(instance.overlay === undefined || speed === 0 || instance.overlay.style.opacity == 0)
 		{
@@ -2420,7 +2435,7 @@ Msg.factory = function(options={})
 			return
 		}
 
-		var opacity = Number(instance.overlay.style.opacity)
+		let opacity = Number(instance.overlay.style.opacity)
 
 		instance.overlay_fade_out_interval = setInterval(function() 
 		{
@@ -2448,7 +2463,7 @@ Msg.factory = function(options={})
 
 	instance.fade_in = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 20
+		let speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 20
 
 		if(speed === 0)
 		{
@@ -2464,7 +2479,7 @@ Msg.factory = function(options={})
 
 		instance.window.style.opacity = 0
 
-		var opacity = 0
+		let opacity = 0
 
 		instance.fade_in_interval = setInterval(function() 
 		{
@@ -2492,7 +2507,7 @@ Msg.factory = function(options={})
 
 	instance.fade_out = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 20
+		let speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 20
 
 		if(speed === 0 || instance.window.style.opacity == 0)
 		{
@@ -2506,7 +2521,7 @@ Msg.factory = function(options={})
 			return
 		}
 
-		var opacity = Number(instance.window.style.opacity)
+		let opacity = Number(instance.window.style.opacity)
 
 		instance.fade_out_interval = setInterval(function() 
 		{
@@ -2534,7 +2549,7 @@ Msg.factory = function(options={})
 
 	instance.scale_in = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 25
+		let speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration) / 25
 
 		if(speed === 0)
 		{
@@ -2548,19 +2563,19 @@ Msg.factory = function(options={})
 			return
 		}
 
-		var scale = 0.5
+		let scale = 0.5
 
-		var transform = instance.window.style.transform
+		let transform = instance.window.style.transform
 
-		var split = transform.split(")")
+		let split = transform.split(")")
 
-		var new_transform = ""
+		let new_transform = ""
 
-		for(var s of split)
+		for(let s of split)
 		{
-			var s = s.trim()
+			s = s.trim()
 
-			if(s !== "" && s.indexOf("scale") === -1)
+			if(s !== "" && !s.includes("scale"))
 			{
 				new_transform += `${s}) `
 			}
@@ -2572,7 +2587,7 @@ Msg.factory = function(options={})
 
 		instance.window.style.opacity = 0
 
-		var winopacity = 0
+		let winopacity = 0
 
 		instance.scale_in_interval = setInterval(function() 
 		{
@@ -2604,7 +2619,7 @@ Msg.factory = function(options={})
 
 	instance.scale_out = function(callback) 
 	{		
-		var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 25
+		let speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration) / 25
 
 		if(speed === 0 || instance.window.style.opacity == 0)
 		{
@@ -2618,25 +2633,25 @@ Msg.factory = function(options={})
 			return
 		}
 
-		var scale = 1
+		let scale = 1
 
-		var transform = instance.window.style.transform
+		let transform = instance.window.style.transform
 
-		var split = transform.split(")")
+		let split = transform.split(")")
 
-		var new_transform = ""
+		let new_transform = ""
 
-		for(var s of split)
+		for(let s of split)
 		{
-			var s = s.trim()
+			s = s.trim()
 
-			if(s !== "" && s.indexOf("scale") === -1)
+			if(s !== "" && !s.includes("scale"))
 			{
 				new_transform += `${s}) `
 			}
 		}
 
-		var winopacity = Number(instance.window.style.opacity)
+		let winopacity = Number(instance.window.style.opacity)
 
 		new_transform = new_transform.trim()
 
@@ -2673,7 +2688,7 @@ Msg.factory = function(options={})
 
 	instance.slide_in = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration)
+		let speed = instance.resolve_effect_duration(1, instance.options.show_effect_duration)
 
 		instance.window.style.opacity = 1
 
@@ -2687,17 +2702,16 @@ Msg.factory = function(options={})
 			return
 		}
 
-		var direction = instance.options.show_effect.split("_")[1]
+		let direction = instance.options.show_effect.split("_")[1]
 
 		instance.slide_in_ongoing = true
 		instance.slide_direction = direction
 
-		var p = instance.options.position
+		let p = instance.options.position
 
-		var pos = false
-		var spos = false
-		var diff = false
-
+		let pos = false
+		let spos = false
+		let diff = false
 
 		if(p === "bottom")
 		{
@@ -2737,7 +2751,7 @@ Msg.factory = function(options={})
 			}
 		}
 
-		else if((p.indexOf("right") !== -1))
+		else if((p.includes("right")))
 		{
 			if(direction === "up" || direction === "down")
 			{
@@ -2797,7 +2811,7 @@ Msg.factory = function(options={})
 			}
 		}
 
-		else if((p.indexOf("left") !== -1))
+		else if((p.includes("left")))
 		{
 			if(direction === "up" || direction === "down")
 			{
@@ -2985,7 +2999,7 @@ Msg.factory = function(options={})
 
 	instance.slide_out = function(callback) 
 	{
-		var speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration)
+		let speed = instance.resolve_effect_duration(0, instance.options.close_effect_duration)
 
 		if(speed === 0 || instance.window.style.opacity == 0)
 		{
@@ -2999,15 +3013,14 @@ Msg.factory = function(options={})
 			return
 		}
 
-		var direction = instance.options.close_effect.split("_")[1]
+		let direction = instance.options.close_effect.split("_")[1]
 
-		var p = instance.options.position
+		let p = instance.options.position
 
-		var pos = false
-		var og = false
-		var diff = false
-		var npos = false
-
+		let pos = false
+		let og = false
+		let diff = false
+		let npos = false
 
 		if(p === "bottom")
 		{
@@ -3043,7 +3056,7 @@ Msg.factory = function(options={})
 			}
 		}
 
-		else if((p.indexOf("right") !== -1))
+		else if((p.includes("right")))
 		{
 			if(direction === "up" || direction === "down")
 			{
@@ -3097,7 +3110,7 @@ Msg.factory = function(options={})
 			}
 		}
 
-		else if((p.indexOf("left") !== -1))
+		else if((p.includes("left")))
 		{
 			if(direction === "up" || direction === "down")
 			{
@@ -3331,12 +3344,12 @@ Msg.factory = function(options={})
 
 	instance.highest_in_position = function(mode)
 	{
-		var highest = -2000
-		var highest_ins
+		let highest = -2000
+		let highest_ins
 
-		var p = instance.options.position
+		let p = instance.options.position
 
-		for(var i of Msg.instances)
+		for(let i of Msg.instances)
 		{
 			if(i.is_open())
 			{
@@ -3346,12 +3359,12 @@ Msg.factory = function(options={})
 
 					if(mode === "vertical")
 					{
-						if(p.indexOf("top") !== -1)
+						if(p.includes("top"))
 						{
 							pos = i.stack_pos_top
 						}
 
-						else if(p.indexOf("bottom") !== -1)
+						else if(p.includes("bottom"))
 						{
 							pos = i.stack_pos_bottom
 						}
@@ -3359,12 +3372,12 @@ Msg.factory = function(options={})
 
 					else if(mode === "horizontal")
 					{
-						if(p.indexOf("left") !== -1)
+						if(p.includes("left"))
 						{
 							pos = i.stack_pos_left
 						}
 
-						else if(p.indexOf("right") !== -1)
+						else if(p.includes("right"))
 						{
 							pos = i.stack_pos_right
 						}
@@ -3387,12 +3400,12 @@ Msg.factory = function(options={})
 
 	instance.lowest_in_position = function(mode)
 	{
-		var lowest = 200000000
-		var lowest_ins
+		let lowest = 200000000
+		let lowest_ins
 
-		var p = instance.options.position
+		let p = instance.options.position
 
-		for(var i of Msg.instances)
+		for(let i of Msg.instances)
 		{
 			if(i.is_open())
 			{
@@ -3402,12 +3415,12 @@ Msg.factory = function(options={})
 
 					if(mode === "vertical")
 					{
-						if(p.indexOf("top") !== -1)
+						if(p.includes("top"))
 						{
 							pos = i.stack_pos_top
 						}
 
-						else if(p.indexOf("bottom") !== -1)
+						else if(p.includes("bottom"))
 						{
 							pos = i.stack_pos_bottom
 						}
@@ -3415,12 +3428,12 @@ Msg.factory = function(options={})
 
 					else if(mode === "horizontal")
 					{
-						if(p.indexOf("left") !== -1)
+						if(p.includes("left"))
 						{
 							pos = i.stack_pos_left
 						}
 
-						else if(p.indexOf("right") !== -1)
+						else if(p.includes("right"))
 						{
 							pos = i.stack_pos_right
 						}
@@ -3443,11 +3456,11 @@ Msg.factory = function(options={})
 
 	instance.above_in_position = function(ins, mode)
 	{
-		var ins_above = []
+		let ins_above = []
 
-		var p = ins.options.position
+		let p = ins.options.position
 
-		for(var i of Msg.instances)
+		for(let i of Msg.instances)
 		{
 			if(i.is_open())
 			{
@@ -3455,7 +3468,7 @@ Msg.factory = function(options={})
 				{
 					if(mode === "vertical")
 					{
-						if(p.indexOf("top") !== -1)
+						if(p.includes("top"))
 						{
 							if(i.stack_pos_top > ins.stack_pos_top)
 							{
@@ -3463,7 +3476,7 @@ Msg.factory = function(options={})
 							}
 						}
 
-						else if(p.indexOf("bottom") !== -1)
+						else if(p.includes("bottom"))
 						{
 							if(i.stack_pos_bottom > ins.stack_pos_bottom)
 							{
@@ -3474,7 +3487,7 @@ Msg.factory = function(options={})
 
 					else if(mode === "horizontal")
 					{
-						if(p.indexOf("left") !== -1)
+						if(p.includes("left"))
 						{
 							if(i.stack_pos_left > ins.stack_pos_left)
 							{
@@ -3482,7 +3495,7 @@ Msg.factory = function(options={})
 							}
 						}
 
-						else if(p.indexOf("right") !== -1)
+						else if(p.includes("right"))
 						{
 							if(i.stack_pos_right > ins.stack_pos_right)
 							{
@@ -3496,12 +3509,12 @@ Msg.factory = function(options={})
 
 		if(mode === "vertical")
 		{
-			if(p.indexOf("top") !== -1)
+			if(p.includes("top"))
 			{
 				ins_above.sort(instance.stack_pos_top_sort)
 			}
 
-			else if(p.indexOf("bottom") !== -1)
+			else if(p.includes("bottom"))
 			{
 				ins_above.sort(instance.stack_pos_bottom_sort)
 			}			
@@ -3509,12 +3522,12 @@ Msg.factory = function(options={})
 
 		else if(mode === "horizontal")
 		{
-			if(p.indexOf("left") !== -1)
+			if(p.includes("left"))
 			{
 				ins_above.sort(instance.stack_pos_left_sort)
 			}
 
-			else if(p.indexOf("right") !== -1)
+			else if(p.includes("right"))
 			{
 				ins_above.sort(instance.stack_pos_right_sort)
 			}	
@@ -3525,11 +3538,11 @@ Msg.factory = function(options={})
 
 	instance.nextbelow_in_position = function(ins, mode)
 	{
-		var ins_below = []
+		let ins_below = []
 
-		var p = ins.options.position
+		let p = ins.options.position
 
-		for(var i of Msg.instances)
+		for(let i of Msg.instances)
 		{
 			if(i.is_open())
 			{
@@ -3541,12 +3554,12 @@ Msg.factory = function(options={})
 					{
 						let sp
 
-						if(ip.indexOf("left") !== -1)
+						if(ip.includes("left"))
 						{
 							sp = i.stack_pos_left
 						}
 
-						else if(ip.indexOf("right") !== -1)
+						else if(ip.includes("right"))
 						{
 							sp = i.stack_pos_right
 						}
@@ -3559,7 +3572,7 @@ Msg.factory = function(options={})
 							}
 						}
 
-						if(p.indexOf("top") !== -1)
+						if(p.includes("top"))
 						{
 							if(i.stack_pos_top < ins.stack_pos_top)
 							{
@@ -3567,7 +3580,7 @@ Msg.factory = function(options={})
 							}
 						}
 
-						else if(p.indexOf("bottom") !== -1)
+						else if(p.includes("bottom"))
 						{
 							if(i.stack_pos_bottom < ins.stack_pos_bottom)
 							{
@@ -3578,7 +3591,7 @@ Msg.factory = function(options={})
 
 					else if(mode === "horizontal")
 					{
-						if(p.indexOf("left") !== -1)
+						if(p.includes("left"))
 						{
 							if(i.stack_pos_left < ins.stack_pos_left)
 							{
@@ -3586,7 +3599,7 @@ Msg.factory = function(options={})
 							}
 						}
 
-						else if(p.indexOf("right") !== -1)
+						else if(p.includes("right"))
 						{
 							if(i.stack_pos_right < ins.stack_pos_right)
 							{
@@ -3600,12 +3613,12 @@ Msg.factory = function(options={})
 
 		if(mode === "vertical")
 		{
-			if(p.indexOf("top") !== -1)
+			if(p.includes("top"))
 			{
 				ins_below.sort(instance.stack_pos_top_sort2)
 			}
 
-			else if(p.indexOf("bottom") !== -1)
+			else if(p.includes("bottom"))
 			{
 				
 				ins_below.sort(instance.stack_pos_bottom_sort2)
@@ -3614,12 +3627,12 @@ Msg.factory = function(options={})
 
 		else if(mode === "horizontal")
 		{
-			if(p.indexOf("left") !== -1)
+			if(p.includes("left"))
 			{
 				ins_below.sort(instance.stack_pos_left_sort2)
 			}
 
-			else if(p.indexOf("right") !== -1)
+			else if(p.includes("right"))
 			{
 				
 				ins_below.sort(instance.stack_pos_right_sort2)
@@ -3633,25 +3646,27 @@ Msg.factory = function(options={})
 	{
 		if(instance.vStackable)
 		{
-			var p = instance.options.position
+			let p = instance.options.position
 
-			if(p.indexOf("top") !== -1)
+			if(p.includes("top"))
 			{
 				instance.stack_pos_top = -1000000
 			}
 
-			else if(p.indexOf("bottom") !== -1)
+			else if(p.includes("bottom"))
 			{
 				instance.stack_pos_bottom = -1000000
 			}
 
-			var highest = instance.highest_in_position("vertical")
+			let highest = instance.highest_in_position("vertical")
+
+			let new_top, new_bottom
 
 			if(highest !== undefined && highest !== instance)
 			{
-				if(p.indexOf("top") !== -1)
+				if(p.includes("top"))
 				{
-					var new_top = highest.stack_pos_top + highest.stack_height + instance.options.sideStack_padding
+					new_top = highest.stack_pos_top + highest.stack_height + instance.options.sideStack_padding
 
 					if(!instance.slide_in_ongoing || (instance.slide_direction !== "up" && instance.slide_direction !== "down"))
 					{
@@ -3659,9 +3674,9 @@ Msg.factory = function(options={})
 					}
 				}
 
-				else if(p.indexOf("bottom") !== -1)
+				else if(p.includes("bottom"))
 				{
-					var new_bottom = highest.stack_pos_bottom + highest.stack_height + instance.options.sideStack_padding
+					new_bottom = highest.stack_pos_bottom + highest.stack_height + instance.options.sideStack_padding
 
 					if(!instance.slide_in_ongoing || (instance.slide_direction !== "up" && instance.slide_direction !== "down"))
 					{
@@ -3672,9 +3687,9 @@ Msg.factory = function(options={})
 
 			else
 			{
-				if(p.indexOf("top") !== -1)
+				if(p.includes("top"))
 				{
-					var new_top = instance.options.edge_padding_y
+					new_top = instance.options.edge_padding_y
 
 					if(!instance.slide_in_ongoing || (instance.slide_direction !== "up" && instance.slide_direction !== "down"))
 					{
@@ -3682,9 +3697,9 @@ Msg.factory = function(options={})
 					}
 				}
 
-				else if(p.indexOf("bottom") !== -1)
+				else if(p.includes("bottom"))
 				{
-					var new_bottom = instance.options.edge_padding_y
+					new_bottom = instance.options.edge_padding_y
 
 					if(!instance.slide_in_ongoing || (instance.slide_direction !== "up" && instance.slide_direction !== "down"))
 					{
@@ -3693,12 +3708,12 @@ Msg.factory = function(options={})
 				}
 			}
 
-			if(p.indexOf("top") !== -1)
+			if(p.includes("top"))
 			{
 				instance.stack_pos_top = new_top
 			}
 
-			else if(p.indexOf("bottom") !== -1)
+			else if(p.includes("bottom"))
 			{
 				instance.stack_pos_bottom = new_bottom
 			}	
@@ -3707,24 +3722,26 @@ Msg.factory = function(options={})
 
 	instance.collapse_vStack = function()
 	{
-		var p = instance.options.position
+		let p = instance.options.position
 
-		var ins_above = instance.above_in_position(instance, "vertical")
+		let ins_above = instance.above_in_position(instance, "vertical")
 
-		for(var i of ins_above)
+		for(let i of ins_above)
 		{
 			if(!i.options.sideStack_collapse || i.options.sideStack !== "vertical" || i.closing)
 			{
 				continue
 			}
 
-			var below = instance.nextbelow_in_position(i, "vertical")
+			let below = instance.nextbelow_in_position(i, "vertical")
+
+			let new_top, new_bottom
 
 			if(below !== undefined)
 			{
-				if(p.indexOf("top") !== -1)
+				if(p.includes("top"))
 				{
-					var new_top = below.stack_pos_top + below.window.offsetHeight + i.options.sideStack_padding
+					new_top = below.stack_pos_top + below.window.offsetHeight + i.options.sideStack_padding
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "up" && i.slide_direction !== "down"))
 					{
@@ -3732,9 +3749,9 @@ Msg.factory = function(options={})
 					}
 				}
 
-				else if(p.indexOf("bottom") !== -1)
+				else if(p.includes("bottom"))
 				{
-					var new_bottom = below.stack_pos_bottom + below.window.offsetHeight + i.options.sideStack_padding
+					new_bottom = below.stack_pos_bottom + below.window.offsetHeight + i.options.sideStack_padding
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "up" && i.slide_direction !== "down"))
 					{
@@ -3745,9 +3762,9 @@ Msg.factory = function(options={})
 
 			else
 			{
-				if(p.indexOf("top") !== -1)
+				if(p.includes("top"))
 				{
-					var new_top = i.options.edge_padding_y
+					new_top = i.options.edge_padding_y
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "up" && i.slide_direction !== "down"))
 					{
@@ -3755,9 +3772,9 @@ Msg.factory = function(options={})
 					}
 				}
 
-				else if(p.indexOf("bottom") !== -1)
+				else if(p.includes("bottom"))
 				{
-					var new_bottom = i.options.edge_padding_y
+					new_bottom = i.options.edge_padding_y
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "up" && i.slide_direction !== "down"))
 					{
@@ -3766,12 +3783,12 @@ Msg.factory = function(options={})
 				}
 			}
 
-			if(p.indexOf("top") !== -1)
+			if(p.includes("top"))
 			{
 				i.stack_pos_top = new_top
 			}
 
-			else if(p.indexOf("bottom") !== -1)
+			else if(p.includes("bottom"))
 			{
 				i.stack_pos_bottom = new_bottom
 			}
@@ -3780,19 +3797,21 @@ Msg.factory = function(options={})
 
 	instance.fix_vStack = function()
 	{
-		var p = instance.options.position
+		let p = instance.options.position
 
-		var below = instance.lowest_in_position("vertical")
+		let below = instance.lowest_in_position("vertical")
+
+		let new_top, new_bottom
 
 		if(below !== undefined)
 		{
-			var above = instance.above_in_position(below, "vertical")
+			let above = instance.above_in_position(below, "vertical")
 
-			for(var i of above)
+			for(let i of above)
 			{
-				if(p.indexOf("top") !== -1)
+				if(p.includes("top"))
 				{
-					var new_top = below.stack_pos_top + below.window.offsetHeight + i.options.sideStack_padding
+					new_top = below.stack_pos_top + below.window.offsetHeight + i.options.sideStack_padding
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "up" && i.slide_direction !== "down"))
 					{
@@ -3802,9 +3821,9 @@ Msg.factory = function(options={})
 					i.stack_pos_top = new_top
 				}
 
-				else if(p.indexOf("bottom") !== -1)
+				else if(p.includes("bottom"))
 				{
-					var new_bottom = below.stack_pos_bottom + below.window.offsetHeight + i.options.sideStack_padding
+					new_bottom = below.stack_pos_bottom + below.window.offsetHeight + i.options.sideStack_padding
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "up" && i.slide_direction !== "down"))
 					{
@@ -3823,25 +3842,27 @@ Msg.factory = function(options={})
 	{
 		if(instance.hStackable)
 		{
-			var p = instance.options.position
+			let p = instance.options.position
 
-			if(p.indexOf("left") !== -1)
+			if(p.includes("left"))
 			{
 				instance.stack_pos_left = -1000000
 			}
 
-			else if(p.indexOf("right") !== -1)
+			else if(p.includes("right"))
 			{
 				instance.stack_pos_right = -1000000
 			}				
 
-			var highest = instance.highest_in_position("horizontal")
+			let highest = instance.highest_in_position("horizontal")
+
+			let new_left, new_right
 
 			if(highest !== undefined && highest !== instance)
 			{
-				if(p.indexOf("left") !== -1)
+				if(p.includes("left"))
 				{
-					var new_left = highest.stack_pos_left + highest.stack_width + instance.options.sideStack_padding
+					new_left = highest.stack_pos_left + highest.stack_width + instance.options.sideStack_padding
 
 					if(!instance.slide_in_ongoing || (instance.slide_direction !== "left" && instance.slide_direction !== "right"))
 					{
@@ -3849,9 +3870,9 @@ Msg.factory = function(options={})
 					}
 				}
 
-				else if(p.indexOf("right") !== -1)
+				else if(p.includes("right"))
 				{
-					var new_right = highest.stack_pos_right + highest.stack_width + instance.options.sideStack_padding
+					new_right = highest.stack_pos_right + highest.stack_width + instance.options.sideStack_padding
 
 					if(!instance.slide_in_ongoing || (instance.slide_direction !== "left" && instance.slide_direction !== "right"))
 					{
@@ -3862,9 +3883,9 @@ Msg.factory = function(options={})
 
 			else
 			{
-				if(p.indexOf("left") !== -1)
+				if(p.includes("left"))
 				{
-					var new_left = instance.options.edge_padding_x
+					new_left = instance.options.edge_padding_x
 
 					if(!instance.slide_in_ongoing || (instance.slide_direction !== "left" && instance.slide_direction !== "right"))
 					{
@@ -3872,9 +3893,9 @@ Msg.factory = function(options={})
 					}
 				}
 
-				else if(p.indexOf("right") !== -1)
+				else if(p.includes("right"))
 				{
-					var new_right = instance.options.edge_padding_x
+					new_right = instance.options.edge_padding_x
 
 					if(!instance.slide_in_ongoing || (instance.slide_direction !== "left" && instance.slide_direction !== "right"))
 					{
@@ -3883,12 +3904,12 @@ Msg.factory = function(options={})
 				}
 			}
 
-			if(p.indexOf("left") !== -1)
+			if(p.includes("left"))
 			{
 				instance.stack_pos_left = new_left
 			}
 
-			else if(p.indexOf("right") !== -1)
+			else if(p.includes("right"))
 			{
 				instance.stack_pos_right = new_right
 			}	
@@ -3897,24 +3918,26 @@ Msg.factory = function(options={})
 
 	instance.collapse_hStack = function()
 	{
-		var p = instance.options.position
+		let p = instance.options.position
 
-		var ins_above = instance.above_in_position(instance, "horizontal")
+		let ins_above = instance.above_in_position(instance, "horizontal")
 
-		for(var i of ins_above)
+		for(let i of ins_above)
 		{
 			if(!i.options.sideStack_collapse || i.options.sideStack !== "horizontal" || i.closing)
 			{
 				continue
 			}
 
-			var below = instance.nextbelow_in_position(i, "horizontal")
+			let below = instance.nextbelow_in_position(i, "horizontal")
+
+			let new_left, new_right
 
 			if(below !== undefined)
 			{
-				if(p.indexOf("left") !== -1)
+				if(p.includes("left"))
 				{
-					var new_left = below.stack_pos_left + below.window.offsetWidth + i.options.sideStack_padding
+					new_left = below.stack_pos_left + below.window.offsetWidth + i.options.sideStack_padding
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "left" && i.slide_direction !== "right"))
 					{
@@ -3922,9 +3945,9 @@ Msg.factory = function(options={})
 					}
 				}
 
-				else if(p.indexOf("right") !== -1)
+				else if(p.includes("right"))
 				{
-					var new_right = below.stack_pos_right + below.window.offsetWidth + i.options.sideStack_padding
+					new_right = below.stack_pos_right + below.window.offsetWidth + i.options.sideStack_padding
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "left" && i.slide_direction !== "right"))
 					{
@@ -3935,9 +3958,9 @@ Msg.factory = function(options={})
 
 			else
 			{
-				if(p.indexOf("left") !== -1)
+				if(p.includes("left"))
 				{
-					var new_left = i.options.edge_padding_x
+					new_left = i.options.edge_padding_x
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "left" && i.slide_direction !== "right"))
 					{
@@ -3945,9 +3968,9 @@ Msg.factory = function(options={})
 					}
 				}
 
-				else if(p.indexOf("right") !== -1)
+				else if(p.includes("right"))
 				{
-					var new_right = i.options.edge_padding_x
+					new_right = i.options.edge_padding_x
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "left" && i.slide_direction !== "right"))
 					{
@@ -3956,12 +3979,12 @@ Msg.factory = function(options={})
 				}
 			}
 
-			if(p.indexOf("left") !== -1)
+			if(p.includes("left"))
 			{
 				i.stack_pos_left = new_left
 			}
 
-			else if(p.indexOf("right") !== -1)
+			else if(p.includes("right"))
 			{
 				i.stack_pos_right = new_right
 			}
@@ -3970,19 +3993,21 @@ Msg.factory = function(options={})
 
 	instance.fix_hStack = function()
 	{
-		var p = instance.options.position
+		let p = instance.options.position
 
-		var below = instance.lowest_in_position("horizontal")
+		let below = instance.lowest_in_position("horizontal")
 
 		if(below !== undefined)
 		{
-			var above = instance.above_in_position(below, "horizontal")
+			let above = instance.above_in_position(below, "horizontal")
 
-			for(var i of above)
+			let new_left, new_right
+
+			for(let i of above)
 			{
-				if(p.indexOf("left") !== -1)
+				if(p.includes("left"))
 				{
-					var new_left = below.stack_pos_left + below.window.offsetWidth + i.options.sideStack_padding
+					new_left = below.stack_pos_left + below.window.offsetWidth + i.options.sideStack_padding
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "left" && i.slide_direction !== "right"))
 					{
@@ -3992,9 +4017,9 @@ Msg.factory = function(options={})
 					i.stack_pos_left = new_left
 				}
 
-				else if(p.indexOf("right") !== -1)
+				else if(p.includes("right"))
 				{
-					var new_right = below.stack_pos_right + below.window.offsetWidth + i.options.sideStack_padding
+					new_right = below.stack_pos_right + below.window.offsetWidth + i.options.sideStack_padding
 
 					if(!i.slide_in_ongoing || (i.slide_direction !== "left" && i.slide_direction !== "right"))
 					{
@@ -4020,9 +4045,9 @@ Msg.factory = function(options={})
 
 	instance.set_default_positions = function()
 	{
-		var p = instance.options.position
-		var edge_x = instance.options.edge_padding_x
-		var edge_y = instance.options.edge_padding_y
+		let p = instance.options.position
+		let edge_x = instance.options.edge_padding_x
+		let edge_y = instance.options.edge_padding_y
 
 		if(p === "top")
 		{
@@ -4181,7 +4206,7 @@ Msg.factory = function(options={})
 	{
 		instance.destroy()
 
-		for(var i=0; i<Msg.instances.length; i++)
+		for(let i=0; i<Msg.instances.length; i++)
 		{
 			if(Msg.instances[i].options.id === instance.options.id)
 			{
@@ -4195,9 +4220,9 @@ Msg.factory = function(options={})
 	{
 		Msg.msg = Msg.factory({id:"__internal_instance__"})
 		
-		var style = document.createElement("style")
+		let style = document.createElement("style")
 
-		var css = `
+		let css = `
 		.Msg-overflow-hidden{overflow:hidden}
 
 		.Msg-overlay{background-color:rgba(0, 0, 0, 0.7)}
@@ -4251,13 +4276,13 @@ Msg.factory = function(options={})
 
 		document.addEventListener("keydown", function(e)
 		{
-			var highest = Msg.msg.highest_instance()
+			let highest = Msg.msg.highest_instance()
 
 			if(!highest) return
 
 			if(!highest.keys_enabled)
 			{
-				var captureKey = function(e) 
+				let captureKey = function(e) 
 				{
 					e.stopPropagation()
 					this.removeEventListener("keyup", captureKey, true)
@@ -4271,13 +4296,13 @@ Msg.factory = function(options={})
 		{
 			if(e.keyCode === 27)
 			{
-				var highest = Msg.msg.highest_instance()
+				let highest = Msg.msg.highest_instance()
 
 				if(!highest) return
 
 				if(highest.options.clear_editables)
 				{
-					var el = document.activeElement
+					let el = document.activeElement
 
 					if((el.nodeName === "INPUT" && el.type === "text") || el.nodeName === "TEXTAREA")
 					{
