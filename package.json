@@ -1,11 +1,11 @@
 {
 	"name": "msg-modal",
-	"version": "11.3.0",
+	"version": "11.3.1",
 	"description": "A javascript library to create and manage highly customizable modal windows and popup messages.",
 	"repository": 
 	{
 		"type": "git",
-		"url": "git+https://github.com/madprops/Msg.git"
+		"url": "git+https://github.com/Merkoba/Msg.git"
 	},
 	"main": "dist/msg.js",
 	"files":
@@ -24,11 +24,11 @@
 		"window",
 		"javascript"
 	],
-	"author": "madprops <mfmadprops@gmail.com>",
+	"author": "Merkoba <merkoba@airmail.cc>",
 	"license": "MIT",
 	"bugs": 
 	{
-		"url": "https://github.com/madprops/Msg/issues"
+		"url": "https://github.com/Merkoba/Msg/issues"
 	},
-	"homepage": "https://madprops.github.io/Msg/"
+	"homepage": "https://merkoba.github.io/Msg/"
 }

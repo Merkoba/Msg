@@ -30,4 +30,4 @@ or
 <script src="node_modules/msg-modal/dist/msg.min.js"></script>
 ```
 
-[Demo and Documentation](https://madprops.github.io/Msg/)
+[Demo and Documentation](https://merkoba.github.io/Msg/)
