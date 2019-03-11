@@ -1,0 +1,2 @@
+terser ./docs/msg.js --compress --mangle --comments all --output ./dist/msg.min.js
+cp ./docs/msg.js ./dist/msg.js

@@ -1,4 +1,4 @@
-/* Msg v11.3.0 https://github.com/madprops/Msg */
+/* Msg v11.4.0 https://github.com/madprops/Msg */
 
 const Msg = {}
 
@@ -4216,6 +4216,42 @@ Msg.factory = function(options={})
 		}
 	}
 
+	instance.is_textbox = function(element)
+	{
+		let tag_name = element.tagName.toLowerCase()
+
+		if(tag_name === 'textarea') return true
+		if(tag_name !== 'input') return false
+
+		let type = element.getAttribute('type')
+
+		if(!type)
+		{
+			return false
+		}
+
+		type = type.toLowerCase(),
+
+		input_types =
+		[
+			'text',
+			'password',
+			'number',
+			'email',
+			'tel',
+			'url',
+			'search',
+			'date',
+			'datetime',
+			'datetime-local',
+			'time',
+			'month',
+			'week'
+		]
+
+		return input_types.includes(type)
+	}
+
 	if(Msg.msg === undefined && instance.options.id !== "__internal_instance__")
 	{
 		Msg.msg = Msg.factory({id:"__internal_instance__"})
@@ -4290,45 +4326,42 @@ Msg.factory = function(options={})
 
 				document.addEventListener("keyup", captureKey, true)
 			}
-		})		
-
-		document.addEventListener("keyup", function(e)
-		{
+	
 			if(e.keyCode === 27)
 			{
 				let highest = Msg.msg.highest_instance()
-
+	
 				if(!highest) return
-
+	
 				if(highest.options.clear_editables)
 				{
 					let el = document.activeElement
-
-					if((el.nodeName === "INPUT" && el.type === "text") || el.nodeName === "TEXTAREA")
+	
+					if(highest.is_textbox(el))
 					{
 						if(!el.readOnly && !el.disabled)
 						{
 							if(el.value !== "")
 							{
 								el.select()
-
+	
 								if(!document.execCommand("insertText", false, ""))
 								{
 									el.value = ""
 								}
-
+	
 								return
 							}
 						}
 					}
 				}
-
+	
 				if(highest.options.close_on_escape)
 				{
 					highest.close()
 				}
 			}
-		})				
+		})		
 	}	
 
 	if(instance.options.id !== "__internal_instance__")
