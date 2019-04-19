@@ -1,4 +1,4 @@
-/* Msg v11.4.0 https://github.com/madprops/Msg */
+/* Msg v11.4.1 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1878,25 +1878,22 @@ Msg.factory = function(options={})
 			}
 		}
 
-		for(let i=0; i<Msg.instances.length; i++)
+		for(let higher of instance.higher_instances)
 		{
-			if(Msg.instances[i].options.zStack_level === 2)
+			if(callback)
 			{
-				if(callback)
+				higher.close(function()
 				{
-					Msg.instances[i].close(function()
+					if(!instance.any_higher_open())
 					{
-						if(!instance.any_higher_open())
-						{
-							return callback()
-						}
-					})
-				}
+						return callback()
+					}
+				})
+			}
 
-				else
-				{
-					Msg.instances[i].close()
-				}
+			else
+			{
+				higher.close()
 			}
 		}
 	}
@@ -1916,25 +1913,22 @@ Msg.factory = function(options={})
 			}
 		}
 
-		for(let i=0; i<Msg.instances.length; i++)
+		for(let lower of instance.lower_instances())
 		{
-			if(Msg.instances[i].options.zStack_level === 1)
+			if(callback)
 			{
-				if(callback)
+				lower.close(function()
 				{
-					Msg.instances[i].close(function()
+					if(!instance.any_lower_open())
 					{
-						if(!instance.any_lower_open())
-						{
-							return callback()
-						}
-					})
-				}
+						return callback()
+					}
+				})
+			}
 
-				else
-				{
-					Msg.instances[i].close()
-				}
+			else
+			{
+				lower.close()
 			}
 		}
 	}
