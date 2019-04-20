@@ -1,4 +1,4 @@
-/* Msg v11.4.1 https://github.com/Merkoba/Msg */
+/* Msg v11.4.2 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1878,7 +1878,7 @@ Msg.factory = function(options={})
 			}
 		}
 
-		for(let higher of instance.higher_instances)
+		for(let higher of instance.higher_instances())
 		{
 			if(callback)
 			{
