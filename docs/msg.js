@@ -1,4 +1,4 @@
-/* Msg v11.4.3 https://github.com/Merkoba/Msg */
+/* Msg v11.4.4 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1617,7 +1617,7 @@ Msg.factory = function(options={})
 				{
 					instance.close()
 				}
-			})	
+			})
 		}
 
 		instance.window.addEventListener("click", function(e)

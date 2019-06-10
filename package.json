@@ -1,6 +1,6 @@
 {
 	"name": "msg-modal",
-	"version": "11.4.3",
+	"version": "11.4.4",
 	"description": "A javascript library to create and manage highly customizable modal windows and popup messages.",
 	"repository": 
 	{
@@ -30,5 +30,13 @@
 	{
 		"url": "https://github.com/Merkoba/Msg/issues"
 	},
-	"homepage": "https://merkoba.github.io/Msg/"
+	"homepage": "https://merkoba.github.io/Msg/",
+	"devDependencies":
+	{
+		"terser":  "~4.0.0"
+	},
+	"scripts": 
+	{
+		"prepare": "./prepare"
+	}
 }

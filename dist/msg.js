@@ -1,4 +1,4 @@
-/* Msg v11.4.3 https://github.com/Merkoba/Msg */
+/* Msg v11.4.4 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1617,13 +1617,16 @@ Msg.factory = function(options={})
 				{
 					instance.close()
 				}
-			})	
+			})
 		}
 
 		instance.window.addEventListener("click", function(e)
 		{
 			if((e.target === instance.content || e.target === instance.topbar || e.target === instance.titlebar || e.target === instance.progressbar)
-			|| (instance.content.contains(e.target) || instance.topbar.contains(e.target) || instance.titlebar.contains(e.target) || instance.progressbar.contains(e.target)))
+			|| ((instance.content && instance.content.contains(e.target)) || 
+			(instance.topbar && instance.topbar.contains(e.target)) || 
+			(instance.titlebar && instance.titlebar.contains(e.target)) || 
+			(instance.progressbar && instance.progressbar.contains(e.target))))
 			{
 				if(document.getSelection().toString() === "")
 				{
