@@ -1,4 +1,4 @@
-/* Msg v11.4.4 https://github.com/Merkoba/Msg */
+/* Msg v11.4.5 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -4341,12 +4341,14 @@ Msg.factory = function(options={})
 						{
 							if(el.value !== "")
 							{
-								el.select()
-	
-								if(!document.execCommand("insertText", false, ""))
-								{
-									el.value = ""
-								}
+								el.value = ""
+
+								let event = new Event('input', {
+									bubbles: true,
+									cancelable: true,
+								})
+
+								el.dispatchEvent(event)
 	
 								return
 							}

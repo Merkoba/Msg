@@ -94,7 +94,13 @@ var msg_dclick = Msg.factory(
 
 var msg_edit = Msg.factory(
 {
-	clear_editables:true
+	clear_editables:true,
+	after_show: function() {
+		let texta = document.querySelector("#texta")
+		texta.addEventListener("input", function() {
+			console.log('input')
+		})
+	}
 })
 
 var msg_dkeys = Msg.factory(
