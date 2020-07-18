@@ -1,4 +1,4 @@
-/* Msg v11.4.5 https://github.com/Merkoba/Msg */
+/* Msg v11.4.6 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -130,7 +130,8 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.options.id === undefined) {
-      instance.options.id = Msg.instances.length + 1
+      Msg.instances_created += 1
+      instance.options.id = Msg.instances_created
     }
 
     if (instance.options.class === undefined) {
@@ -1523,7 +1524,6 @@ Msg.factory = function (options = {}) {
       }
 
       instance.check_remove_overflow_hidden()
-
       instance.container.parentNode.removeChild(instance.container)
 
       instance.container = undefined
@@ -1540,6 +1540,13 @@ Msg.factory = function (options = {}) {
       instance.progressbar = undefined
 
       instance.options.after_destroy(instance)
+    }
+
+    for (let i=0; i<Msg.instances.length; i++) {
+      if (Msg.instances[i].options.id === instance.options.id) {
+        Msg.instances.splice(i, 1)
+        i -= 1;
+      }
     }
   }
 
@@ -3859,6 +3866,7 @@ Msg.factory = function (options = {}) {
 }
 
 Msg.instances = []
+Msg.instances_created = 0
 
 try {
   module.exports = Msg
