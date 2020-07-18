@@ -1,4 +1,4 @@
-/* Msg v11.4.6 https://github.com/Merkoba/Msg */
+/* Msg v11.4.7 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -129,8 +129,9 @@ Msg.factory = function (options = {}) {
       }
     }
 
+    Msg.instances_created += 1
+
     if (instance.options.id === undefined) {
-      Msg.instances_created += 1
       instance.options.id = Msg.instances_created
     }
 
