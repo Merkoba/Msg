@@ -1,4 +1,4 @@
-/* Msg v11.4.8 https://github.com/Merkoba/Msg */
+/* Msg v11.4.9 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -925,7 +925,7 @@ Msg.factory = function (options = {}) {
     if (
       document.getElementById(`Msg-container-${instance.options.id}`) !== null
     ) {
-      throw "Msg Error: The html elements for this id have already been created. Use a different id."
+      throw "Msg Error:The html elements for this id have already been created. Use a different id."
     }
 
     if (instance.options.before_create(instance) === false) {
@@ -1077,42 +1077,46 @@ Msg.factory = function (options = {}) {
 		display:flex;
 		flex-direction:row;
 		`
-    let padl = "padding-left: 0.4em;"
-    let padr = "padding-right: 0.4em;"
+    let padl = "padding-left:0.4em;"
+    let padr = "padding-right:0.4em;"
     let texta = ""
+    let justcnt = "unset"
 
     if (instance.options.center_titlebar) {
-      texta = "text-align: center;"
+      texta = "text-align:center;"
     }
 
     if (
       instance.options.center_titlebar &&
       instance.options.window_x === "inner_right"
     ) {
-      padl = "padding-left: 50.78px;"
-      padr = "padding-right: 10.78px;"
+      padl = "padding-left:50.78px;"
+      padr = "padding-right:10.78px;"
+      justcnt = "center"
     }
 
     if (
       instance.options.center_titlebar &&
       instance.options.window_x === "inner_left"
     ) {
-      padl = "padding-left: 10.78px;"
-      padr = "padding-right: 50.78px;"
+      padl = "padding-left:10.78px;"
+      padr = "padding-right:50.78px;"
     }
 
     styles.titlebar = `
+    display: flex;
+    align-items: center;
+    justify-content: ${justcnt};
 		overflow:hidden;
 		order:2;
 		flex-grow:1;
-		padding-top:0.38em;
 		${padl}
 		${padr}
 		${texta}
 		min-height:27px;
-		font-size: 18px;
+		font-size:16px;
 		font-family:sans-serif;
-		font-weight: bold;
+		font-weight:bold;
 		`
 
     let ix_order, ix_margin
@@ -1159,11 +1163,11 @@ Msg.factory = function (options = {}) {
 		position:absolute;	
 		top:0px;
 		${fs}
-		margin-top: -14px;
+		margin-top:-14px;
 		${fms}
 		font-size:19px;	
 		font-family:sans-serif;
-		border: 2px solid #9f9f9f;
+		border:2px solid #9f9f9f;
 		border-radius:28px;
 		height:28px;
 		width:28px;
@@ -1226,9 +1230,9 @@ Msg.factory = function (options = {}) {
     }
 
     styles.content = `
-		font-size:18px;
+		font-size:16px;
 		text-align:center;
-		overflow-wrap: break-word;
+		overflow-wrap:break-word;
 		padding-top:${cpt};
 		padding-bottom:${cpb};
 		padding-left:1.6em;
