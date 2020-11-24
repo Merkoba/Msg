@@ -1080,7 +1080,7 @@ Msg.factory = function (options = {}) {
     let padl = "padding-left:0.4em;"
     let padr = "padding-right:0.4em;"
     let texta = ""
-    let justcnt = "unset"
+    let justcnt = ""
 
     if (instance.options.center_titlebar) {
       texta = "text-align:center;"
@@ -1092,7 +1092,7 @@ Msg.factory = function (options = {}) {
     ) {
       padl = "padding-left:50.78px;"
       padr = "padding-right:10.78px;"
-      justcnt = "center"
+      justcnt = "justify-content:center"
     }
 
     if (
@@ -1106,7 +1106,7 @@ Msg.factory = function (options = {}) {
     styles.titlebar = `
     display: flex;
     align-items: center;
-    justify-content: ${justcnt};
+    ${justcnt};
 		overflow:hidden;
 		order:2;
 		flex-grow:1;
