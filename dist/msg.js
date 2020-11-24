@@ -1,4 +1,4 @@
-/* Msg v11.4.9 https://github.com/Merkoba/Msg */
+/* Msg v11.4.10 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1116,7 +1116,8 @@ Msg.factory = function (options = {}) {
 		min-height:27px;
 		font-size:16px;
 		font-family:sans-serif;
-		font-weight:bold;
+    font-weight:bold;
+    white-space: nowrap;
 		`
 
     let ix_order, ix_margin
