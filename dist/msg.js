@@ -1,4 +1,4 @@
-/* Msg v11.4.10 https://github.com/Merkoba/Msg */
+/* Msg v11.4.11 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1079,11 +1079,10 @@ Msg.factory = function (options = {}) {
 		`
     let padl = "padding-left:0.4em;"
     let padr = "padding-right:0.4em;"
-    let texta = ""
     let justcnt = ""
 
     if (instance.options.center_titlebar) {
-      texta = "text-align:center;"
+      justcnt = "justify-content:center"
     }
 
     if (
@@ -1092,7 +1091,6 @@ Msg.factory = function (options = {}) {
     ) {
       padl = "padding-left:50.78px;"
       padr = "padding-right:10.78px;"
-      justcnt = "justify-content:center"
     }
 
     if (
@@ -1112,7 +1110,6 @@ Msg.factory = function (options = {}) {
 		flex-grow:1;
 		${padl}
 		${padr}
-		${texta}
 		min-height:27px;
 		font-size:16px;
 		font-family:sans-serif;
