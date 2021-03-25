@@ -1,4 +1,4 @@
-/* Msg v11.4.11 https://github.com/Merkoba/Msg */
+/* Msg v11.4.12 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -946,6 +946,7 @@ Msg.factory = function (options = {}) {
 		height:100%;
 		width:100%;
 		z-index:-1000;
+    user-select: none;
 		`
 
     styles.overlay_x = `
