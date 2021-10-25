@@ -599,18 +599,6 @@ function pop_test(position, sleep = 0) {
   }
 }
 
-var msg_props = Msg.factory({
-  class: "red",
-  show_effect: "scale",
-  show_effect_duration: [800, 450],
-  close_effect: "scale",
-  close_effect_duration: [450, 800],
-})
-
-function props() {
-  msg_props.show("<img src='props.jpg'>")
-}
-
 var msg_window = Msg.factory({
   id: "window",
   preset: "window",
