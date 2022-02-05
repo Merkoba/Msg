@@ -1,4 +1,4 @@
-/* Msg v11.4.12 https://github.com/Merkoba/Msg */
+/* Msg v11.5.0 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1183,7 +1183,7 @@ Msg.factory = function (options = {}) {
 		`
 
     styles.content_container = `
-		overflow-y:auto;
+		overflow-y:hidden;
 		overflow-x:hidden;
 		border:none;
 		outline:0;
@@ -1221,8 +1221,8 @@ Msg.factory = function (options = {}) {
     let cwid, chgt
 
     if (instance.options.full_content) {
-      cwid = "width:100vw;"
-      chgt = "height:100vh;"
+      cwid = "width:100%;"
+      chgt = "height:100%;"
     } else {
       cwid = ""
       chgt = ""
