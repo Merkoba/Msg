@@ -255,6 +255,10 @@ Msg.factory = function (options = {}) {
       instance.options.on_click = function () {}
     }
 
+    if (instance.options.on_click === undefined) {
+      instance.options.on_middle_click = function () {}
+    }
+
     if (instance.options.on_overlay_click === undefined) {
       instance.options.on_overlay_click = function () {}
     }
@@ -1492,21 +1496,16 @@ Msg.factory = function (options = {}) {
     }
 
     instance.window.addEventListener("click", function (e) {
-      if (
-        e.target === instance.content ||
-        e.target === instance.topbar ||
-        e.target === instance.titlebar ||
-        e.target === instance.progressbar ||
-        (instance.content && instance.content.contains(e.target)) ||
-        (instance.topbar && instance.topbar.contains(e.target)) ||
-        (instance.titlebar && instance.titlebar.contains(e.target)) ||
-        (instance.progressbar && instance.progressbar.contains(e.target))
-      ) {
-        if (document.getSelection().toString() === "") {
-          instance.options.on_click(instance)
-        }
+      if (e.target === instance.content) {
+        instance.options.on_click(instance)
       }
     })
+
+    instance.window.addEventListener("auxclick", function (e) {
+      if (e.target === instance.content) {
+        instance.options.on_middle_click(instance)
+      }
+    })   
 
     instance.content.addEventListener("mousedown", function (e) {
       if (!instance.click_enabled) {
