@@ -1174,10 +1174,10 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.window_x.includes("left")) {
       fs = "left:0px;"
-      fms = "margin-left:-14px;"
+      fms = "margin-left:-10px;"
     } else {
       fs = "right:0px;"
-      fms = "margin-right:-14px;"
+      fms = "margin-right:-10px;"
     }
 
     styles.window_floating_x = `
@@ -1185,15 +1185,15 @@ Msg.factory = function (options = {}) {
 		position:absolute;	
 		top:0px;
 		${fs}
-		margin-top:-14px;
+		margin-top:-10px;
 		${fms}
-		font-size:19px;	
+		font-size:16px;	
 		font-family:sans-serif;
 		border:2px solid #9f9f9f;
-		border-radius:28px;
-		height:28px;
-		width:28px;
-		line-height:25px;
+		border-radius:20px;
+		height:20px;
+		width:20px;
+		line-height:18px;
 		text-align:center;
 		-webkit-touch-callout:none;
 		-webkit-user-select:none;
