@@ -1205,8 +1205,14 @@ Msg.factory = function (options = {}) {
 		z-index:9999999999999999;
 		`
 
+    let overflow_y = "auto"
+
+    if (instance.options.preset === "window") {
+      overflow_y = "hidden"
+    }
+
     styles.content_container = `
-		overflow-y:hidden;
+		overflow-y:${overflow_y};
 		overflow-x:hidden;
 		border:none;
 		outline:0;
