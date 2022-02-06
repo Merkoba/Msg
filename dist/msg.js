@@ -1,6 +1,8 @@
-/* Msg v11.5.0 https://github.com/Merkoba/Msg */
+/* Msg v11.5.1 https://github.com/Merkoba/Msg */
 
 const Msg = {}
+
+Msg.num_created = 0
 
 Msg.factory = function (options = {}) {
   const instance = {}
@@ -130,7 +132,7 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.options.id === undefined) {
-      instance.options.id = Msg.instances.length + 1
+      instance.options.id = Msg.num_created + 1
     }
 
     if (instance.options.class === undefined) {
@@ -252,6 +254,18 @@ Msg.factory = function (options = {}) {
     if (instance.options.on_click === undefined) {
       instance.options.on_click = function () {}
     }
+
+    if (instance.options.on_overlay_click === undefined) {
+      instance.options.on_overlay_click = function () {}
+    }
+
+    if (instance.options.on_titlebar_click === undefined) {
+      instance.options.on_titlebar_click = function () {}
+    }
+    
+    if (instance.options.on_x_button_click === undefined) {
+      instance.options.on_x_button_click = function () {}
+    }    
 
     if (instance.options.while_open_interval === undefined) {
       instance.options.while_open_interval = 1000
@@ -429,6 +443,10 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.window_cursor === undefined) {
       instance.options.window_cursor = "default"
+    }
+
+    if (instance.options.titlebar_cursor === undefined) {
+      instance.options.titlebar_cursor = "default"
     }
 
     if (instance.options.window_unselectable === undefined) {
@@ -1116,6 +1134,7 @@ Msg.factory = function (options = {}) {
 		font-family:sans-serif;
     font-weight:bold;
     white-space: nowrap;
+    cursor:${instance.options.titlebar_cursor};
 		`
 
     let ix_order, ix_margin
@@ -1457,6 +1476,16 @@ Msg.factory = function (options = {}) {
     if (instance.overlay !== undefined) {
       instance.overlay.addEventListener("click", function () {
         if (instance.options.close_on_overlay_click) {
+          instance.options.on_overlay_click(instance)
+          instance.close()
+        }
+      })
+    }
+
+    if (instance.titlebar !== undefined) {
+      instance.titlebar.addEventListener("click", function () {
+        if (instance.options.close_on_titlebar_click) {
+          instance.options.on_titlebar_click(instance)
           instance.close()
         }
       })
@@ -1492,23 +1521,29 @@ Msg.factory = function (options = {}) {
 
     if (instance.window_inner_x !== undefined) {
       instance.window_inner_x.addEventListener("click", function (e) {
+        instance.options.on_x_button_click(instance)
         instance.close()
         e.stopPropagation()
       })
+
     }
 
     if (instance.window_floating_x !== undefined) {
       instance.window_floating_x.addEventListener("click", function (e) {
+        instance.options.on_x_button_click(instance)
         instance.close()
         e.stopPropagation()
       })
+
     }
 
     if (instance.overlay_x !== undefined) {
       instance.overlay_x.addEventListener("click", function (e) {
+        instance.options.on_x_button_click(instance)
         instance.close()
         e.stopPropagation()
       })
+
     }
 
     instance.options.after_create(instance)
@@ -3820,7 +3855,7 @@ Msg.factory = function (options = {}) {
         document.addEventListener("keyup", captureKey, true)
       }
 
-      if (e.keyCode === 27) {
+      if (e.key === "Escape") {
         let highest = Msg.msg.highest_instance()
 
         if (!highest) return
@@ -3855,6 +3890,7 @@ Msg.factory = function (options = {}) {
 
   if (instance.options.id !== "__internal_instance__") {
     Msg.instances.push(instance)
+    Msg.num_created += 1
   }
 
   return instance

@@ -707,6 +707,9 @@ msg2.show(["Window Example", some_text]);
       <i>window_cursor (Default: "default")</i>: The cursor of the Msg-window.
       For example, "pointer" or "none".<br /><br />
 
+      <i>titlebar_cursor (Default: "default")</i>: The cursor of the Msg-titlebar.
+      For example, "pointer" or "none".<br /><br />
+
       <i>window_unselectable (Default: false)</i>: If true, it will make the
       window's content unselectable. For example by dragging with the mouse.<br /><br />
 
@@ -879,6 +882,15 @@ msg2.show(["Window Example", some_text]);
       <i>on_click (Default: Empty Function)</i>: Function that triggers when
       either Msg-content, Msg-topbar, Msg-titlebar or Msg-progressbar are
       clicked.<br /><br />
+
+      <i>on_overlay_click (Default: Empty Function)</i>: Function that triggers when
+      the overlay is clicked.<br /><br />
+
+      <i>on_titlebar_click (Default: Empty Function)</i>: Function that triggers when
+      the titlebar is clicked.<br /><br />
+
+      <i>on_x_button_click (Default: Empty Function)</i>: Function that triggers when
+      an X close button is clicked.<br /><br />
 
       <i>disable_transformations (Default: false)</i>: Disables transformations
       applied to windows to center them or put them in a certain place. Applies
