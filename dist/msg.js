@@ -255,7 +255,7 @@ Msg.factory = function (options = {}) {
       instance.options.on_click = function () {}
     }
 
-    if (instance.options.on_click === undefined) {
+    if (instance.options.on_middle_click === undefined) {
       instance.options.on_middle_click = function () {}
     }
 
@@ -1496,15 +1496,11 @@ Msg.factory = function (options = {}) {
     }
 
     instance.window.addEventListener("click", function (e) {
-      if (e.target === instance.content) {
-        instance.options.on_click(instance)
-      }
+      instance.options.on_click(instance)
     })
 
     instance.window.addEventListener("auxclick", function (e) {
-      if (e.target === instance.content) {
-        instance.options.on_middle_click(instance)
-      }
+      instance.options.on_middle_click(instance)
     })   
 
     instance.content.addEventListener("mousedown", function (e) {
