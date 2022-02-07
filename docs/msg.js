@@ -1,4 +1,4 @@
-/* Msg v11.5.1 https://github.com/Merkoba/Msg */
+/* Msg v11.5.2 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1506,7 +1506,9 @@ Msg.factory = function (options = {}) {
     })
 
     instance.window.addEventListener("auxclick", function (e) {
-      instance.options.on_middle_click(instance)
+      if (e.which === 2) {
+        instance.options.on_middle_click(instance)
+      }
     })   
 
     instance.content.addEventListener("mousedown", function (e) {
