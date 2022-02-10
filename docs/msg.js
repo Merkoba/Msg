@@ -1,4 +1,4 @@
-/* Msg v11.5.3 https://github.com/Merkoba/Msg */
+/* Msg v11.5.4 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -257,6 +257,14 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.on_middle_click === undefined) {
       instance.options.on_middle_click = function () {}
+    }
+
+    if (instance.options.on_wheel_down === undefined) {
+      instance.options.on_wheel_down = function () {}
+    }
+
+    if (instance.options.on_wheel_up === undefined) {
+      instance.options.on_wheel_up = function () {}
     }
 
     if (instance.options.on_overlay_click === undefined) {
@@ -1503,6 +1511,16 @@ Msg.factory = function (options = {}) {
 
     instance.window.addEventListener("click", function (e) {
       instance.options.on_click(instance)
+    })
+
+    instance.window.addEventListener("wheel", function (e) {
+      let direction = e.deltaY > 0 ? "down" : "up"
+      
+      if (direction === "down") {
+        instance.options.on_wheel_down(instance)
+      } else if (direction === "up") {
+        instance.options.on_wheel_up(instance)
+      }
     })
 
     instance.window.addEventListener("auxclick", function (e) {
