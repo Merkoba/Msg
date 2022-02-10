@@ -1,4 +1,4 @@
-/* Msg v11.5.2 https://github.com/Merkoba/Msg */
+/* Msg v11.5.3 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1193,7 +1193,7 @@ Msg.factory = function (options = {}) {
 		border-radius:20px;
 		height:20px;
 		width:20px;
-		line-height:18px;
+		line-height:16px;
 		text-align:center;
 		-webkit-touch-callout:none;
 		-webkit-user-select:none;
