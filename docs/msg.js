@@ -156,7 +156,7 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.options.enable_titlebar === undefined) {
-      instance.options.enable_titlebar = true
+      instance.options.enable_titlebar = false
     }
 
     if (instance.options.center_titlebar === undefined) {
