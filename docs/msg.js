@@ -1,4 +1,4 @@
-/* Msg v11.5.4 https://github.com/Merkoba/Msg */
+/* Msg v11.5.5 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -156,7 +156,7 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.options.enable_titlebar === undefined) {
-      instance.options.enable_titlebar = false
+      instance.options.enable_titlebar = true
     }
 
     if (instance.options.center_titlebar === undefined) {
@@ -3849,7 +3849,7 @@ Msg.factory = function (options = {}) {
 
 		.Msg-overlay-black{background-color:rgba(121, 121, 121, 0.7)}
 		.Msg-window-black{background-color:#1D1F21;color:white}
-		.Msg-titlebar-black{background-color:#3c3c3c;color:white}
+		.Msg-titlebar-black{background-color:#2b2b2b;color:white}
 		.Msg-progressbar-black{background-color:#3c3c3c}
 		.Msg-window-inner-x-black:hover{background-color:#424242}
 		.Msg-overlay-x-black{color:white}
