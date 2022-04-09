@@ -348,7 +348,7 @@ var s7 =
   "<div class='btn' onclick=\"alert('This deactivated click events inside the window for 3 seconds. Made to avoid clicking things by accident. Default for this option is 1 second.')\">Keep Clicking Me</div>"
 
 var s8 =
-  "When you focus the textarea and press Escape it will clear it. Press Escape again and it closes the window.<br><br><textarea id='texta' rows=5>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</textarea><br><br><input style='font-size:28px;border:1px solid grey' type='search' value='Contrary to popular belief, Lorem Ipsum is not simply random text.'>"
+  "When you focus the textarea and press Escape it will remove the last word. <br>Press Escape when empty and it closes the window.<br><br><textarea id='texta' rows=5>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</textarea><br><br><input style='font-size:28px;border:1px solid grey' type='search' value='Contrary to popular belief, Lorem Ipsum is not simply random text.'>"
 
 var s9 = "Keep Pressing Enter"
 

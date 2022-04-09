@@ -1,4 +1,4 @@
-/* Msg v11.6.0 https://github.com/Merkoba/Msg */
+/* Msg v11.6.1 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -3873,8 +3873,9 @@ Msg.factory = function (options = {}) {
 
           if (highest.is_textbox(el)) {
             if (!el.readOnly && !el.disabled) {
-              if (el.value !== "") {
-                el.value = ""
+              if (el.value.trim() !== "") {
+                let split = el.value.trimRight().split(" ")
+                el.value = split.slice(0, -1).join(" ") + " "
 
                 let event = new Event("input", {
                   bubbles: true,
