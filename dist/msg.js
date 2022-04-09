@@ -1,4 +1,4 @@
-/* Msg v11.5.4 https://github.com/Merkoba/Msg */
+/* Msg v11.6.0 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -164,7 +164,11 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.options.window_x === undefined) {
-      instance.options.window_x = "inner_right"
+      if (instance.options.enable_titlebar) {
+        instance.options.window_x = "inner_right"
+      } else {
+        instance.options.window_x = "floating_right"
+      }
     }
 
     if (instance.options.overlay_x === undefined) {
@@ -1197,12 +1201,8 @@ Msg.factory = function (options = {}) {
 		${fms}
 		font-size:16px;	
 		font-family:sans-serif;
-		border:2px solid #9f9f9f;
-		border-radius:20px;
-		height:20px;
-		width:20px;
-		line-height:16px;
-		text-align:center;
+		height:22px;
+		width:22px;
 		-webkit-touch-callout:none;
 		-webkit-user-select:none;
 		-khtml-user-select:none;
@@ -1211,6 +1211,16 @@ Msg.factory = function (options = {}) {
 		user-select:none;
 		overflow:hidden;
 		z-index:9999999999999999;
+    display:block;
+    box-sizing:border-box;
+    border-width:3px;
+    border-style:solid;
+    border-color:#2B2D30;
+    border-radius:100%;
+    background:linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
+    background-color:#2B2D30;
+    box-shadow:0px 0px 5px 2px rgba(0,0,0,0.5);
+    transition:all 0.3s ease;
 		`
 
     let overflow_y = "auto"
@@ -1228,31 +1238,12 @@ Msg.factory = function (options = {}) {
 		flex-grow:1;
 		`
 
-    let cpt, cpb, pad
-
-    if (
-      instance.options.enable_titlebar ||
-      instance.options.window_x.includes("inner")
-    ) {
-      if (instance.options.enable_titlebar) {
-        cpt = "1.2em"
-      } else {
-        cpt = "0.2em"
-      }
-    } else {
-      cpt = "1.6em"
-    }
-
-    if (instance.options.enable_progressbar) {
-      cpb = "1.34em"
-    } else {
-      cpb = "1.6em"
-    }
+    let pad
 
     if (instance.options.disable_content_padding) {
       pad = "padding:0;"
     } else {
-      pad = ""
+      pad = "padding:1.5rem;"
     }
 
     let cwid, chgt
@@ -1269,11 +1260,7 @@ Msg.factory = function (options = {}) {
 		font-size:16px;
 		text-align:center;
 		overflow-wrap:break-word;
-		padding-top:${cpt};
-		padding-bottom:${cpb};
-		padding-left:1.6em;
-		padding-right:1.6em;
-		${pad}
+    ${pad}
 		${cwid}
 		${chgt}
 		`
@@ -1401,7 +1388,7 @@ Msg.factory = function (options = {}) {
     let topbar_html = `<div class="Msg-topbar ${topbar_class}" style="${styles.topbar}" id="Msg-topbar-${instance.options.id}"></div>`
     let titlebar_html = `<div class="Msg-titlebar ${titlebar_class}" style="${styles.titlebar}" id="Msg-titlebar-${instance.options.id}"></div>`
     let window_inner_x_html = `<div class="Msg-window-inner-x ${window_inner_x_class}" style="${styles.window_inner_x}" id="Msg-window-inner-x-${instance.options.id}">x</div>`
-    let window_floating_x_html = `<div class="Msg-window-floating-x ${window_floating_x_class}" style="${styles.window_floating_x}" id="Msg-window-floating-x-${instance.options.id}">x</div>`
+    let window_floating_x_html = `<div class="Msg-window-floating-x ${window_floating_x_class}" style="${styles.window_floating_x}" id="Msg-window-floating-x-${instance.options.id}"></div>`
     let content_container_html = `<div class="Msg-content-container ${content_container_class}" style="${styles.content_container}" id="Msg-content-container-${instance.options.id}"></div>`
     let content_html = `<div class="Msg-content ${content_class}" style="${styles.content}" id="Msg-content-${instance.options.id}"></div>`
     let progressbar_container_html = `<div class="Msg-progressbar-container ${progressbar_container_class}" style="${styles.progressbar_container}" id="Msg-progressbar-container-${instance.options.id}"></div>`
