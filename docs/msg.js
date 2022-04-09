@@ -3874,8 +3874,14 @@ Msg.factory = function (options = {}) {
           if (highest.is_textbox(el)) {
             if (!el.readOnly && !el.disabled) {
               if (el.value.trim() !== "") {
-                let split = el.value.trimRight().split(" ")
-                el.value = split.slice(0, -1).join(" ") + " "
+                let split = el.value.trimEnd().split(" ")
+                let new_value = split.slice(0, -1).join(" ") + " "
+                
+                if (new_value.trim() === "") {
+                  new_value = ""
+                }
+
+                el.value = new_value
 
                 let event = new Event("input", {
                   bubbles: true,
