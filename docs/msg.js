@@ -1,4 +1,4 @@
-/* Msg v11.6.1 https://github.com/Merkoba/Msg */
+/* Msg v11.7.0 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -727,6 +727,22 @@ Msg.factory = function (options = {}) {
     instance.fix_stacks()
 
     instance.options.after_set_title(instance)
+  }
+
+  instance.hide_titlebar = function () {
+    if (!instance.topbar) {
+      return
+    }
+
+    instance.topbar.style.display = "none"
+  }
+
+  instance.show_titlebar = function () {
+    if (!instance.topbar) {
+      return
+    }
+
+    instance.topbar.style.display = "flex"
   }
 
   instance.set_or_show = function (html, callback = false) {
