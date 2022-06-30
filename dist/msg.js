@@ -1,4 +1,4 @@
-/* Msg v11.7.0 https://github.com/Merkoba/Msg */
+/* Msg v11.7.1 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -3785,24 +3785,23 @@ Msg.factory = function (options = {}) {
       return false
     }
 
-    ;(type = type.toLowerCase()),
-      (input_types = [
-        "text",
-        "password",
-        "number",
-        "email",
-        "tel",
-        "url",
-        "search",
-        "date",
-        "datetime",
-        "datetime-local",
-        "time",
-        "month",
-        "week",
-      ])
+    let input_types = [
+      "text",
+      "password",
+      "number",
+      "email",
+      "tel",
+      "url",
+      "search",
+      "date",
+      "datetime",
+      "datetime-local",
+      "time",
+      "month",
+      "week",
+    ]
 
-    return input_types.includes(type)
+    return input_types.includes(type.toLowerCase())
   }
 
   if (
