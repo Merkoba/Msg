@@ -1,4 +1,4 @@
-/* Msg v11.7.1 https://github.com/Merkoba/Msg */
+/* Msg v11.7.3 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -278,10 +278,10 @@ Msg.factory = function (options = {}) {
     if (instance.options.on_titlebar_click === undefined) {
       instance.options.on_titlebar_click = function () {}
     }
-    
+
     if (instance.options.on_x_button_click === undefined) {
       instance.options.on_x_button_click = function () {}
-    }    
+    }
 
     if (instance.options.while_open_interval === undefined) {
       instance.options.while_open_interval = 1000
@@ -1009,7 +1009,7 @@ Msg.factory = function (options = {}) {
 		-khtml-user-select:none;
 		-moz-user-select:none;
 		-ms-user-select:none;
-		user-select:none;	
+		user-select:none;
 		padding-left:0.6em;
 		padding-right:0.6em;
 		padding-top:0.035em;
@@ -1210,12 +1210,12 @@ Msg.factory = function (options = {}) {
 
     styles.window_floating_x = `
 		cursor:pointer;
-		position:absolute;	
+		position:absolute;
 		top:0px;
 		${fs}
 		margin-top:-10px;
 		${fms}
-		font-size:16px;	
+		font-size:16px;
 		font-family:sans-serif;
 		height:22px;
 		width:22px;
@@ -1518,7 +1518,7 @@ Msg.factory = function (options = {}) {
 
     instance.window.addEventListener("wheel", function (e) {
       let direction = e.deltaY > 0 ? "down" : "up"
-      
+
       if (direction === "down") {
         instance.options.on_wheel_down(instance)
       } else if (direction === "up") {
@@ -1530,7 +1530,7 @@ Msg.factory = function (options = {}) {
       if (e.which === 2) {
         instance.options.on_middle_click(instance)
       }
-    })   
+    })
 
     instance.content.addEventListener("mousedown", function (e) {
       if (!instance.click_enabled) {
@@ -2557,7 +2557,7 @@ Msg.factory = function (options = {}) {
 
     diff = Math.max(1, diff)
 
-    function finish() {
+    function finish () {
       clearInterval(instance.slide_in_interval)
 
       instance.slide_in_ongoing = false
@@ -2832,7 +2832,7 @@ Msg.factory = function (options = {}) {
 
     diff = Math.max(1, diff)
 
-    function finish() {
+    function finish () {
       clearInterval(instance.slide_out_interval)
 
       instance.window.style[pos] = npos - 20 + "px"
@@ -3823,7 +3823,7 @@ Msg.factory = function (options = {}) {
 		.Msg-window-floating-x{background-color:#3a3a3a;color:white}
 		.Msg-window-floating-x:hover{background-color:#2a2a2a}
 		.Msg-overlay-x{color:white}
-		.Msg-overlay-x:hover{background-color:#686868}		
+		.Msg-overlay-x:hover{background-color:#686868}
 
 		.Msg-overlay-blue{background-color:rgba(101, 107, 124, 0.7)}
 		.Msg-window-blue{background-color:#4f84b8;color:white}
@@ -3831,7 +3831,7 @@ Msg.factory = function (options = {}) {
 		.Msg-progressbar-blue{background-color:#43729f}
 		.Msg-window-inner-x-blue:hover{background-color:#476b8f}
 		.Msg-overlay-x-blue{color:white}
-		.Msg-overlay-x-blue:hover{background-color:#747484}	
+		.Msg-overlay-x-blue:hover{background-color:#747484}
 
 		.Msg-overlay-red{background-color:rgba(104, 64, 64, 0.7)}
 		.Msg-window-red{background-color:#ca4e4e;color:white}
@@ -3847,7 +3847,7 @@ Msg.factory = function (options = {}) {
 		.Msg-progressbar-green{background-color:#52935c}
 		.Msg-window-inner-x-green:hover{background-color:#4e8456}
 		.Msg-overlay-x-green{color:white}
-		.Msg-overlay-x-green:hover{background-color:#7c957c}	
+		.Msg-overlay-x-green:hover{background-color:#7c957c}
 
 		.Msg-overlay-black{background-color:rgba(121, 121, 121, 0.7)}
 		.Msg-window-black{background-color:#1D1F21;color:white}
@@ -3891,7 +3891,7 @@ Msg.factory = function (options = {}) {
               if (el.value.trim() !== "") {
                 let split = el.value.trimEnd().split(" ")
                 let new_value = split.slice(0, -1).join(" ") + " "
-                
+
                 if (new_value.trim() === "") {
                   new_value = ""
                 }
