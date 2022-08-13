@@ -1,4 +1,4 @@
-/* Msg v11.7.3 https://github.com/Merkoba/Msg */
+/* Msg v11.7.4 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -1259,7 +1259,7 @@ Msg.factory = function (options = {}) {
     if (instance.options.disable_content_padding) {
       pad = "padding:0;"
     } else {
-      pad = "padding:1.5rem;"
+      pad = "padding:1rem;"
     }
 
     let cwid, chgt
