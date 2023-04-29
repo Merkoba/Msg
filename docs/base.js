@@ -217,6 +217,7 @@ var msg_toy = Msg.factory({
   window_min_width: "100vw",
   window_min_height: "100vh",
   enable_overlay: false,
+  window_x: "inner_x",
   after_show: function (instance) {
     run_symmetric_harmony()
     play_audio("toymusic")

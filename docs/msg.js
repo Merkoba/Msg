@@ -513,7 +513,6 @@ Msg.factory = (options = {}) => {
     }
 
     instance.options.after_close(instance)
-
     instance.closing = false
 
     if (instance.num_open() === 0) {
