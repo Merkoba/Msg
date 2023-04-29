@@ -822,7 +822,7 @@ msg2.show(["Window Example", some_text])
           <pre><code>let msg_test = Msg.factory({
     id: "test",
     class: "black",
-    window_x: "inner_left",
+    window_x: "floating_left",
     after_show: function(instance) {
         instance.set(instance.html() + ", Mr. Roboto");
     },
@@ -843,7 +843,7 @@ msg_test.show("Domo Arigato")
         let msg_test = Msg.factory({
           id: "test",
           class: "black",
-          window_x: "inner_left",
+          window_x: "floating_left",
           after_show: function (instance) {
             instance.set(instance.html() + ", Mr. Roboto")
           },
