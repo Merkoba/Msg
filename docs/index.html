@@ -11,36 +11,31 @@
 
     <meta
       name="keywords"
-      content="javascript, library, modal, window, windows, open, source, mit, popup, messages, toaster, snackbar"
+      content="javascript, library, modal, window, windows, open, source, mit, popup, messages, toaster"
     />
 
     <link rel="shortcut icon" href="favicon.ico?v=1" type="image/x-icon" />
-
     <link rel="stylesheet" href="style.css?v=15" />
-
     <script src="symmetric_harmony.js?v=4"></script>
-
     <script src="msg.js?v=119"></script>
-
     <script src="base.js?v=73"></script>
   </head>
 
   <body>
     <div>
-      <br />
+      <br>
       <h1>Msg</h1>
 
       A javascript library to create and manage highly customizable modal
-      windows and popup messages.<br /><br />
+      windows and popup messages.<br><br>
 
       <a href="#modal">Modal</a>&nbsp;&nbsp;&nbsp;
       <a href="#popups">Popups</a>&nbsp;&nbsp;&nbsp;
-      <a href="#snackbars">Snackbars</a>&nbsp;&nbsp;&nbsp;
       <a href="#windows">Windows</a>&nbsp;&nbsp;&nbsp;
       <a href="#installation">Installation</a>&nbsp;&nbsp;&nbsp;
       <a href="#basicusage">Basic Usage</a>
 
-      <br /><br />
+      <br><br>
 
       <a href="#structure">Structure</a>&nbsp;&nbsp;&nbsp;
       <a href="#styling">Styling</a>&nbsp;&nbsp;&nbsp;
@@ -49,14 +44,14 @@
       <a href="#methods">Methods</a>&nbsp;&nbsp;&nbsp;
       <a href="#presets">Presets</a>
 
-      <br /><br />
+      <br><br>
 
       <a name="modal"></a>
       <h2>Modal</h2>
 
       Modal windows with different options and appearance can be created.
 
-      <br /><br />
+      <br><br>
 
       <span class="unselectable">
         <span class="clicky" onclick="msg.show(sm)">Demo 1</span
@@ -71,7 +66,7 @@
           >Demo 4</span
         >&nbsp;&nbsp;&nbsp;
         <span class="clicky" onclick="msg_ox.show(s5)">Demo 5</span
-        >&nbsp;&nbsp;&nbsp; <br /><br />
+        >&nbsp;&nbsp;&nbsp; <br><br>
         <span class="clicky" onclick="msg_delay.show(s6)">Demo 6</span
         >&nbsp;&nbsp;&nbsp;
         <span class="clicky" onclick="msg_dclick.show(s7)">Demo 7</span
@@ -88,14 +83,14 @@
         >
       </span>
 
-      <br /><br /><a name="popups"></a>
+      <br><br><a name="popups"></a>
       <h2>Popups</h2>
 
-      You can create stackable popup messages using certain options.<br /><br />
+      You can create stackable popup messages using certain options.<br><br>
 
       Keep clicking the demos to stack the popups:
 
-      <br /><br /><br />
+      <br><br><br>
 
       <span class="unselectable">
         edge_padding_x: &nbsp;
@@ -104,7 +99,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; edge_padding_y: &nbsp;
         <input id="input_edge_padding_y" type="text" value="20" />
 
-        <br /><br />
+        <br><br>
 
         sideStack: &nbsp;
 
@@ -117,41 +112,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sideStack_padding: &nbsp;
         <input id="input_sideStack_padding" type="text" value="20" />
 
-        <br /><br />
-
-        show_effect: &nbsp;
-
-        <select id="select_show_effect">
-          <option>fade</option>
-          <option>scale</option>
-          <option>slide_up</option>
-          <option>slide_down</option>
-          <option>slide_left</option>
-          <option>slide_right</option>
-          <option>none</option>
-        </select>
-
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; close_effect: &nbsp;
-
-        <select id="select_close_effect">
-          <option>fade</option>
-          <option>scale</option>
-          <option>slide_up</option>
-          <option>slide_down</option>
-          <option>slide_left</option>
-          <option>slide_right</option>
-          <option>none</option>
-        </select>
-
-        <br /><br />
-
-        show_effect_duration: &nbsp;
-        <input id="input_show_effect_duration" type="text" value="350" />
-
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; close_effect_duration: &nbsp;
-        <input id="input_close_effect_duration" type="text" value="350" />
-
-        <br /><br />
+        <br><br>
 
         autoclose: &nbsp; <input id="input_autoclose" type="checkbox" checked />
 
@@ -164,7 +125,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lock: &nbsp;
         <input id="input_lock" type="checkbox" />
 
-        <br /><br />
+        <br><br>
 
         window_x: &nbsp;
 
@@ -187,7 +148,7 @@
           <option>left</option>
         </select>
 
-        <br /><br />
+        <br><br>
 
         <span class="clicky" onclick='pop("center")'>position:center</span
         >&nbsp;&nbsp;&nbsp;
@@ -198,7 +159,7 @@
         <span class="clicky" onclick='pop("left")'>position:left</span
         >&nbsp;&nbsp;&nbsp;
         <span class="clicky" onclick='pop("right")'>position:right</span
-        >&nbsp;&nbsp;&nbsp; <br /><br />
+        >&nbsp;&nbsp;&nbsp; <br><br>
         <span class="clicky" onclick='pop("topleft")'>position:topleft</span
         >&nbsp;&nbsp;&nbsp;
         <span class="clicky" onclick='pop("bottomleft")'
@@ -210,31 +171,15 @@
           >position:bottomright</span
         >
 
-        <br /><br />
+        <br><br>
       </span>
 
       <blockquote>
-        <pre><code>var msg_pop = Msg.factory(
-{
+        <pre><code>let msg_pop = Msg.factory({
     preset:"popup" // or "popup_autoclose"
-});
+})
         </code></pre>
       </blockquote>
-
-      <a name="snackbars"></a>
-      <h2>Snackbars</h2>
-
-      <span class="clicky" onclick="snack()">Open Snackbar</span
-      >&nbsp;&nbsp;&nbsp;
-
-      <i
-        ><blockquote>
-          <pre><code>var msg_snack = Msg.factory({
-    preset: "snackbar"
-});
-        </code></pre>
-        </blockquote></i
-      >
 
       <a name="windows"></a>
       <h2>Windows</h2>
@@ -245,16 +190,16 @@
       control system. The content takes 100vh height and 100vw width. If you
       want to have scrolling content you must create your own containers.
 
-      <br /><br />
+      <br><br>
 
       <span class="clicky" onclick="open_window()">Open Window</span
       >&nbsp;&nbsp;&nbsp;
 
       <i
         ><blockquote>
-          <pre><code>var msg_window = Msg.factory({
+          <pre><code>let msg_window = Msg.factory({
     preset:"window"
-});
+})
         </code></pre>
         </blockquote></i
       >
@@ -266,21 +211,21 @@
         >Get the code here</a
       >
 
-      <br /><br />To install just include the file in /dist:<br />
+      <br><br>To install just include the file in /dist:<br>
       <i
         ><blockquote>
           <pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre>
         </blockquote></i
       >
 
-      <br />Or the minified, smaller file:<br />
+      <br>Or the minified, smaller file:<br>
       <i
         ><blockquote>
           <pre><code>&lt;script src="msg.min.js"&gt;&lt;/script&gt;</code></pre>
         </blockquote></i
       >
 
-      <br />It's also available on NPM:
+      <br>It's also available on NPM:
 
       <i
         ><blockquote>
@@ -288,7 +233,7 @@
         </blockquote></i
       >
 
-      <br />Then you can include the file:
+      <br>Then you can include the file:
 
       <i
         ><blockquote>
@@ -296,7 +241,7 @@
         </blockquote></i
       >
 
-      <br />Or the minified version:
+      <br>Or the minified version:
 
       <i
         ><blockquote>
@@ -308,32 +253,32 @@
       <a name="basicusage"></a>
       <h2>Basic Usage</h2>
 
-      To use, first make an instance:<br />
+      To use, first make an instance:<br>
       <i
         ><blockquote>
-          <pre><code>var msg = Msg.factory();</code></pre>
+          <pre><code>let msg = Msg.factory()</code></pre>
         </blockquote></i
       >
 
-      <br />To show a window just pass a string or an html element to the show
+      <br>To show a window just pass a string or an html element to the show
       method:
 
-      <br /><br /><span
+      <br><br><span
         class="clicky"
         onclick='msg.show("<i>Hello</i> <b>World</b>")'
         >msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span
-      ><br />
-      <br /><span
+      ><br>
+      <br><span
         class="clicky"
         onclick='msg.show(document.getElementsByTagName("h1")[0])'
         >msg.show(document.getElementsByTagName("h1")[0])</span
-      ><br />
+      ><br>
 
-      <br />You can re-use the same instance to display different things.
-      <br /><br />Note that an instance can only show one thing at a time.
-      <br /><br />If you want to have multiple windows open you need to create
-      multiple instances. <br /><br />You can create factory functions to create
-      and show instances on the fly. <br /><br />The "persistent" option is to
+      <br>You can re-use the same instance to display different things.
+      <br><br>Note that an instance can only show one thing at a time.
+      <br><br>If you want to have multiple windows open you need to create
+      multiple instances. <br><br>You can create factory functions to create
+      and show instances on the fly. <br><br>The "persistent" option is to
       be considered when creating on the fly instances. If you're not going to
       use the instance again, it's advised to use persistent:false, which
       destroys the html elements after close, to avoid filling the dom with
@@ -341,26 +286,24 @@
 
       <i
         ><blockquote>
-          <pre><code>function remind(html)
-{
-    var msg = Msg.factory(
-    {
+          <pre><code>function remind(html) {
+    let msg = Msg.factory({
         class: "green",
         enable_titlebar: true,
         persistent: false
-    });
+    })
 
-    msg.show(["Reminder", html]);
+    msg.show(["Reminder", html])
 }
 
-remind("Water the trees.");
+remind("Water the trees.")
         </code></pre>
         </blockquote></i
       >
 
       <script>
         function remind(html) {
-          var msg = Msg.factory({
+          let msg = Msg.factory({
             class: "green",
             enable_titlebar: true,
             persistent: false,
@@ -374,39 +317,39 @@ remind("Water the trees.");
         >Run This Demo</span
       >
 
-      <br /><br />
+      <br><br>
 
       <a name="structure"></a>
       <h2>Structure</h2>
 
-      Four elements are created with the following ids:<br /><br />
+      Four elements are created with the following ids:<br><br>
       "Msg-container-id" (with classes: "Msg-container" and
-      "Msg-container-class")<br />
-      "Msg-window-id" (with classes: "Msg-window" and "Msg-window-class")<br />
+      "Msg-container-class")<br>
+      "Msg-window-id" (with classes: "Msg-window" and "Msg-window-class")<br>
       "Msg-content-container-id" (with classes: "Msg-content-container" and
-      "Msg-content-container-class")<br />
-      "Msg-content-id" (with classes: "Msg-content" and "Msg-content-class")<br /><br />
+      "Msg-content-container-class")<br>
+      "Msg-content-id" (with classes: "Msg-content" and "Msg-content-class")<br><br>
 
-      These elements are optional:<br /><br />
+      These elements are optional:<br><br>
       "Msg-overlay-id" (with classes: "Msg-overlay" and "Msg-overlay-class")
-      (Created by default)<br />
+      (Created by default)<br>
       "Msg-topbar-id" (with classes: "Msg-topbar" and "Msg-topbar-class")
-      (Created if Msg-window-inner-x or Msg-titlebar are created)<br />
+      (Created if Msg-window-inner-x or Msg-titlebar are created)<br>
       "Msg-titlebar-id" (with classes: "Msg-titlebar" and "Msg-titlebar-class")
-      (Not created by default)<br />
+      (Not created by default)<br>
       "Msg-window-inner-x-id" (with classes: "Msg-window-inner-x" and
-      "Msg-window-inner-x-class") (Created by default)<br />
+      "Msg-window-inner-x-class") (Created by default)<br>
       "Msg-window-floating-x-id" (with classes: "Msg-window-floating-x" and
-      "Msg-window-floating-x-class") (Not created by default)<br />
+      "Msg-window-floating-x-class") (Not created by default)<br>
       "Msg-overlay-x-id" (with classes: "Msg-overlay-x" and
-      "Msg-overlay-x-class") (Not created by default)<br />
+      "Msg-overlay-x-class") (Not created by default)<br>
       "Msg-progressbar-container-id" (with classes: "Msg-progressbar-container"
       and "Msg-progressbar-container-class") (Created if Msg-progressbar is
-      created)<br />
+      created)<br>
       "Msg-progressbar-id" (with classes: "Msg-progressbar" and
-      "Msg-progressbar-class") (Not created by default)<br />
+      "Msg-progressbar-class") (Not created by default)<br>
 
-      <br /><br />The structure looks like this:
+      <br><br>The structure looks like this:
 
       <blockquote>
         <pre><code>[container] (instance.container)
@@ -439,36 +382,36 @@ remind("Water the trees.");
       </blockquote>
 
       By default, ids are based on the number of instances created, they are
-      incremental. Custom ids and classes can be specified via options.<br /><br />
+      incremental. Custom ids and classes can be specified via options.<br><br>
 
       The z-index values of the windows are generated when they are shown,
       allowing for windows with different ids to stack on top of each other.
-      This stack is called the zStack.<br />
+      This stack is called the zStack.<br>
 
-      <br /><span class="clicky" onclick="msg3.show(s3)">Stack Demo</span><br />
+      <br><span class="clicky" onclick="msg3.show(s3)">Stack Demo</span><br>
 
-      <br /><a name="styling"></a>
+      <br><a name="styling"></a>
       <h2>Styling</h2>
 
-      You can set custom ids and classes via options.<br /><br />
+      You can set custom ids and classes via options.<br><br>
 
       You can play with the ids and classes to have different types of
-      windows.<br /><br />
+      windows.<br><br>
 
       Elements can have multiple classes. For example, class:"foo bar" would
       create all elements with those classes, for example, content would have
       the classes "Msg-content", "Msg-content-foo" and "Msg-content-bar". It
-      also works with specific classes, like content_class:"foo bar".<br /><br />
+      also works with specific classes, like content_class:"foo bar".<br><br>
 
       If you don't want a class name to be turned into the Msg-element-classname
       format, you can append a "!" to it. For example overlay_class:"!glow"
-      would use "glow" instead of "Msg-overlay-glow".<br /><br />
+      would use "glow" instead of "Msg-overlay-glow".<br><br>
 
       The Msg-content's padding is set depending on your settings, to try to
-      make it look pleasing in different situations.<br /><br />
+      make it look pleasing in different situations.<br><br>
 
       To override the css you will probably need to use !important
-      declarations.<br /><br />
+      declarations.<br><br>
 
       <i
         ><blockquote>
@@ -476,70 +419,61 @@ remind("Water the trees.");
 
 //js
 
-var msg2 = Msg.factory(
-{
+let msg2 = Msg.factory({
     id: "foo",
     class: "bar",
     window_inner_x_class: "red !big",
     enable_titlebar: true
-});
-
+})
 
 //css
 
-#Msg-overlay-foo
-{
+#Msg-overlay-foo {
     background-color: rgba(61, 157, 192, 0.7) !important;
 }
 
-.Msg-window-bar
-{
+.Msg-window-bar {
     background-color: #ffff62 !important;
 }
 
-.Msg-content-bar
-{
+.Msg-content-bar {
     padding-top: 1em !important;
     line-height: 2em !important;
     font-size: 1.4em !important;
 }
 
-.Msg-titlebar-bar
-{
+.Msg-titlebar-bar {
     background-color: #589958 !important;
     color: white !important;
     font-size:1.25em !important;
 }
 
-.Msg-window-inner-x-red
-{
+.Msg-window-inner-x-red {
     background-color: #ca4e4e !important;
     color: #ffffff !important;
 }
 
-.Msg-window-inner-x-red:hover
-{
+.Msg-window-inner-x-red:hover {
     background-color: #a72b2b !important;
-} 
+}
 
-.big
-{
+.big {
     font-size: 1.8em !important;
 }
 
-msg2.show(["Window Example", some_text]);
+msg2.show(["Window Example", some_text])
         </code></pre>
         </blockquote></i
       >
 
       <span class="clicky" onclick='msg2.show(["Window Example", sc]);'
         >Run This Demo</span
-      ><br /><br /><br />
+      ><br><br><br>
 
       <span class="unselectable">
         There are some pre-made classes:
 
-        <br /><br />
+        <br><br>
 
         <span class="clicky" onclick='msg_red.show("This is the red theme.")'
           >class: "red"</span
@@ -559,11 +493,11 @@ msg2.show(["Window Example", some_text]);
           class="clicky"
           onclick='msg_black.show("This is the black theme.")'
           >class: "black"</span
-        ><br /><br />
+        ><br><br>
 
-        <br />With titlebars enabled:
+        <br>With titlebars enabled:
 
-        <br /><br />
+        <br><br>
 
         <span
           class="clicky"
@@ -590,365 +524,326 @@ msg2.show(["Window Example", some_text]);
         >
       </span>
 
-      <br /><br /><a name="options"></a>
+      <br><br><a name="options"></a>
       <h2>Options</h2>
       The following options can be passed inside an object when creating an
-      instance:<br /><br />
+      instance:<br><br>
 
       <i>id (Default: Number of instances)</i>: The id of the instance. For
-      example, id:"foo".<br /><br />
+      example, id:"foo".<br><br>
 
       <i>class (Default: "default")</i>: The class of the instance. For example,
       class:"bar". It can be multiple classes, for example, class:"one two
-      three".<br /><br />
+      three".<br><br>
 
       <i>container_class (Default: undefined)</i>: If this is defined, the
-      Msg-container will use this instead of the class option.<br /><br />
+      Msg-container will use this instead of the class option.<br><br>
 
       <i>overlay_class (Default: undefined)</i>: If this is defined, the
-      Msg-overlay will use this instead of the class option.<br /><br />
+      Msg-overlay will use this instead of the class option.<br><br>
 
       <i>window_class (Default: undefined)</i>: If this is defined, the
-      Msg-window will use this instead of the class option.<br /><br />
+      Msg-window will use this instead of the class option.<br><br>
 
       <i>topbar_class (Default: undefined)</i>: If this is defined, the
-      Msg-topbar will use this instead of the class option.<br /><br />
+      Msg-topbar will use this instead of the class option.<br><br>
 
       <i>titlebar_class (Default: undefined)</i>: If this is defined, the
-      Msg-titlebar will use this instead of the class option.<br /><br />
+      Msg-titlebar will use this instead of the class option.<br><br>
 
       <i>content_class (Default: undefined)</i>: If this is defined, the
-      Msg-content will use this instead of the class option.<br /><br />
+      Msg-content will use this instead of the class option.<br><br>
 
       <i>window_inner_x_class (Default: undefined)</i>: If this is defined, the
-      Msg-window-inner-x will use this instead of the class option.<br /><br />
+      Msg-window-inner-x will use this instead of the class option.<br><br>
 
       <i>window_floating_x_class (Default: undefined)</i>: If this is defined,
-      the Msg-window-floating-x will use this instead of the class option.<br /><br />
+      the Msg-window-floating-x will use this instead of the class option.<br><br>
 
       <i>window_overlay_x_class (Default: undefined)</i>: If this is defined,
-      the Msg-overlay-x will use this instead of the class option.<br /><br />
+      the Msg-overlay-x will use this instead of the class option.<br><br>
 
       <i>progressbar_container_class (Default: undefined)</i>: If this is
       defined, the Msg-progressbar-container will use this instead of the class
-      option.<br /><br />
+      option.<br><br>
 
       <i>progressbar_class (Default: undefined)</i>: If this is defined, the
-      Msg-progressbar will use this instead of the class option.<br /><br />
+      Msg-progressbar will use this instead of the class option.<br><br>
 
       <i>lock (Default: true)</i>: Prevents scrolling from propagating to the
       body. This is done through css by adding a class to the body
-      temporarily.<br /><br />
+      temporarily.<br><br>
 
       <i>locked_element (Default: "body")</i>: String argument for
-      document.querySelector() to find the element to be locked.<br /><br />
+      document.querySelector() to find the element to be locked.<br><br>
 
       <i>close_on_overlay_click (Default: true)</i>: Closes the window when the
-      overlay is clicked.<br /><br />
+      overlay is clicked.<br><br>
 
       <i>close_on_escape (Default: true)</i>: Closes the window when Escape is
-      pressed.<br /><br />
+      pressed.<br><br>
 
       <i>closeable (Default: true)</i>: Whether the window is closable at
-      all.<br /><br />
+      all.<br><br>
 
       <i>clear_editables (Default: false)</i>: When pressing Escape, it removes the last word from an active input=text or textarea element, if it has a value.
-      If it's empty and close_on_escape is true, it closes the window.<br /><br />
+      If it's empty and close_on_escape is true, it closes the window.<br><br>
 
       <i>persistent (Default: true)</i>: When true, it keeps the html elements
       in the dom when the window is closed. If false, it destroys the html
-      elements on close.<br /><br />
+      elements on close.<br><br>
 
       <i>remove_after_close (Default: true)</i>: If true, it will destroy the
       html elements and remove the instance from the instance registry after
-      close.<br /><br />
+      close.<br><br>
 
       <i>temp_disable_close (Default: false)</i>: Makes it unable to close the
-      window temporarily.<br /><br />
+      window temporarily.<br><br>
 
       <i>temp_disable_close_delay (Default: 1000)</i>: The amount of time in
-      milliseconds the window is temporarily unclosable since it's shown.<br /><br />
+      milliseconds the window is temporarily unclosable since it's shown.<br><br>
 
       <i>temp_disable_click (Default: false)</i>: Disables clicks inside the
-      window temporarily.<br /><br />
+      window temporarily.<br><br>
 
       <i>temp_disable_click_delay (Default: 1000)</i>: The amount of time in
-      milliseconds clicks inside the window are disabled since it's shown.<br /><br />
+      milliseconds clicks inside the window are disabled since it's shown.<br><br>
 
       <i>temp_disable_keys (Default: false)</i>: Disables key input on the whole
-      document temporarily.<br /><br />
+      document temporarily.<br><br>
 
       <i>temp_disable_keys_delay (Default: 1000)</i>: The amount of time in
-      milliseconds keys will be disabled since the window is shown.<br /><br />
+      milliseconds keys will be disabled since the window is shown.<br><br>
 
       <i>position (Default: "center")</i>: The position of the window in the
       screen. Either "center", "left" (hStackable), "right" (hStackable), "top"
       (vStackable), "bottom" (vStackable), "topleft" (vStackable) (hStackable),
       "topright" (vStackable) (hStackable), "bottomleft" (vStackable)
-      (hStackable), or "bottomright" (vStackable) (hStackable).<br /><br />
+      (hStackable), or "bottomright" (vStackable) (hStackable).<br><br>
 
-      <i>window_width (Default: "auto")</i>: The width of the Msg-window.<br /><br />
+      <i>window_width (Default: "auto")</i>: The width of the Msg-window.<br><br>
 
-      <i>window_height (Default: "auto")</i>: The height of the Msg-window.<br /><br />
+      <i>window_height (Default: "auto")</i>: The height of the Msg-window.<br><br>
 
       <i>window_min_width (Default: "auto")</i>: The min-width of the
-      Msg-window.<br /><br />
+      Msg-window.<br><br>
 
       <i>window_min_height (Default: "auto")</i>: The min-height of the
-      Msg-window.<br /><br />
+      Msg-window.<br><br>
 
       <i>window_max_width (Default: "80vw")</i>: The max-width of the
-      Msg-window.<br /><br />
+      Msg-window.<br><br>
 
       <i>window_max_height (Default: "80vh")</i>: The max-height of the
-      Msg-window.<br /><br />
+      Msg-window.<br><br>
 
       <i>window_cursor (Default: "default")</i>: The cursor of the Msg-window.
-      For example, "pointer" or "none".<br /><br />
+      For example, "pointer" or "none".<br><br>
 
       <i>titlebar_cursor (Default: "default")</i>: The cursor of the Msg-titlebar.
-      For example, "pointer" or "none".<br /><br />
+      For example, "pointer" or "none".<br><br>
 
       <i>window_unselectable (Default: false)</i>: If true, it will make the
-      window's content unselectable. For example by dragging with the mouse.<br /><br />
+      window's content unselectable. For example by dragging with the mouse.<br><br>
 
       <i>edge_padding_x (Default: 20)</i>: The horizontal padding in pixels from
-      the edge of the screen. Some positions don't support this.<br /><br />
+      the edge of the screen. Some positions don't support this.<br><br>
 
       <i>edge_padding_y (Default: 20)</i>: The vertical padding in pixels from
-      the edge of the screen. Some positions don't support this.<br /><br />
+      the edge of the screen. Some positions don't support this.<br><br>
 
       <i>sideStack (Default: "vertical")</i>: Either "vertical", "horizontal" or
       "none". This is what allows popup windows to stack on top of each other
-      vertically or appear side by side horizontally.<br /><br />
+      vertically or appear side by side horizontally.<br><br>
 
       <i>sideStack_padding (Default: 20)</i>: The separation in pixels between
-      vertically or horizontally stacked windows.<br /><br />
+      vertically or horizontally stacked windows.<br><br>
 
       <i>sideStack_collapse (Default: true)</i>: Whether windows in a vertical
-      or horizontal stack collapse when a window is closed.<br /><br />
+      or horizontal stack collapse when a window is closed.<br><br>
 
       <i>zStack_level (Default: 2)</i>: Level 1 zStacks start at a z-index of
       5000000 (5 with 6 zeros), Level 2 zStacks start at a z-index of 50000000
       (5 with 7 zeros). This is useful if you want to have popup messages that
-      don't go above the modal windows.<br /><br />
+      don't go above the modal windows.<br><br>
 
       <i>autoclose (Default: false)</i>: Closes the window automatically after a
-      certain amount of time.<br /><br />
+      certain amount of time.<br><br>
 
       <i>autoclose_delay (Default: 5000)</i>: The amount of time in milliseconds
-      that must pass before closing the window.<br /><br />
+      that must pass before closing the window.<br><br>
 
       <i>enable_titlebar (Default: false)</i>: Whether Msg-titlebar is created
-      or not.<br /><br />
+      or not.<br><br>
 
       <i>center_titlebar (Default: false)</i>: A mode where the text is placed
-      in the center relative to the window. It adjusts to window_x settings.<br /><br />
+      in the center relative to the window. It adjusts to window_x settings.<br><br>
 
       <i>enable_progressbar (Default: false)</i>: Whether Msg-progressbar is
-      created or not.<br /><br />
+      created or not.<br><br>
 
       <i>bind_progressbar_to_autoclose (Default: true)</i>: If this is true, the
-      progressbar will reflect the autoclose delay when the window is shown.<br /><br />
+      progressbar will reflect the autoclose delay when the window is shown.<br><br>
 
       <i>reverse_autoclose_progressbar (Default: false)</i>: If this is true,
       instead of the autoclose progressbar animation starting at 100% width and
-      going down to 0%, it starts at 0% and goes up to 100%.<br /><br />
+      going down to 0%, it starts at 0% and goes up to 100%.<br><br>
 
       <i>show_delay (Default: 0)</i>: The amount of time in milliseconds show()
       is delayed from executing when called. Useful if you want to open the
-      window after the body has fully loaded or other cases.<br /><br />
+      window after the body has fully loaded or other cases.<br><br>
 
       <i>close_delay (Default: 0)</i>: The amount of time in milliseconds
-      close() is delayed from executing when called.<br /><br />
+      close() is delayed from executing when called.<br><br>
 
       <i>close_on_show (Default: false)</i>: When show() is called it will first
-      close the window and then show it. Useful for snackbars.<br /><br />
+      close the window and then show it.<br><br>
       <i>close_others_on_show (Default: false)</i>: When the window is first
-      shown it will close all other open windows.<br /><br />
+      shown it will close all other open windows.<br><br>
 
       <i>scroll_on_show (Default: true)</i>: Whether the scrolltop of
       Msg-content-container will become 0 on show. In other words, if it will
-      automatically be scrolled to the top on show if there is overflow.<br /><br />
+      automatically be scrolled to the top on show if there is overflow.<br><br>
       <i>enable_overlay (Default: true)</i>: Whether the overlay is created or
-      not.<br /><br />
+      not.<br><br>
 
       <i>window_x (Default: "inner_right")</i>: Makes an x to close the window
       inside the window. Either "inner_right", "inner_left", "floating_right",
-      "floating_left" or "none".<br /><br />
+      "floating_left" or "none".<br><br>
 
       <i>overlay_x (Default: "none")</i>: Makes an x to close the window inside
-      the overlay. Either "right", "left" or "none".<br /><br />
-
-      <i>show_effect (Default: "fade")</i>: Either "fade", "scale", slide_up",
-      "slide_down", "slide_left", "slide_right" or "none". Some positions don't
-      support certain kinds of slide effects.<br /><br />
-
-      <i>show_effect_duration (Default: [200, 200])</i>: The amount of time in
-      milliseconds it takes to complete the show_effect. If an array with 2
-      numbers is given, the first number refers to the overlay effect duration,
-      while the second one refers to the window effect duration, which starts
-      after the overlay effect is finished. If just a number is given, it will
-      be the effect duration for both the overlay and the window, which start at
-      the same time.<br /><br />
-
-      <i>subsequent_show_effects (Default: false)</i>: If true, it will show the
-      show_effect on show() even if the window is already open.<br /><br />
-
-      <i>close_effect (Default: "fade")</i>: Either "fade", "scale", "slide_up",
-      "slide_down", "slide_left", "slide_right" or "none". Some positions don't
-      support certain kinds of slide effects.<br /><br />
-
-      <i>close_effect_duration (Default: [200, 200])</i>: The amount of time in
-      milliseconds it takes to complete the close_effect. If an array with 2
-      numbers is given, the first number refers to the window effect duration,
-      while the second one refers to the overlay effect duration, which starts
-      after the window effect is finished. If just a number is given, it will be
-      the effect duration for both the window and the overlay, which start at
-      the same time.<br /><br />
+      the overlay. Either "right", "left" or "none".<br><br>
 
       <i>replace_linebreaks (Default: false)</i>: If true, strings passed to
-      show() or set() will have every "\n" replaced with an html linebreak.<br /><br />
+      show() or set() will have every "\n" replaced with an html linebreak.<br><br>
 
       <i>before_show (Default: Empty Function)</i>: Function that triggers
       before the show method. Receives the instance as an argument. If false is
-      returned it aborts the execution.<br /><br />
+      returned it aborts the execution.<br><br>
 
       <i>after_show (Default: Empty Function)</i>: Function that triggers after
-      the show method. Receives the instance as an argument.<br /><br />
+      the show method. Receives the instance as an argument.<br><br>
 
       <i>before_set (Default: Empty Function)</i>: Function that triggers before
       the set method. Receives the instance as an argument. If false is returned
-      it aborts the execution.<br /><br />
+      it aborts the execution.<br><br>
 
       <i>after_set (Default: Empty Function)</i>: Function that triggers after
-      the set method. Receives the instance as an argument.<br /><br />
+      the set method. Receives the instance as an argument.<br><br>
 
       <i>before_set_title (Default: Empty Function)</i>: Function that triggers
       before the set_title method. Receives the instance as an argument. If
-      false is returned it aborts the execution.<br /><br />
+      false is returned it aborts the execution.<br><br>
 
       <i>after_set_title (Default: Empty Function)</i>: Function that triggers
-      after the set_title method. Receives the instance as an argument.<br /><br />
+      after the set_title method. Receives the instance as an argument.<br><br>
 
       <i>before_set_progress (Default: Empty Function)</i>: Function that
       triggers before the set_progress method. Receives the instance as an
-      argument. If false is returned it aborts the execution.<br /><br />
+      argument. If false is returned it aborts the execution.<br><br>
 
       <i>after_set_progress (Default: Empty Function)</i>: Function that
       triggers after the set_progress method. Receives the instance as an
-      argument.<br /><br />
+      argument.<br><br>
 
       <i>before_close (Default: Empty Function)</i>: Function that triggers
       before the close method. Receives the instance as an argument. If false is
-      returned it aborts the execution.<br /><br />
+      returned it aborts the execution.<br><br>
 
       <i>after_close (Default: Empty Function)</i>: Function that triggers after
-      the close method. Receives the instance as an argument.<br /><br />
+      the close method. Receives the instance as an argument.<br><br>
 
       <i>after_last_closed (Default: Empty Function)</i>: Function that triggers
       after the last remaining open window was closed. Receives the instance as
-      an argument.<br /><br />
+      an argument.<br><br>
 
       <i>before_toggle (Default: Empty Function)</i>: Function that triggers
       before the toggle method. Receives the instance as an argument. If false
-      is returned it aborts the execution.<br /><br />
+      is returned it aborts the execution.<br><br>
 
       <i>after_toggle (Default: Empty Function)</i>: Function that triggers
-      after the toggle method. Receives the instance as an argument.<br /><br />
+      after the toggle method. Receives the instance as an argument.<br><br>
 
       <i>before_create (Default: Empty Function)</i>: Function that triggers
       before the create method. Receives the instance as an argument. If false
-      is returned it aborts the execution.<br /><br />
+      is returned it aborts the execution.<br><br>
 
       <i>after_create (Default: Empty Function)</i>: Function that triggers
-      after the create method. Receives the instance as an argument.<br /><br />
+      after the create method. Receives the instance as an argument.<br><br>
 
       <i>before_destroy (Default: Empty Function)</i>: Function that triggers
       before the destroy method. Receives the instance as an argument. If false
-      is returned it aborts the execution.<br /><br />
+      is returned it aborts the execution.<br><br>
 
       <i>after_destroy (Default: Empty Function)</i>: Function that triggers
-      after the destroy method. Receives the instance as an argument.<br /><br />
+      after the destroy method. Receives the instance as an argument.<br><br>
 
       <i>while_open (Default: Empty Function)</i>: Function that runs in an
       interval as long as the window is open. Receives the instance as an
-      argument.<br /><br />
+      argument.<br><br>
 
       <i>while_open_interval (Default: 1000)</i>: Function that triggers after
-      the destroy method. Receives the instance as an argument.<br /><br />
+      the destroy method. Receives the instance as an argument.<br><br>
 
       <i>on_click (Default: Empty Function)</i>: Function that triggers when
-      the window is clicked.<br /><br />
+      the window is clicked.<br><br>
 
       <i>on_middle_click (Default: Empty Function)</i>: Function that triggers when
-      the window is middle_clicked.<br /><br />
+      the window is middle_clicked.<br><br>
 
       <i>on_wheel_down (Default: Empty Function)</i>: Function that triggers on
-      mouse scroll wheel down.<br /><br />
+      mouse scroll wheel down.<br><br>
 
       <i>on_wheel_up (Default: Empty Function)</i>: Function that triggers on
-      mouse scroll wheel up.<br /><br />
+      mouse scroll wheel up.<br><br>
 
       <i>on_overlay_click (Default: Empty Function)</i>: Function that triggers when
-      the overlay is clicked.<br /><br />
+      the overlay is clicked.<br><br>
 
       <i>on_titlebar_click (Default: Empty Function)</i>: Function that triggers when
-      the titlebar is clicked.<br /><br />
+      the titlebar is clicked.<br><br>
 
       <i>on_x_button_click (Default: Empty Function)</i>: Function that triggers when
-      an X close button is clicked.<br /><br />
+      an X close button is clicked.<br><br>
 
       <i>disable_transformations (Default: false)</i>: Disables transformations
       applied to windows to center them or put them in a certain place. Applies
-      top and left to 0 as well.<br /><br />
+      top and left to 0 as well.<br><br>
       <i>disable_content_padding (Default: false)</i>: Doesn't apply padding to
-      content.<br /><br />
+      content.<br><br>
 
       <i>full_content (Default: false)</i>: Makes content height 100vh and width
-      100vw.<br /><br />
+      100vw.<br><br>
 
-      <br />Example:
+      <br>Example:
 
       <i
         ><blockquote>
-          <pre><code>var msg_test = Msg.factory(
-{
+          <pre><code>let msg_test = Msg.factory({
     id: "test",
     class: "black",
     window_x: "inner_left",
-    show_effect: "fade",
-    show_effect_duration: [800, 0],
-    close_effect: "fade",
-    close_effect_duration: [0, 800],    
-    after_show: function(instance)
-    {
+    after_show: function(instance) {
         instance.set(instance.html() + ", Mr. Roboto");
     },
-    after_set: function(instance)
-    {
+    after_set: function(instance) {
         console.log("instance.content.innerHTML set to: " + instance.html());
     },
-    before_close: function(instance)
-    {
+    before_close: function(instance) {
         return confirm("Are you sure?");
     }
-});
+})
 
-msg_test.show("Domo Arigato");
+msg_test.show("Domo Arigato")
         </code></pre>
         </blockquote></i
       >
 
       <script>
-        var msg_test = Msg.factory({
+        let msg_test = Msg.factory({
           id: "test",
           class: "black",
           window_x: "inner_left",
-          show_effect: "fade",
-          show_effect_duration: [800, 0],
-          close_effect: "fade",
-          close_effect_duration: [0, 800],
           after_show: function (instance) {
             instance.set(instance.html() + ", Mr. Roboto")
           },
@@ -964,68 +859,66 @@ msg_test.show("Domo Arigato");
         >Test It</span
       >
 
-      <br /><br />
+      <br><br>
 
       <a name="properties"></a>
       <h2>Properties</h2>
 
-      <i>instance.container</i>: The Msg-container html element.<br /><br />
+      <i>instance.container</i>: The Msg-container html element.<br><br>
 
-      <i>instance.overlay</i>: The Msg-overlay html element.<br /><br />
+      <i>instance.overlay</i>: The Msg-overlay html element.<br><br>
 
-      <i>instance.overlay_x</i>: The Msg-overlay-x html element.<br /><br />
+      <i>instance.overlay_x</i>: The Msg-overlay-x html element.<br><br>
 
-      <i>instance.topbar</i>: The Msg-topbar html element.<br /><br />
+      <i>instance.topbar</i>: The Msg-topbar html element.<br><br>
 
-      <i>instance.titlebar</i>: The Msg-titlebar html element.<br /><br />
+      <i>instance.titlebar</i>: The Msg-titlebar html element.<br><br>
 
-      <i>instance.window_inner_x</i>: The Msg-window-inner-x html element.<br /><br />
+      <i>instance.window_inner_x</i>: The Msg-window-inner-x html element.<br><br>
 
       <i>instance.window_floating_x</i>: The Msg-window-floating-x html
-      element.<br /><br />
+      element.<br><br>
 
-      <i>instance.window</i>: The Msg-window html element.<br /><br />
+      <i>instance.window</i>: The Msg-window html element.<br><br>
 
       <i>instance.content-container</i>: The Msg-content-container html
-      element.<br /><br />
+      element.<br><br>
 
-      <i>instance.content</i>: The Msg-content html element.<br /><br />
+      <i>instance.content</i>: The Msg-content html element.<br><br>
 
       <i>instance.progressbar-container</i>: The Msg-progressbar-container html
-      element.<br /><br />
+      element.<br><br>
 
-      <i>instance.progressbar</i>: The Msg-progressbar html element.<br /><br />
+      <i>instance.progressbar</i>: The Msg-progressbar html element.<br><br>
 
-      <i>instance.options</i>: The options object of the instance.<br />
+      <i>instance.options</i>: The options object of the instance.<br>
 
-      <br /><a name="methods"></a>
+      <br><a name="methods"></a>
       <h2>Methods</h2>
 
       <i>instance.show(html)</i>: Opens a window with the received string or
-      html element as its content and puts it at the top of the zStack.<br /><br />
+      html element as its content and puts it at the top of the zStack.<br><br>
 
       <i>instance.show([title, html])</i>: An alternative way to call show is
       passing an array with the title for the titlebar and the content html.
       Useful if you have the titlebar enabled and you want to change both things
-      in the same call.<br /><br />
+      in the same call.<br><br>
 
       <i>instance.show()</i>: If no arguments are passed to show(), it displays
       the window with the last used html or the one passed to set() and puts it
-      at the top of the zStack.<br /><br />
+      at the top of the zStack.<br><br>
 
       Note: instance.show can receive a callback function argument which is
       returned at the end of the function with the instance as an argument. It
-      returns after the after_show event. This is useful if you have effects
-      enabled and you want to do something as soon as the window is fully
-      open.<br /><br />
+      returns after the after_show event.<br><br>
 
-      For example:<br />
+      For example:<br>
       <i
         ><blockquote>
           <pre><code>msg.show("some text", function(instance)
 {
-    console.log("Window is fully open.");
-});
+    console.log("Window is fully open.")
+})
         </code></pre>
         </blockquote></i
       >
@@ -1033,221 +926,190 @@ msg_test.show("Domo Arigato");
       <i>instance.set(html)</i>: Updates the html of the window without opening
       it. This is useful if you want to prepare the content without showing the
       window or if you want to change the content of the window without
-      triggering the show events.<br /><br />
+      triggering the show events.<br><br>
 
       <i>instance.set_or_show(html)</i>: If the window is open and at the top of
       the stack it changes the html content by calling set(). If the window is
       closed or not at the top of the stack it opens the window and shows the
       html content by calling show(). It supports a callback as an optional
       second argument, which is either sent to show() or returned immediately
-      after calling set().<br /><br />
+      after calling set().<br><br>
 
       <i>instance.set_title(html)</i>: Updates the html of the titlebar. This
-      doesn't open the window.<br /><br />
+      doesn't open the window.<br><br>
 
-      <i>instance.close()</i>: Closes the window.<br /><br />
+      <i>instance.close()</i>: Closes the window.<br><br>
 
       Note: instance.close can receive a callback function argument which is
       returned at the end of the function with the instance as an argument. It
-      returns after the after_close event. This is useful if you have effects
-      enabled and you want to do something as soon as the window is fully
-      closed.<br /><br />
+      returns after the after_close event.<br><br>
 
-      For example:<br />
+      For example:<br>
       <i
         ><blockquote>
           <pre><code>msg.close(function(instance)
 {
-    console.log("Window is fully closed.");
-});
+    console.log("Window is fully closed.")
+})
         </code></pre>
         </blockquote></i
       >
 
       <i>instance.toggle()</i>: If the window is closed it opens it. If the
-      window is open it closes it.<br /><br />
+      window is open it closes it.<br><br>
 
       <i>instance.html()</i>: A shortcut for instance.content.innerHTML. Returns
-      "" if the html elements have not been created yet.<br /><br />
+      "" if the html elements have not been created yet.<br><br>
 
       <i>instance.title_html()</i>: A shortcut for instance.titlebar.innerHTML.
-      Returns "" if the titlebar element is not created.<br /><br />
+      Returns "" if the titlebar element is not created.<br><br>
 
-      <i>instance.is_open()</i>: Returns true if the window is open.<br /><br />
+      <i>instance.is_open()</i>: Returns true if the window is open.<br><br>
 
       <i>instance.any_open()</i>: Returns true if any window with any id is
-      open.<br /><br />
+      open.<br><br>
 
       <i>instance.any_higher_open()</i>: Returns true if any window with
-      zStack_level 2 is open. These are usually modals and windows.<br /><br />
+      zStack_level 2 is open. These are usually modals and windows.<br><br>
 
       <i>instance.any_lower_open()</i>: Returns true if any window with
-      zStack_level 1 is open. These are usually popups and snackbars.<br /><br />
+      zStack_level 1 is open.<br><br>
 
-      <i>instance.num_open()</i>: Returns the number of windows open.<br /><br />
+      <i>instance.num_open()</i>: Returns the number of windows open.<br><br>
 
       <i>instance.num_open_higher()</i>: Returns the number of windows open with
-      zStack_level 2. These are usually modals and windows.<br /><br />
+      zStack_level 2. These are usually modals and windows.<br><br>
 
       <i>instance.num_open_lower()</i>: Returns the number of windows open with
-      zStack_level 1. These are usually popups and snackbars.<br /><br />
+      zStack_level 1.<br><br>
 
       <i>instance.create()</i>: Creates the html elements if they don't exist
       yet. This is done automatically on the first show() or set(), but there
       might be cases where you might want to create them first without showing
-      anything.<br /><br />
+      anything.<br><br>
 
       <i>instance.recreate()</i>: Removes the html elements from the dom and
       creates them again. This should be called after ids or classes are
-      changed.<br /><br />
+      changed.<br><br>
 
-      <i>instance.destroy()</i>: Removes the html elements from the dom.<br /><br />
+      <i>instance.destroy()</i>: Removes the html elements from the dom.<br><br>
 
       <i>instance.remove()</i>: Destroys the html elements and removes the
       instance from the instance registry. So it won't appear in
-      instance.instances() for example.<br /><br />
+      instance.instances() for example.<br><br>
 
       <i>instance.highest_zIndex()</i>: Returns the highest z-index among all
       the created Msg-container elements. If it retuns -2000 it means no
-      elements have been created.<br /><br />
+      elements have been created.<br><br>
       <i>instance.highest_instance()</i>: It returns the instance with the
-      highest z-index. If none is open it returns false.<br /><br />
+      highest z-index. If none is open it returns false.<br><br>
 
       <i>instance.is_highest()</i>: Returns true if the window is visible and at
-      the top of the zStack.<br /><br />
+      the top of the zStack.<br><br>
 
       <i>instance.to_top()</i>: Puts an already opened window at the top of the
       zStack. This is done automatically by show(), but there might be cases
-      where you want to do this without triggering the show events.<br /><br />
+      where you want to do this without triggering the show events.<br><br>
 
       <i>instance.check_options()</i>: This is done automatically when creating
       an instance. It checks the options object and applies the corresponding
-      defaults to undefined properties.<br /><br />
+      defaults to undefined properties.<br><br>
 
       <i>instance.set_progress(percentage)</i>: Fills the progressbar to the
-      specified percentage.<br /><br />
+      specified percentage.<br><br>
 
       <i>instance.get_progress()</i>: Returns the current percentage of the
-      progressbar.<br /><br />
+      progressbar.<br><br>
 
-      <i>instance.instances()</i>: Returns a list with the created instances.<br /><br />
+      <i>instance.instances()</i>: Returns a list with the created instances.<br><br>
 
       <i>instance.higher_instances()</i>: Returns a list with the created
-      instances with zStack_level 2. These are usually modals and windows.<br /><br />
+      instances with zStack_level 2. These are usually modals and windows.<br><br>
 
       <i>instance.lower_instances()</i>: Returns a list with the created
-      instances with zStack_level 1. These are usually popups and snackbars.<br /><br />
+      instances with zStack_level 1.<br><br>
 
       <i>instance.get_instance_by_id(id)</i>: Returns an instance that has the
-      specified instance id.<br /><br />
+      specified instance id.<br><br>
 
-      <i>instance.show_all()</i>: Opens all the windows.<br /><br />
+      <i>instance.show_all()</i>: Opens all the windows.<br><br>
 
       <i>instance.close_all()</i>: Closes all the windows. Can receive a
-      callback.<br /><br />
+      callback.<br><br>
 
       <i>instance.close_all_higher()</i>: Closes all the windows with
       zStack_level 2. These are usually modals and windows. Can receive a
-      callback.<br /><br />
+      callback.<br><br>
 
       <i>instance.close_all_lower()</i>: Closes all the windows with
-      zStack_level 1. These are usually popups and snackbars. Can receive a
-      callback.<br /><br />
+      zStack_level 1.Can receive a callback.<br><br>
 
       <i>instance.create_all()</i>: Creates the html elements of all the
-      instances.<br /><br />
+      instances.<br><br>
 
       <i>instance.recreate_all()</i>: Recreates the html elements of all the
-      instances.<br /><br />
+      instances.<br><br>
 
       <i>instance.destroy_all()</i>: Removes the html elements of all the
-      instances.<br /><br />
+      instances.<br><br>
 
-      <i>instance.hide_titlebar()</i>: Hides the titlebar including the inner_x. The whole topbar is hidden. <br /><br />
+      <i>instance.hide_titlebar()</i>: Hides the titlebar including the inner_x. The whole topbar is hidden. <br><br>
 
-      <i>instance.show_titlebar()</i>: Shows the titlebar including the inner_x. The whole topbar is shown.<br /><br />
+      <i>instance.show_titlebar()</i>: Shows the titlebar including the inner_x. The whole topbar is shown.<br><br>
 
       <a name="presets"></a>
       <h2>Presets</h2>
 
       <i><b>preset: "popup"</b></i
-      ><br />
-      instance.options.class = "green";<br />
-      instance.options.enable_overlay = false;<br />
-      instance.options.position = "bottomright";<br />
-      instance.options.remove_after_close = true;<br />
-      instance.options.zStack_level = 1;<br />
-      instance.options.window_width = "460px";<br />
-      instance.options.lock = false;<br />
-      instance.options.show_effect = "fade";<br />
-      instance.options.show_effect_duration = 350;<br />
-      instance.options.close_effect = "fade";<br />
-      instance.options.close_effect_duration = 350;<br />
+      ><br>
+      instance.options.class = "green";<br>
+      instance.options.enable_overlay = false;<br>
+      instance.options.position = "bottomright";<br>
+      instance.options.remove_after_close = true;<br>
+      instance.options.zStack_level = 1;<br>
+      instance.options.window_width = "460px";<br>
+      instance.options.lock = false;<br>
 
-      <br /><i><b>preset: "popup_autoclose"</b></i
-      ><br />
-      instance.options.class = "green";<br />
-      instance.options.enable_overlay = false;<br />
-      instance.options.position = "bottomright";<br />
-      instance.options.autoclose = true;<br />
-      instance.options.enable_progressbar = true;<br />
-      instance.options.remove_after_close = true;<br />
-      instance.options.zStack_level = 1;<br />
-      instance.options.window_width = "460px";<br />
-      instance.options.lock = false;<br />
-      instance.options.show_effect = "fade";<br />
-      instance.options.show_effect_duration = 350;<br />
-      instance.options.close_effect = "fade";<br />
-      instance.options.close_effect_duration = 350;<br />
+      <br><i><b>preset: "popup_autoclose"</b></i
+      ><br>
+      instance.options.class = "green";<br>
+      instance.options.enable_overlay = false;<br>
+      instance.options.position = "bottomright";<br>
+      instance.options.autoclose = true;<br>
+      instance.options.enable_progressbar = true;<br>
+      instance.options.remove_after_close = true;<br>
+      instance.options.zStack_level = 1;<br>
+      instance.options.window_width = "460px";<br>
+      instance.options.lock = false;<br>
 
-      <br /><i><b>preset: "snackbar"</b></i
-      ><br />
-      instance.options.class = "black";<br />
-      instance.options.content_class = "snackbar";<br />
-      instance.options.position = "bottom";<br />
-      instance.options.edge_padding_y = 0;<br />
-      instance.options.window_min_width = "600px";<br />
-      instance.options.window_x = "none";<br />
-      instance.options.enable_overlay = false;<br />
-      instance.options.autoclose = true;<br />
-      instance.options.autoclose_delay = 10000;<br />
-      instance.options.close_on_show = true;<br />
-      instance.options.show_effect = "slide_up";<br />
-      instance.options.show_effect_duration = 350;<br />
-      instance.options.close_effect = "slide_down";<br />
-      instance.options.show_effect_duration = 350;<br />
-      instance.options.sideStack = "none";<br />
-      instance.options.zStack_level = 1;<br />
-      instance.options.lock = false;<br />
+      <br><i><b>preset: "window"</b></i
+      ><br>
+      instance.options.window_height = "100vh";<br>
+      instance.options.window_min_height = "100vh";<br>
+      instance.options.window_max_height = "100vh";<br>
+      instance.options.window_width = "100vw";<br>
+      instance.options.window_min_width = "100vw";<br>
+      instance.options.window_max_width = "100vw";<br>
+      instance.options.disable_transformations = true;<br>
+      instance.options.disable_content_padding = true;<br>
+      instance.options.full_content = true;<br>
+      instance.options.window_x = "none";<br>
 
-      <br /><i><b>preset: "window"</b></i
-      ><br />
-      instance.options.window_height = "100vh";<br />
-      instance.options.window_min_height = "100vh";<br />
-      instance.options.window_max_height = "100vh";<br />
-      instance.options.window_width = "100vw";<br />
-      instance.options.window_min_width = "100vw";<br />
-      instance.options.window_max_width = "100vw";<br />
-      instance.options.disable_transformations = true;<br />
-      instance.options.disable_content_padding = true;<br />
-      instance.options.full_content = true;<br />
-      instance.options.window_x = "none";<br />
-
-      <br /><br />
+      <br><br>
       Note: It's advised not to modify the "display" or "z-index" css properties
-      of the Msg html elements since they are handled internally.<br /><br />
+      of the Msg html elements since they are handled internally.<br><br>
 
-      <br />
+      <br>
 
       <span class="clicky" onclick="msg_toy.show(stoy)">One Last Demo</span>
 
-      <br /><br /><br />
+      <br><br><br>
 
       <a href="https://madprops.github.io/StorageUI/" target="_blank"
         >StorageUI: A library that uses Msg</a
       >
 
-      <br /><br /><br />
+      <br><br><br>
 
       <a href="https://github.com/Merkoba/Msg/" target="_blank">GitHub</a>
 
@@ -1261,8 +1123,8 @@ msg_test.show("Domo Arigato");
 
       <a href="https://github.com/Merkoba/Msg/issues" target="_blank">Issues</a>
 
-      <br /><br /><br /><br />
-      <br /><br /><br /><br />
+      <br><br><br><br>
+      <br><br><br><br>
     </div>
 
     <audio id="toymusic" src="toymusic.mp3?v=1" loop></audio>
