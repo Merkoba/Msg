@@ -1,10 +1,10 @@
-/* Msg v11.7.5 https://github.com/Merkoba/Msg */
+/* Msg v12.0.0 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
 Msg.num_created = 0
 
-Msg.factory = function (options = {}) {
+Msg.factory = (options = {}) => {
   const instance = {}
 
   instance.close_enabled = true
@@ -17,43 +17,35 @@ Msg.factory = function (options = {}) {
   instance.stack_pos_right = undefined
   instance.stack_width = undefined
   instance.stack_height = undefined
-  instance.slide_in_ongoing = false
   instance.content_for_close_on_show = undefined
   instance.callback_for_close_on_show = undefined
 
   instance.options = options
 
-  instance.check_options = function () {
+  instance.check_options = () => {
     if (instance.options.preset !== undefined) {
-      if (instance.options.preset === "popup") {
+      if (instance.options.preset === `popup`) {
         if (instance.options.class === undefined)
-          instance.options.class = "green"
+          instance.options.class = `green`
         if (instance.options.enable_overlay === undefined)
           instance.options.enable_overlay = false
         if (instance.options.position === undefined)
-          instance.options.position = "bottomright"
+          instance.options.position = `bottomright`
         if (instance.options.remove_after_close === undefined)
           instance.options.remove_after_close = true
         if (instance.options.zStack_level === undefined)
           instance.options.zStack_level = 1
         if (instance.options.window_width === undefined)
-          instance.options.window_width = "460px"
+          instance.options.window_width = `460px`
         if (instance.options.lock === undefined) instance.options.lock = false
-        if (instance.options.show_effect === undefined)
-          instance.options.show_effect = "fade"
-        if (instance.options.show_effect_duration === undefined)
-          instance.options.show_effect_duration = 350
-        if (instance.options.close_effect === undefined)
-          instance.options.close_effect = "fade"
-        if (instance.options.close_effect_duration === undefined)
-          instance.options.close_effect_duration = 350
-      } else if (instance.options.preset === "popup_autoclose") {
+      }
+      else if (instance.options.preset === `popup_autoclose`) {
         if (instance.options.class === undefined)
-          instance.options.class = "green"
+          instance.options.class = `green`
         if (instance.options.enable_overlay === undefined)
           instance.options.enable_overlay = false
         if (instance.options.position === undefined)
-          instance.options.position = "bottomright"
+          instance.options.position = `bottomright`
         if (instance.options.autoclose === undefined)
           instance.options.autoclose = true
         if (instance.options.enable_progressbar === undefined)
@@ -63,63 +55,22 @@ Msg.factory = function (options = {}) {
         if (instance.options.zStack_level === undefined)
           instance.options.zStack_level = 1
         if (instance.options.window_width === undefined)
-          instance.options.window_width = "460px"
+          instance.options.window_width = `460px`
         if (instance.options.lock === undefined) instance.options.lock = false
-        if (instance.options.show_effect === undefined)
-          instance.options.show_effect = "fade"
-        if (instance.options.show_effect_duration === undefined)
-          instance.options.show_effect_duration = 350
-        if (instance.options.close_effect === undefined)
-          instance.options.close_effect = "fade"
-        if (instance.options.close_effect_duration === undefined)
-          instance.options.close_effect_duration = 350
-      } else if (instance.options.preset === "snackbar") {
-        if (instance.options.class === undefined)
-          instance.options.class = "black"
-        if (instance.options.content_class === undefined)
-          instance.options.content_class = "snackbar"
-        if (instance.options.position === undefined)
-          instance.options.position = "bottom"
-        if (instance.options.edge_padding_y === undefined)
-          instance.options.edge_padding_y = 0
-        if (instance.options.window_min_width === undefined)
-          instance.options.window_min_width = "600px"
-        if (instance.options.window_x === undefined)
-          instance.options.window_x = "none"
-        if (instance.options.enable_overlay === undefined)
-          instance.options.enable_overlay = false
-        if (instance.options.autoclose === undefined)
-          instance.options.autoclose = true
-        if (instance.options.autoclose_delay === undefined)
-          instance.options.autoclose_delay = 10000
-        if (instance.options.close_on_show === undefined)
-          instance.options.close_on_show = true
-        if (instance.options.show_effect === undefined)
-          instance.options.show_effect = "slide_up"
-        if (instance.options.show_effect_duration === undefined)
-          instance.options.show_effect_duration = 350
-        if (instance.options.close_effect === undefined)
-          instance.options.close_effect = "slide_down"
-        if (instance.options.close_effect_duration === undefined)
-          instance.options.close_effect_duration = 350
-        if (instance.options.sideStack === undefined)
-          instance.options.sideStack = "none"
-        if (instance.options.zStack_level === undefined)
-          instance.options.zStack_level = 1
-        if (instance.options.lock === undefined) instance.options.lock = false
-      } else if (instance.options.preset === "window") {
+      }
+      else if (instance.options.preset === `window`) {
         if (instance.options.window_height === undefined)
-          instance.options.window_height = "100vh"
+          instance.options.window_height = `100vh`
         if (instance.options.window_min_height === undefined)
-          instance.options.window_min_height = "100vh"
+          instance.options.window_min_height = `100vh`
         if (instance.options.window_max_height === undefined)
-          instance.options.window_max_height = "100vh"
+          instance.options.window_max_height = `100vh`
         if (instance.options.window_width === undefined)
-          instance.options.window_width = "100vw"
+          instance.options.window_width = `100vw`
         if (instance.options.window_min_width === undefined)
-          instance.options.window_min_width = "100vw"
+          instance.options.window_min_width = `100vw`
         if (instance.options.window_max_width === undefined)
-          instance.options.window_max_width = "100vw"
+          instance.options.window_max_width = `100vw`
         if (instance.options.disable_transformations === undefined)
           instance.options.disable_transformations = true
         if (instance.options.disable_content_padding === undefined)
@@ -127,7 +78,7 @@ Msg.factory = function (options = {}) {
         if (instance.options.full_content === undefined)
           instance.options.full_content = true
         if (instance.options.window_x === undefined)
-          instance.options.window_x = "none"
+          instance.options.window_x = `none`
       }
     }
 
@@ -136,7 +87,7 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.options.class === undefined) {
-      instance.options.class = "default"
+      instance.options.class = `default`
     }
 
     if (instance.options.lock === undefined) {
@@ -165,14 +116,15 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.window_x === undefined) {
       if (instance.options.enable_titlebar) {
-        instance.options.window_x = "inner_right"
-      } else {
-        instance.options.window_x = "floating_right"
+        instance.options.window_x = `inner_right`
+      }
+      else {
+        instance.options.window_x = `floating_right`
       }
     }
 
     if (instance.options.overlay_x === undefined) {
-      instance.options.overlay_x = "none"
+      instance.options.overlay_x = `none`
     }
 
     if (instance.options.close_on_escape === undefined) {
@@ -184,108 +136,109 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.options.before_show === undefined) {
-      instance.options.before_show = function () {}
+      instance.options.before_show = () => {}
     }
 
     if (instance.options.after_show === undefined) {
-      instance.options.after_show = function () {}
+      instance.options.after_show = () => {}
     }
 
     if (instance.options.before_set === undefined) {
-      instance.options.before_set = function () {}
+      instance.options.before_set = () => {}
     }
 
     if (instance.options.after_set === undefined) {
-      instance.options.after_set = function () {}
+      instance.options.after_set = () => {}
     }
 
     if (instance.options.before_set_title === undefined) {
-      instance.options.before_set_title = function () {}
+      instance.options.before_set_title = () => {}
     }
 
     if (instance.options.after_set_title === undefined) {
-      instance.options.after_set_title = function () {}
+      instance.options.after_set_title = () => {}
     }
 
     if (instance.options.before_set_progress === undefined) {
-      instance.options.before_set_progress = function () {}
+      instance.options.before_set_progress = () => {}
     }
 
     if (instance.options.after_set_progress === undefined) {
-      instance.options.after_set_progress = function () {}
+      instance.options.after_set_progress = () => {}
     }
 
     if (instance.options.before_close === undefined) {
-      instance.options.before_close = function () {}
+      instance.options.before_close = () => {}
     }
 
     if (instance.options.after_close === undefined) {
-      instance.options.after_close = function () {}
+      instance.options.after_close = () => {}
     }
 
     if (instance.options.after_last_closed === undefined) {
-      instance.options.after_last_closed = function () {}
+      instance.options.after_last_closed = () => {}
     }
 
     if (instance.options.before_toggle === undefined) {
-      instance.options.before_toggle = function () {}
+      instance.options.before_toggle = () => {}
     }
 
     if (instance.options.after_toggle === undefined) {
-      instance.options.after_toggle = function () {}
+      instance.options.after_toggle = () => {}
     }
 
     if (instance.options.before_create === undefined) {
-      instance.options.before_create = function () {}
+      instance.options.before_create = () => {}
     }
 
     if (instance.options.after_create === undefined) {
-      instance.options.after_create = function () {}
+      instance.options.after_create = () => {}
     }
 
     if (instance.options.before_destroy === undefined) {
-      instance.options.before_destroy = function () {}
+      instance.options.before_destroy = () => {}
     }
 
     if (instance.options.after_destroy === undefined) {
-      instance.options.after_destroy = function () {}
+      instance.options.after_destroy = () => {}
     }
 
     if (instance.options.while_open === undefined) {
-      instance.options.while_open = function () {}
+      instance.options.while_open = () => {}
     }
 
     if (instance.options.on_click === undefined) {
-      instance.options.on_click = function () {}
+      instance.options.on_click = () => {}
     }
 
     if (instance.options.on_middle_click === undefined) {
-      instance.options.on_middle_click = function () {}
+      instance.options.on_middle_click = () => {}
     }
 
     if (instance.options.on_wheel_down === undefined) {
-      instance.options.on_wheel_down = function () {}
+      instance.options.on_wheel_down = () => {}
     }
 
     if (instance.options.on_wheel_up === undefined) {
-      instance.options.on_wheel_up = function () {}
+      instance.options.on_wheel_up = () => {}
     }
 
     if (instance.options.on_overlay_click === undefined) {
-      instance.options.on_overlay_click = function () {}
+      instance.options.on_overlay_click = () => {}
     }
 
     if (instance.options.on_titlebar_click === undefined) {
-      instance.options.on_titlebar_click = function () {}
+      instance.options.on_titlebar_click = () => {}
     }
 
     if (instance.options.on_x_button_click === undefined) {
-      instance.options.on_x_button_click = function () {}
+      instance.options.on_x_button_click = () => {}
     }
 
     if (instance.options.while_open_interval === undefined) {
       instance.options.while_open_interval = 1000
-    } else {
+    }
+    else {
       instance.options.while_open_interval = parseInt(
         instance.options.while_open_interval
       )
@@ -297,7 +250,8 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.temp_disable_close_delay === undefined) {
       instance.options.temp_disable_close_delay = 1000
-    } else {
+    }
+    else {
       instance.options.temp_disable_close_delay = parseInt(
         instance.options.temp_disable_close_delay
       )
@@ -309,7 +263,8 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.autoclose_delay === undefined) {
       instance.options.autoclose_delay = 5000
-    } else {
+    }
+    else {
       instance.options.autoclose_delay = parseInt(
         instance.options.autoclose_delay
       )
@@ -321,7 +276,8 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.temp_disable_click_delay === undefined) {
       instance.options.temp_disable_click_delay = 1000
-    } else {
+    }
+    else {
       instance.options.temp_disable_click_delay = parseInt(
         instance.options.temp_disable_click_delay
       )
@@ -333,7 +289,8 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.temp_disable_keys_delay === undefined) {
       instance.options.temp_disable_keys_delay = 1000
-    } else {
+    }
+    else {
       instance.options.temp_disable_keys_delay = parseInt(
         instance.options.temp_disable_keys_delay
       )
@@ -347,24 +304,8 @@ Msg.factory = function (options = {}) {
       instance.options.remove_after_close = false
     }
 
-    if (instance.options.show_effect === undefined) {
-      instance.options.show_effect = "fade"
-    }
-
-    if (instance.options.show_effect_duration === undefined) {
-      instance.options.show_effect_duration = [200, 200]
-    }
-
-    if (instance.options.close_effect === undefined) {
-      instance.options.close_effect = "fade"
-    }
-
-    if (instance.options.close_effect_duration === undefined) {
-      instance.options.close_effect_duration = [200, 200]
-    }
-
     if (instance.options.position === undefined) {
-      instance.options.position = "center"
+      instance.options.position = `center`
     }
 
     if (instance.options.enable_progressbar === undefined) {
@@ -381,7 +322,8 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.edge_padding_x === undefined) {
       instance.options.edge_padding_x = 20
-    } else {
+    }
+    else {
       instance.options.edge_padding_x = parseInt(
         instance.options.edge_padding_x
       )
@@ -389,7 +331,8 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.edge_padding_y === undefined) {
       instance.options.edge_padding_y = 20
-    } else {
+    }
+    else {
       instance.options.edge_padding_y = parseInt(
         instance.options.edge_padding_y
       )
@@ -401,14 +344,15 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.sideStack_padding === undefined) {
       instance.options.sideStack_padding = 20
-    } else {
+    }
+    else {
       instance.options.sideStack_padding = parseInt(
         instance.options.sideStack_padding
       )
     }
 
     if (instance.options.sideStack === undefined) {
-      instance.options.sideStack = "vertical"
+      instance.options.sideStack = `vertical`
     }
 
     if (instance.options.sideStack_collapse === undefined) {
@@ -417,60 +361,59 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.zStack_level === undefined) {
       instance.options.zStack_level = 2
-    } else {
+    }
+    else {
       instance.options.zStack_level = parseInt(instance.options.zStack_level)
     }
 
     if (instance.options.show_delay === undefined) {
       instance.options.show_delay = 0
-    } else {
+    }
+    else {
       instance.options.show_delay = parseInt(instance.options.show_delay)
     }
 
     if (instance.options.close_delay === undefined) {
       instance.options.close_delay = 0
-    } else {
+    }
+    else {
       instance.options.close_delay = parseInt(instance.options.close_delay)
     }
 
     if (instance.options.window_width === undefined) {
-      instance.options.window_width = "auto"
+      instance.options.window_width = `auto`
     }
 
     if (instance.options.window_height === undefined) {
-      instance.options.window_height = "auto"
+      instance.options.window_height = `auto`
     }
 
     if (instance.options.window_min_width === undefined) {
-      instance.options.window_min_width = "auto"
+      instance.options.window_min_width = `auto`
     }
 
     if (instance.options.window_min_height === undefined) {
-      instance.options.window_min_height = "auto"
+      instance.options.window_min_height = `auto`
     }
 
     if (instance.options.window_max_width === undefined) {
-      instance.options.window_max_width = "80vw"
+      instance.options.window_max_width = `80vw`
     }
 
     if (instance.options.window_max_height === undefined) {
-      instance.options.window_max_height = "80vh"
+      instance.options.window_max_height = `80vh`
     }
 
     if (instance.options.window_cursor === undefined) {
-      instance.options.window_cursor = "default"
+      instance.options.window_cursor = `default`
     }
 
     if (instance.options.titlebar_cursor === undefined) {
-      instance.options.titlebar_cursor = "default"
+      instance.options.titlebar_cursor = `default`
     }
 
     if (instance.options.window_unselectable === undefined) {
       instance.options.window_unselectable = false
-    }
-
-    if (instance.options.subsequent_show_effects === undefined) {
-      instance.options.subsequent_show_effects = false
     }
 
     if (instance.options.replace_linebreaks === undefined) {
@@ -486,7 +429,7 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.options.locked_element === undefined) {
-      instance.options.locked_element = "body"
+      instance.options.locked_element = `body`
     }
 
     if (instance.options.disable_transformations === undefined) {
@@ -504,7 +447,7 @@ Msg.factory = function (options = {}) {
 
   instance.check_options()
 
-  instance.created = function () {
+  instance.created = () => {
     if (instance.container === undefined) {
       return false
     }
@@ -512,11 +455,11 @@ Msg.factory = function (options = {}) {
     return true
   }
 
-  instance.close = function (callback = false) {
+  instance.close = (callback = false) => {
     clearTimeout(instance.close_delay_timeout)
 
     if (instance.options.close_delay > 0) {
-      instance.close_delay_timeout = setTimeout(function () {
+      instance.close_delay_timeout = setTimeout(() => {
         instance.do_close(callback)
       }, instance.options.close_delay)
 
@@ -526,7 +469,7 @@ Msg.factory = function (options = {}) {
     instance.do_close(callback)
   }
 
-  instance.do_close = function (callback = false) {
+  instance.do_close = (callback = false) => {
     if (instance.closing) {
       return
     }
@@ -548,84 +491,12 @@ Msg.factory = function (options = {}) {
     }
 
     instance.closing = true
-
     instance.clear_while_open_interval()
-
-    instance.clear_effect_intervals()
-
-    if (instance.options.close_effect === "fade") {
-      if (typeof instance.options.close_effect_duration === "object") {
-        instance.fade_out(function () {
-          instance.overlay_fade_out(function () {
-            instance.close_window(callback)
-          })
-        })
-      } else {
-        if (instance.overlay !== undefined) {
-          instance.fade_out()
-
-          instance.overlay_fade_out(function () {
-            instance.close_window(callback)
-          })
-        } else {
-          instance.overlay_fade_out()
-
-          instance.fade_out(function () {
-            instance.close_window(callback)
-          })
-        }
-      }
-    } else if (instance.options.close_effect === "scale") {
-      if (typeof instance.options.close_effect_duration === "object") {
-        instance.scale_out(function () {
-          instance.overlay_fade_out(function () {
-            instance.close_window(callback)
-          })
-        })
-      } else {
-        if (instance.overlay !== undefined) {
-          instance.scale_out()
-
-          instance.overlay_fade_out(function () {
-            instance.close_window(callback)
-          })
-        } else {
-          instance.overlay_fade_out()
-
-          instance.scale_out(function () {
-            instance.close_window(callback)
-          })
-        }
-      }
-    } else if (instance.options.close_effect.includes("slide")) {
-      if (typeof instance.options.close_effect_duration === "object") {
-        instance.slide_out(function () {
-          instance.overlay_fade_out(function () {
-            instance.close_window(callback)
-          })
-        })
-      } else {
-        if (instance.overlay !== undefined) {
-          instance.slide_out()
-
-          instance.overlay_fade_out(function () {
-            instance.close_window(callback)
-          })
-        } else {
-          instance.overlay_fade_out()
-
-          instance.slide_out(function () {
-            instance.close_window(callback)
-          })
-        }
-      }
-    } else {
-      instance.close_window(callback)
-    }
+    instance.close_window(callback)
   }
 
-  instance.close_window = function (callback) {
-    instance.container.style.display = "none"
+  instance.close_window = (callback) => {
+    instance.container.style.display = `none`
 
     if (instance.overlay !== undefined) {
       instance.overlay.style.zIndex = -1000
@@ -633,13 +504,8 @@ Msg.factory = function (options = {}) {
 
     instance.collapse_vStack()
     instance.collapse_hStack()
-
     instance.window.style.zIndex = -1000
-
     instance.clear_autoclose_progressbar_interval()
-
-    instance.clear_effect_intervals()
-
     instance.check_remove_overflow_hidden()
 
     if (!instance.options.persistent) {
@@ -647,7 +513,6 @@ Msg.factory = function (options = {}) {
     }
 
     instance.options.after_close(instance)
-
     instance.closing = false
 
     if (instance.num_open() === 0) {
@@ -663,7 +528,7 @@ Msg.factory = function (options = {}) {
     }
   }
 
-  instance.set = function (html) {
+  instance.set = (html) => {
     if (html === undefined) {
       return
     }
@@ -674,16 +539,17 @@ Msg.factory = function (options = {}) {
       return
     }
 
-    if (typeof html === "object") {
+    if (typeof html === `object`) {
       if (html instanceof Element) {
-        instance.content.innerHTML = ""
+        instance.content.innerHTML = ``
         instance.content.appendChild(html)
       }
-    } else {
+    }
+    else {
       html = html.toString()
 
       if (instance.options.replace_linebreaks) {
-        html = html.replace(/(\n)/g, "<br>")
+        html = html.replace(/(\n)/g, `<br>`)
       }
 
       instance.content.innerHTML = html
@@ -694,7 +560,7 @@ Msg.factory = function (options = {}) {
     instance.options.after_set(instance)
   }
 
-  instance.set_title = function (html) {
+  instance.set_title = (html) => {
     if (html === undefined) {
       return
     }
@@ -709,16 +575,17 @@ Msg.factory = function (options = {}) {
       return
     }
 
-    if (typeof html === "object") {
+    if (typeof html === `object`) {
       if (html instanceof Element) {
-        instance.titlebar.innerHTML = ""
+        instance.titlebar.innerHTML = ``
         instance.titlebar.appendChild(html)
       }
-    } else {
+    }
+    else {
       html = html.toString()
 
       if (instance.options.replace_linebreaks) {
-        html = html.replace(/(\n)/g, "<br>")
+        html = html.replace(/(\n)/g, `<br>`)
       }
 
       instance.titlebar.innerHTML = html
@@ -729,39 +596,40 @@ Msg.factory = function (options = {}) {
     instance.options.after_set_title(instance)
   }
 
-  instance.hide_titlebar = function () {
+  instance.hide_titlebar = () => {
     if (!instance.topbar) {
       return
     }
 
-    instance.topbar.style.display = "none"
+    instance.topbar.style.display = `none`
   }
 
-  instance.show_titlebar = function () {
+  instance.show_titlebar = () => {
     if (!instance.topbar) {
       return
     }
 
-    instance.topbar.style.display = "flex"
+    instance.topbar.style.display = `flex`
   }
 
-  instance.set_or_show = function (html, callback = false) {
+  instance.set_or_show = (html, callback = false) => {
     if (instance.is_highest()) {
       instance.set(html)
 
       if (callback) {
         return callback()
       }
-    } else {
+    }
+    else {
       instance.show(html, callback)
     }
   }
 
-  instance.show = function (content, callback = false) {
+  instance.show = (content, callback = false) => {
     clearTimeout(instance.show_delay_timeout)
 
     if (instance.options.show_delay > 0) {
-      instance.show_delay_timeout = setTimeout(function () {
+      instance.show_delay_timeout = setTimeout(() => {
         instance.do_show(content, callback)
       }, instance.options.show_delay)
 
@@ -771,13 +639,13 @@ Msg.factory = function (options = {}) {
     instance.do_show(content, callback)
   }
 
-  instance.do_show = function (content, callback = false) {
+  instance.do_show = (content, callback = false) => {
     if (instance.options.close_on_show && instance.is_open()) {
       instance.content_for_close_on_show = content
       instance.callback_for_close_on_show = callback
 
       if (!instance.closing) {
-        instance.close(function () {
+        instance.close(() => {
           instance.show(
             instance.content_for_close_on_show,
             instance.callback_for_close_on_show
@@ -794,12 +662,14 @@ Msg.factory = function (options = {}) {
     let title
     let html
 
-    if (typeof content === "function") {
+    if (typeof content === `function`) {
       callback = content
-    } else if (typeof content === "object" && !(content instanceof Element)) {
+    }
+    else if (typeof content === `object` && !(content instanceof Element)) {
       title = content[0]
       html = content[1]
-    } else {
+    }
+    else {
       html = content
     }
 
@@ -831,7 +701,7 @@ Msg.factory = function (options = {}) {
         instance.close_all()
       }
 
-      instance.container.style.display = "block"
+      instance.container.style.display = `block`
 
       instance.check_add_overflow_hidden()
 
@@ -839,80 +709,15 @@ Msg.factory = function (options = {}) {
 
       instance.reset_props()
 
-      if (instance.options.sideStack === "vertical") {
+      if (instance.options.sideStack === `vertical`) {
         instance.check_vStack()
-      } else if (instance.options.sideStack === "horizontal") {
+      }
+      else if (instance.options.sideStack === `horizontal`) {
         instance.check_hStack()
       }
 
       if (instance.options.while_open !== undefined) {
         instance.start_while_open_interval()
-      }
-    }
-
-    if (first_show || instance.options.subsequent_show_effects) {
-      instance.clear_effect_intervals()
-
-      if (instance.options.show_effect === "fade") {
-        return_callback = false
-
-        if (typeof instance.options.show_effect_duration === "object") {
-          instance.overlay_fade_in(function () {
-            instance.fade_in(function () {
-              if (callback) {
-                return callback(instance)
-              }
-            })
-          })
-        } else {
-          instance.overlay_fade_in()
-
-          instance.fade_in(function () {
-            if (callback) {
-              return callback(instance)
-            }
-          })
-        }
-      } else if (instance.options.show_effect === "scale") {
-        return_callback = false
-
-        if (typeof instance.options.show_effect_duration === "object") {
-          instance.overlay_fade_in(function () {
-            instance.scale_in(function () {
-              if (callback) {
-                return callback(instance)
-              }
-            })
-          })
-        } else {
-          instance.overlay_fade_in()
-
-          instance.scale_in(function () {
-            if (callback) {
-              return callback(instance)
-            }
-          })
-        }
-      } else if (instance.options.show_effect.includes("slide")) {
-        return_callback = false
-
-        if (typeof instance.options.show_effect_duration === "object") {
-          instance.overlay_fade_in(function () {
-            instance.slide_in(function () {
-              if (callback) {
-                return callback(instance)
-              }
-            })
-          })
-        } else {
-          instance.overlay_fade_in()
-
-          instance.slide_in(function () {
-            if (callback) {
-              return callback(instance)
-            }
-          })
-        }
       }
     }
 
@@ -955,7 +760,7 @@ Msg.factory = function (options = {}) {
     }
   }
 
-  instance.toggle = function () {
+  instance.toggle = () => {
     instance.create()
 
     if (instance.options.before_toggle(instance) === false) {
@@ -967,7 +772,7 @@ Msg.factory = function (options = {}) {
     instance.options.after_toggle(instance)
   }
 
-  instance.create = function () {
+  instance.create = () => {
     if (instance.created()) {
       return
     }
@@ -975,7 +780,7 @@ Msg.factory = function (options = {}) {
     if (
       document.getElementById(`Msg-container-${instance.options.id}`) !== null
     ) {
-      throw "Msg Error:The html elements for this id have already been created. Use a different id."
+      throw `Msg Error:The html elements for this id have already been created. Use a different id.`
     }
 
     if (instance.options.before_create(instance) === false) {
@@ -1022,72 +827,81 @@ Msg.factory = function (options = {}) {
     let win_x, win_y, win_trans
 
     if (instance.options.disable_transformations) {
-      win_x = "left:0;"
-      win_y = "top:0;"
-      win_trans = "transform:initial;"
+      win_x = `left:0;`
+      win_y = `top:0;`
+      win_trans = `transform:initial;`
 
       instance.vStackable = false
       instance.hStackable = false
-    } else if (p === "top") {
-      win_x = "left:50%;"
+    }
+    else if (p === `top`) {
+      win_x = `left:50%;`
       win_y = `top:${edge_y}px;`
-      win_trans = "transform:translateX(-50%);"
+      win_trans = `transform:translateX(-50%);`
 
       instance.vStackable = true
       instance.hStackable = false
-    } else if (p === "bottom") {
-      win_x = "left:50%;"
+    }
+    else if (p === `bottom`) {
+      win_x = `left:50%;`
       win_y = `bottom:${edge_y}px;`
-      win_trans = "transform:translateX(-50%);"
+      win_trans = `transform:translateX(-50%);`
 
       instance.vStackable = true
       instance.hStackable = false
-    } else if (p === "left") {
+    }
+    else if (p === `left`) {
       win_x = `left:${edge_x}px;`
-      win_y = "top:50%;"
-      win_trans = "transform:translateY(-50%);"
+      win_y = `top:50%;`
+      win_trans = `transform:translateY(-50%);`
 
       instance.vStackable = false
       instance.hStackable = true
-    } else if (p === "right") {
+    }
+    else if (p === `right`) {
       win_x = `right:${edge_x}px;`
-      win_y = "top:50%;"
-      win_trans = "transform:translateY(-50%);"
+      win_y = `top:50%;`
+      win_trans = `transform:translateY(-50%);`
 
       instance.vStackable = false
       instance.hStackable = true
-    } else if (p === "topleft") {
+    }
+    else if (p === `topleft`) {
       win_x = `left:${edge_x}px;`
       win_y = `top:${edge_y}px;`
-      win_trans = ""
+      win_trans = ``
 
       instance.vStackable = true
       instance.hStackable = true
-    } else if (p === "topright") {
+    }
+    else if (p === `topright`) {
       win_x = `right:${edge_x}px;`
       win_y = `top:${edge_y}px;`
-      win_trans = ""
+      win_trans = ``
 
       instance.vStackable = true
       instance.hStackable = true
-    } else if (p === "bottomleft") {
+    }
+    else if (p === `bottomleft`) {
       win_x = `left:${edge_x}px;`
       win_y = `bottom:${edge_y}px;`
-      win_trans = ""
+      win_trans = ``
 
       instance.vStackable = true
       instance.hStackable = true
-    } else if (p === "bottomright") {
+    }
+    else if (p === `bottomright`) {
       win_x = `right:${edge_x}px;`
       win_y = `bottom:${edge_y}px;`
-      win_trans = ""
+      win_trans = ``
 
       instance.vStackable = true
       instance.hStackable = true
-    } else {
-      win_x = "left:50%;"
-      win_y = "top:50%;"
-      win_trans = "transform:translate(-50%, -50%);"
+    }
+    else {
+      win_x = `left:50%;`
+      win_y = `top:50%;`
+      win_trans = `transform:translate(-50%, -50%);`
 
       instance.vStackable = false
       instance.hStackable = false
@@ -1097,9 +911,10 @@ Msg.factory = function (options = {}) {
 
     if (instance.options.window_unselectable) {
       wun =
-        "-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;"
-    } else {
-      wun = ""
+        `-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;`
+    }
+    else {
+      wun = ``
     }
 
     styles.window = `
@@ -1128,28 +943,28 @@ Msg.factory = function (options = {}) {
 		display:flex;
 		flex-direction:row;
 		`
-    let padl = "padding-left:0.4em;"
-    let padr = "padding-right:0.4em;"
-    let justcnt = ""
+    let padl = `padding-left:0.4em;`
+    let padr = `padding-right:0.4em;`
+    let justcnt = ``
 
     if (instance.options.center_titlebar) {
-      justcnt = "justify-content:center"
+      justcnt = `justify-content:center`
     }
 
     if (
       instance.options.center_titlebar &&
-      instance.options.window_x === "inner_right"
+      instance.options.window_x === `inner_right`
     ) {
-      padl = "padding-left:50.78px;"
-      padr = "padding-right:10.78px;"
+      padl = `padding-left:50.78px;`
+      padr = `padding-right:10.78px;`
     }
 
     if (
       instance.options.center_titlebar &&
-      instance.options.window_x === "inner_left"
+      instance.options.window_x === `inner_left`
     ) {
-      padl = "padding-left:10.78px;"
-      padr = "padding-right:50.78px;"
+      padl = `padding-left:10.78px;`
+      padr = `padding-right:50.78px;`
     }
 
     styles.titlebar = `
@@ -1171,12 +986,13 @@ Msg.factory = function (options = {}) {
 
     let ix_order, ix_margin
 
-    if (instance.options.window_x.includes("left")) {
-      ix_order = "1"
-      ix_margin = ""
-    } else {
-      ix_order = "3"
-      ix_margin = "auto"
+    if (instance.options.window_x.includes(`left`)) {
+      ix_order = `1`
+      ix_margin = ``
+    }
+    else {
+      ix_order = `3`
+      ix_margin = `auto`
     }
 
     styles.window_inner_x = `
@@ -1200,12 +1016,13 @@ Msg.factory = function (options = {}) {
 
     let fs, fms
 
-    if (instance.options.window_x.includes("left")) {
-      fs = "left:0px;"
-      fms = "margin-left:-10px;"
-    } else {
-      fs = "right:0px;"
-      fms = "margin-right:-10px;"
+    if (instance.options.window_x.includes(`left`)) {
+      fs = `left:0px;`
+      fms = `margin-left:-10px;`
+    }
+    else {
+      fs = `right:0px;`
+      fms = `margin-right:-10px;`
     }
 
     styles.window_floating_x = `
@@ -1239,10 +1056,10 @@ Msg.factory = function (options = {}) {
     transition:all 0.3s ease;
 		`
 
-    let overflow_y = "auto"
+    let overflow_y = `auto`
 
-    if (instance.options.preset === "window") {
-      overflow_y = "hidden"
+    if (instance.options.preset === `window`) {
+      overflow_y = `hidden`
     }
 
     styles.content_container = `
@@ -1257,19 +1074,21 @@ Msg.factory = function (options = {}) {
     let pad
 
     if (instance.options.disable_content_padding) {
-      pad = "padding:0;"
-    } else {
-      pad = "padding:1.2rem;"
+      pad = `padding:0;`
+    }
+    else {
+      pad = `padding:1.2rem;`
     }
 
     let cwid, chgt
 
     if (instance.options.full_content) {
-      cwid = "width:100%;"
-      chgt = "height:100%;"
-    } else {
-      cwid = ""
-      chgt = ""
+      cwid = `width:100%;`
+      chgt = `height:100%;`
+    }
+    else {
+      cwid = ``
+      chgt = ``
     }
 
     styles.content = `
@@ -1342,60 +1161,60 @@ Msg.factory = function (options = {}) {
 
     container_class = container_class
       .split(/\s+/)
-      .map((w) => (w.startsWith("!") ? w.substring(1) : `Msg-container-${w}`))
-      .join(" ")
+      .map((w) => (w.startsWith(`!`) ? w.substring(1) : `Msg-container-${w}`))
+      .join(` `)
     overlay_class = overlay_class
       .split(/\s+/)
-      .map((w) => (w.startsWith("!") ? w.substring(1) : `Msg-overlay-${w}`))
-      .join(" ")
+      .map((w) => (w.startsWith(`!`) ? w.substring(1) : `Msg-overlay-${w}`))
+      .join(` `)
     overlay_x_class = overlay_x_class
       .split(/\s+/)
-      .map((w) => (w.startsWith("!") ? w.substring(1) : `Msg-overlay-x-${w}`))
-      .join(" ")
+      .map((w) => (w.startsWith(`!`) ? w.substring(1) : `Msg-overlay-x-${w}`))
+      .join(` `)
     window_class = window_class
       .split(/\s+/)
-      .map((w) => (w.startsWith("!") ? w.substring(1) : `Msg-window-${w}`))
-      .join(" ")
+      .map((w) => (w.startsWith(`!`) ? w.substring(1) : `Msg-window-${w}`))
+      .join(` `)
     topbar_class = topbar_class
       .split(/\s+/)
-      .map((w) => (w.startsWith("!") ? w.substring(1) : `Msg-topbar-${w}`))
-      .join(" ")
+      .map((w) => (w.startsWith(`!`) ? w.substring(1) : `Msg-topbar-${w}`))
+      .join(` `)
     titlebar_class = titlebar_class
       .split(/\s+/)
-      .map((w) => (w.startsWith("!") ? w.substring(1) : `Msg-titlebar-${w}`))
-      .join(" ")
+      .map((w) => (w.startsWith(`!`) ? w.substring(1) : `Msg-titlebar-${w}`))
+      .join(` `)
     window_inner_x_class = window_inner_x_class
       .split(/\s+/)
       .map((w) =>
-        w.startsWith("!") ? w.substring(1) : `Msg-window-inner-x-${w}`
+        w.startsWith(`!`) ? w.substring(1) : `Msg-window-inner-x-${w}`
       )
-      .join(" ")
+      .join(` `)
     window_floating_x_class = window_floating_x_class
       .split(/\s+/)
       .map((w) =>
-        w.startsWith("!") ? w.substring(1) : `Msg-window-floating-x-${w}`
+        w.startsWith(`!`) ? w.substring(1) : `Msg-window-floating-x-${w}`
       )
-      .join(" ")
+      .join(` `)
     content_container_class = content_container_class
       .split(/\s+/)
       .map((w) =>
-        w.startsWith("!") ? w.substring(1) : `Msg-content-container-${w}`
+        w.startsWith(`!`) ? w.substring(1) : `Msg-content-container-${w}`
       )
-      .join(" ")
+      .join(` `)
     content_class = content_class
       .split(/\s+/)
-      .map((w) => (w.startsWith("!") ? w.substring(1) : `Msg-content-${w}`))
-      .join(" ")
+      .map((w) => (w.startsWith(`!`) ? w.substring(1) : `Msg-content-${w}`))
+      .join(` `)
     progressbar_container_class = progressbar_container_class
       .split(/\s+/)
       .map((w) =>
-        w.startsWith("!") ? w.substring(1) : `Msg-progressbar-container-${w}`
+        w.startsWith(`!`) ? w.substring(1) : `Msg-progressbar-container-${w}`
       )
-      .join(" ")
+      .join(` `)
     progressbar_class = progressbar_class
       .split(/\s+/)
-      .map((w) => (w.startsWith("!") ? w.substring(1) : `Msg-progressbar-${w}`))
-      .join(" ")
+      .map((w) => (w.startsWith(`!`) ? w.substring(1) : `Msg-progressbar-${w}`))
+      .join(` `)
 
     let container_html = `<div class="Msg-container ${container_class}" style="${styles.container}" id="Msg-container-${instance.options.id}"></div>`
     let overlay_html = `<div class="Msg-overlay ${overlay_class}" style="${styles.overlay}" id="Msg-overlay-${instance.options.id}"></div>`
@@ -1410,75 +1229,75 @@ Msg.factory = function (options = {}) {
     let progressbar_container_html = `<div class="Msg-progressbar-container ${progressbar_container_class}" style="${styles.progressbar_container}" id="Msg-progressbar-container-${instance.options.id}"></div>`
     let progressbar_html = `<div class="Msg-progressbar ${progressbar_class}" style="${styles.progressbar}" id="Msg-progressbar-${instance.options.id}"></div>`
 
-    document.body.insertAdjacentHTML("beforeend", container_html)
+    document.body.insertAdjacentHTML(`beforeend`, container_html)
 
     instance.container = document.getElementById(
       `Msg-container-${instance.options.id}`
     )
 
     if (instance.options.enable_overlay) {
-      instance.container.insertAdjacentHTML("beforeend", overlay_html)
+      instance.container.insertAdjacentHTML(`beforeend`, overlay_html)
       instance.overlay = document.getElementById(
         `Msg-overlay-${instance.options.id}`
       )
 
-      if (instance.options.overlay_x !== "none") {
-        instance.overlay.insertAdjacentHTML("beforeend", overlay_x_html)
+      if (instance.options.overlay_x !== `none`) {
+        instance.overlay.insertAdjacentHTML(`beforeend`, overlay_x_html)
         instance.overlay_x = document.getElementById(
           `Msg-overlay-x-${instance.options.id}`
         )
       }
     }
 
-    instance.container.insertAdjacentHTML("beforeend", window_html)
+    instance.container.insertAdjacentHTML(`beforeend`, window_html)
     instance.window = document.getElementById(
       `Msg-window-${instance.options.id}`
     )
 
     if (
       instance.options.enable_titlebar ||
-      instance.options.window_x.includes("inner")
+      instance.options.window_x.includes(`inner`)
     ) {
-      instance.window.insertAdjacentHTML("beforeend", topbar_html)
+      instance.window.insertAdjacentHTML(`beforeend`, topbar_html)
       instance.topbar = document.getElementById(
         `Msg-topbar-${instance.options.id}`
       )
 
       if (instance.options.enable_titlebar) {
-        instance.topbar.insertAdjacentHTML("beforeend", titlebar_html)
+        instance.topbar.insertAdjacentHTML(`beforeend`, titlebar_html)
         instance.titlebar = document.getElementById(
           `Msg-titlebar-${instance.options.id}`
         )
       }
 
-      if (instance.options.window_x.includes("inner")) {
-        instance.topbar.insertAdjacentHTML("beforeend", window_inner_x_html)
+      if (instance.options.window_x.includes(`inner`)) {
+        instance.topbar.insertAdjacentHTML(`beforeend`, window_inner_x_html)
         instance.window_inner_x = document.getElementById(
           `Msg-window-inner-x-${instance.options.id}`
         )
       }
     }
 
-    if (instance.options.window_x.includes("floating")) {
-      instance.window.insertAdjacentHTML("afterbegin", window_floating_x_html)
+    if (instance.options.window_x.includes(`floating`)) {
+      instance.window.insertAdjacentHTML(`afterbegin`, window_floating_x_html)
       instance.window_floating_x = document.getElementById(
         `Msg-window-floating-x-${instance.options.id}`
       )
     }
 
-    instance.window.insertAdjacentHTML("beforeend", content_container_html)
+    instance.window.insertAdjacentHTML(`beforeend`, content_container_html)
     instance.content_container = document.getElementById(
       `Msg-content-container-${instance.options.id}`
     )
 
-    instance.content_container.insertAdjacentHTML("beforeend", content_html)
+    instance.content_container.insertAdjacentHTML(`beforeend`, content_html)
     instance.content = document.getElementById(
       `Msg-content-${instance.options.id}`
     )
 
     if (instance.options.enable_progressbar) {
       instance.window.insertAdjacentHTML(
-        "beforeend",
+        `beforeend`,
         progressbar_container_html
       )
       instance.progressbar_container = document.getElementById(
@@ -1486,7 +1305,7 @@ Msg.factory = function (options = {}) {
       )
 
       instance.progressbar_container.insertAdjacentHTML(
-        "beforeend",
+        `beforeend`,
         progressbar_html
       )
       instance.progressbar = document.getElementById(
@@ -1495,7 +1314,7 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.overlay !== undefined) {
-      instance.overlay.addEventListener("click", function () {
+      instance.overlay.addEventListener(`click`, () => {
         if (instance.options.close_on_overlay_click) {
           instance.options.on_overlay_click(instance)
           instance.close()
@@ -1504,7 +1323,7 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.titlebar !== undefined) {
-      instance.titlebar.addEventListener("click", function () {
+      instance.titlebar.addEventListener(`click`, () => {
         if (instance.options.close_on_titlebar_click) {
           instance.options.on_titlebar_click(instance)
           instance.close()
@@ -1512,39 +1331,40 @@ Msg.factory = function (options = {}) {
       })
     }
 
-    instance.window.addEventListener("click", function (e) {
+    instance.window.addEventListener(`click`, (e) => {
       instance.options.on_click(instance)
     })
 
-    instance.window.addEventListener("wheel", function (e) {
-      let direction = e.deltaY > 0 ? "down" : "up"
+    instance.window.addEventListener(`wheel`, (e) => {
+      let direction = e.deltaY > 0 ? `down` : `up`
 
-      if (direction === "down") {
+      if (direction === `down`) {
         instance.options.on_wheel_down(instance)
-      } else if (direction === "up") {
+      }
+      else if (direction === `up`) {
         instance.options.on_wheel_up(instance)
       }
     })
 
-    instance.window.addEventListener("auxclick", function (e) {
+    instance.window.addEventListener(`auxclick`, (e) => {
       if (e.which === 2) {
         instance.options.on_middle_click(instance)
       }
     })
 
-    instance.content.addEventListener("mousedown", function (e) {
+    instance.content.addEventListener(`mousedown`, (e) => {
       if (!instance.click_enabled) {
-        let captureClick = function (e) {
+        let captureClick = (e) => {
           e.stopPropagation()
-          this.removeEventListener("click", captureClick, true)
+          this.removeEventListener(`click`, captureClick, true)
         }
 
-        instance.window.addEventListener("click", captureClick, true)
+        instance.window.addEventListener(`click`, captureClick, true)
       }
     })
 
     if (instance.window_inner_x !== undefined) {
-      instance.window_inner_x.addEventListener("click", function (e) {
+      instance.window_inner_x.addEventListener(`click`, (e) => {
         instance.options.on_x_button_click(instance)
         instance.close()
         e.stopPropagation()
@@ -1553,7 +1373,7 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.window_floating_x !== undefined) {
-      instance.window_floating_x.addEventListener("click", function (e) {
+      instance.window_floating_x.addEventListener(`click`, (e) => {
         instance.options.on_x_button_click(instance)
         instance.close()
         e.stopPropagation()
@@ -1562,7 +1382,7 @@ Msg.factory = function (options = {}) {
     }
 
     if (instance.overlay_x !== undefined) {
-      instance.overlay_x.addEventListener("click", function (e) {
+      instance.overlay_x.addEventListener(`click`, (e) => {
         instance.options.on_x_button_click(instance)
         instance.close()
         e.stopPropagation()
@@ -1573,12 +1393,12 @@ Msg.factory = function (options = {}) {
     instance.options.after_create(instance)
   }
 
-  instance.recreate = function () {
+  instance.recreate = () => {
     instance.destroy()
     instance.create()
   }
 
-  instance.destroy = function () {
+  instance.destroy = () => {
     if (instance.created()) {
       if (instance.options.before_destroy(instance) === false) {
         return
@@ -1604,15 +1424,16 @@ Msg.factory = function (options = {}) {
     }
   }
 
-  instance.is_open = function () {
-    if (!instance.created() || instance.container.style.display === "none") {
+  instance.is_open = () => {
+    if (!instance.created() || instance.container.style.display === `none`) {
       return false
-    } else {
+    }
+    else {
       return true
     }
   }
 
-  instance.any_open = function () {
+  instance.any_open = () => {
     for (let inst of Msg.instances) {
       if (inst.is_open()) {
         return true
@@ -1622,7 +1443,7 @@ Msg.factory = function (options = {}) {
     return false
   }
 
-  instance.any_higher_open = function () {
+  instance.any_higher_open = () => {
     for (let inst of Msg.instances) {
       if (inst.options.zStack_level === 2) {
         if (inst.is_open()) {
@@ -1634,7 +1455,7 @@ Msg.factory = function (options = {}) {
     return false
   }
 
-  instance.any_lower_open = function () {
+  instance.any_lower_open = () => {
     for (let inst of Msg.instances) {
       if (inst.options.zStack_level === 1) {
         if (inst.is_open()) {
@@ -1646,7 +1467,7 @@ Msg.factory = function (options = {}) {
     return false
   }
 
-  instance.num_open = function () {
+  instance.num_open = () => {
     let num_open = 0
 
     for (let inst of Msg.instances) {
@@ -1658,7 +1479,7 @@ Msg.factory = function (options = {}) {
     return num_open
   }
 
-  instance.num_open_higher = function () {
+  instance.num_open_higher = () => {
     let num_open = 0
 
     for (let inst of Msg.instances) {
@@ -1672,7 +1493,7 @@ Msg.factory = function (options = {}) {
     return num_open
   }
 
-  instance.num_open_lower = function () {
+  instance.num_open_lower = () => {
     let num_open = 0
 
     for (let inst of Msg.instances) {
@@ -1686,114 +1507,121 @@ Msg.factory = function (options = {}) {
     return num_open
   }
 
-  instance.show_all = function () {
+  instance.show_all = () => {
     for (let i = 0; i < Msg.instances.length; i++) {
       Msg.instances[i].show()
     }
   }
 
-  instance.close_all = function (callback = false) {
+  instance.close_all = (callback = false) => {
     if (!instance.any_open()) {
       if (callback) {
         return callback()
-      } else {
+      }
+      else {
         return false
       }
     }
 
     for (let i = 0; i < Msg.instances.length; i++) {
       if (callback) {
-        Msg.instances[i].close(function () {
+        Msg.instances[i].close(() => {
           if (!instance.any_open()) {
             return callback()
           }
         })
-      } else {
+      }
+      else {
         Msg.instances[i].close()
       }
     }
   }
 
-  instance.close_all_higher = function (callback = false) {
+  instance.close_all_higher = (callback = false) => {
     if (!instance.any_higher_open()) {
       if (callback) {
         return callback()
-      } else {
+      }
+      else {
         return false
       }
     }
 
     for (let higher of instance.higher_instances()) {
       if (callback) {
-        higher.close(function () {
+        higher.close(() => {
           if (!instance.any_higher_open()) {
             return callback()
           }
         })
-      } else {
+      }
+      else {
         higher.close()
       }
     }
   }
 
-  instance.close_all_lower = function (callback = false) {
+  instance.close_all_lower = (callback = false) => {
     if (!instance.any_lower_open()) {
       if (callback) {
         return callback()
-      } else {
+      }
+      else {
         return false
       }
     }
 
     for (let lower of instance.lower_instances()) {
       if (callback) {
-        lower.close(function () {
+        lower.close(() => {
           if (!instance.any_lower_open()) {
             return callback()
           }
         })
-      } else {
+      }
+      else {
         lower.close()
       }
     }
   }
 
-  instance.create_all = function () {
+  instance.create_all = () => {
     for (let i = 0; i < Msg.instances.length; i++) {
       Msg.instances[i].create()
     }
   }
 
-  instance.recreate_all = function () {
+  instance.recreate_all = () => {
     for (let i = 0; i < Msg.instances.length; i++) {
       Msg.instances[i].recreate()
     }
   }
 
-  instance.destroy_all = function () {
+  instance.destroy_all = () => {
     for (let i = 0; i < Msg.instances.length; i++) {
       Msg.instances[i].destroy()
     }
   }
 
-  instance.common_zIndex = function (zIndex) {
+  instance.common_zIndex = (zIndex) => {
     zIndex = parseInt(zIndex)
 
     let common
 
     if (zIndex > 0) {
       common = parseInt(zIndex.toString().substring(1))
-    } else {
+    }
+    else {
       common = -2000
     }
 
     return common
   }
 
-  instance.highest_zIndex = function () {
+  instance.highest_zIndex = () => {
     let highest = -2000
 
-    let windows = Array.from(document.querySelectorAll(".Msg-window"))
+    let windows = Array.from(document.querySelectorAll(`.Msg-window`))
 
     for (let i = 0; i < windows.length; i++) {
       let zIndex = parseInt(windows[i].style.zIndex)
@@ -1806,7 +1634,7 @@ Msg.factory = function (options = {}) {
     return parseInt(highest)
   }
 
-  instance.highest_instance = function () {
+  instance.highest_instance = () => {
     let zIndex = instance.highest_zIndex()
 
     if (zIndex < 0) {
@@ -1824,10 +1652,10 @@ Msg.factory = function (options = {}) {
     return false
   }
 
-  instance.highest_common_zIndex = function () {
+  instance.highest_common_zIndex = () => {
     let highest = -2000
 
-    let windows = Array.from(document.querySelectorAll(".Msg-window"))
+    let windows = Array.from(document.querySelectorAll(`.Msg-window`))
 
     for (let i = 0; i < windows.length; i++) {
       let zIndex = instance.common_zIndex(windows[i].style.zIndex)
@@ -1840,7 +1668,7 @@ Msg.factory = function (options = {}) {
     return highest
   }
 
-  instance.is_highest = function () {
+  instance.is_highest = () => {
     if (instance.is_open()) {
       let zIndex = instance.highest_zIndex()
 
@@ -1852,31 +1680,31 @@ Msg.factory = function (options = {}) {
     return false
   }
 
-  instance.html = function () {
+  instance.html = () => {
     if (instance.created()) {
       return instance.content.innerHTML
     }
 
-    return ""
+    return ``
   }
 
-  instance.title_html = function () {
+  instance.title_html = () => {
     if (instance.titlebar !== undefined) {
       return instance.titlebar.innerHTML
     }
 
-    return ""
+    return ``
   }
 
-  instance.check_add_overflow_hidden = function () {
+  instance.check_add_overflow_hidden = () => {
     if (instance.options.lock) {
       document
         .querySelector(instance.options.locked_element)
-        .classList.add("Msg-overflow-hidden")
+        .classList.add(`Msg-overflow-hidden`)
     }
   }
 
-  instance.check_remove_overflow_hidden = function () {
+  instance.check_remove_overflow_hidden = () => {
     for (let i of Msg.instances) {
       if (i.is_open()) {
         if (i.options.lock) {
@@ -1887,10 +1715,10 @@ Msg.factory = function (options = {}) {
 
     document
       .querySelector(instance.options.locked_element)
-      .classList.remove("Msg-overflow-hidden")
+      .classList.remove(`Msg-overflow-hidden`)
   }
 
-  instance.to_top = function () {
+  instance.to_top = () => {
     if (instance.is_open()) {
       let zIndex = parseInt(instance.window.style.zIndex)
 
@@ -1900,7 +1728,8 @@ Msg.factory = function (options = {}) {
 
       if (instance.options.zStack_level === 1) {
         highest = Math.max(5000000, 5000000 + highest_common)
-      } else {
+      }
+      else {
         highest = Math.max(50000000, 50000000 + highest_common)
       }
 
@@ -1914,11 +1743,11 @@ Msg.factory = function (options = {}) {
     }
   }
 
-  instance.instances = function () {
+  instance.instances = () => {
     return Msg.instances
   }
 
-  instance.higher_instances = function () {
+  instance.higher_instances = () => {
     let instances = []
 
     for (let inst of Msg.instances) {
@@ -1930,7 +1759,7 @@ Msg.factory = function (options = {}) {
     return instances
   }
 
-  instance.lower_instances = function () {
+  instance.lower_instances = () => {
     let instances = []
 
     for (let inst of Msg.instances) {
@@ -1942,7 +1771,7 @@ Msg.factory = function (options = {}) {
     return instances
   }
 
-  instance.get_instance_by_id = function (id) {
+  instance.get_instance_by_id = (id) => {
     for (let i of Msg.instances) {
       if (i.options.id == id) {
         return i
@@ -1950,31 +1779,31 @@ Msg.factory = function (options = {}) {
     }
   }
 
-  instance.temp_disable_close_timer = function () {
-    instance.temp_disable_close_timeout = setTimeout(function () {
+  instance.temp_disable_close_timer = () => {
+    instance.temp_disable_close_timeout = setTimeout(() => {
       instance.close_enabled = true
     }, instance.options.temp_disable_close_delay)
   }
 
-  instance.temp_disable_click_timer = function () {
-    instance.temp_disable_click_timeout = setTimeout(function () {
+  instance.temp_disable_click_timer = () => {
+    instance.temp_disable_click_timeout = setTimeout(() => {
       instance.click_enabled = true
     }, instance.options.temp_disable_click_delay)
   }
 
-  instance.temp_disable_keys_timer = function () {
-    instance.temp_disable_keys_timeout = setTimeout(function () {
+  instance.temp_disable_keys_timer = () => {
+    instance.temp_disable_keys_timeout = setTimeout(() => {
       instance.keys_enabled = true
     }, instance.options.temp_disable_keys_delay)
   }
 
-  instance.autoclose_timer = function () {
-    instance.autoclose_timeout = setTimeout(function () {
+  instance.autoclose_timer = () => {
+    instance.autoclose_timeout = setTimeout(() => {
       instance.close()
     }, instance.options.autoclose_delay)
   }
 
-  instance.reset_timers = function () {
+  instance.reset_timers = () => {
     clearTimeout(instance.temp_disable_close_timeout)
     clearTimeout(instance.temp_disable_click_timeout)
     clearTimeout(instance.temp_disable_keys_timeout)
@@ -1985,19 +1814,19 @@ Msg.factory = function (options = {}) {
     instance.keys_enabled = true
   }
 
-  instance.clear_autoclose_progressbar_interval = function () {
+  instance.clear_autoclose_progressbar_interval = () => {
     clearInterval(instance.progressbar_animation)
   }
 
-  instance.animate_autoclose_progressbar = function () {
+  instance.animate_autoclose_progressbar = () => {
     instance.clear_autoclose_progressbar_interval()
 
     if (instance.options.reverse_autoclose_progressbar) {
       let percentage = 0
 
-      instance.progressbar.style.width = "0%"
+      instance.progressbar.style.width = `0%`
 
-      instance.progressbar_animation = setInterval(function () {
+      instance.progressbar_animation = setInterval(() => {
         if (!instance.created()) {
           clearInterval(instance.progressbar_animation)
         }
@@ -2010,12 +1839,13 @@ Msg.factory = function (options = {}) {
           clearInterval(instance.progressbar_animation)
         }
       }, instance.options.autoclose_delay / 100)
-    } else {
+    }
+    else {
       let percentage = 100
 
-      instance.progressbar.style.width = "100%"
+      instance.progressbar.style.width = `100%`
 
-      instance.progressbar_animation = setInterval(function () {
+      instance.progressbar_animation = setInterval(() => {
         if (!instance.created()) {
           clearInterval(instance.progressbar_animation)
         }
@@ -2031,7 +1861,7 @@ Msg.factory = function (options = {}) {
     }
   }
 
-  instance.set_progress = function (percentage) {
+  instance.set_progress = (percentage) => {
     if (percentage === undefined) {
       return
     }
@@ -2059,7 +1889,7 @@ Msg.factory = function (options = {}) {
     instance.options.after_set_progress(instance)
   }
 
-  instance.get_progress = function () {
+  instance.get_progress = () => {
     if (instance.progressbar === undefined) {
       return
     }
@@ -2069,21 +1899,7 @@ Msg.factory = function (options = {}) {
     )
   }
 
-  instance.clear_effect_intervals = function () {
-    clearInterval(instance.overlay_fade_in_interval)
-    clearInterval(instance.overlay_fade_out_interval)
-    clearInterval(instance.fade_in_interval)
-    clearInterval(instance.fade_out_interval)
-    clearInterval(instance.scale_in_interval)
-    clearInterval(instance.scale_out_interval)
-    clearInterval(instance.slide_in_interval)
-    clearInterval(instance.slide_out_interval)
-
-    instance.slide_in_ongoing = false
-    instance.slide_in_direction = undefined
-  }
-
-  instance.reset_props = function () {
+  instance.reset_props = () => {
     if (instance.overlay !== undefined) {
       instance.overlay.style.opacity = 1
     }
@@ -2092,889 +1908,51 @@ Msg.factory = function (options = {}) {
     instance.window.style.zoom = 1
   }
 
-  instance.resolve_effect_duration = function (n, duration) {
-    if (typeof duration === "object") {
-      return duration[n]
-    } else {
-      return duration
-    }
-  }
-
-  instance.overlay_fade_in = function (callback) {
-    let speed =
-      instance.resolve_effect_duration(
-        0,
-        instance.options.show_effect_duration
-      ) / 20
-
-    if (instance.overlay === undefined || speed === 0) {
-      if (instance.overlay !== undefined) {
-        instance.overlay.style.opacity = 1
-      }
-
-      if (callback) {
-        return callback()
-      }
-
-      return
-    }
-
-    instance.overlay.style.opacity = 0
-    instance.window.style.opacity = 0
-
-    let opacity = 0
-
-    instance.overlay_fade_in_interval = setInterval(function () {
-      if (!instance.created()) {
-        instance.clear_effect_intervals()
-        return
-      }
-
-      opacity += 0.05
-
-      instance.overlay.style.opacity = opacity
-
-      if (opacity >= 1) {
-        clearInterval(instance.overlay_fade_in_interval)
-
-        if (callback) {
-          return callback()
-        }
-      }
-    }, speed)
-  }
-
-  instance.overlay_fade_out = function (callback) {
-    let speed =
-      instance.resolve_effect_duration(
-        1,
-        instance.options.close_effect_duration
-      ) / 20
-
-    if (
-      instance.overlay === undefined ||
-      speed === 0 ||
-      instance.overlay.style.opacity == 0
-    ) {
-      if (instance.overlay !== undefined) {
-        instance.overlay.style.opacity = 0
-      }
-
-      if (callback) {
-        return callback()
-      }
-
-      return
-    }
-
-    let opacity = Number(instance.overlay.style.opacity)
-
-    instance.overlay_fade_out_interval = setInterval(function () {
-      if (!instance.created()) {
-        instance.clear_effect_intervals()
-        return
-      }
-
-      opacity -= 0.05
-
-      instance.overlay.style.opacity = opacity
-
-      if (opacity <= 0) {
-        clearInterval(instance.overlay_fade_out_interval)
-
-        if (callback) {
-          return callback()
-        }
-      }
-    }, speed)
-  }
-
-  instance.fade_in = function (callback) {
-    let speed =
-      instance.resolve_effect_duration(
-        1,
-        instance.options.show_effect_duration
-      ) / 20
-
-    if (speed === 0) {
-      instance.window.style.opacity = 1
-
-      if (callback) {
-        return callback()
-      }
-
-      return
-    }
-
-    instance.window.style.opacity = 0
-
-    let opacity = 0
-
-    instance.fade_in_interval = setInterval(function () {
-      if (!instance.created()) {
-        instance.clear_effect_intervals()
-        return
-      }
-
-      opacity += 0.05
-
-      instance.window.style.opacity = opacity
-
-      if (opacity >= 1) {
-        clearInterval(instance.fade_in_interval)
-
-        if (callback) {
-          return callback()
-        }
-      }
-    }, speed)
-  }
-
-  instance.fade_out = function (callback) {
-    let speed =
-      instance.resolve_effect_duration(
-        0,
-        instance.options.close_effect_duration
-      ) / 20
-
-    if (speed === 0 || instance.window.style.opacity == 0) {
-      instance.window.style.opacity = 0
-
-      if (callback) {
-        return callback()
-      }
-
-      return
-    }
-
-    let opacity = Number(instance.window.style.opacity)
-
-    instance.fade_out_interval = setInterval(function () {
-      if (!instance.created()) {
-        instance.clear_effect_intervals()
-        return
-      }
-
-      opacity -= 0.05
-
-      instance.window.style.opacity = opacity
-
-      if (opacity <= 0) {
-        clearInterval(instance.fade_out_interval)
-
-        if (callback) {
-          return callback()
-        }
-      }
-    }, speed)
-  }
-
-  instance.scale_in = function (callback) {
-    let speed =
-      instance.resolve_effect_duration(
-        1,
-        instance.options.show_effect_duration
-      ) / 25
-
-    if (speed === 0) {
-      instance.window.style.opacity = 1
-
-      if (callback) {
-        return callback()
-      }
-
-      return
-    }
-
-    let scale = 0.5
-
-    let transform = instance.window.style.transform
-
-    let split = transform.split(")")
-
-    let new_transform = ""
-
-    for (let s of split) {
-      s = s.trim()
-
-      if (s !== "" && !s.includes("scale")) {
-        new_transform += `${s}) `
-      }
-    }
-
-    new_transform = new_transform.trim()
-
-    instance.window.style.transform = new_transform + ` scale(${scale})`
-
-    instance.window.style.opacity = 0
-
-    let winopacity = 0
-
-    instance.scale_in_interval = setInterval(function () {
-      if (!instance.created()) {
-        instance.clear_effect_intervals()
-        return
-      }
-
-      scale += 0.02
-
-      instance.window.style.transform = new_transform + ` scale(${scale})`
-
-      winopacity += 0.04
-
-      instance.window.style.opacity = winopacity
-
-      if (scale >= 1) {
-        clearInterval(instance.scale_in_interval)
-
-        if (callback) {
-          return callback()
-        }
-      }
-    }, speed)
-  }
-
-  instance.scale_out = function (callback) {
-    let speed =
-      instance.resolve_effect_duration(
-        0,
-        instance.options.close_effect_duration
-      ) / 25
-
-    if (speed === 0 || instance.window.style.opacity == 0) {
-      instance.window.style.opacity = 0
-
-      if (callback) {
-        return callback()
-      }
-
-      return
-    }
-
-    let scale = 1
-
-    let transform = instance.window.style.transform
-
-    let split = transform.split(")")
-
-    let new_transform = ""
-
-    for (let s of split) {
-      s = s.trim()
-
-      if (s !== "" && !s.includes("scale")) {
-        new_transform += `${s}) `
-      }
-    }
-
-    let winopacity = Number(instance.window.style.opacity)
-
-    new_transform = new_transform.trim()
-
-    instance.window.style.transform = new_transform + ` scale(${scale})`
-
-    instance.scale_out_interval = setInterval(function () {
-      if (!instance.created()) {
-        instance.clear_effect_intervals()
-        return
-      }
-
-      scale -= 0.02
-
-      instance.window.style.transform = new_transform + ` scale(${scale})`
-
-      winopacity -= 0.04
-
-      instance.window.style.opacity = winopacity
-
-      if (scale <= 0.5) {
-        clearInterval(instance.scale_out_interval)
-
-        if (callback) {
-          return callback()
-        }
-      }
-    }, speed)
-  }
-
-  instance.slide_in = function (callback) {
-    let speed = instance.resolve_effect_duration(
-      1,
-      instance.options.show_effect_duration
-    )
-
-    instance.window.style.opacity = 1
-
-    if (speed === 0) {
-      if (callback) {
-        return callback()
-      }
-
-      return
-    }
-
-    let direction = instance.options.show_effect.split("_")[1]
-
-    instance.slide_in_ongoing = true
-    instance.slide_direction = direction
-
-    let p = instance.options.position
-
-    let pos = false
-    let spos = false
-    let diff = false
-
-    if (p === "bottom") {
-      if (direction === "up") {
-        pos = "bottom"
-        spos = `stack_pos_${pos}`
-        instance.window.style.bottom = 0 - instance.window.offsetHeight + "px"
-        diff = ((instance.window.offsetHeight + instance[spos]) / speed) * 10
-      } else if (direction === "down") {
-        pos = "bottom"
-        spos = `stack_pos_${pos}`
-        instance.window.style.bottom = window.innerHeight + "px"
-        diff =
-          ((parseInt(instance.window.style.bottom) - instance[spos]) / speed) *
-          10
-      }
-    } else if (p === "top") {
-      if (direction === "up") {
-        pos = "top"
-        spos = `stack_pos_${pos}`
-        instance.window.style.top = window.innerHeight + "px"
-        diff =
-          ((parseInt(instance.window.style.top) - instance[spos]) / speed) * 10
-      } else if (direction === "down") {
-        pos = "top"
-        spos = `stack_pos_${pos}`
-        instance.window.style.top = 0 - instance.window.offsetHeight + "px"
-        diff = ((instance.window.offsetHeight + instance[spos]) / speed) * 10
-      }
-    } else if (p.includes("right")) {
-      if (direction === "up" || direction === "down") {
-        if (p === "topright") {
-          if (direction === "up") {
-            pos = "top"
-            spos = `stack_pos_${pos}`
-            instance.window.style.top = window.innerHeight + "px"
-            diff =
-              ((parseInt(instance.window.style.top) - instance[spos]) / speed) *
-              10
-          } else if (direction === "down") {
-            pos = "top"
-            spos = `stack_pos_${pos}`
-            instance.window.style.top = 0 - instance.window.offsetHeight + "px"
-            diff =
-              ((instance.window.offsetHeight + instance[spos]) / speed) * 10
-          }
-        } else if (p === "bottomright") {
-          if (direction === "up") {
-            pos = "bottom"
-            spos = `stack_pos_${pos}`
-            instance.window.style.bottom =
-              0 - instance.window.offsetHeight + "px"
-            diff =
-              ((instance.window.offsetHeight + instance[spos]) / speed) * 10
-          } else if (direction === "down") {
-            pos = "bottom"
-            spos = `stack_pos_${pos}`
-            instance.window.style.bottom = window.innerHeight + "px"
-            diff =
-              ((parseInt(instance.window.style.bottom) - instance[spos]) /
-                speed) *
-              10
-          }
-        }
-      }
-
-      if (direction === "left") {
-        pos = "right"
-        spos = `stack_pos_${pos}`
-        instance.window.style.right = 0 - instance.window.offsetWidth + "px"
-        diff = ((instance.window.offsetWidth + instance[spos]) / speed) * 10
-      } else if (direction === "right") {
-        pos = "right"
-        spos = `stack_pos_${pos}`
-        instance.window.style.right = window.innerWidth + "px"
-        diff =
-          ((parseInt(instance.window.style.right) - instance[spos]) / speed) *
-          10
-      }
-    } else if (p.includes("left")) {
-      if (direction === "up" || direction === "down") {
-        if (p === "topleft") {
-          if (direction === "up") {
-            pos = "top"
-            spos = `stack_pos_${pos}`
-            instance.window.style.top = window.innerHeight + "px"
-            diff =
-              ((parseInt(instance.window.style.top) - instance[spos]) / speed) *
-              10
-          } else if (direction === "down") {
-            pos = "top"
-            spos = `stack_pos_${pos}`
-            instance.window.style.top = 0 - instance.window.offsetHeight + "px"
-            diff =
-              ((instance.window.offsetHeight + instance[spos]) / speed) * 10
-          }
-        } else if (p === "bottomleft") {
-          if (direction === "up") {
-            pos = "bottom"
-            spos = `stack_pos_${pos}`
-            instance.window.style.bottom =
-              0 - instance.window.offsetHeight + "px"
-            diff =
-              ((instance.window.offsetHeight + instance[spos]) / speed) * 10
-          } else if (direction === "down") {
-            pos = "bottom"
-            spos = `stack_pos_${pos}`
-            instance.window.style.bottom = window.innerHeight + "px"
-            diff =
-              ((parseInt(instance.window.style.bottom) - instance[spos]) /
-                speed) *
-              10
-          }
-        }
-      } else if (direction === "left") {
-        pos = "left"
-        spos = `stack_pos_${pos}`
-        instance.window.style.left = window.innerWidth + "px"
-        diff =
-          ((parseInt(instance.window.style.left) - instance[spos]) / speed) * 10
-      } else if (direction === "right") {
-        pos = "left"
-        spos = `stack_pos_${pos}`
-        instance.window.style.left = 0 - instance.window.offsetWidth + "px"
-        diff = ((instance.window.offsetWidth + instance[spos]) / speed) * 10
-      }
-    }
-
-    if (!pos) {
-      finish()
-      return
-    }
-
-    diff = Math.max(1, diff)
-
-    function finish () {
-      clearInterval(instance.slide_in_interval)
-
-      instance.slide_in_ongoing = false
-      instance.slide_in_direction = undefined
-
-      instance.window.style[pos] = instance[spos] + "px"
-
-      if (callback) {
-        return callback()
-      }
-    }
-
-    instance.slide_in_interval = setInterval(function () {
-      if (!instance.created()) {
-        instance.clear_effect_intervals()
-        return
-      }
-
-      if (pos === "top") {
-        if (direction === "up") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) - diff + "px"
-
-          if (parseInt(instance.window.style[pos]) <= instance[spos]) {
-            finish()
-          }
-        }
-
-        if (direction === "down") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) + diff + "px"
-
-          if (parseInt(instance.window.style[pos]) >= instance[spos]) {
-            finish()
-          }
-        }
-      }
-
-      if (pos === "bottom") {
-        if (direction === "up") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) + diff + "px"
-
-          if (parseInt(instance.window.style[pos]) >= instance[spos]) {
-            finish()
-          }
-        }
-
-        if (direction === "down") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) - diff + "px"
-
-          if (parseInt(instance.window.style[pos]) <= instance[spos]) {
-            finish()
-          }
-        }
-      }
-
-      if (pos === "left") {
-        if (direction === "left") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) - diff + "px"
-
-          if (parseInt(instance.window.style[pos]) <= instance[spos]) {
-            finish()
-          }
-        }
-
-        if (direction === "right") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) + diff + "px"
-
-          if (parseInt(instance.window.style[pos]) >= instance[spos]) {
-            finish()
-          }
-        }
-      }
-
-      if (pos === "right") {
-        if (direction === "left") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) + diff + "px"
-
-          if (parseInt(instance.window.style[pos]) >= instance[spos]) {
-            finish()
-          }
-        }
-
-        if (direction === "right") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) - diff + "px"
-
-          if (parseInt(instance.window.style[pos]) <= instance[spos]) {
-            finish()
-          }
-        }
-      }
-    }, 10)
-  }
-
-  instance.slide_out = function (callback) {
-    let speed = instance.resolve_effect_duration(
-      0,
-      instance.options.close_effect_duration
-    )
-
-    if (speed === 0 || instance.window.style.opacity == 0) {
-      instance.window.style.opacity = 0
-
-      if (callback) {
-        return callback()
-      }
-
-      return
-    }
-
-    let direction = instance.options.close_effect.split("_")[1]
-
-    let p = instance.options.position
-
-    let pos = false
-    let og = false
-    let diff = false
-    let npos = false
-
-    if (p === "bottom") {
-      if (direction === "up") {
-        diff =
-          ((window.innerHeight - parseInt(instance.window.style.bottom)) /
-            speed) *
-          10
-        npos = window.innerHeight + instance.window.offsetHeight
-        pos = "bottom"
-      } else if (direction === "down") {
-        diff =
-          ((parseInt(instance.window.style.bottom) +
-            instance.window.offsetHeight) /
-            speed) *
-          10
-        npos = 0 - instance.window.offsetHeight
-        pos = "bottom"
-      }
-    } else if (p === "top") {
-      if (direction === "up") {
-        diff =
-          ((parseInt(instance.window.style.top) +
-            instance.window.offsetHeight) /
-            speed) *
-          10
-        npos = 0 - instance.window.offsetHeight
-        pos = "top"
-      } else if (direction === "down") {
-        diff =
-          ((window.innerHeight - parseInt(instance.window.style.top)) / speed) *
-          10
-        npos = window.innerHeight + instance.window.offsetHeight
-        pos = "top"
-      }
-    } else if (p.includes("right")) {
-      if (direction === "up" || direction === "down") {
-        if (p === "topright") {
-          if (direction === "up") {
-            diff =
-              ((parseInt(instance.window.style.top) +
-                instance.window.offsetHeight) /
-                speed) *
-              10
-            npos = 0 - instance.window.offsetHeight
-            pos = "top"
-          } else if (direction === "down") {
-            diff =
-              ((window.innerHeight - parseInt(instance.window.style.top)) /
-                speed) *
-              10
-            npos = window.innerHeight + instance.window.offsetHeight
-            pos = "top"
-          }
-        } else if (p === "bottomright") {
-          if (direction === "up") {
-            diff =
-              ((window.innerHeight - parseInt(instance.window.style.bottom)) /
-                speed) *
-              10
-            npos = window.innerHeight + instance.window.offsetHeight
-            pos = "bottom"
-          } else if (direction === "down") {
-            diff =
-              ((parseInt(instance.window.style.bottom) +
-                instance.window.offsetHeight) /
-                speed) *
-              10
-            npos = 0 - instance.window.offsetHeight
-            pos = "bottom"
-          }
-        }
-      }
-
-      if (direction === "left") {
-        diff =
-          ((window.innerWidth - parseInt(instance.window.style.right)) /
-            speed) *
-          10
-        npos = window.innerWidth + instance.window.offsetWidth
-        pos = "right"
-      } else if (direction === "right") {
-        diff =
-          ((parseInt(instance.window.style.right) +
-            instance.window.offsetWidth) /
-            speed) *
-          10
-        npos = 0 - instance.window.offsetWidth
-        pos = "right"
-      }
-    } else if (p.includes("left")) {
-      if (direction === "up" || direction === "down") {
-        if (p === "topleft") {
-          if (direction === "up") {
-            diff =
-              ((parseInt(instance.window.style.top) +
-                instance.window.offsetHeight) /
-                speed) *
-              10
-            npos = 0 - instance.window.offsetHeight
-            pos = "top"
-          } else if (direction === "down") {
-            diff =
-              ((window.innerHeight - parseInt(instance.window.style.top)) /
-                speed) *
-              10
-            npos = window.innerHeight + instance.window.offsetHeight
-            pos = "top"
-          }
-        } else if (p === "bottomleft") {
-          if (direction === "up") {
-            diff =
-              ((window.innerHeight - parseInt(instance.window.style.bottom)) /
-                speed) *
-              10
-            npos = window.innerHeight + instance.window.offsetHeight
-            pos = "bottom"
-          } else if (direction === "down") {
-            diff =
-              ((parseInt(instance.window.style.bottom) +
-                instance.window.offsetHeight) /
-                speed) *
-              10
-            npos = 0 - instance.window.offsetHeight
-            pos = "bottom"
-          }
-        }
-      } else if (direction === "left") {
-        diff =
-          ((parseInt(instance.window.style.left) +
-            instance.window.offsetWidth) /
-            speed) *
-          10
-        npos = 0 - instance.window.offsetWidth
-        pos = "left"
-      } else if (direction === "right") {
-        diff =
-          ((window.innerWidth - parseInt(instance.window.style.left)) / speed) *
-          10
-        npos = window.innerWidth + instance.window.offsetWidth
-        pos = "left"
-      }
-    }
-
-    if (!pos) {
-      finish()
-      return
-    }
-
-    diff = Math.max(1, diff)
-
-    function finish () {
-      clearInterval(instance.slide_out_interval)
-
-      instance.window.style[pos] = npos - 20 + "px"
-
-      if (callback) {
-        return callback()
-      }
-    }
-
-    instance.slide_out_interval = setInterval(function () {
-      if (!instance.created()) {
-        instance.clear_effect_intervals()
-        return
-      }
-
-      if (pos === "top") {
-        if (direction === "up") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) - diff + "px"
-
-          if (parseInt(instance.window.style[pos]) <= npos) {
-            finish()
-          }
-        }
-
-        if (direction === "down") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) + diff + "px"
-
-          if (parseInt(instance.window.style[pos]) >= npos) {
-            finish()
-          }
-        }
-      }
-
-      if (pos === "bottom") {
-        if (direction === "up") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) + diff + "px"
-
-          if (parseInt(instance.window.style[pos]) >= npos) {
-            finish()
-          }
-        }
-
-        if (direction === "down") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) - diff + "px"
-
-          if (parseInt(instance.window.style[pos]) <= npos) {
-            finish()
-          }
-        }
-      }
-
-      if (pos === "left") {
-        if (direction === "left") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) - diff + "px"
-
-          if (parseInt(instance.window.style[pos]) <= npos) {
-            finish()
-          }
-        }
-
-        if (direction === "right") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) + diff + "px"
-
-          if (parseInt(instance.window.style[pos]) >= npos) {
-            finish()
-          }
-        }
-      }
-
-      if (pos === "right") {
-        if (direction === "left") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) + diff + "px"
-
-          if (parseInt(instance.window.style[pos]) >= npos) {
-            finish()
-          }
-        }
-
-        if (direction === "right") {
-          instance.window.style[pos] =
-            parseInt(instance.window.style[pos]) - diff + "px"
-
-          if (parseInt(instance.window.style[pos]) <= npos) {
-            finish()
-          }
-        }
-      }
-    }, 10)
-  }
-
-  instance.start_while_open_interval = function () {
+  instance.start_while_open_interval = () => {
     instance.clear_while_open_interval()
 
-    instance.while_open_interval = setInterval(function () {
+    instance.while_open_interval = setInterval(() => {
       instance.options.while_open(instance)
     }, instance.options.while_open_interval)
   }
 
-  instance.clear_while_open_interval = function () {
+  instance.clear_while_open_interval = () => {
     clearInterval(instance.while_open_interval)
   }
 
-  instance.stack_pos_top_sort = function (a, b) {
+  instance.stack_pos_top_sort = (a, b) => {
     return a.stack_pos_top - b.stack_pos_top
   }
 
-  instance.stack_pos_top_sort2 = function (a, b) {
+  instance.stack_pos_top_sort2 = (a, b) => {
     return b.stack_pos_top - a.stack_pos_top
   }
 
-  instance.stack_pos_bottom_sort = function (a, b) {
+  instance.stack_pos_bottom_sort = (a, b) => {
     return a.stack_pos_bottom - b.stack_pos_bottom
   }
 
-  instance.stack_pos_bottom_sort2 = function (a, b) {
+  instance.stack_pos_bottom_sort2 = (a, b) => {
     return b.stack_pos_bottom - a.stack_pos_bottom
   }
 
-  instance.stack_pos_left_sort = function (a, b) {
+  instance.stack_pos_left_sort = (a, b) => {
     return a.stack_pos_left - b.stack_pos_left
   }
 
-  instance.stack_pos_left_sort2 = function (a, b) {
+  instance.stack_pos_left_sort2 = (a, b) => {
     return b.stack_pos_left - a.stack_pos_left
   }
 
-  instance.stack_pos_right_sort = function (a, b) {
+  instance.stack_pos_right_sort = (a, b) => {
     return a.stack_pos_right - b.stack_pos_right
   }
 
-  instance.stack_pos_right_sort2 = function (a, b) {
+  instance.stack_pos_right_sort2 = (a, b) => {
     return b.stack_pos_right - a.stack_pos_right
   }
 
-  instance.highest_in_position = function (mode) {
+  instance.highest_in_position = (mode) => {
     let highest = -2000
     let highest_ins
 
@@ -2985,16 +1963,19 @@ Msg.factory = function (options = {}) {
         if (i.options.position === p) {
           let pos
 
-          if (mode === "vertical") {
-            if (p.includes("top")) {
+          if (mode === `vertical`) {
+            if (p.includes(`top`)) {
               pos = i.stack_pos_top
-            } else if (p.includes("bottom")) {
+            }
+            else if (p.includes(`bottom`)) {
               pos = i.stack_pos_bottom
             }
-          } else if (mode === "horizontal") {
-            if (p.includes("left")) {
+          }
+          else if (mode === `horizontal`) {
+            if (p.includes(`left`)) {
               pos = i.stack_pos_left
-            } else if (p.includes("right")) {
+            }
+            else if (p.includes(`right`)) {
               pos = i.stack_pos_right
             }
           }
@@ -3012,7 +1993,7 @@ Msg.factory = function (options = {}) {
     return highest_ins
   }
 
-  instance.lowest_in_position = function (mode) {
+  instance.lowest_in_position = (mode) => {
     let lowest = 200000000
     let lowest_ins
 
@@ -3023,16 +2004,19 @@ Msg.factory = function (options = {}) {
         if (i.options.position === p) {
           let pos
 
-          if (mode === "vertical") {
-            if (p.includes("top")) {
+          if (mode === `vertical`) {
+            if (p.includes(`top`)) {
               pos = i.stack_pos_top
-            } else if (p.includes("bottom")) {
+            }
+            else if (p.includes(`bottom`)) {
               pos = i.stack_pos_bottom
             }
-          } else if (mode === "horizontal") {
-            if (p.includes("left")) {
+          }
+          else if (mode === `horizontal`) {
+            if (p.includes(`left`)) {
               pos = i.stack_pos_left
-            } else if (p.includes("right")) {
+            }
+            else if (p.includes(`right`)) {
               pos = i.stack_pos_right
             }
           }
@@ -3050,7 +2034,7 @@ Msg.factory = function (options = {}) {
     return lowest_ins
   }
 
-  instance.above_in_position = function (ins, mode) {
+  instance.above_in_position = (ins, mode) => {
     let ins_above = []
 
     let p = ins.options.position
@@ -3058,22 +2042,25 @@ Msg.factory = function (options = {}) {
     for (let i of Msg.instances) {
       if (i.is_open()) {
         if (i.options.position === p) {
-          if (mode === "vertical") {
-            if (p.includes("top")) {
+          if (mode === `vertical`) {
+            if (p.includes(`top`)) {
               if (i.stack_pos_top > ins.stack_pos_top) {
                 ins_above.push(i)
               }
-            } else if (p.includes("bottom")) {
+            }
+            else if (p.includes(`bottom`)) {
               if (i.stack_pos_bottom > ins.stack_pos_bottom) {
                 ins_above.push(i)
               }
             }
-          } else if (mode === "horizontal") {
-            if (p.includes("left")) {
+          }
+          else if (mode === `horizontal`) {
+            if (p.includes(`left`)) {
               if (i.stack_pos_left > ins.stack_pos_left) {
                 ins_above.push(i)
               }
-            } else if (p.includes("right")) {
+            }
+            else if (p.includes(`right`)) {
               if (i.stack_pos_right > ins.stack_pos_right) {
                 ins_above.push(i)
               }
@@ -3083,16 +2070,19 @@ Msg.factory = function (options = {}) {
       }
     }
 
-    if (mode === "vertical") {
-      if (p.includes("top")) {
+    if (mode === `vertical`) {
+      if (p.includes(`top`)) {
         ins_above.sort(instance.stack_pos_top_sort)
-      } else if (p.includes("bottom")) {
+      }
+      else if (p.includes(`bottom`)) {
         ins_above.sort(instance.stack_pos_bottom_sort)
       }
-    } else if (mode === "horizontal") {
-      if (p.includes("left")) {
+    }
+    else if (mode === `horizontal`) {
+      if (p.includes(`left`)) {
         ins_above.sort(instance.stack_pos_left_sort)
-      } else if (p.includes("right")) {
+      }
+      else if (p.includes(`right`)) {
         ins_above.sort(instance.stack_pos_right_sort)
       }
     }
@@ -3100,7 +2090,7 @@ Msg.factory = function (options = {}) {
     return ins_above
   }
 
-  instance.nextbelow_in_position = function (ins, mode) {
+  instance.nextbelow_in_position = (ins, mode) => {
     let ins_below = []
 
     let p = ins.options.position
@@ -3110,12 +2100,13 @@ Msg.factory = function (options = {}) {
         let ip = i.options.position
 
         if (ip === p) {
-          if (mode === "vertical") {
+          if (mode === `vertical`) {
             let sp
 
-            if (ip.includes("left")) {
+            if (ip.includes(`left`)) {
               sp = i.stack_pos_left
-            } else if (ip.includes("right")) {
+            }
+            else if (ip.includes(`right`)) {
               sp = i.stack_pos_right
             }
 
@@ -3128,21 +2119,24 @@ Msg.factory = function (options = {}) {
               }
             }
 
-            if (p.includes("top")) {
+            if (p.includes(`top`)) {
               if (i.stack_pos_top < ins.stack_pos_top) {
                 ins_below.push(i)
               }
-            } else if (p.includes("bottom")) {
+            }
+            else if (p.includes(`bottom`)) {
               if (i.stack_pos_bottom < ins.stack_pos_bottom) {
                 ins_below.push(i)
               }
             }
-          } else if (mode === "horizontal") {
-            if (p.includes("left")) {
+          }
+          else if (mode === `horizontal`) {
+            if (p.includes(`left`)) {
               if (i.stack_pos_left < ins.stack_pos_left) {
                 ins_below.push(i)
               }
-            } else if (p.includes("right")) {
+            }
+            else if (p.includes(`right`)) {
               if (i.stack_pos_right < ins.stack_pos_right) {
                 ins_below.push(i)
               }
@@ -3152,16 +2146,19 @@ Msg.factory = function (options = {}) {
       }
     }
 
-    if (mode === "vertical") {
-      if (p.includes("top")) {
+    if (mode === `vertical`) {
+      if (p.includes(`top`)) {
         ins_below.sort(instance.stack_pos_top_sort2)
-      } else if (p.includes("bottom")) {
+      }
+      else if (p.includes(`bottom`)) {
         ins_below.sort(instance.stack_pos_bottom_sort2)
       }
-    } else if (mode === "horizontal") {
-      if (p.includes("left")) {
+    }
+    else if (mode === `horizontal`) {
+      if (p.includes(`left`)) {
         ins_below.sort(instance.stack_pos_left_sort2)
-      } else if (p.includes("right")) {
+      }
+      else if (p.includes(`right`)) {
         ins_below.sort(instance.stack_pos_right_sort2)
       }
     }
@@ -3169,192 +2166,142 @@ Msg.factory = function (options = {}) {
     return ins_below[0]
   }
 
-  instance.check_vStack = function () {
+  instance.check_vStack = () => {
     if (instance.vStackable) {
       let p = instance.options.position
 
-      if (p.includes("top")) {
+      if (p.includes(`top`)) {
         instance.stack_pos_top = -1000000
-      } else if (p.includes("bottom")) {
+      }
+      else if (p.includes(`bottom`)) {
         instance.stack_pos_bottom = -1000000
       }
 
-      let highest = instance.highest_in_position("vertical")
+      let highest = instance.highest_in_position(`vertical`)
 
       let new_top, new_bottom
 
       if (highest !== undefined && highest !== instance) {
-        if (p.includes("top")) {
+        if (p.includes(`top`)) {
           new_top =
             highest.stack_pos_top +
             highest.stack_height +
             instance.options.sideStack_padding
 
-          if (
-            !instance.slide_in_ongoing ||
-            (instance.slide_direction !== "up" &&
-              instance.slide_direction !== "down")
-          ) {
-            instance.window.style.top = new_top + "px"
-          }
-        } else if (p.includes("bottom")) {
+          instance.window.style.top = new_top + `px`
+        }
+        else if (p.includes(`bottom`)) {
           new_bottom =
             highest.stack_pos_bottom +
             highest.stack_height +
             instance.options.sideStack_padding
 
-          if (
-            !instance.slide_in_ongoing ||
-            (instance.slide_direction !== "up" &&
-              instance.slide_direction !== "down")
-          ) {
-            instance.window.style.bottom = new_bottom + "px"
-          }
+          instance.window.style.bottom = new_bottom + `px`
         }
-      } else {
-        if (p.includes("top")) {
+      }
+      else {
+        if (p.includes(`top`)) {
           new_top = instance.options.edge_padding_y
-
-          if (
-            !instance.slide_in_ongoing ||
-            (instance.slide_direction !== "up" &&
-              instance.slide_direction !== "down")
-          ) {
-            instance.window.style.top = new_top + "px"
-          }
-        } else if (p.includes("bottom")) {
+          instance.window.style.top = new_top + `px`
+        }
+        else if (p.includes(`bottom`)) {
           new_bottom = instance.options.edge_padding_y
-
-          if (
-            !instance.slide_in_ongoing ||
-            (instance.slide_direction !== "up" &&
-              instance.slide_direction !== "down")
-          ) {
-            instance.window.style.bottom = new_bottom + "px"
-          }
+          instance.window.style.bottom = new_bottom + `px`
         }
       }
 
-      if (p.includes("top")) {
+      if (p.includes(`top`)) {
         instance.stack_pos_top = new_top
-      } else if (p.includes("bottom")) {
+      }
+      else if (p.includes(`bottom`)) {
         instance.stack_pos_bottom = new_bottom
       }
     }
   }
 
-  instance.collapse_vStack = function () {
+  instance.collapse_vStack = () => {
     let p = instance.options.position
 
-    let ins_above = instance.above_in_position(instance, "vertical")
+    let ins_above = instance.above_in_position(instance, `vertical`)
 
     for (let i of ins_above) {
       if (
         !i.options.sideStack_collapse ||
-        i.options.sideStack !== "vertical" ||
+        i.options.sideStack !== `vertical` ||
         i.closing
       ) {
         continue
       }
 
-      let below = instance.nextbelow_in_position(i, "vertical")
+      let below = instance.nextbelow_in_position(i, `vertical`)
 
       let new_top, new_bottom
 
       if (below !== undefined) {
-        if (p.includes("top")) {
+        if (p.includes(`top`)) {
           new_top =
             below.stack_pos_top +
             below.window.offsetHeight +
             i.options.sideStack_padding
 
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "up" && i.slide_direction !== "down")
-          ) {
-            i.window.style.top = new_top + "px"
-          }
-        } else if (p.includes("bottom")) {
+          i.window.style.top = new_top + `px`
+        }
+        else if (p.includes(`bottom`)) {
           new_bottom =
             below.stack_pos_bottom +
             below.window.offsetHeight +
             i.options.sideStack_padding
 
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "up" && i.slide_direction !== "down")
-          ) {
-            i.window.style.bottom = new_bottom + "px"
-          }
+          i.window.style.bottom = new_bottom + `px`
         }
-      } else {
-        if (p.includes("top")) {
+      }
+      else {
+        if (p.includes(`top`)) {
           new_top = i.options.edge_padding_y
-
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "up" && i.slide_direction !== "down")
-          ) {
-            i.window.style.top = new_top + "px"
-          }
-        } else if (p.includes("bottom")) {
+          i.window.style.top = new_top + `px`
+        }
+        else if (p.includes(`bottom`)) {
           new_bottom = i.options.edge_padding_y
-
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "up" && i.slide_direction !== "down")
-          ) {
-            i.window.style.bottom = new_bottom + "px"
-          }
+          i.window.style.bottom = new_bottom + `px`
         }
       }
 
-      if (p.includes("top")) {
+      if (p.includes(`top`)) {
         i.stack_pos_top = new_top
-      } else if (p.includes("bottom")) {
+      }
+      else if (p.includes(`bottom`)) {
         i.stack_pos_bottom = new_bottom
       }
     }
   }
 
-  instance.fix_vStack = function () {
+  instance.fix_vStack = () => {
     let p = instance.options.position
 
-    let below = instance.lowest_in_position("vertical")
+    let below = instance.lowest_in_position(`vertical`)
 
     let new_top, new_bottom
 
     if (below !== undefined) {
-      let above = instance.above_in_position(below, "vertical")
+      let above = instance.above_in_position(below, `vertical`)
 
       for (let i of above) {
-        if (p.includes("top")) {
+        if (p.includes(`top`)) {
           new_top =
             below.stack_pos_top +
             below.window.offsetHeight +
             i.options.sideStack_padding
 
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "up" && i.slide_direction !== "down")
-          ) {
-            i.window.style.top = new_top + "px"
-          }
-
+          i.window.style.top = new_top + `px`
           i.stack_pos_top = new_top
-        } else if (p.includes("bottom")) {
+        }
+        else if (p.includes(`bottom`)) {
           new_bottom =
             below.stack_pos_bottom +
             below.window.offsetHeight +
             i.options.sideStack_padding
 
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "up" && i.slide_direction !== "down")
-          ) {
-            i.window.style.bottom = new_bottom + "px"
-          }
-
+          i.window.style.bottom = new_bottom + `px`
           i.stack_pos_bottom = new_bottom
         }
 
@@ -3363,192 +2310,142 @@ Msg.factory = function (options = {}) {
     }
   }
 
-  instance.check_hStack = function () {
+  instance.check_hStack = () => {
     if (instance.hStackable) {
       let p = instance.options.position
 
-      if (p.includes("left")) {
+      if (p.includes(`left`)) {
         instance.stack_pos_left = -1000000
-      } else if (p.includes("right")) {
+      }
+      else if (p.includes(`right`)) {
         instance.stack_pos_right = -1000000
       }
 
-      let highest = instance.highest_in_position("horizontal")
+      let highest = instance.highest_in_position(`horizontal`)
 
       let new_left, new_right
 
       if (highest !== undefined && highest !== instance) {
-        if (p.includes("left")) {
+        if (p.includes(`left`)) {
           new_left =
             highest.stack_pos_left +
             highest.stack_width +
             instance.options.sideStack_padding
 
-          if (
-            !instance.slide_in_ongoing ||
-            (instance.slide_direction !== "left" &&
-              instance.slide_direction !== "right")
-          ) {
-            instance.window.style.left = new_left + "px"
-          }
-        } else if (p.includes("right")) {
+          instance.window.style.left = new_left + `px`
+        }
+        else if (p.includes(`right`)) {
           new_right =
             highest.stack_pos_right +
             highest.stack_width +
             instance.options.sideStack_padding
 
-          if (
-            !instance.slide_in_ongoing ||
-            (instance.slide_direction !== "left" &&
-              instance.slide_direction !== "right")
-          ) {
-            instance.window.style.right = new_right + "px"
-          }
+          instance.window.style.right = new_right + `px`
         }
-      } else {
-        if (p.includes("left")) {
+      }
+      else {
+        if (p.includes(`left`)) {
           new_left = instance.options.edge_padding_x
-
-          if (
-            !instance.slide_in_ongoing ||
-            (instance.slide_direction !== "left" &&
-              instance.slide_direction !== "right")
-          ) {
-            instance.window.style.left = new_left + "px"
-          }
-        } else if (p.includes("right")) {
+          instance.window.style.left = new_left + `px`
+        }
+        else if (p.includes(`right`)) {
           new_right = instance.options.edge_padding_x
-
-          if (
-            !instance.slide_in_ongoing ||
-            (instance.slide_direction !== "left" &&
-              instance.slide_direction !== "right")
-          ) {
-            instance.window.style.right = new_right + "px"
-          }
+          instance.window.style.right = new_right + `px`
         }
       }
 
-      if (p.includes("left")) {
+      if (p.includes(`left`)) {
         instance.stack_pos_left = new_left
-      } else if (p.includes("right")) {
+      }
+      else if (p.includes(`right`)) {
         instance.stack_pos_right = new_right
       }
     }
   }
 
-  instance.collapse_hStack = function () {
+  instance.collapse_hStack = () => {
     let p = instance.options.position
 
-    let ins_above = instance.above_in_position(instance, "horizontal")
+    let ins_above = instance.above_in_position(instance, `horizontal`)
 
     for (let i of ins_above) {
       if (
         !i.options.sideStack_collapse ||
-        i.options.sideStack !== "horizontal" ||
+        i.options.sideStack !== `horizontal` ||
         i.closing
       ) {
         continue
       }
 
-      let below = instance.nextbelow_in_position(i, "horizontal")
+      let below = instance.nextbelow_in_position(i, `horizontal`)
 
       let new_left, new_right
 
       if (below !== undefined) {
-        if (p.includes("left")) {
+        if (p.includes(`left`)) {
           new_left =
             below.stack_pos_left +
             below.window.offsetWidth +
             i.options.sideStack_padding
 
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "left" && i.slide_direction !== "right")
-          ) {
-            i.window.style.left = new_left + "px"
-          }
-        } else if (p.includes("right")) {
+          i.window.style.left = new_left + `px`
+        }
+        else if (p.includes(`right`)) {
           new_right =
             below.stack_pos_right +
             below.window.offsetWidth +
             i.options.sideStack_padding
 
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "left" && i.slide_direction !== "right")
-          ) {
-            i.window.style.right = new_right + "px"
-          }
+          i.window.style.right = new_right + `px`
         }
-      } else {
-        if (p.includes("left")) {
+      }
+      else {
+        if (p.includes(`left`)) {
           new_left = i.options.edge_padding_x
-
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "left" && i.slide_direction !== "right")
-          ) {
-            i.window.style.left = new_left + "px"
-          }
-        } else if (p.includes("right")) {
+          i.window.style.left = new_left + `px`
+        }
+        else if (p.includes(`right`)) {
           new_right = i.options.edge_padding_x
-
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "left" && i.slide_direction !== "right")
-          ) {
-            i.window.style.right = new_right + "px"
-          }
+          i.window.style.right = new_right + `px`
         }
       }
 
-      if (p.includes("left")) {
+      if (p.includes(`left`)) {
         i.stack_pos_left = new_left
-      } else if (p.includes("right")) {
+      }
+      else if (p.includes(`right`)) {
         i.stack_pos_right = new_right
       }
     }
   }
 
-  instance.fix_hStack = function () {
+  instance.fix_hStack = () => {
     let p = instance.options.position
 
-    let below = instance.lowest_in_position("horizontal")
+    let below = instance.lowest_in_position(`horizontal`)
 
     if (below !== undefined) {
-      let above = instance.above_in_position(below, "horizontal")
+      let above = instance.above_in_position(below, `horizontal`)
 
       let new_left, new_right
 
       for (let i of above) {
-        if (p.includes("left")) {
+        if (p.includes(`left`)) {
           new_left =
             below.stack_pos_left +
             below.window.offsetWidth +
             i.options.sideStack_padding
 
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "left" && i.slide_direction !== "right")
-          ) {
-            i.window.style.left = new_left + "px"
-          }
-
+          i.window.style.left = new_left + `px`
           i.stack_pos_left = new_left
-        } else if (p.includes("right")) {
+        }
+        else if (p.includes(`right`)) {
           new_right =
             below.stack_pos_right +
             below.window.offsetWidth +
             i.options.sideStack_padding
 
-          if (
-            !i.slide_in_ongoing ||
-            (i.slide_direction !== "left" && i.slide_direction !== "right")
-          ) {
-            i.window.style.right = new_right + "px"
-          }
-
+          i.window.style.right = new_right + `px`
           i.stack_pos_right = new_right
         }
 
@@ -3557,59 +2454,67 @@ Msg.factory = function (options = {}) {
     }
   }
 
-  instance.fix_stacks = function () {
+  instance.fix_stacks = () => {
     if (instance.is_open()) {
       instance.fix_vStack()
       instance.fix_hStack()
     }
   }
 
-  instance.set_default_positions = function () {
+  instance.set_default_positions = () => {
     let p = instance.options.position
     let edge_x = instance.options.edge_padding_x
     let edge_y = instance.options.edge_padding_y
 
-    if (p === "top") {
+    if (p === `top`) {
       instance.stack_pos_top = edge_y
       instance.stack_pos_bottom = undefined
       instance.stack_pos_left = undefined
       instance.stack_pos_right = undefined
-    } else if (p === "bottom") {
+    }
+    else if (p === `bottom`) {
       instance.stack_pos_top = undefined
       instance.stack_pos_bottom = edge_y
       instance.stack_pos_left = undefined
       instance.stack_pos_right = undefined
-    } else if (p === "left") {
+    }
+    else if (p === `left`) {
       instance.stack_pos_top = undefined
       instance.stack_pos_bottom = undefined
       instance.stack_pos_left = edge_x
       instance.stack_pos_right = undefined
-    } else if (p === "right") {
+    }
+    else if (p === `right`) {
       instance.stack_pos_top = undefined
       instance.stack_pos_bottom = undefined
       instance.stack_pos_left = undefined
       instance.stack_pos_right = edge_x
-    } else if (p === "topleft") {
+    }
+    else if (p === `topleft`) {
       instance.stack_pos_top = edge_y
       instance.stack_pos_bottom = undefined
       instance.stack_pos_left = edge_x
       instance.stack_pos_right = undefined
-    } else if (p === "topright") {
+    }
+    else if (p === `topright`) {
       instance.stack_pos_top = edge_y
       instance.stack_pos_bottom = undefined
       instance.stack_pos_left = undefined
       instance.stack_pos_right = edge_x
-    } else if (p === "bottomleft") {
+    }
+    else if (p === `bottomleft`) {
       instance.stack_pos_top = undefined
       instance.stack_pos_bottom = edge_y
       instance.stack_pos_left = edge_x
       instance.stack_pos_right = undefined
-    } else if (p === "bottomright") {
+    }
+    else if (p === `bottomright`) {
       instance.stack_pos_top = undefined
       instance.stack_pos_bottom = edge_y
       instance.stack_pos_left = undefined
       instance.stack_pos_right = edge_x
-    } else {
+    }
+    else {
       instance.stack_pos_top = undefined
       instance.stack_pos_bottom = undefined
       instance.stack_pos_left = undefined
@@ -3620,7 +2525,7 @@ Msg.factory = function (options = {}) {
     instance.stack_height = instance.window.offsetHeight
   }
 
-  instance.change_class = function (new_class) {
+  instance.change_class = (new_class) => {
     if (
       instance.container !== undefined &&
       instance.container.classList.contains(
@@ -3762,7 +2667,7 @@ Msg.factory = function (options = {}) {
     instance.options.class = new_class
   }
 
-  instance.remove = function () {
+  instance.remove = () => {
     instance.destroy()
 
     for (let i = 0; i < Msg.instances.length; i++) {
@@ -3773,32 +2678,32 @@ Msg.factory = function (options = {}) {
     }
   }
 
-  instance.is_textbox = function (element) {
+  instance.is_textbox = (element) => {
     let tag_name = element.tagName.toLowerCase()
 
-    if (tag_name === "textarea") return true
-    if (tag_name !== "input") return false
+    if (tag_name === `textarea`) return true
+    if (tag_name !== `input`) return false
 
-    let type = element.getAttribute("type")
+    let type = element.getAttribute(`type`)
 
     if (!type) {
       return false
     }
 
     let input_types = [
-      "text",
-      "password",
-      "number",
-      "email",
-      "tel",
-      "url",
-      "search",
-      "date",
-      "datetime",
-      "datetime-local",
-      "time",
-      "month",
-      "week",
+      `text`,
+      `password`,
+      `number`,
+      `email`,
+      `tel`,
+      `url`,
+      `search`,
+      `date`,
+      `datetime`,
+      `datetime-local`,
+      `time`,
+      `month`,
+      `week`,
     ]
 
     return input_types.includes(type.toLowerCase())
@@ -3806,11 +2711,11 @@ Msg.factory = function (options = {}) {
 
   if (
     Msg.msg === undefined &&
-    instance.options.id !== "__internal_instance__"
+    instance.options.id !== `__internal_instance__`
   ) {
-    Msg.msg = Msg.factory({ id: "__internal_instance__" })
+    Msg.msg = Msg.factory({ id: `__internal_instance__` })
 
-    let style = document.createElement("style")
+    let style = document.createElement(`style`)
 
     let css = `
 		.Msg-overflow-hidden{overflow:hidden}
@@ -3856,29 +2761,27 @@ Msg.factory = function (options = {}) {
 		.Msg-window-inner-x-black:hover{background-color:#424242}
 		.Msg-overlay-x-black{color:white}
 		.Msg-overlay-x-black:hover{background-color:#686868}
-
-		.Msg-content-snackbar{padding:1.2em !important}
 		`
 
     style.innerHTML = css
 
     document.head.appendChild(style)
 
-    document.addEventListener("keydown", function (e) {
+    document.addEventListener(`keydown`, (e) => {
       let highest = Msg.msg.highest_instance()
 
       if (!highest) return
 
       if (!highest.keys_enabled) {
-        let captureKey = function (e) {
+        let captureKey = (e) => {
           e.stopPropagation()
-          this.removeEventListener("keyup", captureKey, true)
+          this.removeEventListener(`keyup`, captureKey, true)
         }
 
-        document.addEventListener("keyup", captureKey, true)
+        document.addEventListener(`keyup`, captureKey, true)
       }
 
-      if (e.key === "Escape") {
+      if (e.key === `Escape`) {
         let highest = Msg.msg.highest_instance()
 
         if (!highest) return
@@ -3888,17 +2791,17 @@ Msg.factory = function (options = {}) {
 
           if (highest.is_textbox(el)) {
             if (!el.readOnly && !el.disabled) {
-              if (el.value.trim() !== "") {
-                let split = el.value.trimEnd().split(" ")
-                let new_value = split.slice(0, -1).join(" ") + " "
+              if (el.value.trim() !== ``) {
+                let split = el.value.trimEnd().split(` `)
+                let new_value = split.slice(0, -1).join(` `) + ` `
 
-                if (new_value.trim() === "") {
-                  new_value = ""
+                if (new_value.trim() === ``) {
+                  new_value = ``
                 }
 
                 el.value = new_value
 
-                let event = new Event("input", {
+                let event = new Event(`input`, {
                   bubbles: true,
                   cancelable: true,
                 })
@@ -3918,7 +2821,7 @@ Msg.factory = function (options = {}) {
     })
   }
 
-  if (instance.options.id !== "__internal_instance__") {
+  if (instance.options.id !== `__internal_instance__`) {
     Msg.instances.push(instance)
     Msg.num_created += 1
   }
@@ -3930,4 +2833,5 @@ Msg.instances = []
 
 try {
   module.exports = Msg
-} catch (e) {}
+}
+catch (e) {}
