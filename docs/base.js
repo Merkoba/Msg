@@ -23,7 +23,6 @@ var msg5 = Msg.factory({
 })
 
 var msg6 = Msg.factory({
-  temp_disable_close: true,
   autoclose: true,
   enable_progressbar: true,
 })
@@ -40,40 +39,13 @@ var msg_autoclose = Msg.factory({
   close_on_overlay_click: false,
   enable_titlebar: true,
   enable_progressbar: true,
+  autoclose_delay: 1800,
 })
 
 var msg_ox = Msg.factory({
   window_x: "none",
   overlay_x: "right",
   close_on_overlay_click: false,
-})
-
-var msg_delay = Msg.factory({
-  temp_disable_close: true,
-  temp_disable_close_delay: 5000,
-  after_show: function (instance) {
-    setTimeout(function () {
-      instance.set(
-        "This had a 5 second delay before you could close it. Made to avoid closing the window by accident by misclicking. Default for this option is 1 second."
-      )
-    }, 4500)
-  },
-})
-
-var msg_tst = Msg.factory({
-  temp_disable_close: true,
-  temp_disable_click: true,
-  before_toggle: function (instance) {
-    console.log(instance.window.style.display)
-  },
-  after_toggle: function (instance) {
-    console.log(instance.window.style.display)
-  },
-})
-
-var msg_dclick = Msg.factory({
-  temp_disable_click: true,
-  temp_disable_click_delay: 3000,
 })
 
 var msg_edit = Msg.factory({
@@ -84,11 +56,6 @@ var msg_edit = Msg.factory({
       console.log("input")
     })
   },
-})
-
-var msg_dkeys = Msg.factory({
-  temp_disable_keys: true,
-  temp_disable_keys_delay: 3000,
 })
 
 var msg_cust = Msg.factory({
