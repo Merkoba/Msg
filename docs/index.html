@@ -867,20 +867,6 @@ msg_test.show("Domo Arigato")
       the window with the last used html or the one passed to set() and puts it
       at the top of the zStack.<br><br>
 
-      Note: instance.show can receive a callback function argument which is
-      returned at the end of the function with the instance as an argument. It
-      returns after the after_show event.<br><br>
-
-      For example:<br>
-      <i
-        ><blockquote>
-          <pre><code>msg.show("some text", function(instance) {
-    console.log("Window is fully open.")
-})
-        </code></pre>
-        </blockquote></i
-      >
-
       <i>instance.set(html)</i>: Updates the html of the window without opening
       it. This is useful if you want to prepare the content without showing the
       window or if you want to change the content of the window without
@@ -889,28 +875,12 @@ msg_test.show("Domo Arigato")
       <i>instance.set_or_show(html)</i>: If the window is open and at the top of
       the stack it changes the html content by calling set(). If the window is
       closed or not at the top of the stack it opens the window and shows the
-      html content by calling show(). It supports a callback as an optional
-      second argument, which is either sent to show() or returned immediately
-      after calling set().<br><br>
+      html content by calling show().<br><br>
 
       <i>instance.set_title(html)</i>: Updates the html of the titlebar. This
       doesn't open the window.<br><br>
 
       <i>instance.close()</i>: Closes the window.<br><br>
-
-      Note: instance.close can receive a callback function argument which is
-      returned at the end of the function with the instance as an argument. It
-      returns after the after_close event.<br><br>
-
-      For example:<br>
-      <i
-        ><blockquote>
-          <pre><code>msg.close(function(instance) {
-    console.log("Window is fully closed.")
-})
-        </code></pre>
-        </blockquote></i
-      >
 
       <i>instance.toggle()</i>: If the window is closed it opens it. If the
       window is open it closes it.<br><br>
@@ -991,15 +961,13 @@ msg_test.show("Domo Arigato")
 
       <i>instance.show_all()</i>: Opens all the windows.<br><br>
 
-      <i>instance.close_all()</i>: Closes all the windows. Can receive a
-      callback.<br><br>
+      <i>instance.close_all()</i>: Closes all the windows.<br><br>
 
       <i>instance.close_all_higher()</i>: Closes all the windows with
-      zStack_level 2. These are usually modals and windows. Can receive a
-      callback.<br><br>
+      zStack_level 2. These are usually modals and windows.<br><br>
 
       <i>instance.close_all_lower()</i>: Closes all the windows with
-      zStack_level 1.Can receive a callback.<br><br>
+      zStack_level 1.<br><br>
 
       <i>instance.create_all()</i>: Creates the html elements of all the
       instances.<br><br>

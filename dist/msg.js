@@ -1,19 +1,16 @@
-/* Msg v12.1.1 https://github.com/Merkoba/Msg */
+/* Msg v14.0.0 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 Msg.num_created = 0
 
 Msg.factory = (options = {}) => {
   const instance = {}
-  instance.closing = false
   instance.stack_pos_top = undefined
   instance.stack_pos_bottom = undefined
   instance.stack_pos_left = undefined
   instance.stack_pos_right = undefined
   instance.stack_width = undefined
   instance.stack_height = undefined
-  instance.content_for_close_on_show = undefined
-  instance.callback_for_close_on_show = undefined
   instance.options = options
 
   instance.check_options = () => {
@@ -396,11 +393,7 @@ Msg.factory = (options = {}) => {
     return true
   }
 
-  instance.close = (callback = false) => {
-    if (instance.closing) {
-      return
-    }
-
+  instance.close = () => {
     if (!instance.is_open()) {
       return
     }
@@ -413,12 +406,11 @@ Msg.factory = (options = {}) => {
       return
     }
 
-    instance.closing = true
     instance.clear_while_open_interval()
-    instance.close_window(callback)
+    instance.close_window()
   }
 
-  instance.close_window = (callback) => {
+  instance.close_window = () => {
     instance.container.style.display = `none`
 
     if (instance.overlay !== undefined) {
@@ -436,7 +428,6 @@ Msg.factory = (options = {}) => {
     }
 
     instance.options.after_close(instance)
-    instance.closing = false
 
     if (instance.num_open() === 0) {
       instance.options.after_last_closed(instance)
@@ -444,10 +435,6 @@ Msg.factory = (options = {}) => {
 
     if (instance.options.remove_after_close) {
       instance.remove()
-    }
-
-    if (callback) {
-      return callback(instance)
     }
   }
 
@@ -533,46 +520,26 @@ Msg.factory = (options = {}) => {
     instance.topbar.style.display = `flex`
   }
 
-  instance.set_or_show = (html, callback = false) => {
+  instance.set_or_show = (html,) => {
     if (instance.is_highest()) {
       instance.set(html)
-
-      if (callback) {
-        return callback()
-      }
     }
     else {
-      instance.show(html, callback)
+      instance.show(html)
     }
   }
 
-  instance.show = (content, callback = false) => {
+  instance.show = (content) => {
     if (instance.options.close_on_show && instance.is_open()) {
-      instance.content_for_close_on_show = content
-      instance.callback_for_close_on_show = callback
-
-      if (!instance.closing) {
-        instance.close(() => {
-          instance.show(
-            instance.content_for_close_on_show,
-            instance.callback_for_close_on_show
-          )
-        })
-      }
-
+      instance.close()
+      instance.show(content)
       return
     }
-
-    instance.content_for_close_on_show = undefined
-    instance.callback_for_close_on_show = undefined
 
     let title
     let html
 
-    if (typeof content === `function`) {
-      callback = content
-    }
-    else if (typeof content === `object` && !(content instanceof Element)) {
+    if (typeof content === `object` && !(content instanceof Element)) {
       title = content[0]
       html = content[1]
     }
@@ -595,14 +562,8 @@ Msg.factory = (options = {}) => {
     }
 
     instance.reset_timers()
-    instance.closing = false
-
-    let return_callback = true
-    let first_show = false
 
     if (!instance.is_open()) {
-      first_show = true
-
       if (instance.options.close_others_on_show) {
         instance.close_all()
       }
@@ -642,10 +603,6 @@ Msg.factory = (options = {}) => {
     }
 
     instance.options.after_show(instance)
-
-    if (callback && return_callback) {
-      return callback(instance)
-    }
   }
 
   instance.toggle = () => {
@@ -1389,75 +1346,33 @@ Msg.factory = (options = {}) => {
     }
   }
 
-  instance.close_all = (callback = false) => {
+  instance.close_all = () => {
     if (!instance.any_open()) {
-      if (callback) {
-        return callback()
-      }
-      else {
-        return false
-      }
+      return false
     }
 
     for (let i = 0; i < Msg.instances.length; i++) {
-      if (callback) {
-        Msg.instances[i].close(() => {
-          if (!instance.any_open()) {
-            return callback()
-          }
-        })
-      }
-      else {
-        Msg.instances[i].close()
-      }
+      Msg.instances[i].close()
     }
   }
 
-  instance.close_all_higher = (callback = false) => {
+  instance.close_all_higher = () => {
     if (!instance.any_higher_open()) {
-      if (callback) {
-        return callback()
-      }
-      else {
-        return false
-      }
+      return false
     }
 
     for (let higher of instance.higher_instances()) {
-      if (callback) {
-        higher.close(() => {
-          if (!instance.any_higher_open()) {
-            return callback()
-          }
-        })
-      }
-      else {
-        higher.close()
-      }
+      higher.close()
     }
   }
 
-  instance.close_all_lower = (callback = false) => {
+  instance.close_all_lower = () => {
     if (!instance.any_lower_open()) {
-      if (callback) {
-        return callback()
-      }
-      else {
-        return false
-      }
+      return false
     }
 
     for (let lower of instance.lower_instances()) {
-      if (callback) {
-        lower.close(() => {
-          if (!instance.any_lower_open()) {
-            return callback()
-          }
-        })
-      }
-      else {
-        lower.close()
-      }
+      lower.close()
     }
   }
 
@@ -2061,15 +1976,10 @@ Msg.factory = (options = {}) => {
 
   instance.collapse_vStack = () => {
     let p = instance.options.position
-
     let ins_above = instance.above_in_position(instance, `vertical`)
 
     for (let i of ins_above) {
-      if (
-        !i.options.sideStack_collapse ||
-        i.options.sideStack !== `vertical` ||
-        i.closing
-      ) {
+      if (!i.options.sideStack_collapse || i.options.sideStack !== `vertical`) {
         continue
       }
 
@@ -2160,7 +2070,6 @@ Msg.factory = (options = {}) => {
       }
 
       let highest = instance.highest_in_position(`horizontal`)
-
       let new_left, new_right
 
       if (highest !== undefined && highest !== instance) {
@@ -2206,11 +2115,7 @@ Msg.factory = (options = {}) => {
     let ins_above = instance.above_in_position(instance, `horizontal`)
 
     for (let i of ins_above) {
-      if (
-        !i.options.sideStack_collapse ||
-        i.options.sideStack !== `horizontal` ||
-        i.closing
-      ) {
+      if (!i.options.sideStack_collapse || i.options.sideStack !== `horizontal`) {
         continue
       }
 

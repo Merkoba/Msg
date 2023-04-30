@@ -75,7 +75,7 @@ var msg_red = Msg.factory({
   class: "red",
   overlay_x: "right",
   autoclose: true,
-  autoclose_delay: 5000,
+  autoclose_delay: 2000,
   enable_progressbar: true,
 })
 
@@ -83,7 +83,7 @@ var msg_blue = Msg.factory({
   class: "blue",
   overlay_x: "right",
   autoclose: true,
-  autoclose_delay: 5000,
+  autoclose_delay: 2000,
   enable_progressbar: true,
 })
 
@@ -91,7 +91,7 @@ var msg_green = Msg.factory({
   class: "green",
   overlay_x: "right",
   autoclose: true,
-  autoclose_delay: 5000,
+  autoclose_delay: 2000,
   enable_progressbar: true,
 })
 
@@ -99,7 +99,7 @@ var msg_black = Msg.factory({
   class: "black",
   overlay_x: "right",
   autoclose: true,
-  autoclose_delay: 5000,
+  autoclose_delay: 2000,
   enable_progressbar: true,
 })
 
@@ -138,10 +138,6 @@ function play_audio(id) {
   audio.volume = 1
   audio.currentTime = 0
   audio.play()
-}
-
-function stop_audio(id) {
-  var audio = document.getElementById(id)
 }
 
 var audio_fadeout_interval
@@ -357,7 +353,7 @@ function pop(position) {
     preset: "popup",
     position: position,
     autoclose: autoclose,
-    autoclose_delay: 5000,
+    autoclose_delay: 2000,
     window_x: window_x,
     overlay_x: overlay_x,
     enable_overlay: enable_overlay,
