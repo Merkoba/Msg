@@ -1,12 +1,10 @@
-/* Msg v12.1.0 https://github.com/Merkoba/Msg */
+/* Msg v12.1.1 https://github.com/Merkoba/Msg */
 
 const Msg = {}
-
 Msg.num_created = 0
 
 Msg.factory = (options = {}) => {
   const instance = {}
-
   instance.closing = false
   instance.stack_pos_top = undefined
   instance.stack_pos_bottom = undefined
@@ -16,7 +14,6 @@ Msg.factory = (options = {}) => {
   instance.stack_height = undefined
   instance.content_for_close_on_show = undefined
   instance.callback_for_close_on_show = undefined
-
   instance.options = options
 
   instance.check_options = () => {
@@ -324,20 +321,6 @@ Msg.factory = (options = {}) => {
       instance.options.zStack_level = parseInt(instance.options.zStack_level)
     }
 
-    if (instance.options.show_delay === undefined) {
-      instance.options.show_delay = 0
-    }
-    else {
-      instance.options.show_delay = parseInt(instance.options.show_delay)
-    }
-
-    if (instance.options.close_delay === undefined) {
-      instance.options.close_delay = 0
-    }
-    else {
-      instance.options.close_delay = parseInt(instance.options.close_delay)
-    }
-
     if (instance.options.window_width === undefined) {
       instance.options.window_width = `auto`
     }
@@ -414,20 +397,6 @@ Msg.factory = (options = {}) => {
   }
 
   instance.close = (callback = false) => {
-    clearTimeout(instance.close_delay_timeout)
-
-    if (instance.options.close_delay > 0) {
-      instance.close_delay_timeout = setTimeout(() => {
-        instance.do_close(callback)
-      }, instance.options.close_delay)
-
-      return
-    }
-
-    instance.do_close(callback)
-  }
-
-  instance.do_close = (callback = false) => {
     if (instance.closing) {
       return
     }
@@ -510,7 +479,6 @@ Msg.factory = (options = {}) => {
     }
 
     instance.fix_stacks()
-
     instance.options.after_set(instance)
   }
 
@@ -546,7 +514,6 @@ Msg.factory = (options = {}) => {
     }
 
     instance.fix_stacks()
-
     instance.options.after_set_title(instance)
   }
 
@@ -580,20 +547,6 @@ Msg.factory = (options = {}) => {
   }
 
   instance.show = (content, callback = false) => {
-    clearTimeout(instance.show_delay_timeout)
-
-    if (instance.options.show_delay > 0) {
-      instance.show_delay_timeout = setTimeout(() => {
-        instance.do_show(content, callback)
-      }, instance.options.show_delay)
-
-      return
-    }
-
-    instance.do_show(content, callback)
-  }
-
-  instance.do_show = (content, callback = false) => {
     if (instance.options.close_on_show && instance.is_open()) {
       instance.content_for_close_on_show = content
       instance.callback_for_close_on_show = callback
@@ -642,7 +595,6 @@ Msg.factory = (options = {}) => {
     }
 
     instance.reset_timers()
-
     instance.closing = false
 
     let return_callback = true
@@ -656,11 +608,8 @@ Msg.factory = (options = {}) => {
       }
 
       instance.container.style.display = `block`
-
       instance.check_add_overflow_hidden()
-
       instance.set_default_positions()
-
       instance.reset_props()
 
       if (instance.options.sideStack === `vertical`) {
@@ -707,7 +656,6 @@ Msg.factory = (options = {}) => {
     }
 
     instance.is_open() ? instance.close() : instance.show()
-
     instance.options.after_toggle(instance)
   }
 
@@ -1533,7 +1481,6 @@ Msg.factory = (options = {}) => {
 
   instance.common_zIndex = (zIndex) => {
     zIndex = parseInt(zIndex)
-
     let common
 
     if (zIndex > 0) {
@@ -1548,7 +1495,6 @@ Msg.factory = (options = {}) => {
 
   instance.highest_zIndex = () => {
     let highest = -2000
-
     let windows = Array.from(document.querySelectorAll(`.Msg-window`))
 
     for (let i = 0; i < windows.length; i++) {
@@ -1582,7 +1528,6 @@ Msg.factory = (options = {}) => {
 
   instance.highest_common_zIndex = () => {
     let highest = -2000
-
     let windows = Array.from(document.querySelectorAll(`.Msg-window`))
 
     for (let i = 0; i < windows.length; i++) {
@@ -1649,9 +1594,7 @@ Msg.factory = (options = {}) => {
   instance.to_top = () => {
     if (instance.is_open()) {
       let zIndex = parseInt(instance.window.style.zIndex)
-
       let highest_common = instance.highest_common_zIndex()
-
       let highest
 
       if (instance.options.zStack_level === 1) {
@@ -1726,7 +1669,6 @@ Msg.factory = (options = {}) => {
 
     if (instance.options.reverse_autoclose_progressbar) {
       let percentage = 0
-
       instance.progressbar.style.width = `0%`
 
       instance.progressbar_animation = setInterval(() => {
@@ -1745,7 +1687,6 @@ Msg.factory = (options = {}) => {
     }
     else {
       let percentage = 100
-
       instance.progressbar.style.width = `100%`
 
       instance.progressbar_animation = setInterval(() => {
@@ -1788,7 +1729,6 @@ Msg.factory = (options = {}) => {
     }
 
     instance.progressbar.style.width = `${percentage}%`
-
     instance.options.after_set_progress(instance)
   }
 
@@ -1858,7 +1798,6 @@ Msg.factory = (options = {}) => {
   instance.highest_in_position = (mode) => {
     let highest = -2000
     let highest_ins
-
     let p = instance.options.position
 
     for (let i of Msg.instances) {
@@ -1899,7 +1838,6 @@ Msg.factory = (options = {}) => {
   instance.lowest_in_position = (mode) => {
     let lowest = 200000000
     let lowest_ins
-
     let p = instance.options.position
 
     for (let i of Msg.instances) {
@@ -1939,7 +1877,6 @@ Msg.factory = (options = {}) => {
 
   instance.above_in_position = (ins, mode) => {
     let ins_above = []
-
     let p = ins.options.position
 
     for (let i of Msg.instances) {
@@ -2180,9 +2117,7 @@ Msg.factory = (options = {}) => {
 
   instance.fix_vStack = () => {
     let p = instance.options.position
-
     let below = instance.lowest_in_position(`vertical`)
-
     let new_top, new_bottom
 
     if (below !== undefined) {
@@ -2268,7 +2203,6 @@ Msg.factory = (options = {}) => {
 
   instance.collapse_hStack = () => {
     let p = instance.options.position
-
     let ins_above = instance.above_in_position(instance, `horizontal`)
 
     for (let i of ins_above) {
@@ -2281,7 +2215,6 @@ Msg.factory = (options = {}) => {
       }
 
       let below = instance.nextbelow_in_position(i, `horizontal`)
-
       let new_left, new_right
 
       if (below !== undefined) {
@@ -2583,10 +2516,8 @@ Msg.factory = (options = {}) => {
 
   instance.is_textbox = (element) => {
     let tag_name = element.tagName.toLowerCase()
-
     if (tag_name === `textarea`) return true
     if (tag_name !== `input`) return false
-
     let type = element.getAttribute(`type`)
 
     if (!type) {
@@ -2667,17 +2598,14 @@ Msg.factory = (options = {}) => {
 		`
 
     style.innerHTML = css
-
     document.head.appendChild(style)
 
     document.addEventListener(`keydown`, (e) => {
       let highest = Msg.msg.highest_instance()
-
       if (!highest) return
 
       if (e.key === `Escape`) {
         let highest = Msg.msg.highest_instance()
-
         if (!highest) return
 
         if (highest.options.clear_editables) {
