@@ -1,4 +1,4 @@
-/* Msg v12.0.0 https://github.com/Merkoba/Msg */
+/* Msg v12.1.0 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 
@@ -7,9 +7,6 @@ Msg.num_created = 0
 Msg.factory = (options = {}) => {
   const instance = {}
 
-  instance.close_enabled = true
-  instance.click_enabled = true
-  instance.keys_enabled = true
   instance.closing = false
   instance.stack_pos_top = undefined
   instance.stack_pos_bottom = undefined
@@ -244,19 +241,6 @@ Msg.factory = (options = {}) => {
       )
     }
 
-    if (instance.options.temp_disable_close === undefined) {
-      instance.options.temp_disable_close = false
-    }
-
-    if (instance.options.temp_disable_close_delay === undefined) {
-      instance.options.temp_disable_close_delay = 1000
-    }
-    else {
-      instance.options.temp_disable_close_delay = parseInt(
-        instance.options.temp_disable_close_delay
-      )
-    }
-
     if (instance.options.autoclose === undefined) {
       instance.options.autoclose = false
     }
@@ -267,32 +251,6 @@ Msg.factory = (options = {}) => {
     else {
       instance.options.autoclose_delay = parseInt(
         instance.options.autoclose_delay
-      )
-    }
-
-    if (instance.options.temp_disable_click === undefined) {
-      instance.options.temp_disable_click = false
-    }
-
-    if (instance.options.temp_disable_click_delay === undefined) {
-      instance.options.temp_disable_click_delay = 1000
-    }
-    else {
-      instance.options.temp_disable_click_delay = parseInt(
-        instance.options.temp_disable_click_delay
-      )
-    }
-
-    if (instance.options.temp_disable_keys === undefined) {
-      instance.options.temp_disable_keys = false
-    }
-
-    if (instance.options.temp_disable_keys_delay === undefined) {
-      instance.options.temp_disable_keys_delay = 1000
-    }
-    else {
-      instance.options.temp_disable_keys_delay = parseInt(
-        instance.options.temp_disable_keys_delay
       )
     }
 
@@ -475,10 +433,6 @@ Msg.factory = (options = {}) => {
     }
 
     if (!instance.is_open()) {
-      return
-    }
-
-    if (!instance.close_enabled) {
       return
     }
 
@@ -725,21 +679,6 @@ Msg.factory = (options = {}) => {
 
     if (instance.options.scroll_on_show) {
       instance.content_container.scrollTop = 0
-    }
-
-    if (instance.options.temp_disable_close) {
-      instance.close_enabled = false
-      instance.temp_disable_close_timer()
-    }
-
-    if (instance.options.temp_disable_click) {
-      instance.click_enabled = false
-      instance.temp_disable_click_timer()
-    }
-
-    if (instance.options.temp_disable_keys) {
-      instance.keys_enabled = false
-      instance.temp_disable_keys_timer()
     }
 
     if (instance.options.autoclose) {
@@ -1352,17 +1291,6 @@ Msg.factory = (options = {}) => {
       }
     })
 
-    instance.content.addEventListener(`mousedown`, (e) => {
-      if (!instance.click_enabled) {
-        let captureClick = (e) => {
-          e.stopPropagation()
-          this.removeEventListener(`click`, captureClick, true)
-        }
-
-        instance.window.addEventListener(`click`, captureClick, true)
-      }
-    })
-
     if (instance.window_inner_x !== undefined) {
       instance.window_inner_x.addEventListener(`click`, (e) => {
         instance.options.on_x_button_click(instance)
@@ -1779,24 +1707,6 @@ Msg.factory = (options = {}) => {
     }
   }
 
-  instance.temp_disable_close_timer = () => {
-    instance.temp_disable_close_timeout = setTimeout(() => {
-      instance.close_enabled = true
-    }, instance.options.temp_disable_close_delay)
-  }
-
-  instance.temp_disable_click_timer = () => {
-    instance.temp_disable_click_timeout = setTimeout(() => {
-      instance.click_enabled = true
-    }, instance.options.temp_disable_click_delay)
-  }
-
-  instance.temp_disable_keys_timer = () => {
-    instance.temp_disable_keys_timeout = setTimeout(() => {
-      instance.keys_enabled = true
-    }, instance.options.temp_disable_keys_delay)
-  }
-
   instance.autoclose_timer = () => {
     instance.autoclose_timeout = setTimeout(() => {
       instance.close()
@@ -1804,14 +1714,7 @@ Msg.factory = (options = {}) => {
   }
 
   instance.reset_timers = () => {
-    clearTimeout(instance.temp_disable_close_timeout)
-    clearTimeout(instance.temp_disable_click_timeout)
-    clearTimeout(instance.temp_disable_keys_timeout)
     clearTimeout(instance.autoclose_timeout)
-
-    instance.close_enabled = true
-    instance.click_enabled = true
-    instance.keys_enabled = true
   }
 
   instance.clear_autoclose_progressbar_interval = () => {
@@ -2771,15 +2674,6 @@ Msg.factory = (options = {}) => {
       let highest = Msg.msg.highest_instance()
 
       if (!highest) return
-
-      if (!highest.keys_enabled) {
-        let captureKey = (e) => {
-          e.stopPropagation()
-          this.removeEventListener(`keyup`, captureKey, true)
-        }
-
-        document.addEventListener(`keyup`, captureKey, true)
-      }
 
       if (e.key === `Escape`) {
         let highest = Msg.msg.highest_instance()
