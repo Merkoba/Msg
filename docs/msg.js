@@ -596,13 +596,9 @@ Msg.factory = (options = {}) => {
 
     instance.reset_timers()
     instance.closing = false
-
     let return_callback = true
-    let first_show = false
 
     if (!instance.is_open()) {
-      first_show = true
-
       if (instance.options.close_others_on_show) {
         instance.close_all()
       }

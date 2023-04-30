@@ -305,17 +305,6 @@ var s10 =
 
 var stoy = `<div class='heading'>Symmetric Harmony</div>By Tiffany Rayside<br><br><div><canvas id="canv"></canvas></div><img id='spinner' src='spinner.gif'>`
 
-document.addEventListener("keyup", function (e) {
-  if (msg_dkeys.is_open()) {
-    if (e.keyCode === 13) {
-      console.log("Enter pressed.")
-      alert(
-        "This deactivated key actions on the document for 3 seconds. Made to avoid typing/activating things by accident. Default for this option is 1 second."
-      )
-    }
-  }
-})
-
 var msg_pop = Msg.factory({
   preset: "popup",
 })
@@ -387,7 +376,6 @@ function pop(position) {
   })
 
   pops.push(pupmsg)
-
   pupmsg.show([title, message])
 }
 
