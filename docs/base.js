@@ -4,6 +4,11 @@ var msg_title = Msg.factory({
   enable_titlebar: true,
   window_x: "inner_right",
   center_titlebar: true,
+  class: "blue",
+})
+
+var msg_img = Msg.factory({
+  class: "green",
 })
 
 var msg2 = Msg.factory({
