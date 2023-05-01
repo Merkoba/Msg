@@ -193,20 +193,14 @@ let msg_np = Msg.factory({
   },
 })
 
+let lorem = `<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.`
+lorem += `<br><br><br><div class='heading'>Why do we use it?</div><br>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).`
+lorem += `<br><br><br><div class='heading'>Where can I get some?</div><br>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.`
 let sm = `This is a simple message.`
 let sc = `There are options to give elements different ids and classes. Then it's a matter of customizing and reusing parts however you want.`
-let s = `<div class="heading">Where does it come from?</div><br>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.`
-s += `<br><br><br><div class='heading'>Why do we use it?</div><br>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).`
-s += `<br><br><br><div class='heading'>Where can I get some?</div><br>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.`
 let s2 = `<div class='heading'>Bubbagum</div><br><img src='bubbagum.jpg'>`
 let s3 = `<div class='btn' onclick='msg_boop.show(\"This window is on top.\")'>Open Another Window</div>`
 let s4 = `This window will autoclose.`
-let s5 = `Click the x in the top right corner of the overlay to close this. The position of the x buttons can be configured to be either on the left or right side.`
-let s6 = `Try to close the window.`
-let s7 = `<div class='btn' onclick=\"alert('This deactivated click events inside the window for 3 seconds. Made to avoid clicking things by accident. Default for this option is 1 second.')\">Keep Clicking Me</div>`
-let s8 = `When you focus the textarea and press Escape it will remove the last word. <br>Press Escape when empty and it closes the window.<br><br><textarea id='texta' rows=5>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</textarea><br><br><input style='font-size:28px;border:1px solid grey' type='search' value='Contrary to popular belief, Lorem Ipsum is not simply random text.'>`
-let s9 = `Keep Pressing Enter`
-let s10 = `This is a customized window.\nInformation about how to style a window can be found below.`
 let stoy = `<div class='heading'>Symmetric Harmony</div>By Tiffany Rayside<br><br><div><canvas id="canv"></canvas></div><img id='spinner' src='spinner.gif'>`
 let pops = []
 let colors = [`green`, `blue`, `red`, `black`]
@@ -284,7 +278,12 @@ function pop(position) {
 }
 
 function show_options(popup) {
-  let msg = Msg.factory({ class: popup.options.class })
+  let msg = Msg.factory({
+    class: popup.options.class,
+    enable_titlebar: true,
+    center_titlebar: true,
+  })
+
   let s = ``
   let keys = Object.keys(popup.options)
 
@@ -299,7 +298,7 @@ function show_options(popup) {
     s += prop + `<br><br>`
   }
 
-  msg.show(s)
+  msg.show([`Popup Options`, s])
 }
 
 let msg_window = Msg.factory({
