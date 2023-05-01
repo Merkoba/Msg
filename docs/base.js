@@ -225,13 +225,16 @@ function pop(position) {
   if (color === `green`) {
     message = `Your popup is ready.`
     title = `Success`
-  } else if (color === `blue`) {
+  }
+  else if (color === `blue`) {
     message = `You can click the popups.`
     title = `Reminder`
-  } else if (color === `red`) {
+  }
+  else if (color === `red`) {
     message = `Your ice cream is melting.`
     title = `Warning`
-  } else if (color === `black`) {
+  }
+  else if (color === `black`) {
     message = `Try giving me a star on GitHub!`
     title = `Tip`
   }
