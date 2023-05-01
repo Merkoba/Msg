@@ -1,5 +1,11 @@
 var msg = Msg.factory({})
 
+var msg_title = Msg.factory({
+  enable_titlebar: true,
+  window_x: "inner_right",
+  center_titlebar: true,
+})
+
 var msg2 = Msg.factory({
   id: "foo",
   class: "bar",
@@ -409,15 +415,6 @@ function pop2() {
 function get_random_int(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
-
-var msg_wo = Msg.factory({
-  while_open: function (instance) {
-    instance.set(instance.html() + "!")
-    if (instance.html().indexOf("!!!!") !== -1) {
-      instance.close()
-    }
-  },
-})
 
 var msg_update = Msg.factory({
   class: "blue",

@@ -56,7 +56,7 @@
       <span class="unselectable">
         <span class="clicky" onclick="msg.show(sm)">Demo 1</span
         >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick="msg.show(s)">Demo 2</span
+        <span class="clicky" onclick="msg_title.show(['A Story About Lorem Ipsum', s])">Demo 2</span
         >&nbsp;&nbsp;&nbsp;
         <span class="clicky" onclick="msg.show(s2)">Demo 3</span
         >&nbsp;&nbsp;&nbsp;
@@ -736,13 +736,6 @@ msg2.show(["Window Example", some_text])
 
       <i>after_destroy (Default: Empty Function)</i>: Function that triggers
       after the destroy method. Receives the instance as an argument.<br><br>
-
-      <i>while_open (Default: Empty Function)</i>: Function that runs in an
-      interval as long as the window is open. Receives the instance as an
-      argument.<br><br>
-
-      <i>while_open_interval (Default: 1000)</i>: Function that triggers after
-      the destroy method. Receives the instance as an argument.<br><br>
 
       <i>on_click (Default: Empty Function)</i>: Function that triggers when
       the window is clicked.<br><br>

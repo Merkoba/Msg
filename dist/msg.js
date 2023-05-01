@@ -194,10 +194,6 @@ Msg.factory = (options = {}) => {
       instance.options.after_destroy = () => {}
     }
 
-    if (instance.options.while_open === undefined) {
-      instance.options.while_open = () => {}
-    }
-
     if (instance.options.on_click === undefined) {
       instance.options.on_click = () => {}
     }
@@ -224,15 +220,6 @@ Msg.factory = (options = {}) => {
 
     if (instance.options.on_x_button_click === undefined) {
       instance.options.on_x_button_click = () => {}
-    }
-
-    if (instance.options.while_open_interval === undefined) {
-      instance.options.while_open_interval = 1000
-    }
-    else {
-      instance.options.while_open_interval = parseInt(
-        instance.options.while_open_interval
-      )
     }
 
     if (instance.options.autoclose === undefined) {
@@ -406,11 +393,6 @@ Msg.factory = (options = {}) => {
       return
     }
 
-    instance.clear_while_open_interval()
-    instance.close_window()
-  }
-
-  instance.close_window = () => {
     instance.container.style.display = `none`
 
     if (instance.overlay !== undefined) {
@@ -578,10 +560,6 @@ Msg.factory = (options = {}) => {
       }
       else if (instance.options.sideStack === `horizontal`) {
         instance.check_hStack()
-      }
-
-      if (instance.options.while_open !== undefined) {
-        instance.start_while_open_interval()
       }
     }
 
@@ -1664,18 +1642,6 @@ Msg.factory = (options = {}) => {
 
     instance.window.style.opacity = 1
     instance.window.style.zoom = 1
-  }
-
-  instance.start_while_open_interval = () => {
-    instance.clear_while_open_interval()
-
-    instance.while_open_interval = setInterval(() => {
-      instance.options.while_open(instance)
-    }, instance.options.while_open_interval)
-  }
-
-  instance.clear_while_open_interval = () => {
-    clearInterval(instance.while_open_interval)
   }
 
   instance.stack_pos_top_sort = (a, b) => {
