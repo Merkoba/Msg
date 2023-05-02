@@ -366,11 +366,11 @@ remind("Water the trees.")</code></pre>
 
 //js
 
-let msg = Msg.factory({
-    id: "foo",
-    class: "bar",
-    window_inner_x_class: "!big",
-    enable_titlebar: true
+let msg_custom = Msg.factory({
+  id: `foo`,
+  class: `bar`,
+  content_class: `!big`,
+  enable_titlebar: true,
 })
 
 //css
@@ -386,13 +386,11 @@ let msg = Msg.factory({
 .Msg-content-bar {
     padding-top: 1em !important;
     line-height: 2em !important;
-    font-size: 1.4em !important;
 }
 
 .Msg-titlebar-bar {
     background-color: #589958 !important;
     color: white !important;
-    font-size: 1.25em !important;
 }
 
 #Msg-window-inner-x-foo {

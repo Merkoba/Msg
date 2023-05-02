@@ -48,13 +48,11 @@ a:hover {
 .Msg-content-bar {
   padding-top: 1em !important;
   line-height: 2em !important;
-  font-size: 1.4em !important;
 }
 
 .Msg-titlebar-bar {
   background-color: #589958 !important;
   color: white !important;
-  font-size: 1.25em !important;
 }
 
 #Msg-window-inner-x-foo {
