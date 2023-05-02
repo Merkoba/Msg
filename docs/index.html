@@ -134,33 +134,23 @@
 
         <br><br>
 
-        <span class="clicky" onclick='pop("center")'>position:center</span
-        >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick='pop("top")'>position:top</span
-        >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick='pop("bottom")'>position:bottom</span
-        >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick='pop("left")'>position:left</span
-        >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick='pop("right")'>position:right</span
-        >&nbsp;&nbsp;&nbsp; <br><br>
-        <span class="clicky" onclick='pop("topleft")'>position:topleft</span
-        >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick='pop("bottomleft")'
-          >position:bottomleft</span
-        >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick='pop("topright")'>position:topright</span
-        >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick='pop("bottomright")'
-          >position:bottomright</span
-        >
+        <span class="clicky" onclick='pop("center")'>center</span>&nbsp;&nbsp;
+        <span class="clicky" onclick='pop("top")'>top</span>&nbsp;&nbsp;
+        <span class="clicky" onclick='pop("bottom")'>bottom</span>&nbsp;&nbsp;
+        <span class="clicky" onclick='pop("left")'>left</span>&nbsp;&nbsp;
+        <span class="clicky" onclick='pop("right")'>right</span>&nbsp;&nbsp;
+        <span class="clicky" onclick='pop("topleft")'>topleft</span>&nbsp;&nbsp;
+        <span class="clicky" onclick='pop("bottomleft")'>bottomleft</span>&nbsp;&nbsp;
+        <span class="clicky" onclick='pop("topright")'>topright</span>&nbsp;&nbsp;
+        <span class="clicky" onclick='pop("bottomright")'>bottomright</span>
 
         <br><br>
       </span>
 
       <blockquote>
         <pre><code>let msg_pop = Msg.factory({
-    preset:"popup" // or "popup_autoclose"
+    preset: "popup" // or "popup_autoclose",
+    position: "bottomright"
 })
         </code></pre>
       </blockquote>
@@ -264,7 +254,7 @@
       multiple instances. <br><br>You can create factory functions to create
       and show instances on the fly. <br><br>The "persistent" option is to
       be considered when creating on the fly instances. If you're not going to
-      use the instance again, it's advised to use persistent:false, which
+      use the instance again, it's advised to use persistent: false, which
       destroys the html elements after close, to avoid filling the dom with
       unncecesary elements.
 
@@ -429,7 +419,7 @@ let msg = Msg.factory({
 .Msg-titlebar-bar {
     background-color: #589958 !important;
     color: white !important;
-    font-size:1.25em !important;
+    font-size: 1.25em !important;
 }
 
 .Msg-window-inner-x-red {
@@ -437,7 +427,7 @@ let msg = Msg.factory({
     color: #ffffff !important;
 }
 
-.Msg-window-inner-x-red:hover {
+.Msg-window-inner-x-red: hover {
     background-color: #a72b2b !important;
 }
 
