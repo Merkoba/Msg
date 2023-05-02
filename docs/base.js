@@ -299,7 +299,7 @@ function show_options(popup) {
     s += prop + `<br><br>`
   }
 
-  msg.show([`Popup Options`, s])
+  msg.show([`Popup Properties`, s])
 }
 
 let msg_window = Msg.factory({
