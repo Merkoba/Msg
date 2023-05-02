@@ -57,6 +57,15 @@ a:hover {
   font-size: 1.25em !important;
 }
 
+#Msg-window-inner-x-foo {
+  background-color: #ca4e4e !important;
+  color: #ffffff !important;
+}
+
+#Msg-window-inner-x-foo:hover {
+  background-color: #a72b2b !important;
+}
+
 #Msg-content-boom {
   padding: 0 !important;
 }

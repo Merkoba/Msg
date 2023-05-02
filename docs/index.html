@@ -29,19 +29,19 @@
       A javascript library to create and manage highly customizable modal
       windows and popup messages.<br><br>
 
-      <a href="#modal">Modal</a>&nbsp;&nbsp;&nbsp;
-      <a href="#popups">Popups</a>&nbsp;&nbsp;&nbsp;
-      <a href="#windows">Windows</a>&nbsp;&nbsp;&nbsp;
-      <a href="#installation">Installation</a>&nbsp;&nbsp;&nbsp;
+      <a href="#modal">Modal</a>&nbsp;&nbsp;
+      <a href="#popups">Popups</a>&nbsp;&nbsp;
+      <a href="#windows">Windows</a>&nbsp;&nbsp;
+      <a href="#installation">Installation</a>&nbsp;&nbsp;
       <a href="#basicusage">Basic Usage</a>
 
       <br><br>
 
-      <a href="#structure">Structure</a>&nbsp;&nbsp;&nbsp;
-      <a href="#styling">Styling</a>&nbsp;&nbsp;&nbsp;
-      <a href="#options">Options</a>&nbsp;&nbsp;&nbsp;
-      <a href="#properties">Properties</a>&nbsp;&nbsp;&nbsp;
-      <a href="#methods">Methods</a>&nbsp;&nbsp;&nbsp;
+      <a href="#structure">Structure</a>&nbsp;&nbsp;
+      <a href="#styling">Styling</a>&nbsp;&nbsp;
+      <a href="#options">Options</a>&nbsp;&nbsp;
+      <a href="#properties">Properties</a>&nbsp;&nbsp;
+      <a href="#methods">Methods</a>&nbsp;&nbsp;
       <a href="#presets">Presets</a>
 
       <br><br>
@@ -54,12 +54,9 @@
       <br><br>
 
       <span class="unselectable">
-        <span class="clicky" onclick="msg.show(sm)">Demo 1</span
-        >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick="msg_title.show(['A Story About Lorem Ipsum', lorem])">Demo 2</span
-        >&nbsp;&nbsp;&nbsp;
-        <span class="clicky" onclick="msg_img.show(s2)">Demo 3</span
-        >&nbsp;&nbsp;&nbsp;
+        <span class="clicky" onclick="msg.show(sm)">Demo 1</span>&nbsp;&nbsp;
+        <span class="clicky" onclick="msg_title.show(['A Story About Lorem Ipsum', lorem])">Demo 2</span>&nbsp;&nbsp;
+        <span class="clicky" onclick="msg_img.show(s2)">Demo 3</span>&nbsp;&nbsp;
         <span
           class="clicky"
           onclick='msg_autoclose.show(s4);msg_autoclose.set_title("Warning")'
@@ -396,7 +393,7 @@ remind("Water the trees.")
 let msg = Msg.factory({
     id: "foo",
     class: "bar",
-    window_inner_x_class: "red !big",
+    window_inner_x_class: "!big",
     enable_titlebar: true
 })
 
@@ -422,12 +419,12 @@ let msg = Msg.factory({
     font-size: 1.25em !important;
 }
 
-.Msg-window-inner-x-red {
+#Msg-window-inner-x-foo {
     background-color: #ca4e4e !important;
     color: #ffffff !important;
 }
 
-.Msg-window-inner-x-red: hover {
+#Msg-window-inner-x-foo:hover {
     background-color: #a72b2b !important;
 }
 
@@ -437,12 +434,10 @@ let msg = Msg.factory({
 
 msg.show(["Window Example", some_text])
         </code></pre>
-        </blockquote></i
-      >
+        </blockquote></i>
 
-      <span class="clicky" onclick='msg_custom.show(["Window Example", sc]);'
-        >Run This Demo</span
-      ><br><br><br>
+      <span class="clicky" onclick='msg_custom.show(["Window Example", sc]);'>Run This Demo</span>
+      <br><br><br>
 
       <span class="unselectable">
         There are some pre-made classes:
@@ -450,18 +445,15 @@ msg.show(["Window Example", some_text])
         <br><br>
 
         <span class="clicky" onclick='msg_red.show("This is the red theme.")'
-          >class: "red"</span
-        >&nbsp;&nbsp;&nbsp;
+          >class: "red"</span>&nbsp;&nbsp;
 
         <span class="clicky" onclick='msg_blue.show("This is the blue theme.")'
-          >class: "blue"</span
-        >&nbsp;&nbsp;&nbsp;
+          >class: "blue"</span>&nbsp;&nbsp;
 
         <span
           class="clicky"
           onclick='msg_green.show("This is the green theme.")'
-          >class: "green"</span
-        >&nbsp;&nbsp;&nbsp;
+          >class: "green"</span>&nbsp;&nbsp;
 
         <span
           class="clicky"
@@ -476,20 +468,17 @@ msg.show(["Window Example", some_text])
         <span
           class="clicky"
           onclick='msg_red_tb.show("This is the red theme with the titlebar enabled.");msg_red_tb.set_title("Theme")'
-          >class: "red"</span
-        >&nbsp;&nbsp;&nbsp;
+          >class: "red"</span>&nbsp;&nbsp;
 
         <span
           class="clicky"
           onclick='msg_blue_tb.show("This is the blue theme with the titlebar enabled.");msg_blue_tb.set_title("Theme")'
-          >class: "blue"</span
-        >&nbsp;&nbsp;&nbsp;
+          >class: "blue"</span>&nbsp;&nbsp;
 
         <span
           class="clicky"
           onclick='msg_green_tb.show("This is the green theme with the titlebar enabled.");msg_green_tb.set_title("Theme")'
-          >class: "green"</span
-        >&nbsp;&nbsp;&nbsp;
+          >class: "green"</span>&nbsp;&nbsp;
 
         <span
           class="clicky"
@@ -1003,30 +992,29 @@ msg_test.show("Domo Arigato")
       instance.options.full_content = true;<br>
       instance.options.window_x = "none";<br>
 
-      <br><br>
-      Note: It's advised to not modify the "display" or "z-index" css properties
-      of the Msg html elements since they are handled internally.<br><br>
-
       <br>
+
+      Note: It's advised to not modify the "display" or "z-index" css properties
+      of the Msg HTML elements since they are handled internally.
+
+      <br><br>
 
       <span class="clicky" onclick="msg_toy.show(stoy)">One Last Demo</span>
 
-      <br><br><br>
+      <br><br>
 
       <a href="https://github.com/Merkoba/Msg/" target="_blank">GitHub</a>
 
-      &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;
 
-      <a href="https://github.com/Merkoba/Msg/wiki" target="_blank"
-        >Open Wiki</a
-      >
+      <a href="https://github.com/Merkoba/Msg/wiki" target="_blank">Open Wiki</a>
 
-      &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;
 
       <a href="https://github.com/Merkoba/Msg/issues" target="_blank">Issues</a>
 
-      <br><br><br><br>
-      <br><br><br><br>
+      <br><br><br>
+      <br><br><br>
     </div>
 
     <audio id="toymusic" src="toymusic.mp3?v=1" loop></audio>

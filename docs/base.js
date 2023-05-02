@@ -18,7 +18,7 @@ let msg_img = Msg.factory({
 let msg_custom = Msg.factory({
   id: `foo`,
   class: `bar`,
-  window_inner_x_class: `red !big`,
+  window_inner_x_class: `!big`,
   enable_titlebar: true,
 })
 
