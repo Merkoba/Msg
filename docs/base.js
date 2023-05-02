@@ -216,6 +216,7 @@ function pop (position) {
     on_click: function (instance) {
       show_options(instance)
     },
+    window_unselectable: true
   })
 
   pops.push(popup)
