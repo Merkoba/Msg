@@ -1,3 +1,7 @@
+function el (query, root = document) {
+  return root.querySelector(query)
+}
+
 let msg = Msg.factory({})
 
 let msg_title = Msg.factory({
@@ -99,7 +103,7 @@ function play_audio(id) {
     clearInterval(audio_fadeout_interval)
   }
 
-  let audio = document.getElementById(id)
+  let audio = el(`#${id}`)
 
   audio.pause()
   audio.volume = 1
@@ -110,7 +114,7 @@ function play_audio(id) {
 let audio_fadeout_interval
 
 function stop_audio(id) {
-  let audio = document.getElementById(id)
+  let audio = el(`#${id}`)
 
   if (audio_fadeout_interval !== undefined) {
     clearInterval(audio_fadeout_interval)
@@ -122,7 +126,7 @@ function stop_audio(id) {
 }
 
 function audio_fadeout(audio) {
-  var newVolume = audio.volume - 0.04
+  let newVolume = audio.volume - 0.04
 
   if (newVolume >= 0) {
     audio.volume = newVolume
@@ -154,11 +158,8 @@ let msg_toy = Msg.factory({
     play_audio(`toymusic`)
 
     toytime0 = setTimeout(function () {
-      var spinner = document.getElementById(`spinner`)
-      spinner.style.display = `none`
-
-      var canv = document.getElementById(`canv`)
-      canv.style.display = `block`
+      el(`#spinner`).style.display = `none`
+      el(`#canv`).style.display = `block`
 
       toytime1 = setTimeout(function () {
         Msg.factory({ preset: `popup`, zStack_level: 2, class: `black` }).show(
@@ -233,14 +234,14 @@ function pop(position) {
     title = `Tip`
   }
 
-  let sideStack = document.getElementById(`select_sideStack`).value
-  let autoclose = document.getElementById(`input_autoclose`).checked
-  let sideStack_collapse = document.getElementById(`input_sideStack_collapse`).checked
-  let enable_titlebar = document.getElementById(`input_enable_titlebar`).checked
-  let window_x = document.getElementById(`select_window_x`).value
-  let overlay_x = document.getElementById(`select_overlay_x`).value
-  let enable_overlay = document.getElementById(`input_enable_overlay`).checked
-  let lock = document.getElementById(`input_lock`).checked
+  let sideStack = el(`#select_sideStack`).value
+  let autoclose = el(`#input_autoclose`).checked
+  let sideStack_collapse = el(`#input_sideStack_collapse`).checked
+  let enable_titlebar = el(`#input_enable_titlebar`).checked
+  let window_x = el(`#select_window_x`).value
+  let overlay_x = el(`#select_overlay_x`).value
+  let enable_overlay = el(`#input_enable_overlay`).checked
+  let lock = el(`#input_lock`).checked
   let enable_progressbar
 
   if (autoclose) {
@@ -264,9 +265,9 @@ function pop(position) {
     sideStack: sideStack,
     sideStack_collapse: sideStack_collapse,
     enable_titlebar: enable_titlebar,
-    edge_padding_x: document.getElementById(`input_edge_padding_x`).value,
-    edge_padding_y: document.getElementById(`input_edge_padding_y`).value,
-    sideStack_padding: document.getElementById(`input_sideStack_padding`).value,
+    edge_padding_x: el(`#input_edge_padding_x`).value,
+    edge_padding_y: el(`#input_edge_padding_y`).value,
+    sideStack_padding: el(`#input_sideStack_padding`).value,
     window_cursor: `pointer`,
     on_click: function (instance) {
       show_options(instance)
