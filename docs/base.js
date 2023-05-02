@@ -213,10 +213,10 @@ function pop (position) {
     edge_padding_y: el(`#input_edge_padding_y`).value,
     sideStack_padding: el(`#input_sideStack_padding`).value,
     window_cursor: `pointer`,
+    window_unselectable: true,
     on_click: function (instance) {
       show_options(instance)
     },
-    window_unselectable: true
   })
 
   pops.push(popup)
