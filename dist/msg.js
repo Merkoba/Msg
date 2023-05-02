@@ -1,4 +1,4 @@
-/* Msg v14.2.1 https://github.com/Merkoba/Msg */
+/* Msg v14.2.2 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 Msg.num_created = 0
