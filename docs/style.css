@@ -42,16 +42,16 @@ a:hover {
 }
 
 .Msg-window-bar {
-  background-color: #ffff62 !important;
+  background-color: yellow !important;
 }
 
 .Msg-titlebar-bar {
-  background-color: #589958 !important;
+  background-color: green !important;
   color: white !important;
 }
 
 #Msg-window-inner-x-foo {
-  background-color: #ca4e4e !important;
+  background-color: red !important;
   color: #ffffff !important;
 }
 
