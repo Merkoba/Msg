@@ -182,3 +182,7 @@ select {
 .scroller {
   padding: 2em;
 }
+
+.precode {
+  text-align: left;
+}

@@ -42,63 +42,7 @@ let msg_autoclose = Msg.factory({
   autoclose_delay: 1800,
 })
 
-let msg_red = Msg.factory({
-  class: `red`,
-  overlay_x: `right`,
-  autoclose: true,
-  autoclose_delay: 2000,
-  enable_progressbar: true,
-})
-
-let msg_blue = Msg.factory({
-  class: `blue`,
-  overlay_x: `right`,
-  autoclose: true,
-  autoclose_delay: 2000,
-  enable_progressbar: true,
-})
-
-let msg_green = Msg.factory({
-  class: `green`,
-  overlay_x: `right`,
-  autoclose: true,
-  autoclose_delay: 2000,
-  enable_progressbar: true,
-})
-
-let msg_black = Msg.factory({
-  class: `black`,
-  overlay_x: `right`,
-  autoclose: true,
-  autoclose_delay: 2000,
-  enable_progressbar: true,
-})
-
-let msg_red_tb = Msg.factory({
-  class: `red`,
-  overlay_x: `right`,
-  enable_titlebar: true,
-})
-
-let msg_blue_tb = Msg.factory({
-  class: `blue`,
-  overlay_x: `right`,
-  enable_titlebar: true,
-})
-
-let msg_green_tb = Msg.factory({
-  class: `green`,
-  overlay_x: `right`,
-  enable_titlebar: true,
-})
-
-let msg_black_tb = Msg.factory({
-  class: `black`,
-  overlay_x: `right`,
-  enable_titlebar: true,
-})
-
-function play_audio(id) {
+function play_audio (id) {
   if (audio_fadeout_interval !== undefined) {
     clearInterval(audio_fadeout_interval)
   }
@@ -113,7 +57,7 @@ function play_audio(id) {
 
 let audio_fadeout_interval
 
-function stop_audio(id) {
+function stop_audio (id) {
   let audio = el(`#${id}`)
 
   if (audio_fadeout_interval !== undefined) {
@@ -125,7 +69,7 @@ function stop_audio(id) {
   }, 100)
 }
 
-function audio_fadeout(audio) {
+function audio_fadeout (audio) {
   let newVolume = audio.volume - 0.04
 
   if (newVolume >= 0) {
@@ -207,7 +151,7 @@ let pops = []
 let colors = [`green`, `blue`, `red`, `black`]
 let current_color = 0
 
-function pop(position) {
+function pop (position) {
   let color = colors[current_color]
   current_color += 1
 
@@ -278,7 +222,7 @@ function pop(position) {
   popup.show([title, message])
 }
 
-function show_options(popup) {
+function show_options (popup) {
   let msg = Msg.factory({
     class: popup.options.class,
     enable_titlebar: true,
@@ -335,6 +279,37 @@ us in an eternity of bliss; and then, my friend, when darkness overspreads my ey
 </div></div>
 `
 
-function open_window() {
+function open_window () {
   msg_window.show(txt)
+}
+
+function show_color (color) {
+  if (color.includes(`titlebar`)) {
+    color = color.split(`_`)[0]
+
+    let msg = Msg.factory({
+      class: color,
+      enable_titlebar: true,
+      persistent: false,
+      window_min_width: `20rem`,
+    })
+
+    let text = `let msg = Msg.factory({
+  class: "${color}",
+  enable_titlebar: true
+})`
+    msg.show([`Theme`, `<pre class='precode'><code>${text}</code></pre>`])
+  }
+  else {
+    let msg = Msg.factory({
+      class: color,
+      persistent: false,
+      window_min_width: `20rem`,
+    })
+
+    let text = `let msg = Msg.factory({
+  class: "${color}"
+})`
+    msg.show(`<pre class='precode'><code>${text}</code></pre>`)
+  }
 }
