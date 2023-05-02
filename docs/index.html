@@ -141,15 +141,14 @@
         <span class="clicky" onclick='pop("topright")'>topright</span>&nbsp;&nbsp;
         <span class="clicky" onclick='pop("bottomright")'>bottomright</span>
 
-        <br><br>
+        <br>
       </span>
 
       <blockquote>
         <pre><code>let msg_pop = Msg.factory({
     preset: "popup" // or "popup_autoclose",
     position: "bottomright"
-})
-        </code></pre>
+})</code></pre>
       </blockquote>
 
       <a name="windows"></a>
@@ -166,14 +165,11 @@
       <span class="clicky" onclick="open_window()">Open Window</span
       >&nbsp;&nbsp;&nbsp;
 
-      <i
-        ><blockquote>
+      <i><blockquote>
           <pre><code>let msg_window = Msg.factory({
     preset:"window"
-})
-        </code></pre>
-        </blockquote></i
-      >
+})</code></pre>
+      </blockquote></i>
 
       <a name="installation"></a>
       <h2>Installation</h2>
@@ -183,67 +179,54 @@
       >
 
       <br><br>To install just include the file in /dist:<br>
-      <i
-        ><blockquote>
+      <i><blockquote>
           <pre><code>&lt;script src="msg.js"&gt;&lt;/script&gt;</code></pre>
-        </blockquote></i
-      >
+      </blockquote></i>
 
-      <br>Or the minified, smaller file:<br>
-      <i
-        ><blockquote>
+      Or the minified, smaller file:<br>
+      <i><blockquote>
           <pre><code>&lt;script src="msg.min.js"&gt;&lt;/script&gt;</code></pre>
-        </blockquote></i
-      >
+      </blockquote></i>
 
-      <br>It's also available on NPM:
+      It's also available on NPM:
 
-      <i
-        ><blockquote>
+      <i><blockquote>
           <pre><code>npm install msg-modal</code></pre>
-        </blockquote></i
-      >
+      </blockquote></i>
 
-      <br>Then you can include the file:
+      Then you can include the file:
 
-      <i
-        ><blockquote>
+      <i><blockquote>
           <pre><code>&lt;script src="node_modules/msg-modal/dist/msg.js"&gt;&lt;/script&gt;</code></pre>
-        </blockquote></i
-      >
+      </blockquote></i>
 
-      <br>Or the minified version:
+      Or the minified version:
 
-      <i
-        ><blockquote>
-          <pre><code>&lt;script src="node_modules/msg-modal/dist/msg.min.js"&gt;&lt;/script&gt;
-        </code></pre>
-        </blockquote></i
-      >
+      <i><blockquote>
+          <pre><code>&lt;script src="node_modules/msg-modal/dist/msg.min.js"&gt;&lt;/script&gt;</code></pre>
+      </blockquote></i>
 
       <a name="basicusage"></a>
       <h2>Basic Usage</h2>
 
       To use, first make an instance:<br>
-      <i
-        ><blockquote>
+      <i><blockquote>
           <pre><code>let msg = Msg.factory()</code></pre>
-        </blockquote></i
-      >
+      </blockquote></i>
 
-      <br>To show a window just pass a string or an html element to the show
+      To show a window just pass a string or an html element to the show
       method:
 
       <br><br><span
         class="clicky"
         onclick='msg.show("<i>Hello</i> <b>World</b>")'
-        >msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span
-      ><br>
+        >msg.show("&lt;i&gt;Hello&lt;/i&gt; &lt;b&gt;World&lt;/b&gt;")</span>
+      <br>
       <br><span
         class="clicky"
         onclick='msg.show(document.getElementsByTagName("h1")[0])'
-        >msg.show(document.getElementsByTagName("h1")[0])</span
-      ><br>
+        >msg.show(document.getElementsByTagName("h1")[0])</span>
+      <br>
 
       <br>You can re-use the same instance to display different things.
       <br><br>Note that an instance can only show one thing at a time.
@@ -255,8 +238,7 @@
       destroys the html elements after close, to avoid filling the dom with
       unncecesary elements.
 
-      <i
-        ><blockquote>
+      <i><blockquote>
           <pre><code>function remind(html) {
     let msg = Msg.factory({
         class: "green",
@@ -267,10 +249,8 @@
     msg.show(["Reminder", html])
 }
 
-remind("Water the trees.")
-        </code></pre>
-        </blockquote></i
-      >
+remind("Water the trees.")</code></pre>
+      </blockquote></i>
 
       <script>
         function remind(html) {
@@ -318,7 +298,7 @@ remind("Water the trees.")
       "Msg-progressbar-id" (with classes: "Msg-progressbar" and
       "Msg-progressbar-class") (Not created by default)<br>
 
-      <br><br>The structure looks like this:
+      <br>The structure looks like this:
 
       <blockquote>
         <pre><code>[container] (instance.container)
@@ -346,8 +326,7 @@ remind("Water the trees.")
 
     [/window]
 
-[/container]
-        </code></pre>
+[/container]</code></pre>
       </blockquote>
 
       By default, ids are based on the number of instances created, they are
@@ -380,10 +359,9 @@ remind("Water the trees.")
       make it look pleasing in different situations.<br><br>
 
       To override the css you will probably need to use !important
-      declarations.<br><br>
+      declarations.<br>
 
-      <i
-        ><blockquote>
+      <i><blockquote>
           <pre><code>Demo Code:
 
 //js
@@ -430,9 +408,8 @@ let msg = Msg.factory({
     font-size: 1.8em !important;
 }
 
-msg.show(["Window Example", some_text])
-        </code></pre>
-        </blockquote></i>
+msg.show(["Window Example", some_text])</code></pre>
+      </blockquote></i>
 
       <span class="clicky" onclick='msg_custom.show(["Window Example", sc]);'>Run This Demo</span>
       <br><br>
@@ -456,8 +433,8 @@ msg.show(["Window Example", some_text])
         <span
           class="clicky"
           onclick='msg_black.show("This is the black theme.")'
-          >class: "black"</span
-        ><br><br>
+          >class: "black"</span>
+        <br>
 
         <br>With titlebars enabled:
 
@@ -481,8 +458,8 @@ msg.show(["Window Example", some_text])
         <span
           class="clicky"
           onclick='msg_black_tb.show("This is the black theme with the titlebar enabled.");msg_black_tb.set_title("Theme")'
-          >class: "black"</span
-        >
+          >class: "black"
+        </span>
       </span>
 
       <br><a name="options"></a>
@@ -744,10 +721,9 @@ msg.show(["Window Example", some_text])
       <i>full_content (Default: false)</i>: Makes content height 100vh and width
       100vw.<br><br>
 
-      <br>Example:
+      Example:
 
-      <i
-        ><blockquote>
+      <i><blockquote>
           <pre><code>let msg_test = Msg.factory({
     id: "test",
     class: "black",
@@ -763,10 +739,8 @@ msg.show(["Window Example", some_text])
     }
 })
 
-msg_test.show("Domo Arigato")
-        </code></pre>
-        </blockquote></i
-      >
+msg_test.show("Domo Arigato")</code></pre>
+      </blockquote></i>
 
       <script>
         let msg_test = Msg.factory({
@@ -784,9 +758,7 @@ msg_test.show("Domo Arigato")
           },
         })
       </script>
-      <span class="clicky" onclick='msg_test.show("Domo Arigato")'
-        >Test It</span
-      >
+      <span class="clicky" onclick='msg_test.show("Domo Arigato")'>Test It</span>
 
       <br>
 
@@ -955,8 +927,7 @@ msg_test.show("Domo Arigato")
       <a name="presets"></a>
       <h2>Presets</h2>
 
-      <i><b>preset: "popup"</b></i
-      ><br>
+      <i><b>preset: "popup"</b></i><br>
       instance.options.class = "green";<br>
       instance.options.enable_overlay = false;<br>
       instance.options.position = "bottomright";<br>
@@ -965,8 +936,7 @@ msg_test.show("Domo Arigato")
       instance.options.window_width = "460px";<br>
       instance.options.lock = false;<br>
 
-      <br><i><b>preset: "popup_autoclose"</b></i
-      ><br>
+      <br><i><b>preset: "popup_autoclose"</b></i><br>
       instance.options.class = "green";<br>
       instance.options.enable_overlay = false;<br>
       instance.options.position = "bottomright";<br>
@@ -977,8 +947,7 @@ msg_test.show("Domo Arigato")
       instance.options.window_width = "460px";<br>
       instance.options.lock = false;<br>
 
-      <br><i><b>preset: "window"</b></i
-      ><br>
+      <br><i><b>preset: "window"</b></i><br>
       instance.options.window_height = "100vh";<br>
       instance.options.window_min_height = "100vh";<br>
       instance.options.window_max_height = "100vh";<br>
