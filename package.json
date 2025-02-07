@@ -2,7 +2,7 @@
 	"name": "msg-modal",
 	"version": "11.5.1",
 	"description": "A javascript library to create and manage highly customizable modal windows and popup messages.",
-	"repository": 
+	"repository":
 	{
 		"type": "git",
 		"url": "git+https://github.com/Merkoba/Msg.git"
@@ -13,7 +13,7 @@
 		"dist/msg.js",
 		"dist/msg.min.js"
 	],
-	"keywords": 
+	"keywords":
 	[
 		"accessibility",
 		"modal",
@@ -26,17 +26,20 @@
 	],
 	"author": "Merkoba <merkoba@airmail.cc>",
 	"license": "MIT",
-	"bugs": 
+	"bugs":
 	{
 		"url": "https://github.com/Merkoba/Msg/issues"
 	},
 	"homepage": "https://merkoba.github.io/Msg/",
-	"devDependencies":
-	{
-		"terser":  "~4.0.0"
+	"devDependencies": {
+		"terser":  "~4.0.0",
+		"eslint": "~9.11.1",
+		"globals": "~15.9.0"
 	},
-	"scripts": 
+	"scripts":
 	{
-		"prepare": "./prepare"
+		"prepare": "./prepare",
+		"lint":	"eslint --cache -c eslint.config.mjs",
+		"fix": "eslint --fix -c eslint.config.mjs"
 	}
 }

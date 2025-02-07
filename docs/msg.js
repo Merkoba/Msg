@@ -21,6 +21,7 @@ Msg.insert = (element_1, element_2, position = `beforeend`) => {
 
 Msg.factory = (options = {}) => {
   const instance = {}
+
   instance.stack_pos_top = undefined
   instance.stack_pos_bottom = undefined
   instance.stack_pos_left = undefined
@@ -32,60 +33,59 @@ Msg.factory = (options = {}) => {
   instance.check_options = () => {
     if (instance.options.preset !== undefined) {
       if (instance.options.preset === `popup`) {
-        if (instance.options.class === undefined)
-          instance.options.class = `green`
-        if (instance.options.enable_overlay === undefined)
-          instance.options.enable_overlay = false
-        if (instance.options.position === undefined)
-          instance.options.position = `bottomright`
-        if (instance.options.remove_after_close === undefined)
-          instance.options.remove_after_close = true
-        if (instance.options.zStack_level === undefined)
-          instance.options.zStack_level = 1
-        if (instance.options.window_width === undefined)
-          instance.options.window_width = `460px`
-        if (instance.options.lock === undefined) instance.options.lock = false
+        if (instance.options.class === undefined) {instance.options.class = `green`}
+
+        if (instance.options.enable_overlay === undefined) {instance.options.enable_overlay = false}
+
+        if (instance.options.position === undefined) {instance.options.position = `bottomright`}
+
+        if (instance.options.remove_after_close === undefined) {instance.options.remove_after_close = true}
+
+        if (instance.options.zStack_level === undefined) {instance.options.zStack_level = 1}
+
+        if (instance.options.window_width === undefined) {instance.options.window_width = `460px`}
+
+        if (instance.options.lock === undefined) {instance.options.lock = false}
       }
       else if (instance.options.preset === `popup_autoclose`) {
-        if (instance.options.class === undefined)
-          instance.options.class = `green`
-        if (instance.options.enable_overlay === undefined)
-          instance.options.enable_overlay = false
-        if (instance.options.position === undefined)
-          instance.options.position = `bottomright`
-        if (instance.options.autoclose === undefined)
-          instance.options.autoclose = true
-        if (instance.options.enable_progressbar === undefined)
-          instance.options.enable_progressbar = true
-        if (instance.options.remove_after_close === undefined)
-          instance.options.remove_after_close = true
-        if (instance.options.zStack_level === undefined)
-          instance.options.zStack_level = 1
-        if (instance.options.window_width === undefined)
-          instance.options.window_width = `460px`
-        if (instance.options.lock === undefined) instance.options.lock = false
+        if (instance.options.class === undefined) {instance.options.class = `green`}
+
+        if (instance.options.enable_overlay === undefined) {instance.options.enable_overlay = false}
+
+        if (instance.options.position === undefined) {instance.options.position = `bottomright`}
+
+        if (instance.options.autoclose === undefined) {instance.options.autoclose = true}
+
+        if (instance.options.enable_progressbar === undefined) {instance.options.enable_progressbar = true}
+
+        if (instance.options.remove_after_close === undefined) {instance.options.remove_after_close = true}
+
+        if (instance.options.zStack_level === undefined) {instance.options.zStack_level = 1}
+
+        if (instance.options.window_width === undefined) {instance.options.window_width = `460px`}
+
+        if (instance.options.lock === undefined) {instance.options.lock = false}
       }
       else if (instance.options.preset === `window`) {
-        if (instance.options.window_height === undefined)
-          instance.options.window_height = `100vh`
-        if (instance.options.window_min_height === undefined)
-          instance.options.window_min_height = `100vh`
-        if (instance.options.window_max_height === undefined)
-          instance.options.window_max_height = `100vh`
-        if (instance.options.window_width === undefined)
-          instance.options.window_width = `100vw`
-        if (instance.options.window_min_width === undefined)
-          instance.options.window_min_width = `100vw`
-        if (instance.options.window_max_width === undefined)
-          instance.options.window_max_width = `100vw`
-        if (instance.options.disable_transformations === undefined)
-          instance.options.disable_transformations = true
-        if (instance.options.disable_content_padding === undefined)
-          instance.options.disable_content_padding = true
-        if (instance.options.full_content === undefined)
-          instance.options.full_content = true
-        if (instance.options.window_x === undefined)
-          instance.options.window_x = `none`
+        if (instance.options.window_height === undefined) {instance.options.window_height = `100vh`}
+
+        if (instance.options.window_min_height === undefined) {instance.options.window_min_height = `100vh`}
+
+        if (instance.options.window_max_height === undefined) {instance.options.window_max_height = `100vh`}
+
+        if (instance.options.window_width === undefined) {instance.options.window_width = `100vw`}
+
+        if (instance.options.window_min_width === undefined) {instance.options.window_min_width = `100vw`}
+
+        if (instance.options.window_max_width === undefined) {instance.options.window_max_width = `100vw`}
+
+        if (instance.options.disable_transformations === undefined) {instance.options.disable_transformations = true}
+
+        if (instance.options.disable_content_padding === undefined) {instance.options.disable_content_padding = true}
+
+        if (instance.options.full_content === undefined) {instance.options.full_content = true}
+
+        if (instance.options.window_x === undefined) {instance.options.window_x = `none`}
       }
     }
 
@@ -510,7 +510,7 @@ Msg.factory = (options = {}) => {
     instance.topbar.style.display = `flex`
   }
 
-  instance.set_or_show = (html,) => {
+  instance.set_or_show = (html) => {
     if (instance.is_highest()) {
       instance.set(html)
     }
@@ -529,7 +529,7 @@ Msg.factory = (options = {}) => {
     let title
     let html
 
-    if (typeof content === `object` && !(content instanceof Element)) {
+    if ((typeof content === `object`) && !(content instanceof Element)) {
       title = content[0]
       html = content[1]
     }
@@ -775,12 +775,12 @@ Msg.factory = (options = {}) => {
       justcnt = `justify-content: center`
     }
 
-    if (instance.options.center_titlebar && instance.options.window_x === `inner_right`) {
+    if (instance.options.center_titlebar && (instance.options.window_x === `inner_right`)) {
       padl = `padding-left: 50.78px;`
       padr = `padding-right: 10.78px;`
     }
 
-    if (instance.options.center_titlebar && instance.options.window_x === `inner_left`) {
+    if (instance.options.center_titlebar && (instance.options.window_x === `inner_left`)) {
       padl = `padding-left: 10.78px;`
       padr = `padding-right: 50.78px;`
     }
@@ -1004,19 +1004,19 @@ Msg.factory = (options = {}) => {
     window_inner_x_class = window_inner_x_class
       .split(/\s+/)
       .map((w) =>
-        w.startsWith(`!`) ? w.substring(1) : `Msg-window-inner-x-${w}`
+        w.startsWith(`!`) ? w.substring(1) : `Msg-window-inner-x-${w}`,
       )
       .join(` `)
     window_floating_x_class = window_floating_x_class
       .split(/\s+/)
       .map((w) =>
-        w.startsWith(`!`) ? w.substring(1) : `Msg-window-floating-x-${w}`
+        w.startsWith(`!`) ? w.substring(1) : `Msg-window-floating-x-${w}`,
       )
       .join(` `)
     content_container_class = content_container_class
       .split(/\s+/)
       .map((w) =>
-        w.startsWith(`!`) ? w.substring(1) : `Msg-content-container-${w}`
+        w.startsWith(`!`) ? w.substring(1) : `Msg-content-container-${w}`,
       )
       .join(` `)
     content_class = content_class
@@ -1026,7 +1026,7 @@ Msg.factory = (options = {}) => {
     progressbar_container_class = progressbar_container_class
       .split(/\s+/)
       .map((w) =>
-        w.startsWith(`!`) ? w.substring(1) : `Msg-progressbar-container-${w}`
+        w.startsWith(`!`) ? w.substring(1) : `Msg-progressbar-container-${w}`,
       )
       .join(` `)
     progressbar_class = progressbar_class
@@ -1140,7 +1140,6 @@ Msg.factory = (options = {}) => {
         instance.close()
         e.stopPropagation()
       })
-
     }
 
     if (instance.window_floating_x !== undefined) {
@@ -1149,7 +1148,6 @@ Msg.factory = (options = {}) => {
         instance.close()
         e.stopPropagation()
       })
-
     }
 
     if (instance.overlay_x !== undefined) {
@@ -1158,7 +1156,6 @@ Msg.factory = (options = {}) => {
         instance.close()
         e.stopPropagation()
       })
-
     }
 
     instance.options.after_create(instance)
@@ -1196,12 +1193,11 @@ Msg.factory = (options = {}) => {
   }
 
   instance.is_open = () => {
-    if (!instance.created() || instance.container.style.display === `none`) {
+    if (!instance.created() || (instance.container.style.display === `none`)) {
       return false
     }
-    else {
-      return true
-    }
+
+    return true
   }
 
   instance.any_open = () => {
@@ -1497,7 +1493,7 @@ Msg.factory = (options = {}) => {
 
   instance.get_instance_by_id = (id) => {
     for (let i of Msg.instances) {
-      if (i.options.id == id) {
+      if (i.options.id.toString() === id.toString()) {
         return i
       }
     }
@@ -1857,7 +1853,7 @@ Msg.factory = (options = {}) => {
 
       let new_top, new_bottom
 
-      if (highest !== undefined && highest !== instance) {
+      if ((highest !== undefined) && (highest !== instance)) {
         if (p.includes(`top`)) {
           new_top =
             highest.stack_pos_top +
@@ -1875,15 +1871,13 @@ Msg.factory = (options = {}) => {
           instance.window.style.bottom = new_bottom + `px`
         }
       }
-      else {
-        if (p.includes(`top`)) {
-          new_top = instance.options.edge_padding_y
-          instance.window.style.top = new_top + `px`
-        }
-        else if (p.includes(`bottom`)) {
-          new_bottom = instance.options.edge_padding_y
-          instance.window.style.bottom = new_bottom + `px`
-        }
+      else if (p.includes(`top`)) {
+        new_top = instance.options.edge_padding_y
+        instance.window.style.top = new_top + `px`
+      }
+      else if (p.includes(`bottom`)) {
+        new_bottom = instance.options.edge_padding_y
+        instance.window.style.bottom = new_bottom + `px`
       }
 
       if (p.includes(`top`)) {
@@ -1900,7 +1894,7 @@ Msg.factory = (options = {}) => {
     let ins_above = instance.above_in_position(instance, `vertical`)
 
     for (let i of ins_above) {
-      if (!i.options.sideStack_collapse || i.options.sideStack !== `vertical`) {
+      if (!i.options.sideStack_collapse || (i.options.sideStack !== `vertical`)) {
         continue
       }
 
@@ -1926,15 +1920,13 @@ Msg.factory = (options = {}) => {
           i.window.style.bottom = new_bottom + `px`
         }
       }
-      else {
-        if (p.includes(`top`)) {
-          new_top = i.options.edge_padding_y
-          i.window.style.top = new_top + `px`
-        }
-        else if (p.includes(`bottom`)) {
-          new_bottom = i.options.edge_padding_y
-          i.window.style.bottom = new_bottom + `px`
-        }
+      else if (p.includes(`top`)) {
+        new_top = i.options.edge_padding_y
+        i.window.style.top = new_top + `px`
+      }
+      else if (p.includes(`bottom`)) {
+        new_bottom = i.options.edge_padding_y
+        i.window.style.bottom = new_bottom + `px`
       }
 
       if (p.includes(`top`)) {
@@ -1993,7 +1985,7 @@ Msg.factory = (options = {}) => {
       let highest = instance.highest_in_position(`horizontal`)
       let new_left, new_right
 
-      if (highest !== undefined && highest !== instance) {
+      if ((highest !== undefined) && (highest !== instance)) {
         if (p.includes(`left`)) {
           new_left =
             highest.stack_pos_left +
@@ -2011,15 +2003,13 @@ Msg.factory = (options = {}) => {
           instance.window.style.right = new_right + `px`
         }
       }
-      else {
-        if (p.includes(`left`)) {
-          new_left = instance.options.edge_padding_x
-          instance.window.style.left = new_left + `px`
-        }
-        else if (p.includes(`right`)) {
-          new_right = instance.options.edge_padding_x
-          instance.window.style.right = new_right + `px`
-        }
+      else if (p.includes(`left`)) {
+        new_left = instance.options.edge_padding_x
+        instance.window.style.left = new_left + `px`
+      }
+      else if (p.includes(`right`)) {
+        new_right = instance.options.edge_padding_x
+        instance.window.style.right = new_right + `px`
       }
 
       if (p.includes(`left`)) {
@@ -2036,7 +2026,7 @@ Msg.factory = (options = {}) => {
     let ins_above = instance.above_in_position(instance, `horizontal`)
 
     for (let i of ins_above) {
-      if (!i.options.sideStack_collapse || i.options.sideStack !== `horizontal`) {
+      if (!i.options.sideStack_collapse || (i.options.sideStack !== `horizontal`)) {
         continue
       }
 
@@ -2061,15 +2051,13 @@ Msg.factory = (options = {}) => {
           i.window.style.right = new_right + `px`
         }
       }
-      else {
-        if (p.includes(`left`)) {
-          new_left = i.options.edge_padding_x
-          i.window.style.left = new_left + `px`
-        }
-        else if (p.includes(`right`)) {
-          new_right = i.options.edge_padding_x
-          i.window.style.right = new_right + `px`
-        }
+      else if (p.includes(`left`)) {
+        new_left = i.options.edge_padding_x
+        i.window.style.left = new_left + `px`
+      }
+      else if (p.includes(`right`)) {
+        new_right = i.options.edge_padding_x
+        i.window.style.right = new_right + `px`
       }
 
       if (p.includes(`left`)) {
@@ -2200,8 +2188,10 @@ Msg.factory = (options = {}) => {
 
   instance.is_textbox = (element) => {
     let tag_name = element.tagName.toLowerCase()
-    if (tag_name === `textarea`) return true
-    if (tag_name !== `input`) return false
+    if (tag_name === `textarea`) {return true}
+
+    if (tag_name !== `input`) {return false}
+
     let type = element.getAttribute(`type`)
 
     if (!type) {
@@ -2227,8 +2217,8 @@ Msg.factory = (options = {}) => {
     return input_types.includes(type.toLowerCase())
   }
 
-  if (Msg.msg === undefined && instance.options.id !== `__internal_instance__`) {
-    Msg.msg = Msg.factory({ id: `__internal_instance__` })
+  if ((Msg.msg === undefined) && (instance.options.id !== `__internal_instance__`)) {
+    Msg.msg = Msg.factory({id: `__internal_instance__`})
     let style = document.createElement(`style`)
 
     let css = `
@@ -2282,11 +2272,11 @@ Msg.factory = (options = {}) => {
 
     Msg.ev(document, `keydown`, (e) => {
       let highest = Msg.msg.highest_instance()
-      if (!highest) return
+      if (!highest) {return}
 
       if (e.key === `Escape`) {
         let highest = Msg.msg.highest_instance()
-        if (!highest) return
+        if (!highest) {return}
 
         if (highest.options.clear_editables) {
           let el = document.activeElement
@@ -2336,4 +2326,6 @@ Msg.instances = []
 try {
   module.exports = Msg
 }
-catch (e) {}
+catch (e) {
+  // Nothing
+}
