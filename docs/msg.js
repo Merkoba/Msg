@@ -1,4 +1,4 @@
-/* Msg v14.2.2 https://github.com/Merkoba/Msg */
+/* Msg v14.3.0 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 Msg.num_created = 0
@@ -2109,6 +2109,14 @@ Msg.factory = (options = {}) => {
       instance.fix_vStack()
       instance.fix_hStack()
     }
+  }
+
+  instance.scroll_top = () => {
+    instance.content_container.scrollTop = 0
+  }
+
+  instance.scroll_bottom = () => {
+    instance.content_container.scrollTop = instance.content_container.scrollHeight
   }
 
   instance.set_default_positions = () => {
