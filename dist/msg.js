@@ -1,4 +1,4 @@
-/* Msg v14.4.0 https://github.com/Merkoba/Msg */
+/* Msg v14.4.1 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 Msg.num_created = 0
@@ -2238,7 +2238,7 @@ Msg.factory = (options = {}) => {
 		.Msg-progressbar{background-color: #c8c8c8}
 		.Msg-window-inner-x:hover{background-color: #cacaca !important}
 		.Msg-window-floating-x{background-color: #3a3a3a; color: white}
-		.Msg-window-floating-x:hover{background-color: #2a2a2a !important}
+		.Msg-window-floating-x:hover{background-color: #6c6c6c !important}
 		.Msg-overlay-x{color: white}
 		.Msg-overlay-x:hover{background-color: #686868 !important}
 
