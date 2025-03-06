@@ -1,4 +1,4 @@
-/* Msg v14.7.0 https://github.com/Merkoba/Msg */
+/* Msg v14.8.0 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 Msg.num_created = 0
@@ -666,11 +666,11 @@ Msg.factory = (options = {}) => {
 
     let styles = {}
 
-    styles.container = ```
+    styles.container = `
     display: none;
-    ```
+    `
 
-    styles.overlay = ```
+    styles.overlay = `
     position: fixed;
     opacity: 1;
     top: 0;
@@ -679,9 +679,9 @@ Msg.factory = (options = {}) => {
     width: 100%;
     z-index: -1000;
     user-select: none;
-    ```
+    `
 
-    styles.overlay_x = ```
+    styles.overlay_x = `
     cursor: pointer;
     float: ${instance.options.overlay_x};
     font-size: 28px;
@@ -696,7 +696,7 @@ Msg.factory = (options = {}) => {
     padding-right: 0.6em;
     padding-top: 0.035em;
     padding-bottom: 0.2em;
-    ```
+    `
 
     let p = instance.options.position
     let edge_x = instance.options.edge_padding_x
@@ -793,7 +793,7 @@ Msg.factory = (options = {}) => {
       wun = ``
     }
 
-    styles.window = ```
+    styles.window = `
     display: flex;
     flex-direction: column;
     opacity: 1;
@@ -811,14 +811,14 @@ Msg.factory = (options = {}) => {
     ${wun}
     cursor: ${instance.options.window_cursor};
     z-index: -1000;
-    ```
+    `
 
-    styles.topbar = ```
+    styles.topbar = `
     overflow: hidden;
     flex-shrink: 0;
     display: flex;
     flex-direction: row;
-    ```
+    `
 
     let padl = `padding-left: 0.4em;`
     let padr = `padding-right: 0.4em;`
@@ -838,7 +838,7 @@ Msg.factory = (options = {}) => {
       padr = `padding-right: 50.78px;`
     }
 
-    styles.titlebar = ```
+    styles.titlebar = `
     display: flex;
     align-items: center;
     ${justcnt};
@@ -853,7 +853,7 @@ Msg.factory = (options = {}) => {
     font-weight: bold;
     white-space: nowrap;
     cursor:${instance.options.titlebar_cursor};
-    ```
+    `
 
     let ix_order, ix_margin
 
@@ -866,7 +866,7 @@ Msg.factory = (options = {}) => {
       ix_margin = `auto`
     }
 
-    styles.window_inner_x = ```
+    styles.window_inner_x = `
     cursor: pointer;
     margin-left: ${ix_margin};
     font-size: 24px;
@@ -883,7 +883,7 @@ Msg.factory = (options = {}) => {
     padding-right: 0.6em;
     padding-top: 0.035em;
     padding-bottom: 0.2em;
-    ```
+    `
 
     let fs, fms
 
@@ -896,7 +896,7 @@ Msg.factory = (options = {}) => {
       fms = `margin-right: -10px;`
     }
 
-    styles.window_floating_x = ```
+    styles.window_floating_x = `
     cursor: pointer;
     position: absolute;
     top: 0px;
@@ -925,7 +925,7 @@ Msg.factory = (options = {}) => {
     background-color: #2B2D30;
     box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.5);
     transition: all 0.3s ease;
-    ```
+    `
 
     let overflow_y = `auto`
 
@@ -933,14 +933,14 @@ Msg.factory = (options = {}) => {
       overflow_y = `hidden`
     }
 
-    styles.content_container = ```
+    styles.content_container = `
     overflow-y: ${overflow_y};
     overflow-x: hidden;
     border: none;
     outline: 0;
     margin: 0;
     flex-grow: 1;
-    ```
+    `
 
     let pad
 
@@ -962,24 +962,24 @@ Msg.factory = (options = {}) => {
       chgt = ``
     }
 
-    styles.content = ```
+    styles.content = `
     font-size: 16px;
     text-align: center;
     overflow-wrap: break-word;
     ${pad}
     ${cwid}
     ${chgt}
-    ```
+    `
 
-    styles.progressbar_container = ```
+    styles.progressbar_container = `
     height: 11px;
     width: 100%;
-    ```
+    `
 
-    styles.progressbar = ```
+    styles.progressbar = `
     height: 100%;
     width: 0%;
-    ```
+    `
 
     let container_class =
       instance.options.container_class !== undefined
@@ -2282,7 +2282,7 @@ Msg.factory = (options = {}) => {
     Msg.msg = Msg.factory({ id: `__internal_instance__` })
     let style = document.createElement(`style`)
 
-    let css = ```
+    let css = `
     .Msg-overflow-hidden {
       overflow: hidden;
     }
@@ -2438,7 +2438,7 @@ Msg.factory = (options = {}) => {
     .Msg-overlay-x-black:hover{
       background-color: #686868 !important;
     }
-    ```
+    `
 
     style.innerHTML = css
     document.head.appendChild(style)
