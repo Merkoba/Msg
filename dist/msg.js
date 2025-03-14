@@ -1,4 +1,4 @@
-/* Msg v14.8.0 https://github.com/Merkoba/Msg */
+/* Msg v14.9.0 https://github.com/Merkoba/Msg */
 
 const Msg = {}
 Msg.num_created = 0
@@ -192,6 +192,10 @@ Msg.factory = (options = {}) => {
 
     if (instance.options.clear_editables === undefined) {
       instance.options.clear_editables = false
+    }
+
+    if (instance.options.clear_editables_full === undefined) {
+      instance.options.clear_editables_full = false
     }
 
     if (instance.options.before_show === undefined) {
@@ -2279,7 +2283,7 @@ Msg.factory = (options = {}) => {
   }
 
   if ((Msg.msg === undefined) && (instance.options.id !== `__internal_instance__`)) {
-    Msg.msg = Msg.factory({ id: `__internal_instance__` })
+    Msg.msg = Msg.factory({id: `__internal_instance__`})
     let style = document.createElement(`style`)
 
     let css = `
@@ -2457,14 +2461,19 @@ Msg.factory = (options = {}) => {
           if (highest.is_textbox(el)) {
             if (!el.readOnly && !el.disabled) {
               if (el.value.trim() !== ``) {
-                let split = el.value.trimEnd().split(` `)
-                let new_value = split.slice(0, -1).join(` `) + ` `
-
-                if (new_value.trim() === ``) {
-                  new_value = ``
+                if (highest.options.clear_editables_full) {
+                  el.value = ``
                 }
+                else {
+                  let split = el.value.trimEnd().split(` `)
+                  let new_value = split.slice(0, -1).join(` `) + ` `
 
-                el.value = new_value
+                  if (new_value.trim() === ``) {
+                    new_value = ``
+                  }
+
+                  el.value = new_value
+                }
 
                 let event = new Event(`input`, {
                   bubbles: true,
